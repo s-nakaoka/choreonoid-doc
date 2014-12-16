@@ -1,0 +1,1959 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1920"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="figures.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="226.31496"
+     inkscape:cy="2038.0048"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="false"
+     showborder="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1364"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="false"
+     inkscape:snap-bbox="false"
+     inkscape:snap-nodes="true">
+    <inkscape:grid
+       dotted="true"
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       id="grid4101"
+       type="xygrid" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4">
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4,0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4025"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2,0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4028"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6,-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path3907"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path3901"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         id="path3883"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,0 1,0"
+       is_visible="true"
+       id="path-effect3842"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,0 1,0"
+       is_visible="true"
+       id="path-effect3838"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 z"
+       is_visible="true"
+       id="path-effect3834"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 z"
+       is_visible="true"
+       id="path-effect3830"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,5 10,10 10,0 z"
+       is_visible="true"
+       id="path-effect3826"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,5 10,10 10,0 z"
+       is_visible="true"
+       id="path-effect3822"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,0 0,10 10,5 z"
+       is_visible="true"
+       id="path-effect3818"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="1"
+       copytype="single_stretched"
+       pattern="M 0,0 0,10 10,5 z"
+       is_visible="true"
+       id="path-effect3814"
+       effect="skeletal" />
+    <inkscape:perspective
+       id="perspective3790"
+       inkscape:persp3d-origin="512 : 256 : 1"
+       inkscape:vp_z="1024 : 384 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="26.806268 : 247.1956 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       gradientTransform="matrix(0.99992219,0,0,1.1205083,0.03437577,-81.483338)"
+       gradientUnits="userSpaceOnUse"
+       y2="693.96362"
+       x2="554.47644"
+       y1="691.54987"
+       x1="563.49902"
+       id="linearGradient4240"
+       xlink:href="#linearGradient4234"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient4234"
+       inkscape:collect="always">
+      <stop
+         id="stop4236"
+         offset="0"
+         style="stop-color:#ff0000;stop-opacity:1;" />
+      <stop
+         id="stop4238"
+         offset="1"
+         style="stop-color:#ff0000;stop-opacity:0.31954888" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234"
+       id="linearGradient3485"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,17.380324,-1104.0718)"
+       x1="563.49902"
+       y1="691.54987"
+       x2="554.47644"
+       y2="693.96362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234-2"
+       id="linearGradient3485-3"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,-469.93571,-863.50543)"
+       x1="563.49902"
+       y1="691.54987"
+       x2="554.47644"
+       y2="693.96362" />
+    <linearGradient
+       id="linearGradient4234-2"
+       inkscape:collect="always">
+      <stop
+         id="stop4236-5"
+         offset="0"
+         style="stop-color:#ff0000;stop-opacity:1;" />
+      <stop
+         id="stop4238-7"
+         offset="1"
+         style="stop-color:#ff0000;stop-opacity:0.31954888" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234-2-8"
+       id="linearGradient3485-3-5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,7.44116,-906.63668)"
+       x1="563.49902"
+       y1="691.54987"
+       x2="554.47644"
+       y2="693.96362" />
+    <linearGradient
+       id="linearGradient4234-2-8"
+       inkscape:collect="always">
+      <stop
+         id="stop4236-5-0"
+         offset="0"
+         style="stop-color:#ff0000;stop-opacity:1;" />
+      <stop
+         id="stop4238-7-7"
+         offset="1"
+         style="stop-color:#ff0000;stop-opacity:0.31954888" />
+    </linearGradient>
+    <linearGradient
+       y2="693.96362"
+       x2="554.47644"
+       y1="691.54987"
+       x1="563.49902"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,-98.50719,-921.13298)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient6076"
+       xlink:href="#linearGradient4234-2"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="693.96362"
+       x2="554.47644"
+       y1="691.54987"
+       x1="563.49902"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,209.44116,-856.63668)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient6076-0"
+       xlink:href="#linearGradient4234-2-3"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient4234-2-3"
+       inkscape:collect="always">
+      <stop
+         id="stop4236-5-9"
+         offset="0"
+         style="stop-color:#ff0000;stop-opacity:1;" />
+      <stop
+         id="stop4238-7-4"
+         offset="1"
+         style="stop-color:#ff0000;stop-opacity:0.31954888" />
+    </linearGradient>
+    <linearGradient
+       y2="693.96362"
+       x2="554.47644"
+       y1="691.54987"
+       x1="563.49902"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,349.49281,-791.13298)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient6143"
+       xlink:href="#linearGradient4234-2"
+       inkscape:collect="always" />
+    <marker
+       style="overflow:visible"
+       id="TriangleOutM-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4,0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4025-0"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutMy"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutMy">
+      <path
+         transform="scale(0.4,0.4)"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path5329"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234"
+       id="linearGradient5429"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.716002,1.5664406,-0.75543397,0.8275617,-63.282881,-1337.7579)"
+       x1="563.49902"
+       y1="691.54987"
+       x2="554.47644"
+       y2="693.96362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5027"
+       id="linearGradient5033"
+       x1="543.33472"
+       y1="889.39716"
+       x2="543.45258"
+       y2="860.36218"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1515823,0,0,1.1515823,-80.06688,-130.56381)" />
+    <linearGradient
+       id="linearGradient5027">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop5029" />
+      <stop
+         style="stop-color:#ffaaaa;stop-opacity:1"
+         offset="1"
+         id="stop5031" />
+    </linearGradient>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutMy-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutMy">
+      <path
+         inkscape:connector-curvature="0"
+         transform="scale(0.4,0.4)"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path5329-0" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,867.63782)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="レイヤー 1">
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 346,-837.63782 0,-6 c 0,-2 -0.49914,-3 -2,-3 -19.17708,0 -35.82292,0 -55,0 -2,0 -2.88776,0.96967 -3,2 0,2 0.0322,4.0598 0,7"
+       id="path5473"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3870"
+       d="m 20,-837.63782 c 0,51.32555 0,103.67445 0,155 65,0 130,0 195,0 0,-51.66667 0,-103.33333 0,-155 -45,0 -89.99998,0 -135,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="rect4099"
+       d="m 80,-837.63782 0,-6 c 0,-2 -0.49914,-3 -2,-3 -19.17708,0 -35.82292,0 -55,0 -2,0 -2.887764,0.96967 -3,2 0,2 0.0322,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="-831.89465"
+       x="25.743143"
+       height="143.51372"
+       width="183.51372"
+       id="rect5203"
+       style="fill:none;stroke:#ff0000;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.6, 7.2;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3874"
+       d="m 4.1815878,-818.32316 c 0,0 22.8449742,1.18956 44.9238522,10.59533 22.07888,9.40577 38.34875,25.94427 38.34875,25.94427"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="csssscssssscsscssscssssccc"
+       inkscape:connector-curvature="0"
+       id="path3872"
+       d="m 110.878,-751.57202 -0.0741,-3.63281 c -0.0393,-1.92791 -5.51859,-5.25031 -6.60209,-6.33252 -0.61223,-0.6115 -0.51392,-1.95664 -0.29287,-2.49001 0.4108,-0.9912 1.29791,-1.49115 2.31102,-1.84449 0.74671,-0.26042 2.58215,-0.26739 2.58215,-0.26739 0,0 0.0684,-1.45671 -0.33099,-2.11404 -0.19832,-0.32644 -1.5127,-1.54657 -2.07589,-2.35974 -0.37563,-0.54235 -0.47129,-1.88352 -0.0397,-2.75586 0.37227,-0.75246 0.95409,-1.47848 1.7052,-1.85347 0.77846,-0.38865 2.67777,-0.47705 3.26211,0.11117 1.51402,1.52407 2.0759,3.48453 2.0759,3.48453 0,0 0.76206,-2.91406 1.77933,-3.66988 0.85299,-0.63376 2.43559,-0.35528 2.89142,0.0741 1.03432,0.97439 1.92762,3.41039 1.92762,3.41039 0,0 1.19929,-2.79737 2.00175,-3.26211 0.74849,-0.43348 1.86387,-0.46239 2.59486,0 0.6096,0.3856 1.16162,1.27727 1.48278,2.22417 0.291,0.85797 0.66729,2.96556 0.66729,2.96556 0,0 0.38233,-2.26467 1.27649,-2.97005 0.43462,-0.34287 1.41506,-0.26138 1.78174,-0.14328 0.67379,0.21608 1.2652,1.4201 1.35304,2.40952 0.2244,2.52745 -0.12276,6.35344 -0.30818,6.90128 -0.31691,0.93635 -0.9138,2.08734 -1.71265,3.31082 -0.46174,0.81609 -1.39403,2.04228 -2.46458,3.61482 -0.0891,1.2727 -0.0741,5.338 -0.0741,5.338"
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g5437"
+       transform="translate(270,0)" />
+    <path
+       style="fill:#f9f9f9;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 407,-837.63782 c 45.00002,0 29,0 74,0 0,51.66667 0,103.33333 0,155 -65,0 -130,0 -195,0 0,-51.32555 0,-103.67445 0,-155 l 61,0"
+       id="path5469"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path5475"
+       d="m 407,-837.63782 0,-6 c 0,-2 -0.49914,-3 -2,-3 -19.17708,0 -35.82292,0 -55,0 -2,0 -2.88776,0.96967 -3,2 0,2 0.0322,4.0598 0,7"
+       style="fill:#ffaaaa;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 267.22912,-761.92303 -18.69304,16.0189 0,-9.34437 -13.55127,0 0,-13.34908 13.55127,0 0,-9.34437 z"
+       id="path4700-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:transform-center-x="-241.98962"
+       inkscape:transform-center-y="355.86708"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_center.png" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3870"
+       id="use3862"
+       transform="translate(0,210)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect4099"
+       id="use3864"
+       transform="translate(0,210)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.6, 7.2;stroke-dashoffset:0"
+       id="rect3866"
+       width="88.901649"
+       height="144.0585"
+       x="120.6276"
+       y="-622.16705"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3874-9"
+       d="m 94.235816,-608.77075 c 0,0 22.870224,-0.51049 45.586714,7.22944 22.71649,7.73993 40.16979,23.02433 40.16979,23.02433"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3872"
+       id="use3892"
+       transform="translate(72.00289,213.17422)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4700-6"
+       inkscape:transform-center-x="-241.98962"
+       inkscape:transform-center-y="355.86708"
+       id="use3894"
+       transform="translate(0,210)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 285,-627.63782 c 0,51.32555 0,103.67445 0,155 65,0 30,0 95,0 0,-51.66667 0,-103.33333 0,-155 -45,0 10.00002,0 -35,0"
+       id="path3900"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 345,-627.63782 0,-6 c 0,-2 -0.49914,-3 -2,-3 -19.17708,0 -35.82292,0 -55,0 -2,0 -2.88776,0.96967 -3,2 0,2 0.0322,4.0598 0,7"
+       id="path3902"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path3904"
+       d="m 445,-627.63782 c 45.00002,0 -10,0 35,0 0,51.66667 0,103.33333 0,155 -65,0 -30,0 -95,0 0,-51.32555 0,-103.67445 0,-155 l 0,0"
+       style="fill:#f9f9f9;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffaaaa;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 445,-627.63782 0,-6 c 0,-2 -0.49914,-3 -2,-3 -19.17708,0 -35.82292,0 -55,0 -2,0 -2.88776,0.96967 -3,2 0,2 0.0322,4.0598 0,7"
+       id="path3906"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(0,408)"
+       id="use3908"
+       xlink:href="#path3870"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(0,408)"
+       id="use3910"
+       xlink:href="#rect4099"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <rect
+       y="-424.16705"
+       x="24.627602"
+       height="144.0585"
+       width="88.901649"
+       id="rect3912"
+       style="fill:none;stroke:#ff0000;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.6, 7.2;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       d="m 160.7565,-406.89159 c 0,0 -22.87022,-0.51049 -45.58671,7.22944 C 92.4533,-391.92222 75,-376.63782 75,-376.63782"
+       id="path3914"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(-74.513468,407.69056)"
+       id="use3916"
+       xlink:href="#path3872"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3870"
+       id="use3918"
+       transform="translate(266,408)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect4099"
+       id="use3920"
+       transform="translate(266,408)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.79999995;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.6, 7.2;stroke-dashoffset:0"
+       id="rect3922"
+       width="184.58807"
+       height="73.008972"
+       x="290.4209"
+       y="-424.64679"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3924"
+       d="m 337.8472,-338.04388 c 0,0 0.41842,-12.67327 4.30184,-28.09556 3.88343,-15.4223 13.09338,-29.06322 13.09338,-29.06322"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3872"
+       id="use3926"
+       transform="translate(263.25621,353.2466)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(530,408)"
+       id="use3928"
+       xlink:href="#path3870"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(530,408)"
+       id="use3930"
+       xlink:href="#rect4099"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <rect
+       y="-354.64752"
+       x="554.71674"
+       height="73.010391"
+       width="184.29294"
+       id="rect3932"
+       style="fill:none;stroke:#ff0000;stroke-width:1.7985779;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.5971559, 7.1943118;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       d="m 598.13181,-378.65331 c 0,0 13.52111,11.50451 20.55711,19.62835 7.03599,8.12385 12.01123,17.77466 14.49783,23.17886 1.19308,2.59295 1.81325,4.20828 1.81325,4.20828"
+       id="path3934"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czsc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(529.15312,462.04913)"
+       id="use3936"
+       xlink:href="#path3872"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_pane_others.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <rect
+       y="-247.86713"
+       x="18.584322"
+       height="188.22929"
+       width="235.83134"
+       id="rect3995"
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="use3938"
+       d="m 22,-235.63782 c 0,51.32555 0,17.67445 0,69 31,0 20,0 50.999998,0 0,-51.66667 0,-17.33333 0,-69 -21.461536,0 -0.923065,0 -22.384613,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="use3940"
+       d="m 50.615385,-235.63782 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 22,-153.63782 c 0,66.70252 0,22.29748 0,89 31,0 20,0 50.999998,0 0,-67.14584 0,-21.85416 0,-89 -21.461536,0 -0.923065,0 -22.384613,0"
+       id="path3962"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 50.615385,-153.63782 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       id="path3964"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 78.000003,-235.63782 c 0,51.32555 0,43.67445 0,95 31.000017,0 52.000007,0 83.000017,0 0,-51.66667 0,-43.33333 0,-95 -21.46154,0 -32.92306,0 -54.38462,0"
+       id="path3962-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 106.6154,-235.63782 0,-6 c 0,-2 -0.23805,-3 -0.95384,-3 -9.146001,0 -17.084791,0 -26.230788,0 -0.953846,0 -1.37724,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       id="path3964-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3987"
+       d="m 166.00004,-235.63782 c 0,51.32555 0,43.67445 0,95 31.00001,0 54,0 85.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46155,0 -34.92307,0 -56.38462,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path3989"
+       d="m 194.61544,-235.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0153,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 106.61538,-126.63782 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path3993"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="-246.11035"
+       x="20.308201"
+       height="80.837982"
+       width="232.00816"
+       id="rect3997"
+       style="fill:none;stroke:#ff0000;stroke-width:2.1254077;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.25081505, 8.5016301;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(22.857065,533.39969)"
+       id="use4001"
+       xlink:href="#path3872"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4014"
+       d="m 137.23663,-126.63782 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#ffaaaa;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 137.20061,-126.62665 c 21.46156,0 92.33785,0 113.79939,0 0,77.55504 0,-15.56621 0,61.98883 -31.00001,0 -142.00001,0 -173.000021,0 0,-77.04299 0,-61.98883 0,-61.98883 l 30.899251,-0.0335"
+       id="path3991"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       d="m 121.99053,-130.01645 c 0,0 -14.21396,-28.68049 -13.98948,-55.06801 0.22448,-26.38752 6.50166,-43.77539 6.50166,-43.77539"
+       id="path3999"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(30.01519,596.61068)"
+       id="use4016"
+       inkscape:transform-center-y="355.86708"
+       inkscape:transform-center-x="-241.98962"
+       xlink:href="#path4700-6"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4049"
+       width="235.83134"
+       height="188.22929"
+       x="304.58432"
+       y="-247.86713"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 308,-153.63782 c 0,25.29085 0,8.70915 0,34 31,0 20,0 51,0 0,-25.45894 0,-8.54106 0,-34 -21.46154,0 -0.92307,0 -22.38461,0"
+       id="path4051"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 336.61539,-153.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4053"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4055"
+       d="m 308,-105.63782 c 0,30.72812 0,10.27188 0,41 31,0 20,0 51,0 0,-30.93236 0,-10.06764 0,-41 -21.46154,0 -0.92307,0 -22.38461,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4057"
+       d="m 336.61539,-105.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4059"
+       d="m 363.97685,-152.35188 c 0,26.72986 0,22.74524 0,49.4751 31.00832,0 52.01393,0 83.02223,0 0,-26.90752 0,-22.56758 0,-49.4751 -21.46728,0 -32.93187,0 -54.39917,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4061"
+       d="m 392.6154,-152.32873 0,-6.87273 c 0,-2.29091 -0.23805,-3.43636 -0.95384,-3.43636 -9.146,0 -17.08479,0 -26.23079,0 -0.95384,0 -1.37724,1.11071 -1.43077,2.29091 0,2.29091 0.0154,4.65032 0,8.01818"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 452.00044,-152.35188 c 0,26.72986 0,22.74524 0,49.4751 31.00831,0 54.01445,0 85.02277,0 0,-26.90752 0,-22.56758 0,-49.4751 -21.46729,0 -34.93242,0 -56.39971,0"
+       id="path4063"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 480.61544,-152.32873 0,-6.87273 c 0,-2.29091 -0.23806,-3.43636 -0.95385,-3.43636 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,1.11071 -1.43077,2.29091 0,2.29091 0.0153,4.65032 0,8.01818"
+       id="path4065"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 363.97685,-88.35188 c 0,12.81197 0,10.90209 0,23.71406 64.62314,0 108.40005,0 173.02315,0 0,-12.89712 0,-10.81694 0,-23.71406 -44.73906,0 -99.22504,0 -143.96414,0"
+       id="path4083"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 392.6154,-88.32873 0,-6.87273 c 0,-2.29091 -0.23805,-3.43636 -0.95384,-3.43636 -9.146,0 -17.08479,0 -26.23079,0 -0.95384,0 -1.37724,1.11071 -1.43077,2.29091 0,2.29091 0.0154,4.65032 0,8.01818"
+       id="path4085"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4087"
+       d="m 307.97685,-234.35188 c 0,35.76411 0,30.43275 0,66.19685 64.62314,0 164.40005,0 229.02315,0 0,-36.0018 0,-30.19505 0,-66.19685 -44.73906,0 -155.22504,0 -199.96414,0"
+       style="fill:#f9f9f9;stroke:#ff0000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4089"
+       d="m 336.6154,-234.32873 0,-6.87273 c 0,-2.29091 -0.23805,-3.43636 -0.95384,-3.43636 -9.146,0 -17.08479,0 -26.23079,0 -0.95384,0 -1.37724,1.11071 -1.43077,2.29091 0,2.29091 0.0154,4.65032 0,8.01818"
+       style="fill:#ffaaaa;stroke:#ff0000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4091"
+       width="235.83134"
+       height="188.22929"
+       x="18.584322"
+       y="-39.867126"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 22,-27.63782 c 0,51.32555 0,17.67445 0,69 31,0 20,0 50.999998,0 0,-51.66667 0,-17.33333 0,-69 -21.461536,0 -0.923065,0 -22.384613,0"
+       id="path4093"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 50.615385,-27.63782 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       id="path4095"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4097"
+       d="m 22,54.36218 c 0,66.70252 0,22.29748 0,89.00002 31,0 20,0 50.999998,0 0,-67.14586 0,-21.8542 0,-89.00002 -21.461536,0 -0.923065,0 -22.384613,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4099"
+       d="m 50.615385,54.36218 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4101"
+       d="m 78.000003,-27.63782 c 0,51.32555 0,43.67445 0,95 31.000017,0 52.000007,0 83.000017,0 0,-51.66667 0,-43.33333 0,-95 -21.46154,0 -32.92306,0 -54.38462,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4103"
+       d="m 106.6154,-27.63782 0,-6 c 0,-2 -0.23805,-3 -0.95384,-3 -9.146001,0 -17.084791,0 -26.230788,0 -0.953846,0 -1.37724,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 166.00004,-27.63782 c 0,51.32555 0,43.67445 0,95 31.00001,0 54,0 85.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46155,0 -34.92307,0 -56.38462,0"
+       id="path4105"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 194.61544,-27.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0153,4.0598 0,7"
+       id="path4107"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4109"
+       d="m 106.61538,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3872"
+       id="use4113"
+       transform="translate(-79.13423,810.73831)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 137.23663,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4115"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path4117"
+       d="m 137.20061,81.37335 c 21.46156,0 92.33785,0 113.79939,0 0,77.55505 0,-15.56621 0,61.98885 -31.00001,0 -142.00001,0 -173.000021,0 0,-77.04301 0,-61.98885 0,-61.98885 l 30.899251,-0.0335"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:2.12540746;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.25081506, 8.50163012;stroke-dashoffset:0"
+       id="rect4111"
+       width="114.6918"
+       height="178.47255"
+       x="20.308201"
+       y="-38.110291"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       y="-39.867126"
+       x="304.58432"
+       height="188.22929"
+       width="235.83134"
+       id="rect4121"
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4123"
+       d="m 308,-27.63782 c 0,51.32555 0,17.67445 0,69 31,0 20,0 51,0 0,-51.66667 0,-17.33333 0,-69 -21.46154,0 -0.92307,0 -22.38461,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4125"
+       d="m 336.61539,-27.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 308,54.36218 c 0,66.70252 0,22.29748 0,89.00002 31,0 20,0 51,0 0,-67.14586 0,-21.8542 0,-89.00002 -21.46154,0 -0.92307,0 -22.38461,0"
+       id="path4127"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 336.61539,54.36218 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4129"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 364,-27.63782 c 0,51.32555 0,43.67445 0,95 31.00002,0 52.00001,0 83.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46154,0 -32.92306,0 -54.38462,0"
+       id="path4131"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 392.6154,-27.63782 0,-6 c 0,-2 -0.23805,-3 -0.95384,-3 -9.146,0 -17.08479,0 -26.23079,0 -0.95384,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4133"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4135"
+       d="m 452.00004,-27.63782 c 0,51.32555 0,43.67445 0,95 31.00001,0 54,0 85.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46155,0 -34.92307,0 -56.38462,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4137"
+       d="m 480.61544,-27.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0153,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 392.61538,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4139"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4143"
+       d="m 423.23663,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 423.20061,81.37335 c 21.46156,0 92.33785,0 113.79939,0 0,77.55505 0,-15.56621 0,61.98885 -31.00001,0 -142.00001,0 -173.00002,0 0,-77.04301 0,-61.98885 0,-61.98885 l 30.89925,-0.0335"
+       id="path4145"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       y="49.104057"
+       x="306.30823"
+       height="96.710403"
+       width="232.22392"
+       id="rect4147"
+       style="fill:none;stroke:#ff0000;stroke-width:2.1254077;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.25081528, 8.50163058;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <use
+       height="768"
+       width="1024"
+       transform="translate(312.95995,890.35726)"
+       id="use4141"
+       xlink:href="#path3872"
+       y="0"
+       x="0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4149"
+       width="235.83134"
+       height="188.22929"
+       x="586.58435"
+       y="-39.867126"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 590,-27.63782 c 0,51.32555 0,17.67445 0,69 31,0 20,0 51,0 0,-51.66667 0,-17.33333 0,-69 -21.46154,0 -0.92307,0 -22.38461,0"
+       id="path4151"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 618.61539,-27.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4153"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4155"
+       d="m 590,54.36218 c 0,66.70252 0,22.29748 0,89.00002 31,0 20,0 51,0 0,-67.14586 0,-21.8542 0,-89.00002 -21.46154,0 -0.92307,0 -22.38461,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4157"
+       d="m 618.61539,54.36218 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23077,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4159"
+       d="m 646,-27.63782 c 0,51.32555 0,43.67445 0,95 31.00002,0 52.00001,0 83.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46154,0 -32.92306,0 -54.38462,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4161"
+       d="m 674.6154,-27.63782 0,-6 c 0,-2 -0.23805,-3 -0.95384,-3 -9.146,0 -17.08479,0 -26.23079,0 -0.95384,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 734.00004,-27.63782 c 0,51.32555 0,43.67445 0,95 31.00001,0 54,0 85.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46155,0 -34.92307,0 -56.38462,0"
+       id="path4163"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 762.61544,-27.63782 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0153,4.0598 0,7"
+       id="path4165"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4167"
+       d="m 674.61538,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 705.23663,81.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4169"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path4171"
+       d="m 705.20061,81.37335 c 21.46156,0 92.33785,0 113.79939,0 0,77.55505 0,-15.56621 0,61.98885 -31.00001,0 -142.00001,0 -173.00002,0 0,-77.04301 0,-61.98885 0,-61.98885 l 30.89925,-0.0335"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:2.1254077;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.25081526, 8.50163051;stroke-dashoffset:0"
+       id="rect4173"
+       width="111.22911"
+       height="183.30472"
+       x="709.30304"
+       y="-37.490295"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3872"
+       id="use4175"
+       transform="translate(683.55428,821.62518)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="czsc"
+       inkscape:connector-curvature="0"
+       id="path4177"
+       d="m 391.41987,58.92041 c 0,0 6.92324,12.04777 10.06857,30.84539 3.14532,18.7976 1.72239,24.6454 2.74979,30.5049 0.49294,2.8114 0.68101,4.5315 0.68101,4.5315"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path4179"
+       d="m 120.23723,18.77152 c 0,0 -19.01046,-6.48156 -41.121682,-5.50954 -22.111221,0.97202 -40.366465,9.72006 -40.366465,9.72006"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       d="m 721.59006,16.80783 c 0,0 20.92318,-0.75792 42.58503,3.06917 21.66186,3.8271 37.4265,12.75973 37.4265,12.75973"
+       id="path4181"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_whole_others.png"
+       inkscape:export-xdpi="70"
+       inkscape:export-ydpi="70" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.01751864;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4183"
+       width="235.83134"
+       height="188.22929"
+       x="18.584322"
+       y="172.13287"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 22,184.36218 c 0,51.32555 0,17.67445 0,69 31,0 20,0 50.999998,0 0,-51.66667 0,-17.33333 0,-69 -21.461536,0 -0.923065,0 -22.384613,0"
+       id="path4185"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 50.615385,184.36218 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       id="path4187"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4189"
+       d="m 22,266.36218 c 0,66.70252 0,22.29748 0,89 31,0 20,0 50.999998,0 0,-67.14584 0,-21.85416 0,-89 -21.461536,0 -0.923065,0 -22.384613,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4191"
+       d="m 50.615385,266.36218 0,-6 c 0,-2 -0.238052,-3 -0.953847,-3 -9.145992,0 -17.084777,0 -26.230769,0 -0.953846,0 -1.377241,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4193"
+       d="m 78.000003,184.36218 c 0,51.32555 0,43.67445 0,95 31.000017,0 52.000007,0 83.000017,0 0,-51.66667 0,-43.33333 0,-95 -21.46154,0 -32.92306,0 -54.38462,0"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4195"
+       d="m 106.6154,184.36218 0,-6 c 0,-2 -0.23805,-3 -0.95384,-3 -9.146001,0 -17.084791,0 -26.230788,0 -0.953846,0 -1.37724,0.96967 -1.430769,2 0,2 0.01536,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 166.00004,184.36218 c 0,51.32555 0,43.67445 0,95 31.00001,0 54,0 85.00002,0 0,-51.66667 0,-43.33333 0,-95 -21.46155,0 -34.92307,0 -56.38462,0"
+       id="path4197"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 194.61544,184.36218 0,-6 c 0,-2 -0.23806,-3 -0.95385,-3 -9.146,0 -17.08479,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0153,4.0598 0,7"
+       id="path4199"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4201"
+       d="m 106.61538,293.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       style="fill:#cccccc;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       style="fill:#ffaaaa;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 137.23663,293.36218 0,-6 c 0,-2 -0.23805,-3 -0.95385,-3 -9.14599,0 -17.08478,0 -26.23078,0 -0.95385,0 -1.37724,0.96967 -1.43077,2 0,2 0.0154,4.0598 0,7"
+       id="path4207"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssccc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path4209"
+       d="m 137.20061,293.37335 c 21.46156,0 92.33785,0 113.79939,0 0,77.55505 0,-15.56621 0,61.98883 -31.00001,0 -142.00001,0 -173.000021,0 0,-77.04299 0,-61.98883 0,-61.98883 l 30.899251,-0.0335"
+       style="fill:#f9f9f9;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="czsc"
+       inkscape:connector-curvature="0"
+       id="path4211"
+       d="m 132.78839,287.21741 c 0,0 19.47362,-19.48375 36.61111,-28.84595 17.1375,-9.36219 30.56463,-14.61127 49.63573,-18.28909 23.5307,-4.53785 59.50703,-2.3943 59.50703,-2.3943"
+       style="fill:none;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutMy)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path4087-2"
+       d="m 305.2699,228.89537 c 0,35.76411 0,30.43275 0,66.19685 64.62314,0 90.40005,0 155.02315,0 0,-36.0018 0,-30.19505 0,-66.19685"
+       style="fill:#f9f9f9;stroke:#ff0000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <path
+       sodipodi:nodetypes="cssccc"
+       inkscape:connector-curvature="0"
+       id="path4089-5"
+       d="m 460.24125,228.91852 0,-6.87273 c 0,-2.29091 -1.29146,-3.43636 -5.17479,-3.43636 -49.61903,0 -92.39213,0 -142.01117,0 -5.1748,0 -7.47183,1.11071 -7.76225,2.29091 0,2.29091 0.0836,4.65032 0,8.01818"
+       style="fill:#ffaaaa;stroke:#ff0000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3872"
+       id="use4205"
+       transform="translate(173.61153,975.96007)"
+       width="1024"
+       height="768"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/view_drag_outer.png"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+    <image
+       y="447.36218"
+       x="35"
+       id="image4260"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF4AAAA8CAIAAABgjJpoAAAAA3NCSVQICAjb4U/gAAAE1klEQVR4
+nO3bTWhc1xmH8d+MpXok9OmpnDqVVccYXEn9ME1F3DgOsUqUFkoWTqAJIYtCMMkiEPoRGjDJthDv
+CiWYVl7YjVrc0k1bt0pIC3ZNCw5JhGy1WKFJSGIlju0ZWR5p5BlNF0L2oOiMxlJUzeI8q+Hq3Hde
+znn433vu1SQmsxmRpUiudwO1S5yaIHFqgsSpCRKnJkjdejewmPf/cRql0tyyI9u2bUNzZ+cadRKt
+CZKotfuaIz29+Opdd1UYc2ViAm39/ej7yY/XqJNoTZCay5rmdBr77r23wpjxsTG8N7d8Hq2GaE2Q
+mrPGvAu5XKUx+fz/oZFoTZAlrGluaV1BoauT2VU3gwVrrl1b+q+JBAvWlEqfzTcGiNYEWcKaV4b/
+uoJCu3fvXnUzWHChctbMzODsuU9wfmgMpbkEinM3V/oLtzVgYGDrihuJ1gRZwpr7Bx5YQaHVZ830
+dBGZKzNUdYXasrUB2/vSGB2dxNDQl24MKZXOiNasEeuQNW8dPozZS5cXHf/ziffRWUhSlTW5c28g
+87sjmBmfRM+Hn0dREuOpzTh56qY1u76+Gc3Nn6uyz2hNkCV23mt9X/PO8DBeO3AA3+3uQTJ5c4VS
+9fXo3LSpQoVcPo8PM4s7f/uji/jXZBq/aXsOt235CrLZD3DoxTT6+rZU2We0Jsg6ZM22gQF886fP
+4d+Dg3jwjjsWD6qYNY1gR3PzjSMXp6bw+uV6nNt7AhvGz6CjYxsSiQIoVNnhPNGaIOuQNeWc/OGP
+0HL6NO7p6Kj2tPmdFLg2O4tfjH2EN/f8DdcbuzA29hq6u/vx8cfnkcmcQ0tLM1pbJ/Hyr/dV+JJo
+TZB13kPdc+hF/Gn/Qxh57wN8rb2lynMLpRIG376Is3cet+BLiHT6TqTT828gXl22frQmyDrvoRLJ
+JL4zNISff/lubJq7jM6G1LLnHr1wBSM7D+Bqaw6ZSyfQ2LgHc3OrXfVoTZCaeF5T15DC6Ld+hmOn
+nsWTrZNoq1v60fUrhQJ2PvMkfvD88zeODw6O4vjx2RV3Uk60JkgNPa8ppNpx9u4/4sip+/BUYwKp
+sruY10F+3z7cX+bLpykWs8hkRlEqLZ9cnyZaE6QmsqacfEsvxvc8i9+/eQiP5nL4L/hPby8eOXZs
+2To9Pa2Ynv4ErOS/KaI1QWooa8rJ3d6H7u8dxPGDB3GtowOPDQ8jGbhyhSiVSshkzqO9fQuSVSgR
+rQlSc1lTzjeefhoz2Sx6H38cG1uq3WGVs2FDAjt2TGJ29rpozSqpoawpFIooFKaQTM5iYmIK2594
+BtNgemKqQoVsdgb5fA719UWwwcLjnaamjbi8+EVGkGhNkBrKmof2b8a7776FkycvYWDgLyiVZtDb
+24S6ukprOf+6fO/e69i584s4enRixf1Ea4LUUNbs37/9xueurga8PHQ7isV38NJLu9DWdmu7oWjN
+mlBDWVNOd3c7OjtHkLmSQ3//b5FMppBMziCdXt6gVGojurpKaGxMiVeoz4R1fg9VPd9/5Ayamr6N
+tra/4/Dh+26pwgsv/BMjI7tQX38Kv/plX4Xx0ZogS2TNWq//ymhtzSOffxWjoxfw8MN/uKUKFy5c
+RTqdRdfW+mXHR2uC1NwvW2qHaE2QODVB4tQEiVMTJE5NkP8BxmWY35qCmicAAAAASUVORK5CYII=
+"
+       height="64"
+       width="94"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <image
+       height="64"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF4AAAA8CAIAAABgjJpoAAAAA3NCSVQICAjb4U/gAAAE1klEQVR4
+nO3bTWhc1xmH8d+MpXok9OmpnDqVVccYXEn9ME1F3DgOsUqUFkoWTqAJIYtCMMkiEPoRGjDJthDv
+CiWYVl7YjVrc0k1bt0pIC3ZNCw5JhGy1WKFJSGIlju0ZWR5p5BlNF0L2oOiMxlJUzeI8q+Hq3Hde
+znn433vu1SQmsxmRpUiudwO1S5yaIHFqgsSpCRKnJkjdejewmPf/cRql0tyyI9u2bUNzZ+cadRKt
+CZKotfuaIz29+Opdd1UYc2ViAm39/ej7yY/XqJNoTZCay5rmdBr77r23wpjxsTG8N7d8Hq2GaE2Q
+mrPGvAu5XKUx+fz/oZFoTZAlrGluaV1BoauT2VU3gwVrrl1b+q+JBAvWlEqfzTcGiNYEWcKaV4b/
+uoJCu3fvXnUzWHChctbMzODsuU9wfmgMpbkEinM3V/oLtzVgYGDrihuJ1gRZwpr7Bx5YQaHVZ830
+dBGZKzNUdYXasrUB2/vSGB2dxNDQl24MKZXOiNasEeuQNW8dPozZS5cXHf/ziffRWUhSlTW5c28g
+87sjmBmfRM+Hn0dREuOpzTh56qY1u76+Gc3Nn6uyz2hNkCV23mt9X/PO8DBeO3AA3+3uQTJ5c4VS
+9fXo3LSpQoVcPo8PM4s7f/uji/jXZBq/aXsOt235CrLZD3DoxTT6+rZU2We0Jsg6ZM22gQF886fP
+4d+Dg3jwjjsWD6qYNY1gR3PzjSMXp6bw+uV6nNt7AhvGz6CjYxsSiQIoVNnhPNGaIOuQNeWc/OGP
+0HL6NO7p6Kj2tPmdFLg2O4tfjH2EN/f8DdcbuzA29hq6u/vx8cfnkcmcQ0tLM1pbJ/Hyr/dV+JJo
+TZB13kPdc+hF/Gn/Qxh57wN8rb2lynMLpRIG376Is3cet+BLiHT6TqTT828gXl22frQmyDrvoRLJ
+JL4zNISff/lubJq7jM6G1LLnHr1wBSM7D+Bqaw6ZSyfQ2LgHc3OrXfVoTZCaeF5T15DC6Ld+hmOn
+nsWTrZNoq1v60fUrhQJ2PvMkfvD88zeODw6O4vjx2RV3Uk60JkgNPa8ppNpx9u4/4sip+/BUYwKp
+sruY10F+3z7cX+bLpykWs8hkRlEqLZ9cnyZaE6QmsqacfEsvxvc8i9+/eQiP5nL4L/hPby8eOXZs
+2To9Pa2Ynv4ErOS/KaI1QWooa8rJ3d6H7u8dxPGDB3GtowOPDQ8jGbhyhSiVSshkzqO9fQuSVSgR
+rQlSc1lTzjeefhoz2Sx6H38cG1uq3WGVs2FDAjt2TGJ29rpozSqpoawpFIooFKaQTM5iYmIK2594
+BtNgemKqQoVsdgb5fA719UWwwcLjnaamjbi8+EVGkGhNkBrKmof2b8a7776FkycvYWDgLyiVZtDb
+24S6ukprOf+6fO/e69i584s4enRixf1Ea4LUUNbs37/9xueurga8PHQ7isV38NJLu9DWdmu7oWjN
+mlBDWVNOd3c7OjtHkLmSQ3//b5FMppBMziCdXt6gVGojurpKaGxMiVeoz4R1fg9VPd9/5Ayamr6N
+tra/4/Dh+26pwgsv/BMjI7tQX38Kv/plX4Xx0ZogS2TNWq//ymhtzSOffxWjoxfw8MN/uKUKFy5c
+RTqdRdfW+mXHR2uC1NwvW2qHaE2QODVB4tQEiVMTJE5NkP8BxmWY35qCmicAAAAASUVORK5CYII=
+"
+       id="image4287"
+       x="230"
+       y="447.36218"
+       width="94"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#ff0000;stroke-width:2.42503667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4285"
+       sodipodi:cx="47.25"
+       sodipodi:cy="1344.75"
+       sodipodi:rx="24.75"
+       sodipodi:ry="37.75"
+       d="m 72,1344.75 a 24.75,37.75 0 1 1 -49.5,0 24.75,37.75 0 1 1 49.5,0 z"
+       transform="matrix(0.82828283,0,0,0.82119206,11.863637,-619.93583)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       height="768"
+       width="1024"
+       transform="translate(130.71709,1244.6606)"
+       id="use4291"
+       xlink:href="#path3872"
+       y="0"
+       x="0" />
+    <path
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:transform-center-y="355.86708"
+       inkscape:transform-center-x="-241.98962"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:connector-curvature="0"
+       id="use4016-5"
+       d="m 368.91819,478.89857 -18.69304,16.0189 0,-9.34437 -13.55127,0 0,-13.34908 13.55127,0 0,-9.34437 z"
+       style="fill:#ffd5d5;fill-opacity:1;stroke:#ff0000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use4016-5"
+       inkscape:transform-center-x="241.98962"
+       inkscape:transform-center-y="355.86708"
+       id="use4315"
+       transform="matrix(-1,0,0,1,554.59207,0)"
+       width="1024"
+       height="1920"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffd5d5;fill-opacity:1;stroke:#ff0000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 280.31157,407.22117 -16.01805,18.69378 9.34437,-4.2e-4 6.6e-4,13.55129 13.34909,-6.3e-4 -6.7e-4,-13.55128 9.34438,-4.1e-4 z"
+       id="use4317"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png" />
+    <path
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/toolbar_drag.png"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:connector-curvature="0"
+       id="path4321"
+       d="m 280.31157,551.46582 -16.01805,-18.69378 9.34437,4.2e-4 6.6e-4,-13.55129 13.34909,6.3e-4 -6.7e-4,13.55128 9.34438,4.1e-4 z"
+       style="fill:#ffd5d5;fill-opacity:1;stroke:#ff0000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <image
+       y="-1343.6378"
+       x="20"
+       id="image4342"
+       xlink:href="file:///tmp/inkscape-clipboard-import"
+       height="398"
+       width="512"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.99999976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4345"
+       width="509.29288"
+       height="46.060661"
+       x="21.414213"
+       y="-1314.6985"
+       ry="5"
+       rx="4.9999995"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       rx="4.9999995"
+       ry="5"
+       y="-1329.9915"
+       x="21.414213"
+       height="13.792894"
+       width="509.29288"
+       id="rect4357"
+       style="fill:none;stroke:#ff0000;stroke-width:1.99999964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4371"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(0,-867.63782)"><flowRegion
+         id="flowRegion4373"><rect
+           id="rect4375"
+           width="94.5"
+           height="41.5"
+           x="-133"
+           y="-441" /></flowRegion><flowPara
+         id="flowPara4377">T</flowPara></flowRoot>    <rect
+       ry="5"
+       rx="0"
+       y="-1384.6378"
+       x="196.89949"
+       height="25.050278"
+       width="141.28728"
+       id="use4361"
+       style="fill:#ff0000;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:21.6207943px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       x="203.44647"
+       y="-1364.0682"
+       id="text4383"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IPA Pゴシック';-inkscape-font-specification:'IPA Pゴシック'"
+         sodipodi:role="line"
+         id="tspan4385"
+         x="203.44647"
+         y="-1364.0682">メインメニュー</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4394"
+       d="m 266.70058,-1363.6587 0,32.5269"
+       style="fill:none;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g4427"
+       transform="translate(-8,-26)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         ry="5"
+         rx="0"
+         y="-1278.6379"
+         x="196.89949"
+         height="25.050278"
+         width="159.67206"
+         id="rect4396"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:21.6207943px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         x="203.44647"
+         y="-1258.0682"
+         id="text4398"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IPA Pゴシック';-inkscape-font-specification:'IPA Pゴシック'"
+           sodipodi:role="line"
+           id="tspan4400"
+           x="203.44647"
+           y="-1258.0682">ツールバー領域</tspan></text>
+    </g>
+    <g
+       id="g4432"
+       transform="translate(-6,-26)"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:#ff0000;fill-opacity:1;stroke:none"
+         id="rect4409"
+         width="138.10532"
+         height="25.050278"
+         x="208.89949"
+         y="-1116.6379"
+         rx="0"
+         ry="5" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4411"
+         y="-1096.0682"
+         x="225.44647"
+         style="font-size:21.6207943px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="-1096.0682"
+           x="225.44647"
+           id="tspan4413"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IPA Pゴシック';-inkscape-font-specification:'IPA Pゴシック'">ビュー領域</tspan></text>
+    </g>
+    <rect
+       rx="5"
+       ry="4.9999995"
+       y="-1266.6985"
+       x="21.414213"
+       height="308.0437"
+       width="509.64645"
+       id="rect4415"
+       style="fill:none;stroke:#ff0000;stroke-width:1.99999976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.99999976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4417"
+       width="509.29288"
+       height="10.610914"
+       x="21.414213"
+       y="-956.69849"
+       ry="5"
+       rx="4.9999995"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ff0000;fill-opacity:1;stroke:none"
+       id="rect4419"
+       width="152.24744"
+       height="25.050278"
+       x="190.89949"
+       y="-928.63782"
+       rx="0"
+       ry="5"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4421"
+       y="-908.06818"
+       x="197.44647"
+       style="font-size:21.6207943px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         y="-908.06818"
+         x="197.44647"
+         id="tspan4423"
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IPA Pゴシック';-inkscape-font-specification:'IPA Pゴシック'">ステータスバー</tspan></text>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 266.70058,-945.6587 0,18.38476"
+       id="path4425"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/screen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+.. Choreonoid documentation master file, created by
+   sphinx-quickstart on Thu Nov 27 17:45:39 2014.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Choreonoidマニュアル
+=========================
+
+.. toctree::
+   :maxdepth: 2
+
+   install/install
+   basics/index
+   handling-models/index
+   simulation/index
+   tips/index
+   plugins/index
+   plugin-development/index
+
+
+参考
+====
+
+.. toctree::
+   :maxdepth: 2
+
+   tome/index
+   choreography-tutorial-GR001/index
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
