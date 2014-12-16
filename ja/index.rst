@@ -18,16 +18,6 @@ Choreonoidマニュアル
    plugin-development/index
 
 
-参考
-====
-
-.. toctree::
-   :maxdepth: 2
-
-   tome/index
-   choreography-tutorial-GR001/index
-
-
 Indices and tables
 ==================
 
