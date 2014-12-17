@@ -262,26 +262,39 @@ SR1Walkプロジェクトでは、具体的に以下のような関係が表現�
 ペーストについては選択状態となっているアイテムの小アイテムとしてペーストされますので、
 カット＆ペーストを用いてアイテムの配置を変更することができます。
 
-ドラッグ
-~~~~~~~~
+移動
+~~~~
 
-.. image:: images/itemdrag1.png
-.. image:: images/itemdrag2.png
+ItemTreeView上でアイテムをドラッグすることで、アイテムの位置を移動させることができます。
 
-hoge
+例えば以下の図のようにItem1〜Item3の3つのアイテムがあるとします。
 
-.. image:: images/itemdrag5.png
 .. image:: images/itemdrag0.png
 
-hoge
+ここでItem3をマウスでドラッグしてItem1に重なる位置まで持って行くと、以下の図の左側のようにItem1を囲う矩形が現れます。
+この状態でドラッグを完了すると、右側のようにItem3がItem1の小アイテムとなる位置へ移動します。
 
-.. image:: images/itemdrag3.png
-.. image:: images/itemdrag4.png
+.. image:: images/item_drag_to_child.png
 
+あるいは、Item3をドラッグしてItem1とItem2のちょうど中間の位置に持って行くと、
+今度はItem1とItem2の間に線が現れます。
+この状態でドラッグを完了すると、右側のようにItem1とItem2の間に挿入されるかたちでItem3が移動します。
+
+.. image:: images/item_drag_to_sibling.png
+
+以下の例では、Item1の小アイテムとなっているItem3を、下方の何も無い位置までドラッグしています。
+この場合、右側の図のようにツリーのRootに並ぶかたちでItem3が移動します。
+
+.. image:: images/item_drag_to_root.png
+
+このようにアイテムツリービュー上でアイテムのドラッグを行うことで、アイテムの配置を自由に変更することが可能です。
 
 保存
 ~~~~
 
+アイテムの状態は通常プロジェクトをファイルに保存する際にプロジェクトファイル内にデータが書き込まれて保存されます。
+
+ファイルに保存可能なアイテムについては、
 
 
 アイテムのプロパティ
