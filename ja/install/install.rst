@@ -10,4 +10,5 @@
 
    platform
    build-ubuntu
+   directories
    options
