@@ -8,6 +8,7 @@
    launch
    mainwindow
    item
+   sceneview
    plugin
    config
    termination
