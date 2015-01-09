@@ -40,7 +40,7 @@ share ディレクトリの model 以下に格納されています。
  box1             misc/box1.wrl             長方形の剛体
  SR1              SR1/SR1.yaml              シンプルな二足歩行ロボットモデルのサンプル
  GR001            GR001/GR001.yaml          HPI社製二足歩行ロボット"GR001"のモデル
- PA10             PA10/PA10.yaml            三菱重工株式会社製マニピュレータ "PA10" のモデル
+ PA10             PA10/PA10.yaml            三菱重工業株式会社製マニピュレータ "PA10" のモデル
  Crawler          misc/crawler.wrl          シンプルなクローラ型モバイルロボットのモデル
  Tank             misc/tank.wrl             戦車型モデルのサンプル
  floor            misc/floor.wrl            床モデル
