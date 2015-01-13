@@ -7,7 +7,7 @@
 
    bodyitem
    pose-editing
-   biped-models
    worlditem
+   biped-models
    handling-motions
    howto-make-model
