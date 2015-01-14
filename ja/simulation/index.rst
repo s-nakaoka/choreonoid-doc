@@ -9,6 +9,7 @@
    howto-make-project
    howto-exec-playback-simulation
    simulator-items
+   hg-simulation
    howto-make-controller
    vision-simulation
    using-rt-component

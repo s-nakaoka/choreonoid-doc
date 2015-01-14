@@ -8,6 +8,6 @@
    bodyitem
    pose-editing
    worlditem
-   biped-models
+   collision-detection
    handling-motions
    howto-make-model
