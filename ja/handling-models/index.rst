@@ -5,9 +5,10 @@
 .. toctree::
    :maxdepth: 2
 
-   bodyitem
+   bodymodel
    pose-editing
    worlditem
    collision-detection
    handling-motions
+   biped-models
    howto-make-model

@@ -26,6 +26,8 @@ OpenHRP形式は3Dモデルを記述する標準規格である Virtual Reality 
 
 .. note:: OpenHRP形式以外のモデルファイル形式への対応も進めており、その一環として現在のところ Collada Robot Extensions 形式の読み込みも可能です。ただしまだ実装が完全ではなく、うまく読み込めない場合もあるため、今のところは特別な理由がなければOpenHRP形式を使うようにしてください。
 
+.. _bodymodel_samplemodels:
+
 サンプルモデル
 --------------
 
