@@ -1,6 +1,6 @@
 
-モデルの扱い
-============
+ロボット／環境モデルの基本
+==========================
 
 .. toctree::
    :maxdepth: 2
@@ -9,6 +9,5 @@
    pose-editing
    worlditem
    collision-detection
-   handling-motions
    biped-models
    howto-make-model

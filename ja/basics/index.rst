@@ -9,6 +9,7 @@
    mainwindow
    item
    sceneview
+   timebar
    plugin
    config
    termination
