@@ -9,5 +9,5 @@
    pose-editing
    worlditem
    collision-detection
-   biped-models
+   legged-model
    howto-make-model
