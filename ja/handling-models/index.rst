@@ -3,11 +3,11 @@
 ==========================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    bodymodel
    pose-editing
    worlditem
    collision-detection
    legged-model
-   howto-make-model
+   modelfile/index
