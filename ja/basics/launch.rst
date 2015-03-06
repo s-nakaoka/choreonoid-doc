@@ -22,7 +22,7 @@ Linux等のOSで一般的な、端末からのコマンド入力による操作�
  cd [ソースディレクトリ]
  bin/choreonoid
 
-起動すると以下ようなChoreonoidのメインウィンドウが表示されます。
+起動すると以下のようなChoreonoidのメインウィンドウが表示されます。
 
 .. figure:: images/default_mainwindow.png
 

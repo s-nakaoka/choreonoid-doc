@@ -184,7 +184,7 @@ GUIでODEシミュレータアイテムが削除されると、ODESimulatorItem�
 | 次は、シミュレーションの中心部分の実装です。まずは、全体の流れを解説します。
 | ユーザがシミュレーションの開始ボタンを押すと、まずは、ODEモデルの作成を行う関数createSimulationBodyが、シミュレーション対象となるモデルの個数回呼ばれます。
 | 動力学エンジンの多くは、それぞれ独自のモデルの記述方法を持っています。ODEもそうです。Choreonoidでは、ロボットや環境をBodyオブジェクトとして保持しています。これらのBodyオブジェクトからODE用のモデルを構築する必要があります。
-引数orgBodyには、Bodyオブジェクトのポインタが入っていますので、これからODE用のODEBodyオブジェクトを作成し、そのポインタを返します。ここでは、まだODE用モデルの実態は作成していません。 ::
+引数orgBodyには、Bodyオブジェクトのポインタが入っていますので、これからODE用のODEBodyオブジェクトを作成し、そのポインタを返します。ここでは、まだODE用モデルの実体は作成していません。 ::
 
  SimulationBodyPtr ODESimulatorItem::createSimulationBody(BodyPtr orgBody)
  {
@@ -420,9 +420,9 @@ Linkクラスは以下の関数を提供します。
 
 
 ODEモデルの構築
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 | 次に、ODEモデルの構築について、詳しく解説していきます。
-| createSimulationBody関数が呼ばれたときには、ODEBodyオブジェクトを作成していますが、入れ物を用意しているだけで、まだ実態はありません。initializeSimulationの中で、addBodyが呼ばれた時に、実態を作成します。
+| createSimulationBody関数が呼ばれたときには、ODEBodyオブジェクトを作成していますが、入れ物を用意しているだけで、まだ実体はありません。initializeSimulationの中で、addBodyが呼ばれた時に、実体を作成します。
 | addBodyのソースコードです。
 
 .. code-block:: cpp
@@ -1069,7 +1069,7 @@ updateForceSensorsのソースコードです。
 仮想関節とは
 --------------
 
-２つのリンク間に仮想関節を設定すると、指定したリンク間に拘束力を発生させることができます。これを使用すると、閉リンク機構のシュミュレーションを行うことができます。閉リンクモデルのサンプルはchoreonoid/share/model/misc/ClosedLinkSample.wrlです。
+２つのリンク間に仮想関節を設定すると、指定したリンク間に拘束力を発生させることができます。これを使用すると、閉リンク機構のシミュレーションを行うことができます。閉リンクモデルのサンプルはchoreonoid/share/model/misc/ClosedLinkSample.wrlです。
 
 このサンプルモデルには、仮想関節の定義が、以下のように書かれています。 ::
 

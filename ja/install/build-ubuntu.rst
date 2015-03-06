@@ -46,7 +46,7 @@ Choreonoidのリポジトリは以下のコマンドを実行することで取�
 Choreonoidをソースコードからビルドするためには、以下の開発ツールが必要になります。
 
 - C/C++標準開発ツール一式: C/C++コンパイラ、Make等の標準開発ツール一式が必要です。Ubuntuであれば "build-essential" というパッケージで一式インストールできます。C/C++コンパイラに関しては通常GCCを用いますが、Clang/LLVMも利用可能です。
-- `CMake <http://www.cmake.org/>`_ :  ビルドツールです。本ツール独自の記述から、Make や Visual Stuio といった標準ビルドツールのファイルを生成します。多くの環境に対応したビルド記述を効率的に行うことが可能です。
+- `CMake <http://www.cmake.org/>`_ :  ビルドツールです。本ツール独自の記述から、Make や Visual Studio といった標準ビルドツールのファイルを生成します。多くの環境に対応したビルド記述を効率的に行うことが可能です。
 
 また、基本機能をビルドするにあたって以下のライブラリも必要になります。
 
@@ -70,9 +70,9 @@ Choreonoidをソースコードからビルドするためには、以下の開�
 * `PulseAudio <http://www.freedesktop.org/wiki/Software/PulseAudio/>`_ : 音声出力を行うためのシステムです。Ubuntuでは標準でインストールされていますが、Mediaプラグインをビルドする場合には別途開発用ライブラリが必要になります。
 * `libsndfile <http://www.mega-nerd.com/libsndfile/>`_ : 音声ファイルを読み込むためのライブラリです。Mediaプラグインを利用する際に必要です。
 
-Ubuntuの場合、"misc/script" 以下にある "install-requisities-ubuntu-x.x.sh" というスクリプトを用いることにより、以上のソフトウェアのほとんどを簡単にインストールすることができます。x.xはUbuntuのバージョンに対応します。例えば Ubuntu 14.04 であれば ::
+Ubuntuの場合、"misc/script" 以下にある "install-requisites-ubuntu-x.x.sh" というスクリプトを用いることにより、以上のソフトウェアのほとんどを簡単にインストールすることができます。x.xはUbuntuのバージョンに対応します。例えば Ubuntu 14.04 であれば ::
 
- misc/script/install-requisities-ubuntu-14.04.sh
+ misc/script/install-requisites-ubuntu-14.04.sh
 
 を実行すると、sudoのパスワードが求められるので入力してください。すると、パッケージシステム経由で、必要なパッケージが自動でインストールされます。
 
