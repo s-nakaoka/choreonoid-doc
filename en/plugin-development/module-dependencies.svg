@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="module-dependencies.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3855"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9289831"
+     inkscape:cx="218.28163"
+     inkscape:cy="747.18832"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ffe6d5;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 435.96057,442.82379 -386.74984,0 0,198.79477 648.61955,0 0,-428.57215 -262.40794,0.76318 z"
+       id="path3024"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <rect
+       style="color:#000000;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.99999988;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3014"
+       width="403.66721"
+       height="156.08466"
+       x="246.50612"
+       y="462.46985"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <path
+       style="fill:#d7eef4;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 48.440064,59.879092 647.311786,0 0,133.479288 -277.31399,0 0,231.43586 -372.150688,0 0,-364.915148"
+       id="path6167"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <rect
+       style="color:#000000;fill:#ffffff;stroke:#000000;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2989"
+       width="268.52036"
+       height="58.571407"
+       x="268.57141"
+       y="92.36219"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <g
+       id="g3074"
+       transform="translate(12,0)"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609">
+      <rect
+         style="color:#000000;fill:#ffffff;stroke:#000000;stroke-width:3.00000023999999987;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         id="rect3010"
+         width="221.42856"
+         height="58.571407"
+         x="120"
+         y="331.36218" />
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="182.14285"
+         y="375.64789"
+         id="text3006"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3008"
+           x="182.14285"
+           y="375.64789">Body</tspan></text>
+    </g>
+    <rect
+       y="217.50505"
+       x="70"
+       height="58.571407"
+       width="217.85715"
+       id="rect3020"
+       style="color:#000000;fill:#ffffff;stroke:#000000;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <path
+       sodipodi:nodetypes="csc"
+       inkscape:connector-curvature="0"
+       id="path4293"
+       d="m 254.47089,329.32258 c 9.97627,-21.0557 54.75001,-45.99676 66.86435,-64.71837 26.62631,-41.14852 23.23179,-80.48042 26.66786,-107.76018"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-start:none;marker-mid:none;marker-end:url(#Arrow1Lend)"
+       d="M 220.13318,327.91411 180.84291,280.01227"
+       id="path4299"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 556.97493,269.85325 465.64859,154.60632"
+       id="path5592"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5778"
+       d="m 247.58255,211.65796 57.05163,-49.51651"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3016"
+       y="261.79077"
+       x="97.14286"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"><tspan
+         y="261.79077"
+         x="97.14286"
+         id="tspan3018"
+         sodipodi:role="line">Collision</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="361.28571"
+       y="136.6479"
+       id="text2985"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="361.28571"
+         y="136.6479">Util</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text7613"
+       y="105.72374"
+       x="57.251732"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"><tspan
+         y="105.72374"
+         x="57.251732"
+         id="tspan7615"
+         sodipodi:role="line">Non-GUI</tspan><tspan
+         y="155.72374"
+         x="57.251732"
+         sodipodi:role="line"
+         id="tspan7617">Modules</tspan></text>
+    <rect
+       y="276.42966"
+       x="468.80249"
+       height="70.412315"
+       width="190.96606"
+       id="rect3044"
+       style="color:#000000;fill:#ffffff;stroke:#000000;stroke-width:3.00000024;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3040"
+       y="324.71536"
+       x="511.94531"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"><tspan
+         y="324.71536"
+         x="511.94531"
+         id="tspan3042"
+         sodipodi:role="line">Base</tspan></text>
+    <g
+       id="g3046"
+       transform="translate(0,8)"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609">
+      <rect
+         y="490.21933"
+         x="281.14285"
+         height="58.571407"
+         width="262.91736"
+         id="rect3036"
+         style="color:#000000;fill:#ffffff;stroke:#000000;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3032"
+         y="534.50507"
+         x="304.28571"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="534.50507"
+           x="304.28571"
+           id="tspan3034"
+           sodipodi:role="line">BodyPlugin</tspan></text>
+    </g>
+    <text
+       inkscape:export-ydpi="50.038609"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="60.709423"
+       y="561.21326"
+       id="text3029"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3031"
+         x="60.709423"
+         y="561.21326"
+         style="text-align:start;text-anchor:start">GUI</tspan><tspan
+         id="tspan3033"
+         sodipodi:role="line"
+         x="60.709423"
+         y="611.21326"
+         style="text-align:start;text-anchor:start">Modules</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path5776"
+       d="M 362.2847,494.02446 264.85978,393.94668"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 458.95771,493.20921 560.22012,353.23956"
+       id="path5780"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 277.72303,515.21569 C 172.32272,502.25292 61.203205,444.53475 114.10326,284.85627"
+       id="path5983"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="m 397.91219,497.25381 c 2.1529,-20.45248 -5.62102,-339.41814 -5.62102,-339.41814"
+       id="path5408"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3035"
+       y="604.74219"
+       x="499.64938"
+       style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/nakaoka/website/choreonoid/ja/plugin-development/module-dependencies.png"
+       inkscape:export-xdpi="50.038609"
+       inkscape:export-ydpi="50.038609"><tspan
+         style="text-align:start;text-anchor:start"
+         y="604.74219"
+         x="499.64938"
+         sodipodi:role="line"
+         id="tspan3039">Plugins</tspan></text>
+  </g>
+</svg>
