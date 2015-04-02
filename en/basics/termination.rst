@@ -1,5 +1,5 @@
 
-終了方法
-========
+How to Exit Choreonoid 
+=======================
 
-Choreonoidを終了させたいときは、メインウィンドウのクローズボタンを押すか、メインメニューの「ファイル」-「終了」を実行して終了させます。端末からChoreonoidを起動した場合は、端末上で "Ctrl + C" を入力して終了させることもできます。
+When you want to exit Choreonoid, click the close button in the main window or select the main menu "File" - "Close". If you have started Choreonoid from a terminal, you can also exit it by inputting "Ctrl + C" on the terminal.

@@ -1,25 +1,25 @@
 
-SR1サンプルモデル
+SR1 Sample Model
 =================
 
-ここでは、シンプルなヒューマノイドロボットのサンプルモデルである "SR1" モデルの表している内容について説明します。
+This section describes what the "SR1" model, which is a sample model of a simple humanoid robot, represents.
 
-このモデルはshareディレクトリの "model/SR1" ディレクトリ以下にある以下のファイルで記述されています。
+This model is described in the following files under the model/SR1 directory in the share directory.
 
-* SR1.wrl: モデルファイル本体
-* SR1.yaml: 追加情報ファイル
+* SR1.wrl: Main model file
+* SR1.yaml: Additional information file
 
-ここではモデルファイルの本体である "SR1.wrl" の記述内容について紹介します。追加情報ファイルの内容については、次の :doc:`modelfile-yaml` を参照してください。（Choreonoidにおいては、モデルの追加情報ファイルが用意されている場合は、通常そちらを読み込むようにします。）
+This section introduces the description contents of "SR1.wrl", which is the main model file. For the contents of the additional information file, see the next section, :doc:`modelfile-yaml` . (Normally in Choreonoid, load the additional information file of a model if available, rather than writing the information.)
 
 
-関節構造
---------
+Joint Structure
+---------------
 
-SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 頭2関節(HEAD_JOINT0, HEAD_JOINT1)、 腕16関節(LARM_SHOULDER_P〜LARM_WRIST_R、RARM_SHOULDER_P〜RARM_WRIST_R)、 足14関節(LLEG_HIP_R〜LLEG_ANKLE_R、RLEG_HIP_R〜RLEG_ANKLE_R)で構成され、 次に示すJoint-Segment階層構造を持ちます。 Joint位置と各Jointに設定された座標系、Segment名と実際のリンクの対応については、下図を参照してください．
+The SR1 model consists of one waist joint (WAIST), four trunk joints (WAIST_JOINT0 to CHEST), two head joints (HEAD_JOINT0 and HEAD_JOINT1), 16 arm joints (LARM_SHOULDER_P to LARM_WRIST_R and RARM_SHOULDER_P to RARM_WRIST_R), and 14 leg joints (LLEG_HIP_R to LLEG_ANKLE_R and RLEG_HIP_R to RLEG_ANKLE_R), and has the following Joint-Segment hierarchy structure. For the correspondence between the Joint position and the coordinate system set for each Joint and between the Segment name and the actual link, see the figure below.
 
 .. code-block:: yaml
 
-	(Joint Jointノード名 : Segment Segmentノード名)
+	(Joint Joint node name: Segment Segment node name)
 	Humanoid SAMPLE
 	|
 	| # Root
@@ -73,19 +73,19 @@ SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 �
 .. figure:: images/SampleRobotJoint.png
 	:align: center
 
-	ロボットの各Jointの位置と座標系
+	Position and Coordinate System of Each Joint of the Robot
 
 
 .. figure:: images/SampleRobotSegment.png
 	:align: center
 
-	ロボットの各リンクと対応するSegment名
+	Segment Name Corresponding to Each Link of the Robot
 
 
-視覚センサ
-----------
+Vision Sensor
+-------------
 
-上記のとおり視覚センサは、CHESTの下に2個取り付けられています。
+As described above, two vision sensors are attached under CHEST.
 
 .. code-block:: yaml
 
@@ -93,9 +93,9 @@ SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 �
 	  +-VisionSensor VISION_SENSOR1
 	  +-VisionSensor VISION_SENSOR2
 
-また、視覚センサの座標系は図6.の通りです。赤い軸がX軸、緑の軸がY軸、青の軸がZ軸を表します。視線方向は、Z軸のマイナス方向です。位置姿勢の具体的な数値については、sample.wrlを参照してください。
+The coordinate systems of the vision sensors are as shown in Figure 6. The red axis is the X-axis; green, the Y-axis; and blue, the Z-axis. The direction of the sight line is the negative direction of the Z-axis. For specific numerical values of the position and posture, see sample.wrl.
 
 .. figure:: images/cameracs.png
 	:align: center
 
-	視覚センサの座標系
+	Coordinate Systems of the Vision Sensors

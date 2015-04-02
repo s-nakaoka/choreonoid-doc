@@ -42,7 +42,7 @@ In case of installing Choreonoid using the installer on Windows, Choreonoid is a
 Specifying Project File using Command Line Argument
 ---------------------------------------------------
 
-It is also possible to read "Project" explained in : doc:`item` when Choreonoid starts up. To do this, specify "Project file" in the command line argument when starting up Choreonoid. For example, in case of reading the project file "project1.cnoid" located in the current directory: ::
+It is also possible to read "Project" explained in :doc:`item` when Choreonoid starts up. To do this, specify "Project file" in the command line argument when starting up Choreonoid. For example, in case of reading the project file "project1.cnoid" located in the current directory: ::
 
  choreonoid project1.cnoid
 

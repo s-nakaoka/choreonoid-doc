@@ -1,8 +1,8 @@
 
-干渉検出
-========
+Collision Detection
+===================
 
-モデルを動かしていると、リンクが他のリンクと干渉（衝突）を起こすことがあります。Choreonoidはそのような干渉を検出する機能を備えており、ここではその利用法を説明します。
+Sometimes a link collides (conflict) with another link while you are moving a model. Choreonoid provides a function to detect such collision. This section describes how to use the function.
 
 .. contents::
    :local:
@@ -10,72 +10,72 @@
 
 .. _model_collision_and_worlditem:
 
-干渉検出とWorldアイテム
------------------------
+Collision Detection and World Item
+----------------------------------
 
-干渉検出を行うためには、まず "WorldItem" 型のアイテム（Worldアイテム）を導入する必要があります。
+To detect collision, you must first install an item of the "WorldItem" type (World item).
 
-WorldアイテムはChoreonoid上でひとつの仮想世界(Virtual World)を表すアイテムです。このアイテムによって、
+The World item is an item representing one virtual world in Choreonoid. This item enables you to perform the following operations:
 
-* Bodyモデルをある仮想世界に結びつける
-* 仮想世界全体の設定を行う
-* 複数の仮想世界を同時に扱う
+* Connecting a Body model to a virtual world
+* Configuring settings for a virtual world as a whole
+* Handling multiple virtual worlds at the same time
 
-といったことが可能となります。
+Some other operations can also be performed.
 
-干渉検出においても、
+For collision detection, you must specify:
 
-* どの物体とどの物体の干渉を検出するか
-* 干渉検出結果をどのように表示するか
+* Between which objects collision is to be detected.
+* How the collision detection result is to be displayed.
 
-といった設定が必要となりますが、これらはある仮想世界と結びつけることが合理的です。そこで干渉検出の設定もWorldアイテムを介して行うようになっています。
+It is reasonable to associate these settings with a virtual world. Therefore, configure collision detection settings through a World item.
 
 
-Worldアイテムの作成
+Creating a World Item
 -------------------
 
-Worldアイテムは、通常のアイテムの作成方法で作成することができます。具体的には、メインメニューの「ファイル」-「新規」-「ワールド」を実行すると現れる「新しいワールドアイテムの生成」ダイアログで「生成」ボタンを押して作成します。
+You can create a World item using the procedure for creating a normal item. Specifically, select the main menu "File" - "New" - "World" and click the "Generate" button in the "Generate New World Item" dialog that appears.
 
-Bodyモデルの関連付け
---------------------
+Associating a Body Model
+------------------------
 
-Worldアイテムは、それにBodyモデルを関連付けることで初めて意味を成します。関連付けは、BodyアイテムをWorldアイテムの小アイテムとして配置することで行います。
+A World item only make sense if a Body model is associated with it. Associate a Body item with a World item by allocating the Body item as a sub-item of the World item.
 
-ここでは、今まで扱ってきたPA10のモデルでこれを行ってみましょう。PA10モデルが読み込まれている状態で上記のWorldアイテムの作成を行うと、アイテムツリービューでは２つのアイテムが以下のように並んで表示されているかと思います。
+Try to perform this operation using the PA10 model, which we have been used. Create the above World item in the state in which the PA10 is loaded. Then, the two items should be displayed in a row in the item tree view.
 
 .. image:: images/pa10_and_world.png
 
-ここで、 :ref:`basics_itemtree_management` - :ref:`basics_item_move` の説明に従って "PA10" を "World" の上にドラッグすると、PA10がWorldの小アイテムに移動して以下のようになります。
+Drag "PA10" onto "World" by following the description in :ref:`basics_itemtree_management` - :ref:`basics_item_move` to move PA10 to make it a sub-item of World as shown in the figure below.
 
 .. image:: images/pa10_in_world.png
 
-これでPA10モデルが仮想世界"World"と関連付けられたことになります。
+This means that the PA10 model is associated with the "World" virtual world.
 
-.. note:: "PA10"が選択状態の時にWorldアイテムの生成を行うと、生成されたWorldアイテムはPA10の小アイテムとして配置されてしまい、親子関係が上の例とは逆になってしまいます。この場合はいったんWorldアイテムをアイテムツリービュー下部の何も無い領域にドラッグします。するとWorldアイテムがPA10の小アイテムでは無くなりますので、その後上記の操作を行うようにしてください。
+.. note:: If you generate a World item when "PA10" is selected, the generated World item is allocated as a sub-item of PA10, resulting in a parent-child relationship that is inverse of the one in the above example. In this case, temporarily drag the World item to the empty area at the lower part of the item tree view. This makes the World item no longer be a sub-item of PA10. Then, perform the above operation.
 
-.. note:: Worldアイテムを作成し、それを選択した状態でBodyモデルを読み込むと、モデルが最初からWorldアイテムの小アイテムとして読みこまれることになります。Worldアイテムを導入したプロジェクトを一から作成する際には、そのようにすることで操作を効率化できます。
+.. note:: If you create a World item and load a Body model in the state in which the World item is selected, the model is loaded as a sub-item of the World item from the first. You can make operations more efficient in this way when creating a project with a World item installed from scratch.
 
 
-複数Bodyモデルの関連付け
-------------------------
+Associating Multiple Body Models
+--------------------------------
 
-通常はひとつの仮想世界に複数のBodyモデルを関連付けることになります。その場合、単純に複数のBodyアイテムが同じWorldアイテムの小アイテムとなっていればOKです。
+Normally, you associate multiple Body models with a virtual world. In this case, there is no problem if multiple Body items are simply allocated as sub-items of the same World item.
 
-ここでは先ほどのPA10モデルに加えて、 :ref:`bodymodel_samplemodels` の中から床のモデルを追加してみましょう。share ディレクトリの "misc/floor.wrl" を読み込んで、同じWorldアイテムへの関連付けを行なってください。アイテムツリーが以下のようになればOKです。
+Try to add the model of the floor from :ref:`bodymodel_samplemodels` , in addition to the PA10 model, which was added earlier. Load "misc/floor.wrl" from the share directory and associate it with the same World item. The item tree should be as shown in the figure below.
 
 .. image:: images/pa10_floor_in_world.png
 
-このようにFloorにもチェックを入れて、床のモデルもシーンビューに表示させてみましょう。PA10を標準姿勢にすれば、以下のようなシーンが表示されるかと思います。
+Try to display the model of the floor in the scene view by selecting the Floor checkbox as shown in the figure. When you set PA10 to the standard posture, the following scene should be displayed.
 
 .. image:: images/pa10_floor_scene.png
 
-以下では干渉検出の例としてこのPA10と床のモデルの間の干渉を検出・表示させてみたいと思います。
+The following describes an example of collision detection by detecting and displaying collision between the PA10 and floor models.
 
 
-干渉検出の設定
---------------
+Collision Detection Settings
+----------------------------
 
-干渉検出を行うかどうかは、WorldアイテムとBodyアイテムのプロパティで切り替えることができます。関連するプロパティは以下のとおりです。
+You can specify whether to detect collision through the properties of the World and Body items. Relevant properties are as follows.
 
 .. tabularcolumns:: |p{3.0cm}|p{4.0cm}|p{8.0cm}|
 
@@ -83,102 +83,102 @@ Worldアイテムは、それにBodyモデルを関連付けることで初め�
  :widths: 20,35,45
  :header-rows: 1
 
- * - アイテム
-   - プロパティ(true、false)
-   - 概要
- * - Worldアイテム
-   - 干渉検出
-   - 仮想世界全体としてそもそも干渉検出を行うかどうか
- * - Bodyアイテム
-   - 干渉検出
-   - 各Bodyモデルに対して、他のBodyモデルとの干渉検出を行うかどうか
- * - Bodyアイテム
-   - 自己干渉検出
-   - 各Bodyモデルにおける自己干渉を検出するかどうか
+ * - Item
+   - Property (true, false)
+   - Overview
+ * - World Item
+   - Collision detection
+   - Whether to perform collision detection for the virtual world as a whole in the first place
+ * - Body Item
+   - Collision detection
+   - Whether to detect collision between each Body model and other Body models
+ * - Body Item
+   - Self-collision detection
+   - Whether to detect self-collision of each Body model
 
 
-まず干渉検出を行う根本的な設定として、Worldアイテムの「干渉検出」をtrueにしておく必要があります。その上で、各モデルに対して個別に干渉検出を行うかどうかを切り替えるために、Bodyアイテムの２つのプロパティを設定します。
+As an essential setting for collision detection, you must first set "Collision detection" of the World item to true. Then, set the two properties of the Body item to switch whether to perform collision detection individually for each model.
 
-Worldアイテムの「干渉検出」はデフォルトではfalseとなっているので、まずはこれをtrueに切り替えてください（:ref:`basics_item_property` 参照）。Bodyアイテムについては、「干渉検出」のプロパティはデフォルトでtrueとなっており、これはこのままでOKです。「自己干渉検出」については後ほど説明します。
+Since the "Collision detection" property of the World item is set to false by default, first set it to true (see :ref:`basics_item_property` ). The "Collision detection" of the Body item is set to true by default. Leave the setting as is. The "Self-collision detection" property is described later in this manual.
 
-.. note:: 干渉検出は一般的に比較的計算時間のかかる処理となります。特にモデルが複雑（ポリゴン数が多い等）になるとこの影響を大きくなり、場合によってはモデルの操作や表示が重くなる場合があります。このことを考えると、干渉検出が特に必要ではない作業を行う際には干渉検出の処理は省いた方が快適な場合もあります。これがWorldアイテムの「干渉検出」がデフォルトでfalseとなっている理由です。
+.. note:: Generally, collision detection is a process that takes a relatively long calculation time. Particularly, this impact is greater for a complex model (with many polygons, etc.), and in some cases, speed of displaying or operating the model becomes slower. Considering this, you may be more comfortable if you omit collision detection processing when perform work that does not particularly require collision detection. This is the reason why "Collision detection" of the World item is set to false by default.
 
-上記の設定で内部の干渉検出計算は行われるようになりますが、さらにこれを表示するための設定が必要となります。干渉の表示の仕方は様々なものが考えらますし、それらを常に表示させたいとも限らないため、このようになっています。
+The above settings enable internal collision detection calculation. However, you must also configure other settings to display the collision. This is because various methods are available to display collision and you do not always want to display it.
 
 
-干渉検出結果の表示
-------------------
+Displaying Collision Detection Result
+-------------------------------------
 
-ここでは、干渉検出結果をシーンビュー上に表示する方法を紹介します。これを行うためには、まずアイテムツリービュー上でWorldアイテムのチェックをオンにします。
+This section introduces how to display collision detection result in the scene view. To do this, first select the checkbox for the World item in the item tree view.
 
 .. image:: images/pa10_floor_in_world_checked.png
 
-これはBodyアイテムのチェック入れるとそのモデルがシーンビュー上に表示されるのと同様に、Worldアイテムが有する仮想世界の情報をシーンビュー上に表示するという意味になります。
+Similar to the way selecting the checkbox for a Body item displays the model in the scene view, this means that the virtual world information of the World item is displayed in the scene view.
 
-さらに、シーンビューの設定として、 :ref:`basics_sceneview_scenebar` の「干渉線の表示」ボタン（以下の図で赤枠で囲った部分）もオンにします。
+In addition, as a setting for the scene view, turn on the "collision line display" button (part in the red box in the figure below) of the :ref:`basics_sceneview_scenebar` .
       
 
 .. image:: images/collision-toggle.png
 
-これにより、干渉が生じている場合はシーンビュー上で対応する箇所に「干渉線」が表示されることになります。
+This makes "collision lines" appear in the corresponding location in the scene view if collision occurs.
 
-以上で干渉の検出と表示に関わる設定は完了です。干渉計算やその表示が必要でなくなった場合は、上記のうちの対応する設定を再度オフにすればOKです。
+Settings for collision detection and display are now complete. If you no longer need collision calculation and display, turn off again the corresponding settings described above.
 
 
-干渉検出の例
-------------
+Example of Collision Detection
+------------------------------
 
-ではPA10と床との間の干渉検出を行ってみましょう。:ref:`sceneview_inverse_kinematics` を用いて、アームの先端を床に向かって動かしてみてください。アームが床にめり込む位置まで動かすと、衝突している部分に下図のように緑の線が何本か表示されるかと思います。これが干渉線です。
+So, try to detect collision between PA10 and the floor. Move the head of the arm toward the floor by referencing :ref:`sceneview_inverse_kinematics` . When you move the arm to the degree at which it sinks into the floor, a number of green lines appear in the colliding part as shown in the figure below. These are collision lines.
 
 .. image:: images/pa10_floor_collision.png
 
-ここで干渉線の方向は干渉している面の法線を、長さは干渉の深さを表しています。このようにして、干渉検出の結果を確認することができます。
+The direction of a collision line represents the normal line of the colliding surface, and the length represents the depth of collision. In this way, you can confirm the result of collision detection.
 
 .. _collision_detection_penetration_block:
 
-貫通ブロック機能
-----------------
+Penetration Block Function
+--------------------------
 
-リンクを動かす最中に干渉を検出した場合に、それ以上干渉が深くならないように（貫通していかないように）ブロックすることもできます。これを行うには、運動学バーの「貫通ブロックモード」ボタン（以下に赤枠で示した部分）をオンにします。
+If collision is detected while you are moving a link, you can also block the collision to prevent it from being deepened (penetrating). To do this, turn on the "penetration block mode" button (part in the red box in the figure below) of the kinematics bar.
 
 .. image:: images/PenetrationBlockButton.png
 
-この状態で、先ほどと同様にアームを床の方まで動かしていきましょう。ドラッグしているリンクが床に接触すると、それ以上はそちらの方向へ動かせなくなります。例えば"J7"リンクを動かしていくと下図のような状態でブロックされます。
+In this state, move the arm toward the floor as with the earlier operation. When the dragged link contacts with the floor, you cannot move it any further toward the floor. For example, blocking occurs in the state as shown in the figure below while you a moving the "J7" link.
 
 .. image:: images/pa10_j7_blocked.png
 
-ただしこの図でも分かるように、ブロックされるのはあくまでユーザが動かしているリンクです。それ以外のリンクに干渉が発生してもそちらはブロックされませんので、この点に注意する必要があります。この例で先端のグリッパの部分でブロックしてほしい場合は、運動学モードを逆運動学モードにして、先端のリンク（"HAND_L" や "HAND_R"）を動かすようにすればOKです。すると以下のような位置でブロックがかかります。
+As you can see, however, only the link you are moving is blocked. Note that if collision occurs in another link, the collision is not blocked. If you want to block collision in the gripper part at the head in this example, switch the kinematics mode to the inverse kinematics mode, and move the link at head ("HAND_L" or "HAND_R"). The collision is blocked at the position as shown in the figure below.
 
 .. image:: images/pa10_HAND_L_blocked.png
 
 
-自己干渉の検出
---------------
+Self-collision Detection
+------------------------
 
-上の例では異なるBodyモデル間の干渉検出を行いましたが、ひとつのBodyモデルの中で生じる自己干渉を検出することもできます。この機能はデフォルトではオフとなっていますが、Bodyアイテムの「自己干渉検出」のプロパティをtrueとすることで利用可能となります。
+Although collision between different Body models is detected in the above example, you can also detect self-collision that may occur in a single Body model. This function is off by default. To enable the function, set the "Self-collision detection" property of the Body item to true.
 
-PA10の例では、下図のようにアームの先端をベース部分に衝突させるなどすると、自己干渉が検出できていることが分かります。
+In the example of PA10, you can see that self-collision can be detected when, for example, you make the head of the arm collide into the base part as shown in the figure below.
 
 .. image:: images/pa10_selfcollision.png
 
-なお、貫通ブロック機能は自己干渉では効かないようになっています。
+Note that the penetration block function is disabled for self-collision.
 
 
-ボディ／リンクビューの干渉表示
-------------------------------
+Displaying Collision in the Body/Link View
+------------------------------------------
 
-干渉検出の結果は、 :ref:`model_body_link_view` の「干渉」表示領域でも確認することができます。ここでは、対象となっているリンクに干渉がある場合、干渉相手のリンク名を表示します。「干渉」の領域には他モデルのリンクが、「自己干渉」の領域には自己干渉しているリンクが表示されます。
+You can also check the result of collision detection in the "Collision" display area in the :ref:`model_body_link_view` . This view displays the link name of the colliding link if the target link encounters a collision. A link of another model is displayed in the "Collision" area, and the link in which self-collision occurs is displayed in the "Self-collision" area.
 
-例えばPA10モデルでJ7リンクを対象として選択し、J7リンクが床モデルと自身の"Base"リンクに干渉している場合、表示は以下のようになります。
+For example, if the J7 link of the PA10 model is selected as the target, and the J7 link collide with the floor model and the "Base" link of the PA10 model itself, the display should be as shown below.
 
 .. image:: images/collision-panel-pa10.png
 
 
-干渉検出器の切り替え
---------------------------
+Switching Collision Detectors
+-----------------------------
  
-干渉検出を行うアルゴリズムは様々なものが開発されています。それらを用途によって使い分けたり、より高速なアルゴリズムを利用したいといった要望に応えるため、Choreonoidでは干渉検出アルゴリズムを実装した「干渉検出器(Collision Detector)」をプラグインによって新たに追加し、それらを切り替えて使えるようになっています。
+Various algorithms for collision detection have been developed. To respond to a desire to use them according to their use or to use faster algorithms, Choreonoid has "Collision Detectors" with collision detection algorithms added by a plugin, and allows you to use them by switching them.
 
-干渉検出器の切り替えは、Worldアイテムの「干渉検出器」プロパティを設定することによって行います。このプロパティは選択式になっており、利用可能な干渉検出器の一覧が表示されるので、そこから希望のものを選択します。Choreonoidが提供する標準の干渉検出器は "AISTCollisionDetector" で、デフォルトではこれが選択されています。"NullCollisionDetector" というのも有りますが、これは空の干渉検出器を表しており、これを選ぶと干渉検出が行われません。
+To switch collision detectors, set the "Collision Detector" property of the World item. This property is specified by selecting an option. Select a desired one from the displayed list of available collision detectors. The standard collision detector provided by Choreonoid is "AISTCollisionDetector", which is selected by default. There also is "NullCollisionDetector", which represents an empty collision detector. If you select this, collision detection is not performed.
 
-プラグインを導入することで、これら以外の干渉検出器も利用可能となります。例えばChoreonoidのオプションのプラグインのひとつである「ODEプラグイン」は、Open Dynamics Engine (ODE) の干渉検出機能を用いた "ODECollisionDetector" という干渉検出器を提供しており、プラグインを導入すればこれが選択できるようになります。
+The other collision detectors become available by installing plugins. For example, the "ODE plugin", which is one of optional plugins for Choreonoid, provides a collision detector called "ODECollisionDetector" that uses the collision detection function of the Open Dynamics Engine (ODE). The collision detector becomes available after installing the plugin.

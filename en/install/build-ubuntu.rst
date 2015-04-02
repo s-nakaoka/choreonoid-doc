@@ -80,7 +80,7 @@ Note, however, that, among the software products listed above, OpenRTM-aist and 
 
 OpenRTM-asit is not included as a standard package of Ubuntu for the time being. You can either install the package from the additional repository provided by the developer or build from source codes. See OpenRTM-asit documents for detail. You need not install any OpenRTM plug-in if not required.
 
-Bullet is included as a standard package in Ubuntu 14.04, but you cannot build a Bullet plug-in as it seems that a necessary file is missing in this package. Therefore, when you build a Bullet plug-in, you should build Bullet itself from source codes and install it. Again, you need not install a Bullet plug-in if not required. For CMake setting when building Bullet, turn “ON” BUILD_SHARED_LIBS and USE_DOUBLE_PRECISION.
+Bullet is included as a standard package in Ubuntu 14.04, but you cannot build a Bullet plug-in as it seems that a necessary file is missing in this package. Therefore, when you build a Bullet plug-in, you should build Bullet itself from source codes and install it. Again, you need not install a Bullet plug-in if not required. For CMake setting when building Bullet, turn “ON” **BUILD_SHARED_LIBS** and **USE_DOUBLE_PRECISION**.
 
 Build Setting using CMake
 -------------------------
@@ -99,7 +99,8 @@ you can configure the different settings using the menu. See CMake manual for de
 
 Choreonoid has some more optional functions that cannot be built with the above-mentioned default setting. The general description of such optional functions is provided in :doc:`options` Enable such functions you desire in CMake setting. For example, if you desire to used the simulation function using Open Dynamic Engine, turn "ON" **BUILD_ODE_PLUGIN**. 
 
-.. note:: A directory to which CMake was executed is called **Built Directory** .n the above example, the building directories are generated under the source directory. In general, however, another directory should be created and used for build directories. By doing so, it will be possible to separate the source files and the intermediate files for build and also to use them simultaneously by giving different setting for debugging and releasing.  For example, if you create "build" directory under the source directory and use it as the build directory. Follow the instruction below: :: 
+.. note:: A directory to which CMake was executed is called **"Built Directory"** . In the above example, the building directories are generated under the source directory. In general, however, another directory should be created and used for build directories. By doing so, it will be possible to separate the source files and the intermediate files for build and also to use them simultaneously by giving different setting for debugging and releasing. 
+ For example, if you create "build" directory under the source directory and use it as the build directory. Follow the instruction below :: 
 
   mkdir build
   cd build
@@ -173,5 +174,7 @@ Though it is an excellent feature with regards to the unified appearance, it see
 To solve this, it is recommended to change the Qt style to a style other than GTK+. For this operation, it is easy to use a GUI tool called "qtconfig-qt4" shown below. (This tools can be initiated either by running "qtconfig-qt4" from the command line or executing "Qt4 configuration" from the application menu.)
 
 Provide a proper change to "GUI style" under "Appearance" tab on this tool. For example, change to "Cleanlooks" style. 
+
+.. image:: images/qtconfig-qt4-1.png
 
 This configuration can be reflected by executing "File" -> "Save" in this menu. By doing so, GUI of Choreonoid will move smoothly.

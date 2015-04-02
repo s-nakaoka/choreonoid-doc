@@ -46,7 +46,7 @@ Time axis operations can be performed on data with a temporal extent, which is c
  * - MediaItem
    - Item that stores media data, such as video.
 
-To try the time bar operations described below, prepare some sequence data items beforehand. For example, as introduced in Example of the SR1Walk Project, load the SR1Walk project and press the simulation start button to generate simulation results as an item named "AISTSimulator-SR1". Because this is an item of the above BodyMotionItem type, time axis operations can be performed on this item.
+To try the time bar operations described below, prepare some sequence data items beforehand. For example, as introduced in  :ref:`basics_project_sr1walk` , load the SR1Walk project and press the simulation start button to generate simulation results as an item named "AISTSimulator-SR1". Because this is an item of the above BodyMotionItem type, time axis operations can be performed on this item.
 
 
 Associating Sequence Data

@@ -1,6 +1,6 @@
 
-ロボット／環境モデルの基本
-==========================
+Basics of Robot/Environment Models
+==================================
 
 .. toctree::
    :maxdepth: 3

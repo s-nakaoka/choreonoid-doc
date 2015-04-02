@@ -1,80 +1,80 @@
 
-脚型モデルの操作
-================
+Operating a Leg-Type Model
+==========================
 
-Choreonoidは二足歩行ヒューマノイドロボットをはじめとする脚型ロボットの姿勢を操作するにあたって便利な機能を備えています。ここではそのような機能について紹介します。
+Choreonoid provides useful functions to operate the posture of a leg-type robot, including a biped humanoid robot. This section introduces these functions.
 
 .. contents::
    :local:
    :depth: 1
 
 
-サンプルモデル
+Sample Models
 --------------
 
-機能の紹介を行うためのサンプルとして、ここでは二足歩行ヒューマノイドロボット "GR001" のモデルを用いることとします。このモデルはChoreonoidのshareディレクトリの "model/GR001" ディレクトリに "GR001.yaml" というファイルで格納されています。また、このモデルを扱うサンプルプロジェクトとして、 "project/GR001Sample.cnoid" というプロジェクトファイルが用意されています。
+As a sample to introduce the functions, we use the model of the biped humanoid robot "GR001" here. The model is stored as the "GR001.yaml" file in the "model/GR001" directory in the share directory of Choreonoid. In addition, the project file "project/GR001Sample.cnoid" is available as a sample project to handle the model.
 
-準備として、このプロジェクトファイルを読み込んでください。するとシーンビューに以下のようなGR001ロボットのモデルが表示されるかと思います。
+Load the project file as a preparation. Then, the following model of the GR001 robot should be displayed in the scene view.
 
 .. image:: images/GR001Scene.png
 
 
-プリセット運動学による腰の操作
-------------------------------
+Operating the Waist Using Preset Kinematics
+-------------------------------------------
 
-脚型モデルの姿勢編集においては、足の接地位置を固定したまま腰の位置や姿勢を動かしたい場合があります。固定する足がひとつだけで良い場合は通常の逆運動学（足をベースリンクとして腰を動かす）でこれを実現することができますが、さらに複数の足を固定したまま腰を動かしたい場面も多いです。
+When editing the posture of a leg-type model, sometimes you want to move the position of the waist or the posture while the grounding positions of the legs are fixed. If only one leg needs to be fixed, this can be achieved using normal inverse kinematics (moving the waist using the leg as the base link). However, you often want to move the waist while multiple legs are fixed.
 
-実は脚型モデルにおいては通常「プリセット運動学モード」（ :ref:`model_kinematics_mode` 参照 ）で腰を動かせば、そのように複数の足を固定したまま腰を動かす逆運動学となります。これによって腰の位置や姿勢の編集を効率的に行うことができます。
+Actually, moving the waist of a leg-type model in "preset kinematics mode" (see :ref:`model_kinematics_mode` ) is normally an inverse kinematics operation that moves the waist while multiple legs are fixed. This enables you to efficiently edit the position of the waist or the posture.
 
-重心の表示
-----------
+Displaying the Center of Gravity
+--------------------------------
 
-脚型モデルの姿勢編集においては、ロボットのバランスがとれているかを、ロボット全体の重心位置を見ることで確認したいときがあります。シーンビューではこのためのマーカーを表示することが可能です。
+When editing the posture of a leg-type model, sometimes you want to check whether the robot is balanced by viewing the position of the center of gravity of the whole robot. The scene view can display markers for this purpose.
 
-表示の切り替えはシーンビューのコンテキストメニューから行うことができます。編集モードでマウスカーソルが対象モデルを指している状態で右クリックをすると、以下のようなメニューが現れます。
+You can switch the display from the context menu of the scene view. Right-click in edit mode while the mouse cursor points to the target model. The following menu appears.
 
 .. image:: images/GR001_context_menu.png
 
-ここで「マーカー」というサブメニューの中に、「重心」「重心投影点」という項目があるのが分かります。項目をクリックすることでチェックが入り、表示をオンにすることができます。（再度クリックするとチェックが消えて表示がオフになります。）
+You can see that there is the "Gravity Center" and "Projected Gravity Center Point" items in the "Marker" sub-menu. Click an item to check the item and to turn on the display of the marker. (Click the item again to remove the check and to turn off the display.)
 
-「重心」のチェックを入れると、重心位置が緑の十字線（交差している点が重心位置）で表示されます。また、「重心投影点」では、重心の床面への投影点（Z=0となる点）を表示します。これは、重心が足裏の領域に入っているかどうかをチェックする場合等で使います。
+When the "Gravity Center" is checked, the position of the center of gravity is displayed as green cross lines (the intersection point represents the position of the center of gravity). The "Projected Gravity Center Point" item displays the point of the center of gravity projected onto the floor surface (point where Z = 0). This is used when, for example, you check whether the center of gravity is within the sole area.
 
 .. _legged_model_zmp:
 
-ゼロモーメントポイント（ZMP）
+Zero Moment Point (ZMP)
 ----------------------------
 
-重心のマーカーと同様に、コンテキストメニューの「マーカー」-「ZMP」にチェックを入れることで、「ゼロモーメントポイント（ZMP）」を表すマーカーも表示することができます。これは以下の図で表示されている、緑色の球体と十字線からなるマーカーで、通常ロボットの足下付近に位置しています。
+As with the marker for the center of gravity, you can also display the marker for "zero moment point (ZMP)" by checking "Marker" - "ZMP" in the context menu. The marker, which consists of a green ball and cross lines, normally is located near the feet of the robot. 
 
 .. image:: images/GR001_context_menu_ZMP.png
 
-.. note:: ZMPは足裏が床面から受けるモーメントが0となる点（床反力の圧力中心）で、二足歩行制御における基本的な概念のひとつです。ZMPは実ロボットでは足裏接地面の凸包からなる「指示領域」内に存在しますので、この条件を目標動作軌道の計画や歩行安定化制御で用いることができます。詳細については `梶田秀司編著「ヒューマノイドロボット」 <http://www.amazon.co.jp/%E3%83%92%E3%83%A5%E3%83%BC%E3%83%9E%E3%83%8E%E3%82%A4%E3%83%89%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88-%E6%A2%B6%E7%94%B0-%E7%A7%80%E5%8F%B8/dp/4274200582>`_ 等の文献をあたってください。
+.. note:: The ZMP is a point at which the moment the sole receives from the floor surface is zero (center of pressure of floor reaction force), which is one of the basic concepts of biped walking control. Since the ZMP of an actual robot is present in the "specified area" consisting of the convex hull of the sole ground plane, you can use this condition for target motion trajectory planning and walking stabilization control. For details, see relevant documents, such as `"Humanoid Robot" by Shuuji Kajita. <http://www.amazon.co.jp/%E3%83%92%E3%83%A5%E3%83%BC%E3%83%9E%E3%83%8E%E3%82%A4%E3%83%89%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88-%E6%A2%B6%E7%94%B0-%E7%A7%80%E5%8F%B8/dp/4274200582>`_
 
-Choreonoidにおいて、ZMPマーカーは以下の２つの用途で使われます。
+In Choreonoid, the ZMP marker is used in the following two ways:
 
-ひとつめは、ある動作軌道データから計算されるZMPや、実機のセンサの状態から得られるZMPを表示するという用途です。これによって、動作軌道データや実機の状態が正常であるかを確認することができます。
+One use is to display the ZMP calculated from certain motion trajectory data or obtained from the state of a sensor of the actual machine. This enables you to check whether the motion trajectory data or the state of the actual machine is normal.
 
-ふたつめは、モデルの姿勢や動作の編集においてユーザがZMPの目標位置（目標ZMP)を与えるという用途です。この場合、ユーザはZMPマーカーの位置を任意に設定することができます。
+The other use is for the user to give the target position of the ZMP (target ZMP) when editing the posture or motion of a model. In this case, the user can arbitrarily set the position of the ZMP marker.
 
-ZMPマーカーを動かすひとつの方法は、シーンビュー上でZMPマーカーをマウスで直接ドラッグすることです。この場合、ZMPの垂直位置は床面上（Z=0）に固定しながら、床面上の２次元位置（X, Y座標）を変更することができます。
+One of the methods to move the ZMP marker is to directly drag the ZMP marker with the mouse in the scene view. In this case, you can change the two-dimensional position (X and Y coordinates) of the ZMP on the floor surface while the vertical position is fixed onto the floor surface (Z = 0).
 
-あるいは、脚型モデルに関しては :ref:`model_body_link_view` 上に以下の「ZMPパネル」が表示されますので、これを用いてZMPの位置を変更することも可能です。
+Or, you can also change the position of the ZMP using the following "ZMP panel" displayed in the :ref:`model_body_link_view` for a leg-type model.
 
 .. image:: images/BodyLinkView_ZMP.png
 
-この場合、座標値を用いて正確にZMPの位置を確認・変更することができます。
+In this case, you can precisely check and change the position of the ZMP using coordinate values.
 
 
 .. _model_legged_body_bar:
 
-脚型ボディバー
---------------
+Leg-type Body Bar
+-----------------
 
-脚型モデルの姿勢編集に便利な、重心やZMPマーカー等に関する操作をまとめたツールバーとして、以下の「脚型ボディバー」が用意されています。
+The following "leg-type body bar", which is useful for editing the posture of a leg-type model, is provided as a toolbar for a set of operations related to the markers for the center of gravity, ZMP, etc.
 
 .. image:: images/LeggedBodyBar.png
 
-.. note:: 本ツールバーはデフォルトでは表示されていませんので、利用にあたっては :ref:`basics_show_toolbar` の説明に従ってまず表示を行なってください。
+.. note:: This toolbar is not displayed by default. To use it, first display it by following the description in :ref:`basics_show_toolbar` .
 
 .. |i0| image:: ./images/center-cm.png
 .. |i1| image:: ./images/zmp-to-cm.png
@@ -84,7 +84,7 @@ ZMPマーカーを動かすひとつの方法は、シーンビュー上でZMP�
 .. |i5| image:: ./images/left-zmp.png
 .. |i6| image:: ./images/stancelength.png
 
-各アイコンの機能は以下のようになっています。
+The function of each icon is as follows:
 
 .. tabularcolumns:: |p{2.0cm}|p{13.0cm}|
 
@@ -93,52 +93,52 @@ ZMPマーカーを動かすひとつの方法は、シーンビュー上でZMP�
  :header-rows: 0
 
  * - |i0|
-   - 重心投影点が両足裏の中心に一致するように重心を水平移動します。
+   - Horizontally moves the center of gravity in such a way that the projected gravity center point matches the center of both soles.
  * - |i1|
-   - 重心投影点がZMPと一致するように重心を水平移動します。
+   - Horizontally moves the center of gravity in such a way that the projected gravity center point matches the ZMP.
  * - |i2|
-   - 重心投影点の位置にZMPをセットします。
+   - Sets the ZMP at the position of the projected gravity center point.
  * - |i3|
-   - ZMPを右足中心にセットします。
+   - Sets the ZMP at the center of the right foot.
  * - |i4|
-   - ZMPを両足中心にセットします。
+   - Sets the ZMP at the center of both feet.
  * - |i5|
-   - ZMPを左足中心にセットします。
+   - Sets the ZMP at the center of the left foot.
  * - |i6|
-   - 両足間の幅を調整します。幅の長さは隣の数値入力ボックスで設定します。
+   - Adjusts the width between both feet. Set the length of the width in the numerical value input box next to the icon.
 
-ZMPを右足中心、左足中心にセットする機能と、重心投影点をZMPに一致させる機能を組み合わせることにより、左右どちらかの足に重心を乗せた姿勢をセットすることもできます。
+You can also set a posture in which the center of gravity is put over either the left or right foot by combining the function to set the ZMP at the center of the right or left foot with the function to match the projected gravity center point with the ZMP.
 
-足裏の接地に関する操作
-----------------------
+Operations Related to Sole Grounding
+------------------------------------
 
-脚型ロボットの姿勢編集では足裏を床面に接地させる必要が生じます。ここではそのような操作を行う際のポイントを説明します。
+When you edit the posture of a leg-type robot, it becomes necessary to ground the soles pm the floor surface. This section describes points to note when performing such a operation.
 
-まず、足裏を接地させたり、床上を動かす際に、足裏面を床面と並行にしておきたい場合があります。この際に足裏面の元の姿勢が傾いているとすると、これが並行になるように修正しなければなりません。姿勢の修正はシーンビュー上で直接ドラッグすることでも行うことができますが、これだと希望の姿勢に正確に一致させるのは難しいです。
+In some cases, you want to make the sole surfaces parallel to the floor surface when grounding the soles or moving the part above the floor. If the original postures of the sole surfaces are tilted at this time, you must correct them so that they become parallel. Although you can correct a posture by directly dragging it in the scene view, it is hard to exactly match it with the desired posture using this method.
 
-足裏を水平にすればよい場合は、シーンビュー上で足のリンクに対してコンテキストメニューの「水平姿勢に」を実行すればOKです。また、床が傾いている場合でも、 :ref:`model_body_link_view` を使ってリンクのロール(R)、ピッチ(P)の値を調整すれば、比較的簡単に床面と並行な足裏の姿勢を得ることができるかと思います。
+If you want to make a sole parallel, simply execute "To horizontal posture" of the context menu on the link of the foot in the scene view. Also, if the floor is tilted, you should be able to obtain the posture of a sole parallel to the floor surface in a relatively easy manner by adjusting the roll (R) and pitch (pitch) values of the link in the :ref:`model_body_link_view` .
 
-また、足裏を接地させる際には、足裏の姿勢に加えて高さも床面と同じにし、床面にぴったりとフィットさせる必要が生じます。これを行うには、 :doc:`collision-detection` で紹介した :ref:`collision_detection_penetration_block` を使えばOKです。
+When you ground the soles, it becomes necessary to tightly fit the soles to the floor surface by setting not only the postures of the soles but also the altitude of them to the same as those of the floor surface. To do so, simply use the  :ref:`collision_detection_penetration_block` introduced in :doc:`collision-detection` .
 
-まず、干渉検出と貫通ブロック機能が有効となるように設定しておきます。次に、上述の操作で足裏面が床面と並行になるように調整しておきます。そして足のリンクを床面に向けて下げていきます。すると足裏面が床面と接触した時点でそれ以上床面方向には動かせなくなりますので、これをもって足裏面が床面とほぼ一致した高さにセットできます。足のリンクを床面に向けて下げる操作は、シーンビュー上で直接ドラッグしてもよいですし、ボディ／リンクビュー上でZ座標値を減少させていってもOKです。後者の場合は床面上での水平位置も調整しやすくなります。
+Enable collision detection and the penetration block function. Adjust the sole surfaces to make them parallel to the floor surface by performing the above operation. Lower the links of the feet toward the floor surface. When the sole surfaces contact with the floor surface, you cannot move them any further toward the floor surface. In this way, you can set the altitude of the sole surfaces to almost the same as that of the floor surface. You can perform an operation to lower the link of a foot toward the floor surface by directly dragging it in the scene view or decreasing the Z coordinate value in the body/link view. In the latter way, you can more easily adjust the horizontal position on the floor surface.
 
-床グリッドと床モデル
---------------------
+Floor Grid and Floor Model
+--------------------------
 
-シーンビュー上ではデフォルトで以下の図に示すような「床グリッド」が表示されています。
+The scene view displays the "floor grid" by default as shown in the figure below.
 
 .. image:: images/floorgrid.png
 
-これはZ=0の床面を想定したもので、シーンビュー上で床面の位置を把握しやすくするために用意されています。
+This assumes a floor surface of Z = 0 and is provided to enable you to easily perceive the position of the floor in the scene view.
 
-ただし床グリッドはあくまで表示を行うだけで、内部処理においては床面のモデルとして扱われているいるわけではなく、何も存在しないのと同じ扱いになっています。従って、シーン上に存在するBodyモデルとの干渉チェックも行えませんので、これだけでは床面を対象とした貫通ブロック機能も利用できませんし、動力学シミュレーションをする際にも物体がすり抜けて落ちていってしまうことになります。床グリッドの利用にあたっては、この点に注意する必要があります。
+However, the floor grid is only displayed and not handled as the model of the floor surface by internal processing, that is, it is handled as if nothing is present there. Therefore, you cannot check collision with a Body model present in the scene. In this state, you also cannot use the penetration block function for the floor surface, and an object passes through and drops from the floor surface when a kinetics simulation is performed. Pay attention to this point before using the floor grid.
 
-内部処理においても床面を有効とするためには、床面に対応するモデルをBodyアイテムとして読み込んでおく必要があります。床のモデルとしては、例えばChoreonoidのshareディレクトリに "model/misc/floor.wrl" というモデルファイルがあります。これを読み込んで表示すると、下図のように青い床が表示されます。
+To make the floor surface effective for internal processing, you must load the model corresponding to the floor surface as a Body item beforehand. Floor models include, for example, the model file "model/misc/floor.wrl" in the share directory of Choreonoid. Load and display the file to display the blue floor as shown in the figure below.
 
 .. image:: images/floor_model_grid.png
 
-このような床モデルの導入によって、床面との干渉に関わる機能が利用できるようになります。GR001のサンプルプロジェクトでもこの床のモデルが読み込まれるようになっています。
+Installing such a floor model enables you to use functions related to collision with the floor surface. The GR001 sample project is also designed to load this floor model.
 
-ただし、シーンビュー上に床のモデルを表示してしまうと、ロボットの姿勢編集操作がやりづらくなる場合もあります。これは例えば、足裏の状況を下側から見たくても床の裏面に隠れてしまって見えなかったり、マウスカーソルが床面を指してしまうことで視点変更が思い通りにできなかったりという理由によるものです。つまり、床面がロボットの操作の邪魔になってしまうことがあるのです。
+However, when a floor model is displayed in the scene view, sometimes it may be harder to perform operations to edit the posture of a robot. This is because, for example, you cannot view the condition of a sole from the underside since it is hidden by the backside of the floor, or you cannot change the viewpoint the way you want since the mouse cursor points to the floor surface. That is, the floor surface interferes with operations on a robot.
 
-そのような場合には、床のモデルは読みこむだけにしておいて、表示はオフにしておき、床面の把握には床グリッドのみを使うという手があります。このようにしておくと、床面との干渉も処理されつつ、床面が操作の邪魔になることもありません。この設定はロボットの姿勢編集が中心となる作業をする際にはおすすめで、GR001のサンプルプロジェクトでもこの設定になっています。
+In such a case, there is an option to use only the floor grid to perceive the floor surface by only loading the model of the floor and leaving the display of it off. If this is done, the floor surface does not interferes with operations while collision with the floor surface is processed. This setup is recommended for work focused on editing the posture of a robot. The GR001 sample project also has this setup.

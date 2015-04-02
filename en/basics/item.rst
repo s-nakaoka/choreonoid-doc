@@ -31,7 +31,7 @@ Load a Project" by selecting "File" ‐ "Load project" from Main Menu on the top
 
 You can select the project file to be loaded. Note that a project file normally has an extension "cnoid".
 
-n case Choreonoid was started up from command line, you can also load a project using :doc:`launch` as explained in the section of :ref:`basis_launch_projectfile` .
+In case Choreonoid was started up from command line, you can also load a project using  :ref:`basis_launch_projectfile` as explained in the section of  :doc:`launch` .
 
 Sample Projects
 --------------------
@@ -71,7 +71,7 @@ Here is an overview description of some samples. Load any sample that may intere
  * - GR001Sample.cnoid
    - Simulation of choreographing HIP Japan's biped robot kit "GR001" It is possible to operate the robot using the key frame data "SampleMotion1". By building and installing GRobot plug-in in advance, it is also possible to operate the production type of GR001.
  * - RIC30Sample.cnoid
-   - 株式会社アールティ製の二足歩行ロボットきっと"RIC30"の動作振り付けサンプル。内容はGR001と同様です
+   - Sample of motion choreographing of RT Corporation's biped robot kit "RIC30" It is similar to GR001.
  * - ClosedLinkSample.cnoid
    - Simulation sample of modelling of a closed loop mechanism
  * - ConveyorSample.cnoid
@@ -392,7 +392,7 @@ If the current project was loaded from a project file, it can be overwrite saved
 
 If you try to overwrite save when there is no original project file, the same operation as "Save As" is performed.
 
- project file is saved in the format of YAML. YAML is a format that describes structured information in a simple and highly-readable text file format. Though we skip a detailed explanation here, the employment of YAML format makes it possible to view and check a project file as a text file and edit it in the text editor relatively easily.
+project file is saved in the format of YAML. YAML is a format that describes structured information in a simple and highly-readable text file format. Though we skip a detailed explanation here, the employment of YAML format makes it possible to view and check a project file as a text file and edit it in the text editor relatively easily.
 
 Note that all data of a project are not always stored in a project file but part of them are saved in a file and the other data take reference to that file in some cases. For example, Robot and Floor models in SR1Walk project are saved separately in :doc:`../handling-models/modelfile/index` and their file names only are described in the project file. Please be noted that it is necessary to manage the data stored in a separate file in order to record the total project.
 

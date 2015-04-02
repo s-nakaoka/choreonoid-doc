@@ -1,19 +1,19 @@
 
 .. highlight:: yaml
 
-YAMLによる追加情報の記述
-========================
+Writing Additional Information in YAML
+======================================
 
-ChoreonoidではOpenHRP形式のモデルファイルを読み込むことができますが、さらにYAML形式のファイルと組み合わせることで、追加の情報を記述できるようになっています。モデルにこのファイルが用意されている場合は、そちらを読み込むようにすると、Choreonoidの機能を最大限に利用できるようになります。
+Choreonoid can load model files in OpenHRP format, and also is designed to enable you to write additional information in combination with a file in YAML format. If an additional information file is available for the model, load the file to make best use of the functions of Choreonoid.
 
 .. contents::
    :local:
    :depth: 1
 
-SR1サンプルモデルの追加情報
----------------------------
+Additional Information of the SR1 Sample Model
+----------------------------------------------
 
-以下に示すのは、SR1サンプルモデルの追加情報ファイル (SR1.yaml) の内容です。この例を通して、追加情報の具体的な記述方法を説明したいと思います。 ::
+The following is the contents of the additional information file (SR1.yaml) of the SR1 sample model. A specific writing method for additional information is described later through this example. ::
 
  modelFile: SR1.wrl
  
@@ -69,21 +69,21 @@ SR1サンプルモデルの追加情報
    excludeLinks: [ ]
 
 
-モデルファイル本体の指定
-------------------------
+Specifying the Main Model File
+------------------------------
 
-追加情報ファイルはあくまでモデルファイル本体に対して情報を追加するものであるため、まず本体となるモデルファイルが何であるかを明示しておく必要があります。
+Since the additional information file only adds information to the main model file, you must first clearly specify which file is the main model file.
 
-これを行っているのが以下の部分で、"modelFile" というキーにファイル名を記述します。 ::
+This is achieved by the following part. Write the file name after the "modelFile" key. ::
 
  modelFile: SR1.wrl
 
-追加情報ファイルと本体のファイルが同じディレクトリにある場合は、本体のファイル名のみでOKです。違うディレクトリにある場合は、そのディレクトリへの相対パスで記述します。
+If the additional information file is in the same directory as the main file, writing the name of the main file is enough. If it is in a different directory, write the path relative to the directory.
 
-標準姿勢の設定
---------------
+Standard Posture Settings
+-------------------------
 
-:doc:`../pose-editing` の :ref:`model_body_bar` で紹介した「標準姿勢」は、実際には追加情報ファイルに記述されています。これを行っているのが以下の部分です。 ::
+Actually, the "standard posture" introduced in  :ref:`model_body_bar` in :doc:`../pose-editing` is written in the additional information file. This is achieved by the following part. ::
 
  standardPose: [ 
      0, -30, 0,  60, -30, 0,
@@ -93,20 +93,20 @@ SR1サンプルモデルの追加情報
      0,   0, 0 
  ]
 
-このように "standardPose" というキーに標準姿勢に対応する関節角をリストとして記述します。関節角を並べる順番は関節IDの順で、関節角の単位は [degree] （直動関節の場合は [m]）になります。
+As you can see, joint angles corresponding to the standard posture are written under the "standardPose" key in the form of a list. The joint angles are arranged in the order of joint IDs, and the unit of joint angle is [degree] (for a linear motion joint, [m]).
 
-リンクのグループ構造の設定
---------------------------
+Link Group Structure Settings
+-----------------------------
 
-:doc:`../bodymodel` の :ref:`model_structure` で紹介した「リンクビュー」では、モデルが有するリンクの一覧が表示され、モデルの構造を確認することができました。また、ここで編集操作の対象となるリンクを選択することもできました。
+The "link view" introduced in :ref:`model_structure`  in :doc:`../bodymodel` displays a list of the links of a model, allowing you to check the structure of the model. You can also select the target link of an edit operation from the view.
 
-このリンクビューではモデル構造の表示の仕方を上部のコンボボックスで切り替えることができるのですが、その中に「身体部位ツリー」という表示方法があります。これを選択するとSR1モデルの場合は以下のような表示になります。
+The link view allows you to switch the way how the model structure is displayed using the combo box at the upper part of the view. The combo box provides the display method "Body part tree" as one of its items. When the item is selected, the following display appears In the case of the SR1 model.
 
 .. image:: images/linkview_bodyparttree.png
 
-ここでは、リンクが階層的にグループ化された身体部位ごとに分けられて表示されます。これを用いることで、リンクと身体部位の関係が把握しやすくなります。このため、この表示方法はキーポーズによる振り付け機能でも使われています。
+The view displays links that are broken down by hierarchically grouped body part. This enables you to understand the relationship between links and body parts. Therefore, this display method is also used for the choreography function with key poses.
 
-このような階層グループ構造を記述しているのが、"linkGroup" というキーから始まる以下の部分です。 ::
+The following part beginning with the "linkGroup" key describes such a hierarchical group structure. ::
 
  linkGroup:
    - name: UPPER-BODY
@@ -137,12 +137,12 @@ SR1サンプルモデルの追加情報
                   LLEG_ANKLE_R ]
 
 
-ここでは、マップとリストの組み合わせでグループとそこに分類されるリンクを記述しています。"name" はグループ名を表していて、"links" 以下にそこに所属するリンクや下位のグループを記述しています。
+This part describes groups and the links categorized into each group using combinations of maps and lists. "name" indicates the group name, and links and subgroups belonging to the group are written under "links".
 
-足リンクの設定
---------------
+Leg Link Settings
+-----------------
 
-脚型のモデルについては、どのリンクが足のリンクであるかを明示し、さらに足の操作に関する情報を記述しておくことで、Choreonoidが提供する脚型モデルを対象とした機能を活用できるようになります。これを行っているのが以下の部分です。 ::
+For a leg-type model, clearly specify which link is a leg link and write information on leg operations. This enables you to utilize functions for leg-type models provided by Choreonoid. This is achieved by the following part. ::
 
  footLinks:
    - link: RLEG_ANKLE_R
@@ -150,47 +150,47 @@ SR1サンプルモデルの追加情報
    - link: LLEG_ANKLE_R
      soleCenter: [ 0.05, 0.0, -0.055 ]
 
-このように、"footLinks" というキーに足に相当する（床と設置可能な足裏を有する）リンクの情報をリストで列挙します。各足リンクの情報は、"link"というキーにリンク名を記述し、"soleCenter"というキーに足裏の中心点を足リンクからの相対座標で記述します。これによって、例えば :ref:`model_legged_body_bar` の機能が使えるようになります。
+As you can see, information on links that correspond to legs (have soles that can be grounded on the floor) is listed under the "footLinks" key. Write information on each leg link by writing the link name after the "link" key and the center point of the sole after the "soleCenter" key using coordinates relative to the leg link. This enables you to use, for example, the :ref:`model_legged_body_bar` function.
 
-.. note:: "soleCenter" に記述する中心点は、重心投影点やZMPがそこにあるときに一番安定となる点を想定したものであり、必ずしも幾何学的な中心である必要はありません。例えば制御上足首付近が安定点である場合は、仮に足首が足裏の中心から外れた位置に接続されている場合でも、soleCenterには足首の位置を設定しておきます。
+.. note:: The center point write after "soleCenter" is assumed to be the most stable point when the projected gravity center point or the ZMP exists there, and need not necessarily be the geometric center. For example, if the stable point is near the ankle for the sake of control, set the position of the ankle in soleCenter even when the ankle is connected to a position off from the center of the sole.
 
 .. _modelfile_yaml_preset_kinematics:
 
-プリセット運動学の設定
-----------------------
+Preset Kinematics Settings
+--------------------------
 
-:doc:`../pose-editing` - :ref:`model_kinematics_mode` で述べた「プリセット運動学モード」では、ユーザが動かそうとしてるリンクに応じて自動的に順運動学と逆運動学が切り替わるようになっていました。この設定を行っているのが、追加情報ファイルにおける以下の部分です。 ::
+In "preset kinematics mode", which was described in :doc:`../pose-editing` - :ref:`model_kinematics_mode` , the mode automatically switches between forward kinematics and inverse kinematics according to the link the user tries to move. Settings for this are configured in the following part of the additional information file. ::
 
  defaultIKsetup:
    WAIST: [ RLEG_ANKLE_R, LLEG_ANKLE_R ]
    RLEG_ANKLE_R: [ WAIST ]
    LLEG_ANKLE_R: [ WAIST ]
 
-ここで行っている設定は以下の２つです。
+The following two settings are configured here:
 
-* WAISTリンク（腰）を動かす際には、RLEG_ANKLE_Rリンク（右足）とLLEG_ANKLE_Rリンク（左足）の両方をベースリンクとして固定した逆運動学を行う
-* RLEG_ANKLE_Rリンクを動かす際には、WAISTリンクをベースリンクとした逆運動学を行う
-* LLEG_ANKLE_Rリンクを動かす際には、WAISTリンクをベースリンクとした逆運動学を行う
+* When the user tries to move the WAIST link (waist), inverse kinematics is performed with both the RLEG_ANKLE_R link (right leg) and the LLEG_ANKLE_R link (left leg) fixed as base links.
+* When the user tries to move the RLEG_ANKLE_R link, inverse kinematics is performed using the WAIST link as the base link.
+* When the user tries to move the LLEG_ANKLE_R link, inverse kinematics is performed using the WAIST link as the base link.
 
-このように、プリセット運動学モード時に逆運動学としたいリンクと、その際のベースリンクを指定すればOKです。
+In this way, simply specify the link for which inverse kinematics is to be performed in preset kinematics mode, and the base link(s) to be used in that case.
 
-干渉検出の設定
---------------
+Collision Detection Settings
+----------------------------
 
-"collisionDetection"キーでは干渉検出に関わる設定が記述されています。 ::
+Settings related to collision detection are written under the "collisionDetection" key. ::
 
  collisionDetection:
    excludeTreeDepth: 3
    excludeLinks: [ ]
 
-"excludeTreeDepth" については、関節ツリーにおいて親子関係で隣接しているリンクを自己干渉から外す設定です。この値が 0 だと全てのリンクのペアについて干渉が無いかをチェックしますが、この値を 1 にすると、直接接続されているリンク同士では自己干渉チェックを行わなくなります。値を増やすと、その分だけ接続が離れているリンクも干渉チェック対象外に加えるようになります。
+The "excludeTreeDepth" setting is used to exempt adjacent links in a parent-child relationship in the joint tree from self-collision. When a value of 0 is set, all pairs of links are checked for collision. When a value of 1 is set, the self-collision check is not performed on links that are directly connected each other. If you increase the value, links that are further apart from each other by the increment are also exempted from the collision check.
 
-また、"excludeLinks" には、そもそも干渉チェックの対象外とするリンクをリンク名で指定できます。
+In "excludeLinks", you can specify the names of links to be exempted from the collision check from the first.
 
-他のリンクに埋め込まれた関節や、複数の回転軸を組み合わせた関節において、関節内部での干渉は可動範囲内では本来は起こさないように設計する必要がありますが、モデルファイルの形状をそこまで作りこむのには手間がかかることもあります。逆に、柔軟な表面で覆われたリンクでは設計上干渉が許容されることもあります。そのような場合に、上記の設定によって干渉チェックの対象外となるリンクを設定することで、Choreonoid上での操作を効率的に行うことが可能となります。
+For a joint that is embedded in another link or a joint that has a combination of multiple rotation axes, it is normally necessary to design to prevent collision inside the joint from occurring in the movable range. However, it may take time and effort to elaborate shapes in the model file to such a degree. In contrast, the design of links covered with soft surfaces may tolerate collision. In that case, specify links to be exempted from the collision check using the above setting. This enables you to perform operations efficiently in Choreonoid.
 
 
-その他の情報の記述について
---------------------------
+About Other Information Description
+-----------------------------------
 
-以上、SR1サンプルで記述されている主な情報について説明しましたが、追加情報ファイルにはYAML形式であればどのような情報を記述してもOKです。その内容はChoreonoid内部で読めるようになっており、各機能はこれによって必要な情報を得ることができます。これによって、新たに導入するプラグインが要求する情報を記述しておけば、そのプラグインの機能を使えるようになりますし、ユーザがプラグインを開発する場合でも、必要な情報をユーザが定義して利用することができます。このように、YAMLによる追加情報ファイルは柔軟に扱えるようになっており、Choreonoidの機能拡張においても重要な役割を果たす仕組みとなっています。
+Although main information written in the SR1 sample has been described so far, you can write any information in the additional information file, as long as it is in YAML format. The contents of the file can be read internally in Choreonoid, and each function can obtain required information through the file. If information required by a new plugin to be installed is written in the file, the functions of the plugin can be used. Even when a user develops a plugin, the user can use the file by defining required information. Thus, the additional information file in YAML can be handled flexibly and is designed to play a important role in enhancing the functions of Choreonoid.

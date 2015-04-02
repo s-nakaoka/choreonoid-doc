@@ -1,47 +1,47 @@
 
-環境設定
-========
+Environment Settings
+====================
 
-概要
-----
+Overview
+--------
 
-Choreonoidでは、以下のような設定項目は、ユーザーごとの設定項目として環境設定ファイルに保存され、Choreonoid起動時に以前の設定が引き継がれるようになっています。
+Choreonoid is designed to save the following setting items to the environment configuration file as user-specific setting items and take over the previous settings when it starts.
 
-* ウィンドウが最大化されているか
-* ウィンドウサイズ
-* ファイル読み込み、保存ダイアログにおけるカレントディレクトリ
-* プロジェクトファイルのレイアウト保存／読み込みを有効にするか ( :ref:`basics_layout_save` 参照)
+* Whether the window is maximized
+* Window size
+* Current directory in a file load and save dialog
+* Whether to enable the saving/loading of the layout of project files (see :ref:`basics_layout_save` )
 
-一方で、アイテムやツールバー、ビューの状態は、環境設定としては保存されませんので、現在の状態を引き継ぎたい場合は、プロジェクトファイルへの保存を行い、次回利用時にそれを読み込む必要があります。
+On the other hand, the state of the item, toolbar, and view is not saved as environment settings. If you want to take over the current state, you must save it to the project file and load it the next time you use it.
 
-環境設定ファイル
-----------------
+Environment Configuration File
+------------------------------
 
-環境設定ファイルはOSのユーザアカウントごとにひとつ作成されます。ファイルの場所は、Unix系のOSではホームディレクトリの ".config/Choreonoid/Choreonoid.conf" というファイルになります。従って、このファイルを消去したりコピーしたりすることで、環境設定のクリアやコピーを行うことができます。また、設定内容はこのファイルにYAML形式のテキストで書き込まれますので、環境設定に何か問題が生じた場合はこのファイルを直接編集して問題解決を試みることも可能となっています。
+An environment configuration file is created for each OS user account. The file is located in ".config/Choreonoid/Choreonoid.conf" under the home directory on a Unix OS. Therefore, you can clear or copy environment settings by deleting or copying this file. Since settings are written to the file in YAML text format, you can also try to solve a problem by directly editing the file if any problem occurs in environment settings.
 
 
 .. _basics_project_pathset:
 
-プロジェクトパス変数
+Project Path Variable
 --------------------
 
-環境設定項目のひとつである「プロジェクトパス変数」は、プロジェクト読み込み時の関連ファイルの読み込みをポータブルにする仕組みです。この機能を活用することで、異なるディレクトリに格納されている様々なファイルから構成されるプロジェクトに関しても、プロジェクトファイルを保存したのとは異なる環境で読み込むことが可能となります。
+The "project path variable", which is one of the environment setting items, is a mechanism to load related files in a portable way when a project is loaded. This function enables you to load a project from an environment different from one where the project file is saved, even as for a project consisting of various files stored in different directories.
 
-一般的に、プロジェクトはプロジェクトファイル以外のファイルからも構成されます。例えば :ref:`basics_project_sr1walk` では、ロボットと床の２つのモデルがBodyItem型のアイテムとして読みこまれていましたが、これらはそれぞれ "SR1.yaml"、"floor.wrl" というモデルファイルから読みこまれたものとなっています。プロジェクトファイルにおいてはそれらのモデルファイルへのパスのみが記録されるようになっており、プロジェクト読み込み時にはモデルファイル自体も読み込める状態になっている必要があります。
+Generally, a project consists of not only the project file but also other files. For example, in the :ref:`basics_project_sr1walk` , two models, robot and floor, were loaded as items of the BodyItem type from the model files "SR1.yaml" and "floor.wrl", respectively. The project file only records the paths to the model files, and they must also be ready to be loaded when the project file is loaded.
 
-ところが、モデルファイルを格納するディレクトリは環境によって異なる可能性があります。例えばユーザAはモデルファイルを /home/userA/models 以下に格納していて、ユーザBは /home/userB/robots 以下に格納しているかもしれません。この場合、ユーザAの環境で保存されたプロジェクトファイルでは /home/userA/models 以下を参照するようになっていると、ユーザBの環境ではそのようなディレクトリにはモデルファイルを入れていないため、モデルが読み込めないことになってしまいます。
+However, directories that store model files may vary depending on the environment. For example, user A may store model files in /home/userA/models and user B may store them in /home/userB/robots. In this case, if the project file saved in the environment of user A is configured to reference directories under /home/userA/models, model loading fails because model files are not stored in such directories in the environment of user B.
 
-そこでChoreonoidでは、プロジェクトファイルにおける外部ファイルへの参照に関して、以下のようなルールで参照を記録します。
+Therefore, Choreonoid records references from a project file to external files under the following rules:
 
-1. 外部ファイルがプロジェクトファイルと同じディレクトリかサブディレクトリにある場合、プロジェクトファイルのあるディレクトリからの相対パスとして記録する
-2. 1が適用されない場合、外部ファイルへのパスに「パス変数」として登録されたディレクトリが含まれていれば、そのディレクトリに対応する部分を変数名に置き換えて記録する
-3. 2も適用されない場合は、外部ファイルはルートディレクトリからの絶対パスで記録する
+1. If an external file is in the same directory as the project file or its subdirectory, Choreonoid records it as a path relative to the directory of the project file.
+2. If 1 is not applicable, and if a directory registered as "path variable" is included in the path to the external file, Choreonoid replaces the part corresponding to the directory with the variable name and records the path.
+3. If 2 is not also applicable, Choreonoid records the external file as the absolute path from the root directory.
 
-まず1のルールにより、プロジェクトを構成するファイル一式をプロジェクトファイルと同じディレクトリにまとめている場合には、そのディレクトリをそのままコピーすることで異なる環境でも問題なく読み込むことができます。
+First, if a set of files constituting the project is stored in the same directory as the project file, rule 1 allows you to load the files without any problem even in a different environment by copying the directory as is.
 
-ただしモデルファイルは様々なプロジェクトで共有したい場合もあり、さらにChoreonoidのプロジェクトとは関係なく使いたい場合もあるため、モデルファイルはプロジェクトファイルとは異なるディレクトリに格納するのが一般的です。そのような場合には2のルールである「パスセット」の仕組みを活用できます。
+However, since there may be cases in which various projects need to share model files or you want to use them independently of Choreonoid projects, it is common to store model files in different directories from the project file. In such a case, you can utilize the "path set" mechanism, which is rule 2.
 
-パスセットはディレクトリにラベルをつけて登録する機能となっていて、必要なだけ登録することができます。上記のユーザーAとユーザーBの場合では、例えばそれぞれ以下のように登録をしておきます。
+The path set is a function to register directories by putting labels. You can register as many directories as you like. For example, in the above case of user A and user B, register directories beforehand in the following way.
 
 .. tabularcolumns:: |p{2.0cm}|p{2.0cm}|p{4.0cm}|
 
@@ -49,24 +49,24 @@ Choreonoidでは、以下のような設定項目は、ユーザーごとの設�
  :widths: 24,25,50
  :header-rows: 1
 
- * - ユーザ
-   - 変数名
-   - ディレクトリ
- * - ユーザA
+ * - User
+   - Variable Name 
+   - Directory
+ * - User A
    - MODEL
    - /home/userA/models
- * - ユーザB
+ * - User B
    - MODEL
    - /home/userB/robots
 
-このように登録しておくと、例えば "SR1.yaml" が上記のディレクトリに格納されていれば、プロジェクトファイルでは "${MODEL}/SR1.yaml" といったかたちで変数名を介した記述になります。すると、読み込み時には ${MODEL} の部分が登録されている実際のディレクトリに展開されて、ユーザA、ユーザBのどちらの環境でも読み込めるようになります。
+If you register directories beforehand in this way and "SR1.yaml", for example, is stored in either of the above directories, the path is written to the project file in the form of "${MODEL}/SR1.yaml", where the variable name is used. Then, at load time, the ${MODEL} part is expanded to the registered actual directory, which enables loading from either of the user A and user B environments.
 
-Choreonoidではデフォルトで、Choreonoidのインストール先のトップディレクトリを示す "PROGRAM_TOP" という変数と、shareディレクトリを示す "SHARE" という変数が登録されています。従って、インストール先やそのshareディレクトリ以下のどこかにファイルを置くようにしておけば、それだけでそのファイルを利用するプロジェクトファイルをポータブルにすることができます。
+In Choreonoid, the "PROGRAM_TOP" variable, which indicate the top directory of the Choreonoid installation destination, and the "SHARE" variable, which indicates the share directory, are registered by default. Therefore, simply placing files in the installation destination or directories under the share directory is enough to make the project file that uses the files portable.
 
-それ以外のパス変数を定義したい場合は、メインメニューの「ファイル」-「プロジェクトファイルオプション」-「パス変数の設定」を選択すると現れる以下のダイアログで設定を行います。
+If you want to define a path variable other than them, configure settings in the following dialog, which is displayed by selecting the main menu "File" - "Project File Options" - "Path Variable Settings".
 
 .. image:: images/PathVariableEditor.png
 
-まず、「追加」ボタンの左側に「変数」とあるテキストボックスに、追加した変数名を入力します。ここでは "MODEL" という変数名を入れています。そして「追加」ボタンを押すと、この変数が上部の変数リストに追加され、その「パス」の部分が編集できるようになりますので、そこに実際のディレクトリを入力してください。ここではユーザAを想定して "/home/userA/models" を入力しています。
+First, enter the added variable name in the text box labeled "Variable" on the left of the "Add" button. The variable name "MODEL" is entered in this example. Then, click the "Add" button to add the variable to the variable list in the upper part. This makes the "path" field editable. Enter the actual directory in the field. This example assumes user A, and "/home/userA/models" is entered.
 
-編集が終わったら「適用」ボタンを押すと編集内容が環境設定として記録されます。
+When you finish editing, click the "Apply" button to record the contents of the edit as environment settings.

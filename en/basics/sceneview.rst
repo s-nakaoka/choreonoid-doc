@@ -249,7 +249,7 @@ The following setting items are also provided:
 
 * Add checkboxes dedicated for selecting target items to the item tree view
  
-You may want to create multiple scene views and display different objects in each view. In that case, select this checkbox to display checkboxes dedicated to the target scene view on the right of the item tree view. Use them to turn on/off display in the scene view. If there are multiple scene views, the target view of the settings dialog will be the scene view that is focused last when the dialog appears.
+ You may want to create multiple scene views and display different objects in each view. In that case, select this checkbox to display checkboxes dedicated to the target scene view on the right of the item tree view. Use them to turn on/off display in the scene view. If there are multiple scene views, the target view of the settings dialog will be the scene view that is focused last when the dialog appears.
 
 Saving the State and Settings of the Scene View
 -----------------------------------------------

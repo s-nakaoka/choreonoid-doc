@@ -1,71 +1,66 @@
 
-OpenHRPモデルファイル
+OpenHRP Model File
 =====================
 
 .. contents::
    :local:
    :depth: 1
 
-概要
-----
+Overview
+--------
 
-OpenHRP形式のモデルファイルは、3次元モデルを記述するための言語である "VRML97" をベースとしています。
-モデルファイルひとつにつき、ロボットや環境のモデル１体を記述するようにします。
-また、ファイルの拡張子にはVRML97の拡張子である ".wrl" をつけるようにします。
+Model files in OpenHRP format is based on "VRML97", which is a language to describe three-dimensional models. One robot or environment model is described per model file. The VRML97 extension of ".wrl" is appended as the file extension.
 
-モデルファイルの基本的な構成は、 
+The basic configuration of a model file consists of:
 
-* PROTO宣言部（構造体宣言部）
-* 実モデル定義部（PROTOを用いたインスタンス表記部）
+* PROTO declaration part (structure declaration part)
+* Real-model definition part (instance notation part using PROTO)
 
-からなります。
+The PROTO declaration part uses the node called "PROTO", which corresponds to the structure in C language, to define new nodes that are not defined by VRML97. The following nodes are defined as PROTO nodes. A model is created by building up these instances.
 
-PROTO宣言部ではVRML97では定義されていない新たなノードを定義するため，C言語における構造体にあたる "PROTO" と呼ばれるノードを使います。PROTOノードとしては以下のようなものが定義されており、これらのインスタンスを組み上げていくことにより、モデルを作成します。
+The following nodes are defined as nodes that define the link structure and kinetics/mechanical parameters. (These nodes are extended/modified from ones established by the "h-anim1.1" format, which is for description of human figures.)
 
-リンク構造、動力学/機構パラメータを定義するノードとして、以下のノードが定義されています。（これらのノードは、ヒューマンフィギュアを記述するためのフォーマット "h-anim1.1" で制定されているものをベースとして拡張/変更したものとなっています。）
+* Humanoid node
+* Joint node
+* Segment node
+* ExtraJoint node
 
-* Humanoidノード
-* Jointノード
-* Segmentノード
-* ExtraJointノード 
+A model is created through the creation of a hierarchy structure by combining instances of these nodes in the real-model definition part. For example, a humanoid robot has a structure as shown below. ::
 
-実モデル定義部においてこれらのノードのインスタンスを組み合わせて階層構造を作ることで、モデルを作成していきます。例えば
-人間型ロボットの場合は以下のような構造となります。::
-
- Humanoid sample（一塊のモデルのルート）
-   + Joint 腰部 (ヒューマノイドの中心。空中に浮遊する非固定点)
+ Humanoid sample（The root node of the whole model）
+   + Joint Waist (The center of the humanoid. A free point floats in the s)
    |　....
    |
-   |  + Joint 胸部
-   |    + Joint 頭部
-   |    + Joint 左腕部
-   |    + Joint 右腕部
+   |  + Joint Chest
+   |    + Joint Head
+   |    + Joint Left Arm
+   |    + Joint Right Arm
    |
-   + Joint 左脚部
+   + Joint Left Leg
    |
-   + Joint 右脚部
+   + Joint Right Leg
 
-つまり、空中に浮いた「腰部」に「左脚」、「右脚」に対応する鎖と「胸部」へと繋がる鎖がつながっており、さらに「胸部」から、「頭部」、「左腕」、「右腕」の鎖がつながっている、という構造です。
+This is a structure where "Waist" has a chain connected to "Left Leg" and "Right Leg" and a chain connected to "Chest", and "Chest" has a chain connected to "Head", "Left Arm", and "Right Arm".
 
-また、各種センサを定義するための以下のPROTOノードも用意されています。
+In addition, the following PROTO nodes are available to define various sensors.
 
-* AccelerationSensorノード
-* GyroSensorノード
-* VisionSensorノード
-* ForceSensorノード
-* RangeSensorノード 
+* AccelerationSensor node
+* GyroSensor node
+* VisionSensor node
+* ForceSensor node
+* RangeSensor node 
 
-これらのノードを用いることにより、モデルにセンサ情報を含めることが可能です。
+You can include sensor information in a model by using these nodes.
 
-以下では各ノードの詳細を説明します。
+The following describes the details of each node.
 
-リンク構造、動力学/機構パラメータを定義するノード
--------------------------------------------------
+Nodes that Define the Link Structure and Kinetics/Mechanical Parameters
+-----------------------------------------------------------------------
 
-Humanoidノード
+Humanoid Node
 ~~~~~~~~~~~~~~
 
-Humanoidノードは、モデルのルートノードです。 ::
+The Humanoid node is the root node of the model. ::
 
 	PROTO Humanoid [
 	  field         SFVec3f     bboxCenter        0 0 0
@@ -106,52 +101,51 @@ Humanoidノードは、モデルのルートノードです。 ::
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: Humanoidノードのフィールド
+.. list-table:: Humanoid Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - bboxCenter
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - bboxSize
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - center
-   - Jointノードの "center" を参照してください。
+   - See "center" described for the Joint node.
  * - humanoidBody
-   - 子ノードをぶら下げるフィールドです。0個以上のJointノード、0または1個のSegmentノードをぶらさげます。
+   - Field which child nodes belong to. 0 or more Joint nodes and 0 or 1 Segment nodes belong to this field.
  * - info
-   - モデルに関するコメントを記述するフィールドです。
+   - Field that describes comment regarding the model.
  * - joints
-   - 定義したJointの一覧を格納するフィールドです。
+   - Field that stores a list of defined Joints.
  * - name
-   - モデルの名前を指定するフィールドです。
+   - Field that specifies the name of the model.
  * - rotation
-   - Jointノードの "rotation" を参照してください。
+   - See "rotation" described for the Joint node.
  * - scale
-   - Jointノードの "scale" を参照してください。
+   - See "scale" described for the Joint node.
  * - scaleOrientation
-   - Jointノードの "scaleOrientation" を参照してください。
+   - See "scaleOrientation" described for the Joint node.
  * - segments
-   - 定義したSegmentの一覧を格納するフィールドです。
+   - Field that stores a list of defined Segments.
  * - sites
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - translation
-   - Jointノードの "translation" を参照してください。
+   - See "translation" described for the Joint node.
  * - version
-   - モデルのバージョン番号を指定するフィールドです。
+   - Field that specifies the version number of the model.
  * - viewpoints
-   - 仮想環境における視点位置を指定するフィールドです。
+   - Field that specifies the positions of viewpoints in a virtual environment.
 
 
-.. note::
-	モデルのルートノードとなるHumanoidノードがただ一つだけ存在するようにします。また、Humanoidノードのjointsフィールド、segmentsフィールドには、それぞれモデル中で使用されているJoint名、Segment名をすべて列挙します。
+.. note:: Ensure that there is only one Humanoid node, which is the root node of the model. Also ensure that the joints and segments fields of the Humanoid node list all the Joint and Segment names, respectively, that are used in the model.
 
 
-Jointノード
+Joint Node
 ~~~~~~~~~~~
 
-Jointノードはリンクフレームを定義します。 ::
+A Joint node defines a link frame. ::
 
 	PROTO Joint [
 	  exposedField     SFVec3f      center              0 0 0
@@ -190,81 +184,80 @@ Jointノードはリンクフレームを定義します。 ::
 
 .. tabularcolumns:: |p{2.5cm}|p{12.5cm}|
 
-.. list-table:: Jointノードのフィールド
+.. list-table:: Joint Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - name
-   - Joint名を指定するフィールドです。
+   - Field that specifies the Joint name.
  * - translation
-   - ローカル座標系の位置を設定するフィールドです。親ノードからのオフセット値を指定します。
+   - Field that sets the position in the local coordinate system. Specify an offset value relative to the parent node.
  * - rotation
-   - ローカル座標系の姿勢を設定するフィールドです。親ノードからのオフセットを指定します。
+   - Field that sets the posture in the local coordinate system. Specify an offset relative to the parent node.
  * - center
-   - 関節回転中心の位置を指定するフィールドです。ローカル座標系原点からのオフセットで指定します。
+   - Field that specifies the position of the joint rotation center. Specify an offset relative to the origin of the local coordinate system.
  * - children
-   - 子ノードをぶら下げるフィールドです。0個以上のJointノード、0または1個のSegmentノードをぶらさげます。
+   - Field which child nodes belong to. 0 or more Joint nodes and 0 or 1 Segment nodes belong to this field.
  * - jointType
-   - 関節タイプを設定するためのフィールドです。free, slide, rotate, fixed のうちのいずれかを指定します。"free" は任意軸方向への並進・任意軸回りの回転が可能で、rootリンクが固定されないモデルのrootリンクに設定します（6自由度）。"rotate" はjointAxisで指定する軸回りの回転のみ可能です(1自由度)。"slide" はjointAxisで指定する軸方向への並進直動関節となります(1自由度)。"fixed" は関節を固定します(自由度なし)。
+   - Field that is used to set the joint type. Specify free, slide, rotate, or fixed. "free" enables translation along any axis and rotation around any axis. This value is set for the root link of a model for which the root link is not fixed (6 degrees of freedom). "rotate" enables rotation only around the axis specified in jointAxis (1 degree of freedom). "slide" makes the joint a linear motion joint that translates only along the axis specified in jointAxis (1 degree of freedom). "fixed" fixes the joint (0 degrees of freedom).
  * - jointId
-   - 関節番号を指定するためのフィールドです。 jointIdは関節角度等の属性値を配列形式に並べて格納する際に何番目の要素に入れるかを指定するために利用されます。多くの場合、ロボットのコントローラ開発において関節角度を読み取ったり、指定したりできるのは制御可能な関節のみですから、そのような関節にjointIdを付ける、と考えていただければよろしいかと思います（必ずそうでなければならないということではありません）。以下、Idのつけ方に関するルールを示します。jointIdは0から始まる。jointIdには連続した整数値を用いる（間が空いたり、重複したりしていないこと）。
+   - Field that is used to specify the joint number. jointId is used when attribute values, such as joint angle, are arranged and stored in an array. It is used to specify in which element in the array an attribute value is stored. In many cases in robot controller development, only controllable joints allows their joint angles to be read or specified. Therefore, it can be considered that jointId is assigned such a joint (which is not an imperative). The following rules apply when assigning the Ids: jointIds start from 0. A continuous sequence of integers are used for jointIds. (There should be no gap or overlap.)
  * - jointAxis
-   - 関節の軸を指定するためのフィールドです。OpenHRPのバージョン2までは文字列の"X"、"Y"、"Z"のいずれかで軸を指定していましたが、 OpenHRP3以降ではベクトルを用いて任意方向への軸を指定可能となっています。 旧バージョンの指定法もサポートはされますが、今後は新しい指定法をお使いください。
+   - Field that is used to specify the axis of the joint. In OpenHRP version 2 or earlier, the axis is specified using a character string "X", "Y", or "Z". In OpenHRP 3 or later, however, an axis of any direction can be specified using a vector. Although the specification method for earlier versions is also supported, use the new specification method from now on.
  * - ulimit
-   - 関節回転角度の上限値[rad]を指定するフィールドです。（デフォールト値："+∞"）
+   - Field that specifies the upper limit [rad] of the joint rotation angle. (Default value: "+∞")
  * - llimit
-   - 関節回転角度の下限値[rad]を指定するフィールドです。（デフォールト値："-∞"）
+   - Field that specifies the lower limit [rad] of the joint rotation angle. (Default value: "-∞")
  * - uvlimit
-   - 関節回転角速度の上限値[rad/s]を指定するフィールドです。（デフォールト値："+∞"）
+   - Field that specifies the upper limit [rad/s] of the joint rotation angular velocity. (Default value: "+∞")
  * - lvlimit
-   - 関節回転角速度の下限値[rad/s]を指定するフィールドです。（デフォールト値："-∞"）
+   - Field that specifies the lower limit [rad/s] of the joint rotation angular velocity. (Default value: "-∞")
  * - gearRatio
-   - ギヤ比: モータから関節までの減速比が1/100で あれば、100と記述します
+   - Gear ratio: If the reduction ratio from the motor to the joint is 1/100, write 100.
  * - gearEfficiency
-   - 減速器の効率。効率が 60%であれば0.6と記述します。 このフィールドがなければ、効率100%の減速器を想定します。
+   - Efficiency of the decelerator. If the efficiency is 60%, write 0.6. If this field is not present, a decelerator with an efficiency of 100% is assumed.
  * - rotorInertia
-   - モータ回転子の慣性モーメント [kgm^2]
+   - Moment of inertia of the motor rotor [kgm^2].
 
+.. note:: Normally, ulimit, llimit, uvlimit, and lvlimit are not used in a simulation. These are parameters defined for the controller to read the values to control the joint not to exceed the limits.
 
-.. note:: ulimit, llimit, uvlimit, lvlimit については、シミュレーションでは通常使用されません。コントローラがこれらの値を読み込んで限界値を超えないように制御するために定義されているパラメータとなっています。
-
-関節は、Jointノードを用いて定義します。Jointノードは、リンクフレームの情報を含みます。関節の親子関係は、そのままJointノードの親子関係に対応します。例えば人間の腕を考えたとき、「肩→肘→手首」の順に関節が存在するわけですから、この場合のリンク構造はJointノードを用いて、下図の様に定義します。
+A joint is defined by using the Joint node. The Joint node contains link frame information. The parent-child relationship of joints directly corresponds to the parent-child relationship of Joint nodes. For example, consider a human arm. Joints of a human arm are arranged the order of "shoulder -> elbow -> wrist". In this case, the link structure is defined using Joint nodes as shown in the figure below.
 
 .. figure:: images/joint1.png 
 	:align: center
 
-	腕のリンク構造
+	Arm Link Structure
 
-1関節にn自由度(n≧2)を持たせたい場合、その関節は、原点が一致したn個の関節から構成されていると考えることが出来ます。この場合はリンクフレームの原点を重ねるようにしてJointをn個定義します。例えば人間の肘は下図のように2自由度存在すると考えられますから、この場合は、下図の様に定義します。
+When you want to assign n degrees of freedom (where n is equal to or greater than 2) to a joint, you can consider that the joint consists of n number of joints that share the same origin. In this case, define n number of Joints, using common origin for link frames. For example, a human elbow can be considered to have two degrees of freedom as shown in the figure below. In this case, the definition should be as follows.
 
 .. figure:: images/joint2.png
 	:align: center
 
-	肘のリンク構造
+	Elbow Link Structure
 
-この場合は、以下のように定義します。
+In this case, the definition should be as follows.
 
 .. code-block:: yaml
 
-	DEF 肘0 Joint {      #← 肘の曲げ
-	  children [
-	    DEF 肘1 Joint {  #← 肘のひねり
+ DEF Elbow0 Joint {      #← Elbow bending motion
+   children [
+     DEF Elbow1 Joint {  #← Elbow twisting motion
 
-		:
-		:
-		:
-	    }
-	  ]
-	  translation 0 0 0  #← 座標原点を合わせる
-	}
+       :
+       :
+       :
+     }
+   ]
+   translation 0 0 0  #← Place all joints at origin
+ } 
 
 
-Segmentノード
+Segment Node
 ~~~~~~~~~~~~~
 
-Segmentノードはリンク形状を定義します。
+A Segment node defines a link shape.
 
 .. code-block:: yaml
 
@@ -294,37 +287,37 @@ Segmentノードはリンク形状を定義します。
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: Segmentノードのフィールド
+.. list-table:: Segment Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - bboxCenter
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - bboxSize
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - centerOfMass
-   - 重心位置を指定するフィールドです。
+   - Field that specifies the position of the center of gravity.
  * - children
-   - 子ノードをぶら下げるフィールドです。ここに、形状を定義するノードを追加します。
+   - Field which child nodes belong to. Add here a node for which the shape to be defined.
  * - coord
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - displacers
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - mass
-   - 質量を指定するフィールドです。
+   - Field that specifies the mass.
  * - momentsOfInertia
-   - 重心位置回りの慣性テンソルを指定するフィールドです。
+   - Field that defines the tensor of inertia around the position of the center of gravity.
  * - name
-   - Segment名を指定するフィールドです。
+   - Field that specifies the Segment name.
  * - addChildren
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
  * - removeChildren
-   - OpenHRPでは使用しません。
+   - Not used in OpenHRP.
 
 
-リンク形状は、Segmentノードに定義します。Segmentノードは、Jointノードの子ノードとして複数個設定でき、Transformノードの子ノードとして記述することも可能です。
+A link shape is defined by a Segment node. Multiple Segment nodes can be set as child nodes of a Joint node. A Segment node can also be written as a child node of a Transform node.
 
 .. code-block:: yaml
 
@@ -348,25 +341,25 @@ Segmentノードはリンク形状を定義します。
 	}
 
 
-例えば、人間の肩から肘にかけての形状を定義したい場合、この形状が肩のリンクフレームに属するとすると、下図のようになります。
+For example, if you want to define a shape of the part from the human shoulder to elbow and the shape belongs to a shoulder link frame, the link fame should be as shown in the figure below.
 
 .. figure:: images/joint3.png
 	:align: center
 
-	肘のリンクフレーム
+	Elbow Link Frame
 
 .. code-block:: yaml
 
-	DEF 肩 Joint {
+	DEF Shoulder Joint {
 	  children [
-	    DEF 肩から肘 Segment {
+	    DEF ShoulderToelbow Segment {
 	      children [
 		:
-		:    #←ここに実際の形状を記述する
+		:    #←Specify the actual shape.
 		:
 	      ]
 	    }
-	    DEF 肘 Joint {
+	    DEF Elbow Joint {
 		:
 		:
 		:
@@ -375,15 +368,12 @@ Segmentノードはリンク形状を定義します。
 	}
 
 
-Segmentノードのchildrenフィールド下に実際の形状を定義します。形状の定義にはモデリングツールを使用されることをお勧めします。簡単な形状であればテキストエディタを使用して手作業で編集することも可能です。
+Define the actual shape in the children field of the Segment node. It is recommended to use a modeling tool to define a shape. For a simple shape, you can also edit the file manually using a text editor.
 
-.. node::
-	”Inline”と言う定義にて各Segmentごとの形状を異なるファイルに記述することもできます。
-	
-ExtraJointノード
+ExtraJoint Node
 ~~~~~~~~~~~~~~~~
 
-ExtraJointノードは閉リンク機構を定義します。閉リンクの1つの関節がボールジョイントで接続されていると考え、2つのリンクが離れないように拘束力を発生させます。
+An ExtraJoint node defines a closed link mechanism. Supposing that a joint of a closed link is connected with a ball joint, generate restricting force so that two links are not separated from each other.
 
 .. code-block:: yaml
 
@@ -401,36 +391,35 @@ ExtraJointノードは閉リンク機構を定義します。閉リンクの1つ
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: ExtraJointノードのフィールド
+.. list-table:: ExtraJoint Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - link1Name
-   - ボールジョイントを受けているジョイント名を指定します。
+   - Specifies the name of the joint receiving the ball joint.
  * - link2Name
-   - ボールジョイントが付いているジョイント名を指定します。
+   - Specifies the name of the joint to which the ball joint is attached.
  * - link1LocalPos
-   - link1Nameジョイントの拘束位置をそのジョイントのローカル座標で指定します。
+   - Specifies the restricting position of the link1Name joint in terms of the local coordinates of the joint.
  * - link2LocalPos
-   - link2Nameジョイントの拘束位置をそのジョイントのローカル座標で指定します。
+   - Specifies the restricting position of the link2Name joint in terms of the local coordinates of the joint.
  * - jointType
-   - 拘束する軸数を指定します。xyz：互いに直交する3軸　xy：jointAxisで指定した軸に直交する２軸　z：jointAxisで指定した１軸
+   - Specifies the number of axes to be restricted. xyz: 3 axes that are at right angles to one another; xy: 2 axes that are at right angles to the axis specified by jointAxis; z: 1 axis specified by jointAxis
  * - jointAxis
-   - link1Nameジョイントのローカル座標で単位ベクトルを指定します。ベクトルの意味は、jointTypeの指定で変わります。
+   - Specifies the unit vector in terms of the local coordinates of the link1Name joint. The meaning of the vector varies depending on the value of jointType.
 
-	
-閉リンク機構のサンプルとして "model/misc/ClosedLinkSample.wrl" が share ディレクトリにありますので、参考にして下さい。
+As a sample of a closed link mechanism, "model/misc/ClosedLinkSample.wrl" is in the share directory. Use it as a reference.
 
 
-各種センサを定義するノード
---------------------------
+Nodes that Define Various Sensors
+---------------------------------
 
-AccelerationSensorノード
+AccelerationSensor Node
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-AccelerationSensorノードは、3軸加速度センサを定義します。
+An AccelerationSensor node defines a 3-axis acceleration sensor.
 
 .. code-block:: yaml
 
@@ -450,23 +439,23 @@ AccelerationSensorノードは、3軸加速度センサを定義します。
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: AccelerationSensorノードのフィールド
+.. list-table:: AccelerationSensor Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - maxAcceleration
-   - 計測可能な最大加速度を指定します。
+   - Specifies the maximum acceleration that can be measured.
  * - translation
-   - ローカル座標系の位置を、親ノード座標系からのオフセット値で指定します。
+   - Specifies the position in the local coordinate system, using an offset value relative to the parent node coordinate system.
  * - rotation
-   - ローカル座標系の姿勢を、親ノード座標系からのオフセット値で指定します。
+   - Specifies the posture in the local coordinate system, using an offset value relative to the parent node coordinate system.
  * - sensorId
-   - センサのIDを指定します。センサIDは一つのモデル内の同一種類のセンサに対して0番から順に番号の飛びや重複がないように設定して下さい。このIDは同一種類のセンサからのデータを並べる際に順番を決定するために使用されます。
+   - Specifies the ID of the sensor. Assign a continuous sequence of sensor ID numbers in the order from 0 to the sensors of the same type in a model, ensuring that there is no gap or overlap. These IDs are used to determine the order in which data from sensors of the same type is arranged.
 
 	
-各種センサノードはそのセンサが取り付けられているJointノードの下に取り付けます。 例えば、サンプルモデルの腰部(WAIST)に加速度センサを取り付けられている場合は、次のように記述します。
+Put a sensor node under the Joint node to which the corresponding sensor is attached. For example, if an acceleration sensor is attached to the WAIST of the sample model, write as follows:
 
 .. code-block:: yaml
 
@@ -483,10 +472,10 @@ AccelerationSensorノードは、3軸加速度センサを定義します。
 	}
 
 
-GyroSensorノード
+GyroSensor Node
 ~~~~~~~~~~~~~~~~
 
-Gyroノードは、3軸角速度センサを定義します。
+A Gyro node defines a 3-axis angular velocity sensor.
 
 .. code-block:: yaml
 
@@ -503,28 +492,10 @@ Gyroノードは、3軸角速度センサを定義します。
 	  }
 	}
 
-.. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
-	
-.. list-table::　GyroSensorノードのフィールド
- :widths: 15,85
- :header-rows: 1
-
- * - フィールド
-   - 内容
- * - maxAngularVelocity
-   - 計測可能な最大角速度を指定します。
- * - translation
-   - ローカル座標系の位置を、親ノード座標系からのオフセット値で指定します。
- * - rotation
-   - ローカル座標系の姿勢を、親ノード座標系からのオフセット値で指定します。
- * - sensorId
-   - センサのIDを指定します。
-
-	
-VisionSensorノード
+VisionSensor Node
 ~~~~~~~~~~~~~~~~~~
 
-VisionSensorノードは、視覚センサを定義します。
+An VisionSensor node defines a vision sensor.
 
 .. code-block:: yaml
 
@@ -552,40 +523,40 @@ VisionSensorノードは、視覚センサを定義します。
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: VisionSensorノードのフィールド
+.. list-table:: VisionSensor Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - translation
-   - 視点の位置を、親ノード座標系からの相対位置で指定します。
+   - Specifies the position of the viewpoint relative to the parent node coordinate system.
  * - rotation
-   - 視点の姿勢を、親ノード座標系からの相対姿勢で指定します。視点の姿勢は以下のように定義されます。視線前方向 ・・・ ローカル座標系でZ軸の負の向き視線上方向 ・・・ ローカル座標系でY軸の正の向き。視線ベクトル
+   - Specifies the posture of the viewpoint relative to the parent node coordinate system. The posture of the viewpoint is defined as follows: Forward viewing direction: Negative direction of the Z-axis in the local coordinate system; Upper viewing direction: Positive direction of the Y-axis in the local coordinate system. Sight line vector
  * - fieldOfView
-   - カメラの視野角度を指定します。単位はradで、(0、pi)の値が設定可能です。
+   - Specifies the viewing angle of the camera. The unit is rad, and a value of (0, pi) can be set.
  * - name
-   - センサの名称を指定します。
+   - Specifies the name of the sensor.
  * - frontClipDistance
-   - 視点から前クリップ面までの距離を指定します。
+   - Specifies the distance from the viewpoint to the front clip surface.
  * - backClipDistance
-   - 視点から後クリップ面までの距離を指定します。
+   - Specifies the distance from the viewpoint to the rear clip surface.
  * - type
-   - センサから取得する情報の種類を指定します。"COLOR"色情報を取得します。"DEPTH"深さ情報を取得します。"COLOR_DEPTH"色情報と深さ情報を取得します。"NONE"いずれの情報も取得しません。
+   - Specifies the type of information to be acquired from the sensor. "COLOR": Acquires color information. "DEPTH": Acquires depth information. "COLOR_DEPTH": Acquires color and depth information. "NONE": Does not acquire none of the information.
  * - sensorId
-   - センサのIDを指定します。
+   - Specifies the ID of the sensor.
  * - width
-   - 画像の幅を指定します。
+   - Specifies the width of images.
  * - height
-   - 画像の高さを指定します。
+   - Specifies the height of images.
  * - frameRate
-   - カメラが毎秒何枚の画像を出力するかを指定します。
-
+   - Specifies how many images the camera outputs per second.
+   
 	
-ForceSensorノード
+ForceSensor Node
 ~~~~~~~~~~~~~~~~~
 
-ForceSensorノードは、力／トルクセンサを定義します。
+A ForceSensor node defines a force-torque sensor.
 
 .. code-block:: yaml
 
@@ -605,28 +576,28 @@ ForceSensorノードは、力／トルクセンサを定義します。
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 	
-.. list-table:: ForceSensorノードのフィールド
+.. list-table:: ForceSensor Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - maxForce
-   - 計測可能な力の最大値を設定します。
+   - Sets the maximum value of force that can be measured.
  * - maxTorque
-   - 計測可能なトルクの最大値を設定します。
+   - Sets the maximum value of torque that can be measured.
  * - translation
-   - ローカル座標系の位置を、親ノード座標系からのオフセット値で指定します。
+   - Specifies the position in the local coordinate system, using an offset value relative to the parent node coordinate system.
  * - rotation
-   - ローカル座標系の姿勢を、親ノード座標系からのオフセット値で指定します。
+   - Specifies the posture in the local coordinate system, using an offset value relative to the parent node coordinate system.
  * - sensorId
-   - センサのIDを指定します。
+   - Specifies the ID of the sensor.
 	
 
-RangeSensorノード
+RangeSensor Node
 ~~~~~~~~~~~~~~~~~
 
-RangeSensorノードは、距離センサを定義します。
+A RangeSensor node defines a range sensor.
 
 .. code-block:: yaml
 
@@ -650,24 +621,24 @@ RangeSensorノードは、距離センサを定義します。
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
-.. list-table:: RangeSensorノードのフィールド
+.. list-table:: RangeSensor Node Fields
  :widths: 15,85
  :header-rows: 1
 
- * - フィールド
-   - 内容
+ * - Field
+   - Description
  * - translation
-   - このセンサが取り付けられているリンクに対するこのセンサの位置
+   - The position of the sensor relative to the link to which this sensor is attached.
  * - rotation
-   - このセンサが取り付けられているリンクに対するこのセンサの姿勢。センサ座標系において、Z軸マイナス方向が計測正面、スキャンする場合の計測面はXZ平面となります。 これはVisionSensorと同じですので、従来VisionSensorで代用していたモデルを変更する場合は 位置、姿勢はそのまま使えます。
+   - The posture of the sensor relative to the link to which this sensor is attached. In the sensor coordinate system, the Z-axis negative direction is the measurement front, and the measurement surface at the time of scanning is the X-Z plane. Since this is the same as for VisionSensor, if you modify a model for which VisionSensor has been used alternatively, the posture can be used without change.
  * - sensorId
-   - このロボットに取り付けられているRangeSensorの中での通し番号
+   - The serial number of RangeSensor. The serial numbers are assigned to RangeSensors attached to this robot.
  * - scanAngle
-   - 距離をスキャンする角度[rad]。0度を中心として、その両側にscanStepの倍数の角度でscanAngleの範囲内の角度が計測されます。センサにスキャン機能がない場合は0とします。
+   - The angle at which the range is scanned [rad]. Angles in the range of scanAngle are measured in steps of an angle of multiples of scanStep in both directions from 0 degrees. If the sensor has no scan function, set a value of 0.
  * - scanStep
-   - スキャン中に距離が計測される角度の刻み[rad]
+   - Step size in degrees with which distance measured during scanning.
  * - scanRate
-   - １秒間あたり行うスキャン回数[Hz]
+   - The number of scans to be performed per second [Hz].
  * - maxDistance
-   - 計測可能な最大距離[m]
+   - The maximum distance that can be measured [m].
 
