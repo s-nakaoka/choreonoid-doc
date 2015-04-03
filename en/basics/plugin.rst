@@ -88,7 +88,9 @@ For plugins distributed separately from the main unit, build and install them by
 Developing Plugins
 ------------------
 
-You can also add a new function to Choreonoid by developing a plugin. For information on how to develop a plugin, see the :doc:`../plugin-development/index` in this manual.
+You can also add a new function to Choreonoid by developing a plugin.
+
+.. For information on how to develop a plugin, see the :doc:`../plugin-development/index` in this manual.
 
 The following functions have actually been achieved or applied by users' actual development of new plugins:
 

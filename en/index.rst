@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Choreonoid Operation Manual
-=========================
+===========================
 
 .. toctree::
    :maxdepth: 2
@@ -12,16 +12,8 @@ Choreonoid Operation Manual
    install/install
    basics/index
    handling-models/index
-   simulation/index
-   tips/index
-   plugins/index
-   plugin-development/index
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+..   simulation/index
+..   tips/index
+..   plugins/index
+..   plugin-development/index
