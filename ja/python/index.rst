@@ -1,21 +1,22 @@
 
-シミュレーション機能
+Pythonスクリプト機能
 ====================
 
 .. toctree::
    :maxdepth: 3
 
-   concept
-   howto-make-project
-   howto-exec-playback-simulation
+   introduction
 
-..   interactive-functions
 ..   simulator-items
 ..   simplecontroller-item
-..   howto-make-controller
 ..   vision-simulation
 ..   high-gain-simulation
 ..   samples
 
+..   hg-simulation
+..   howto-make-controller
+..   vision-simulation
+..   using-rt-component
+..   rtc-setup-by-python
 
 

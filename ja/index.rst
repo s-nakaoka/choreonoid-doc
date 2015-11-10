@@ -13,15 +13,9 @@ Choreonoidマニュアル
    basics/index
    handling-models/index
    simulation/index
-   tips/index
-   plugins/index
+   python/index
+   openrtm/index
    plugin-development/index
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+..   tips/index
+..   plugins/index
