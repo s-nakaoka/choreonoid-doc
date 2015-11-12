@@ -7,15 +7,15 @@
 
    concept
    simulation-project
+   execution-and-playback
    controller
-   howto-make-project
-   howto-exec-playback-simulation
+   simulator-items
 ..   interactive-functions
-..   simulator-items
 ..   simplecontroller-item
 ..   howto-make-controller
 ..   vision-simulation
 ..   high-gain-simulation
+..   logifileitem
 ..   samples
 
 
