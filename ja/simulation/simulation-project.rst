@@ -48,6 +48,8 @@ Worldアイテムの作成
 
 .. image:: images/simproject-scene1.png
 
+.. _simulation_setting_initial_status:
+
 初期状態の設定
 --------------
 
