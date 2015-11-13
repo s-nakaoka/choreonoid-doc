@@ -10,6 +10,7 @@
    execution-and-playback
    controller
    simulator-items
+   multisimulator-example
 ..   interactive-functions
 ..   simplecontroller-item
 ..   howto-make-controller
