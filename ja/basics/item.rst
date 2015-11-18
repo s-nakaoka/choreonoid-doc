@@ -33,6 +33,7 @@ Choreonoidでは、プロジェクトを構成する各々のデータのうち�
 
 Choreonoidをコマンドラインから起動している場合は、:doc:`launch` にて紹介した :ref:`basis_launch_projectfile` を用いてプロジェクトを読み込んでもOKです。
 
+.. _basics_sample_project:
 
 サンプルプロジェクト
 --------------------
