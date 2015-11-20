@@ -423,6 +423,7 @@ ExtraJointノードは閉リンク機構を定義します。閉リンクの1つ
 	
 閉リンク機構のサンプルとして "model/misc/ClosedLinkSample.wrl" が share ディレクトリにありますので、参考にして下さい。
 
+.. _oepnrhp_modelfile_sensors:
 
 各種センサを定義するノード
 --------------------------
