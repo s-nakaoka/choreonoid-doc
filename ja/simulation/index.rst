@@ -8,15 +8,15 @@
    concept
    simulation-project
    execution-and-playback
-   controller
-   simulator-items
-   multisimulator-example
+   howto-use-controller
+   howto-implement-controller
+   vision-simulation
 ..   interactive-functions
-..   simplecontroller-item
-..   howto-make-controller
-..   vision-simulation
+..   センサの可視化
+..   multisimulator-example
 ..   high-gain-simulation
 ..   logifileitem
+..   summary-of-properties
 ..   samples
 
 
