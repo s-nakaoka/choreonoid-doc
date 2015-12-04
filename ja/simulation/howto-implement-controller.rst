@@ -282,7 +282,7 @@ PD制御によって関節トルクの指令値を計算します。まず、制
 
 デバイスの例としては、まず
 
-* 力センサ、加速度センサ、角速度センサ（ジャイロ）
+* 力センサ、加速度センサ、角速度センサ（レートジャイロ）
 * カメラ、レーザーレンジファインダ
 
 といったセンサ類が挙げられます。これらは主に入力の対象となりますが、カメラのズーム変更等、操作指令を出力したい場合もあります。
@@ -300,30 +300,27 @@ PD制御によって関節トルクの指令値を計算します。まず、制
 
 実用的なコントローラを開発するためには、デバイスに対しても入出力を行う必要があります。以下ではSimpleControllerにおける入出力方法を紹介しますが、他の形式の入出力方法についてはそのマニュアルを参照するようにしてください。
 
+.. _simulation-device-object:
+
 デバイスオブジェクト
 --------------------
 
-SimpleControllerでは、デバイスに対してもBodyオブジェクトを介して入出力を行います。正確に言うと、Bodyオブジェクトが所有する「Deviceオブジェクト」を用いて、対象となるデバイスへの入出力を行います。
-
-デバイスは、「Deviceクラス」をベースとし、各デバイスはそれを継承したクラスとして定義されています。現在定義されているデバイスのクラス階層は以下のようになっています。 ::
+デバイスの状態やデータは、Choreonoidの内部では「Deviceオブジェクト」として表現されています。これは実際には「Deviceクラス」を継承したクラスのオブジェクトで、デバイスごとに対応する型が定義されています。現在定義されているデバイスのクラス階層は以下のようになっています。 ::
 
  + Device
-   + Sensor
-     + ForceSensor
-     + RateGyroSensor
-     + AccelSensor
-     + VisionSensor
-       + Camera
-       + RangeCamera
-       + RangeSensor
-   + ActiveDevice
-     + Light
-       + PointLight
-       + SpotLight
+   + ForceSensor (力センサ)
+   + RateGyroSensor (角速度センサ)
+   + AccelerationSensor (加速度センサ)
+   + Camera (カメラ）
+     + RangeCamera (カメラ＋距離画像センサ）
+   + RangeSensor (レンジセンサ）
+   + Light
+     + PointLight (点光源ライト）
+     + SpotLight (スポットライト）
 
 これらのデバイスをBodyモデルに含める場合は、通常モデルファイルにそのための記述を追加します。OpenHRP形式のモデルファイルについては、 :doc:`../handling-models/modelfile/modelfile-openhrp` の :ref:`oepnrhp_modelfile_sensors` を記述します。
 
-Bodyオブジェクトが有するDeviceオブジェクトの取得に関しては、Bodyクラスの以下の関数が利用できます。
+SimpleControllerでは、Bodyオブジェクトと同様に、デバイスに対してもChoreonoid内部表現であるDeviceオブジェクトをそのまま用いて入出力を行います。DeviceオブジェクトはBodyオブジェクトから以下の関数を用いて取得できます。
 
 * **int numDevices() const**
 
@@ -331,7 +328,7 @@ Bodyオブジェクトが有するDeviceオブジェクトの取得に関して�
 
 * **Device\* device(int i) const**
 
- i番目のデバイスを返します。デバイスの順番はモデルファイル中の記述順になります。（これは以下の２つの関数についても同じです。）
+ i番目のデバイスを返します。デバイスの順番はモデルファイル中の記述順になります。
 
 * **const DeviceList<>& devices() const**
 
@@ -345,9 +342,32 @@ Bodyオブジェクトが有するDeviceオブジェクトの取得に関して�
 
  指定した型と名前を有するデバイスがあればそれを返します。
 
-デバイスの型と名前が分かっている場合は、最後の関数を使うのがよいでしょう。例えばSR1モデルは "gsensor" という名前の加速度センサを有しています。これを取得するには、Bodyオブジェクトに対して ::
+本コントローラではCameraデバイスにアクセスするため、まずロボットモデルが有するCameraデバイスを取得します。これにはいろいろなやり方がありますが、本サンプルではデバイスオブジェクトの配列である"DeviceList"というテンプレートクラスを用いています。 ::
 
- AccelSensor* accelSensor = body->findDevice<AccelSensor>("gsensor");
+
+特定の型のデバイスを取得するには、テンプレートクラスDeviceListを使用します。DeviceListは指定した型のデバイスオブジェクトを格納する配列であり、そのコンストラクタや抽出オペレータ(<<)等を用いて、他の型も含むDeviceListから対応する型のみを抽出できます。例えばBodyオブジェクト"body"の保有する力センサを取得したい場合は、 ::
+
+ DeviceList<ForceSensor> forceSensors(body->devices());
+
+としてもよいですし、既存のリストに対して ::
+
+ forceSensors << body->devices();
+
+として追加することもできます。
+
+DeviceListはstd::vectorと同様の関数や演算子を備えており、例えば ::
+
+ for(size_t i=0; i < forceSensors.size(); ++i){
+     ForceSensor* forceSensor = forceSensor[i];
+     ...
+ }
+
+といったかたちでデバイスオブジェクトにアクセスできます。
+
+findDevice関数を用いることで、型と名前でデバイスを特定して取得することもできます。例えばSR1モデルは腰リンクに搭載された "WaistAccelSensor" という名前の加速度センサを有しています。これを取得するには、Bodyオブジェクトに対して ::
+
+ AccelerationSensor* waistAccelSensor =
+     body->findDevice<AccelerationSensor>("WaistAccelSensor");
 
 とすればOKです。
 
@@ -362,20 +382,18 @@ SR1モデルが有するデバイスは以下のとおりです。
  * - 名前
    - デバイスの型
    - 内容
- * - gsensor
-   - AccelSensor
+ * - WaistAccelSensor
+   - AccelerationSensor
    - 腰リンクに搭載された加速度センサ
- * - gyrometer
+ * - WaistGyro
    - RateGyroSensor
    - 腰リンクに搭載されたジャイロ
- * - VISION_SENSOR1
+ * - LeftCamera
    - RangeCamera
    - 左目に対応する距離画像センサ
- * - VISION_SENSOR2
+ * - RightCamera
    - RangeCamera
    - 右目に対応する距離画像センサ
-
-
 
 
 デバイスに対する入出力
@@ -391,17 +409,13 @@ Deviceオブジェクトを介した入出力は、以下のようにして行�
 
  対応するDeviceオブジェクトのメンバ関数を用いて値を設定した後、Deviceオブジェクトの "notifyStateChange()" 関数を実行する。
 
-これらを行うためには、使用するデバイスのクラス定義を知っている必要があります。例えば加速度センサのクラスである"AccelSensor"に関しては、その状態にアクセスするための"dv()"というメンバ関数があります。これは加速度をVector3型の3次元ベクトルで返します。
+これらを行うためには、使用するデバイスのクラス定義を知っている必要があります。例えば加速度センサのクラスである"AccelerationSensor"に関しては、その状態にアクセスするための"dv()"というメンバ関数があります。これは加速度をVector3型の3次元ベクトルで返します。
 
-従って、加速度を取得するためには、 ::
+従って、加速度センサ waistAccelSensor の加速度は、 ::
 
- AccelSensor* accelSensor = body->findDevice<AccelSensor>("gsensor");
+ Vector3 dv = waistAccelSensor->dv();
 
-として取得しておいたAccelSensorオブジェクトに対して、 ::
-
- accelSensor->dv();
-
-とすればOKです。
+といったかたちで取得できます。
 
 同様に、ForceSensorやRateGyroSensorに関しても該当するメンバ関数を用いて状態の入力を行うことが可能です。
 

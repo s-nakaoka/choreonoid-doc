@@ -11,11 +11,14 @@
    howto-use-controller
    howto-implement-controller
    vision-simulation
-..   interactive-functions
-..   センサの可視化
+   crawler-simulation
+   interaction
+   force-sensor-visualization
+   logfileitem
+
+..   複数コントローラの同時使用
 ..   multisimulator-example
 ..   high-gain-simulation
-..   logifileitem
 ..   summary-of-properties
 ..   samples
 

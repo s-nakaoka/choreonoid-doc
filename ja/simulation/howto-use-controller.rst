@@ -87,6 +87,8 @@ Choreonoidでは、「コントローラアイテム」によってコントロ�
 今回は例としてSimpleControllerアイテムを用いることにします。この場合、コントローラ本体としてSimpleController形式で実装されたものを用意します。SimpleController形式では、C++で"SimpleController"クラスを継承したクラスを定義して、いくつかの仮想関数をオーバーライドすることで制御コードを実装します。これをコンパイルして共有ライブラリ(.so)もしくはダイナミックリンクライブラリ(.DLL)のファイルとしたものが、コントローラの本体になります。
 
 
+.. _simulation-create-controller-item:
+
 コントローラアイテムの生成
 --------------------------
 
@@ -98,6 +100,7 @@ Choreonoidでは、「コントローラアイテム」によってコントロ�
 
 .. note:: SimpleControllerアイテムを利用するためにはChoreonoidビルド時のCMakeオプションで"BUILD_SIMPLE_CONTROLLER_PLUGIN"がONになっている必要があります。（デフォルトではONになっています。）
 
+.. _simulation-set-controller-to-controller-item:
 
 コントローラ本体のセット
 ------------------------

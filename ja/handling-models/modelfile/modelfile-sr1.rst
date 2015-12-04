@@ -32,8 +32,8 @@ SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 �
 	  |       Joint CHEST : Segment WAIST_LINK3
 	  |       |
 	  |       | # Cameras
-	  |       +-VisionSensor VISION_SENSOR1
-	  |       +-VisionSensor VISION_SENSOR2
+	  |       +-VisionSensor LeftCamera
+	  |       +-VisionSensor RightCamera
 	  |       |
 	  |       | # Left arm
 	  |       +-Joint LARM_SHOULDER_P : Segment LARM_LINK1
@@ -90,8 +90,8 @@ SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 �
 .. code-block:: yaml
 
 	CHEST
-	  +-VisionSensor VISION_SENSOR1
-	  +-VisionSensor VISION_SENSOR2
+	  +-VisionSensor LeftCamera
+	  +-VisionSensor RightCamera
 
 また、視覚センサの座標系は図6.の通りです。赤い軸がX軸、緑の軸がY軸、青の軸がZ軸を表します。視線方向は、Z軸のマイナス方向です。位置姿勢の具体的な数値については、sample.wrlを参照してください。
 
