@@ -11,4 +11,4 @@
    collision-detection
    legged-model
    modelfile/index
-   customizer
+..   customizer
