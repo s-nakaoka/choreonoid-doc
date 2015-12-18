@@ -13,7 +13,7 @@
    vision-simulation
    crawler-simulation
    interaction
-..   force-sensor-visualization
+   sensor-visualization
 ..   logfileitem
 ..   複数コントローラの同時使用
 ..   multisimulator-example

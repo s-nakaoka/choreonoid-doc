@@ -394,6 +394,12 @@ SR1モデルが有するデバイスは以下のとおりです。
  * - RightCamera
    - RangeCamera
    - 右目に対応する距離画像センサ
+ * - LeftAnkleForceSensor
+   - ForceSensor
+   - 左足首に搭載された力センサ
+ * - RightAnkleForceSensor
+   - ForceSensor
+   - 右足首に搭載された力センサ
 
 
 デバイスに対する入出力
