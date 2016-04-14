@@ -173,6 +173,7 @@ For example, if the J7 link of the PA10 model is selected as the target, and the
 
 .. image:: images/collision-panel-pa10.png
 
+.. _handling-models_switch-collision-detector:
 
 Switching Collision Detectors
 -----------------------------

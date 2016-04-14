@@ -12,8 +12,8 @@ Choreonoid Operation Manual
    install/install
    basics/index
    handling-models/index
-
-..   simulation/index
+   simulation/index
+   plugin-development/index
 ..   tips/index
 ..   plugins/index
-..   plugin-development/index
+

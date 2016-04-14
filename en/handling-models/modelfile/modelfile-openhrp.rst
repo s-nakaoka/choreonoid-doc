@@ -412,6 +412,7 @@ An ExtraJoint node defines a closed link mechanism. Supposing that a joint of a 
 
 As a sample of a closed link mechanism, "model/misc/ClosedLinkSample.wrl" is in the share directory. Use it as a reference.
 
+.. _oepnrhp_modelfile_sensors:
 
 Nodes that Define Various Sensors
 ---------------------------------
