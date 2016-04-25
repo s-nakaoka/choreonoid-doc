@@ -412,7 +412,7 @@ Choreonoidでは、このようにポインタの記述に柔軟性を持たせ�
 
 Bodyクラスは "numJoints" という関数で関節の数を知ることが出来ますので、これを使って全関節の角度を変えるようループをまわしています。ループ内で "joint(j)" という関数で取得しているのは、jという関節idに対応するLinkクラスのオブジェクトです。このクラスは"q"というメンバ変数に関節角度を格納しており、ここではこの値をdq分だけ変化させています。
 
-なお、Bodyライブラリは `OpenHRP3 <http://www.openrtp.jp/openhrp3/jp/>`_ で開発したものをフォークしてChoreonoid版の開発を開始しており、ここで使用しているBodyクラスやLinkクラスも今のところ使い方はOpenHRP3とほぼ同様になっています。従って、OpenHRP3のライブラリを用いたプログラミングを行ったことのある方はその知識が活かせますし、OpenHRP3の `プログラミングマニュアル <http://www.openrtp.jp/openhrp3/jp/programming.html>`_ もある程度は参考にすることが可能です。ただし、変更している箇所も多く、特に行列・ベクトルライブラリが tvmet から Eigen に変更になっているのは大きな変更ですので、それらの点にはご注意ください。
+なお、Bodyライブラリは `OpenHRP3 <http://fkanehiro.github.io/openhrp3-doc/jp/index.html>`_ で開発したものをフォークしてChoreonoid版の開発を開始しており、ここで使用しているBodyクラスやLinkクラスも今のところ使い方はOpenHRP3とほぼ同様になっています。従って、OpenHRP3のライブラリを用いたプログラミングを行ったことのある方はその知識が活かせますし、OpenHRP3の `プログラミングマニュアル <http://fkanehiro.github.io/openhrp3-doc/jp/programming.html>`_ もある程度は参考にすることが可能です。ただし、変更している箇所も多く、特に行列・ベクトルライブラリが tvmet から Eigen に変更になっているのは大きな変更ですので、それらの点にはご注意ください。
 
 
 状態変更の通知

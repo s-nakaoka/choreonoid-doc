@@ -180,6 +180,7 @@ Be careful in that the zoom operation differs slightly between the perspective c
 
 The above two cameras are provided by default. If a scene contains any additional camera, the camera can also be selected. For example, if a model of a robot with a camera mounted is added to a scene, the camera can also be selected. This enables you to acquire an image from the viewpoint of the camera mounted on the robot. In addition, when the robot moves, the image in the scene view changes accordingly. In this case, however, the viewpoint cannot be changed by a regular mouse operation in the scene view because the position of the robot determines the viewpoint.
 
+.. _basics_sceneview_wireframe:
 
 Wire Frame Display
 ------------------
