@@ -18,6 +18,8 @@ The following "time bar" is provided as a toolbar used to perform these time axi
 
 This section describes time axis operations, focusing on operations on this time bar.
 
+.. _basics_sequence_data:
+
 Sequence Data
 ----------------
 
@@ -129,9 +131,10 @@ You can set the time range handled by the time bar in the following numerical va
 
 The left box is for the minimum time and the right box is the maximum time. The relationship between the position and time of the time slider also depends on this range. If the sequence data to be handled has a long time length, set a longer time range accordingly. However, if the set time range is too long, the valid range on the time slider becomes narrow and it becomes hard to perform cueing and animation operations using the slider. Therefore, it is recommended to specify an appropriate range for the target data.
 
+.. _basics_timebar_config:
 
 Settings Related to the Handling of Virtual Time
---------------------------
+------------------------------------------------
 
 The time bar provides the following "setup" button.
 
