@@ -49,20 +49,20 @@ In a model file in OpenHRP format, the sensor should be described according the 
 
 .. _simulation-gl-vision-simulator:
 
-GL Vision SImulator
-----------------------
+GL Vision Simulator
+-------------------
 
-The simulation function of the visual sensor is normally implemented as a sub-simulator and used in communication with a simulator item. Actually, as a sub-simulator having this function, "GL vision simulator" is available as standard. It creates data of a visual sensor using the same rendering engine as the one used to render on the scene view. As the rendering engine is implemented using OpenGL, it has the name GL.
+The simulation function of the visual sensor is normally implemented as a sub-simulator and used in communication with a simulator item. Actually, as a sub-simulator having this function, "GL Vision Simulator" is available as standard. It creates data of a visual sensor using the same rendering engine as the one used to render on the scene view. As the rendering engine is implemented using OpenGL, it has the name GL.
 
-A sub-simulator functions by allocating it as a sib-item of a simulator item. As GL vision simulator can be created by "File" under Main Menu - "New" - "GL vision simulator", allocate it as a sub-item of the target simulator item.
+A sub-simulator functions by allocating it as a sib-item of a simulator item. As GL Vision Simulator can be created by "File" under Main Menu - "New" - "GLVisionSimulator", allocate it as a sub-item of the target simulator item.
 
 By doing so, the simulation of the visual sensor can be performed to the virtual world that the simulator item is targeting. In concrete terms, the image of Camera device and the distance image data of RangeCamera and RangeSensor can be updated at the frame rate configured to the device.
 
 
 Congofiration Items of GL Vision Simulator
-------------------------------------------------
+------------------------------------------
 
-The basic configuration for simulation of a visual sensor is as described above, but the detailed part can be configured by the properties of GL vision simulator. The content of the different properties related to the configuration is as follows:
+The basic configuration for simulation of a visual sensor is as described above, but the detailed part can be configured by the properties of GL Vision Simulator. The content of the different properties related to the configuration is as follows:
 
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
@@ -145,7 +145,7 @@ Creation of Simulation Project
 
 Next, let's create a simulation project targeting this model. Anything will do, but let's use "SR1Liftup.cnoid", one of SR1 sample projects, as the base.
 
-When the project is loaded, select "File" under Main Menu then "New" and "GL Vision Simulator" and create a GL vision simulator item. The default name is "GLVisionSimulator". Allocate it in Item Tree View as follows:
+When the project is loaded, select "File" under Main Menu then "New" and "GLVisionSimulator" and create a GLVisionSimulator item. The default name is "GLVisionSimulator". Allocate it in Item Tree View as follows:
 
 | + World
 |   + SR1
