@@ -321,10 +321,10 @@ Bulletプラグイン
 オープンソースの動力学計算ライブラリである"Bullet Physics ライブラリ"を、コレオノイドのシミュレーション機能の計算エンジンとして利用できるようにするプラグインです。
 
 本プラグインをビルドして利用するためには、Bullet Physics ライブラリのソースからのビルドが必要です。
-`Bullet Physics Library <http://bulletphysics.org>`_ のサイトからソースが取得できます。当方でテストを行ったバージョンはbullet-2.82-r2704になります。
+`Bullet Physics Library <http://bulletphysics.org>`_ のサイトからソースが取得できます。当方でテストを行ったバージョンはbullet-2.83.7になります。
 
 CMakeが使用できますので、いままでの説明と同様に行います。
-CMakeの設定で、 **BUILD_**＿DEMOS** のすべてと、 **USE_DX11** をOFFにします。 **INSTALL_EXTRA_LIBS** 、 **INSTALL_LIBS** と **USE_DOUBLE_PRECISION** をONにします。 **CMAKE_INSTALL_PREFIX** でインストール先を指定できます。
+CMakeの設定で、 **BUILD_**＿DEMOS** のすべてと、 **BUILD_BULLET3**、 **BUILD_UNIT_TESTS** をOFFにします。 **INSTALL_EXTRA_LIBS** 、 **INSTALL_LIBS** と **USE_MSVC_RUNTIME_LIBRARY_DLL** をONにします。 **CMAKE_INSTALL_PREFIX** でインストール先を指定できます。
 
 .. note:: Extras\\HACD\\hacdICHull.cppで"error C2039: 'max' : 'std' のメンバーではありません。"というエラーが表示されたら、このファイルの先頭部分を以下のように修正してください ::
 
