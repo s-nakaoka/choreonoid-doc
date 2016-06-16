@@ -34,9 +34,9 @@ In Choreonoid, a physics engine is represented as a project item called a "simul
 
 * **ODE Simulator Item**, **Bullet Simulator Item**, **PhysX Simulator Item**
 
- The are simulator items that utilise `Open Dynamics Engine (ODE) <http://www.ode.org/>`_ , `Bullet Physics Library <http://bulletphysics.org>`_ and `PhysX <https://developer.nvidia.com/gameworks-physx-overview>`_ respectively, which are physics engines that can be used externally as a library. They become available by installing the corresponding library and building ODE plug-in, Bullet plug-in or PhysX plug-in.
+ These are simulator items that utilise `Open Dynamics Engine (ODE) <http://www.ode.org/>`_ , `Bullet Physics Library <http://bulletphysics.org>`_ and `PhysX <https://developer.nvidia.com/gameworks-physx-overview>`_ respectively, which are physics engines that can be used externally as a library. They become available by installing the corresponding library and building ODE plug-in, Bullet plug-in or PhysX plug-in.
 
-.. note:: For physical calculations, it is necessary to detect a collision that occurs between the objects to be simulated. Normally, the collision detector that performs such operations is also included in a physics engine. On the other hand, as was described in  :doc:`../handling-models/collision-detection` under :doc:`../handling-models/index`, the function to detect a collision is prepared as a basic function of Choreonoid and various collision detectors are available there. (:ref:`handling-models_switch-collision-detector`) With some simulator items, any collision detector of the collision detection function as the basic function can be used.
+.. note:: For physical calculations, it is necessary to detect collisions that occur between the objects to be simulated. Normally, the collision detector that performs such operations is also included in a physics engine. On the other hand, as was described in  :doc:`../handling-models/collision-detection` under :doc:`../handling-models/index`, the function to detect collisions is prepared as a basic function of Choreonoid and various collision detectors are available there. (:ref:`handling-models_switch-collision-detector`) With some simulator items, any collision detector of the collision detection function as the basic function can be used.
 
 .. _simulation_subsimulator:
 
@@ -45,9 +45,9 @@ Sub-simulator
 
 A physical calculation is basically performed by a simulator item, but "sub-simulators" are also available as an item that can realise diversified simulation functions supplementary thereto.
 
-For example, you may simulate the camera or the laser range sensor function mounted in a robot and retrieve a camera image or a distance image even during the simulation. As a sub-simulator that adds this function, :ref:`simulation-gl-vision-simulator` item is available. This simulates the sensor outputs by performing internally a drawing process similar to 3DCG view from the perspectives of a camera or a laser range sensorr. In contrast to a "physics engine", such a sub-simulator can be called as a "vision engine". This function is not dependent on a physical calculation algorithm and can be used in combination with any simulator item.
+For example, you may simulate a robot equipped with cameras or laser range sensors and retrieve their image data even during the simulation. As a sub-simulator that adds this function, :ref:`simulation-gl-vision-simulator` item is available. This simulates the sensor outputs by performing internally a drawing process similar to 3DCG view from the perspectives of a camera or a laser range sensorr. In contrast to a "physics engine", such a sub-simulator can be called as a "vision engine". This function is not dependent on a physical calculation algorithm and can be used in combination with any simulator item.
 
-Sub-simulators can realise many other different functions in the framework where the situation of a virtual world is monitored so that the corresponding outputs can be provided or the virtual work can be modified.
+Sub-simulators can realise many other different functions in the framework where the situation of a virtual world is monitored so that the corresponding outputs can be provided or the virtual world can be modified.
 
 Controller
 ----------
@@ -61,7 +61,7 @@ Anyway, a controller is required to move a robot and also is a main element of a
 Controller Item
 ---------------
 
-In the simulation function of Choreonoid, a controller is represented as a project item called a "controller item". Actually, a main controller module implemented separately from the controller item is operated using an item type that inherits the base "ControllerItem" class. There can be various formats of controller module, and controllers in a certain format can be used as long as a controller item type that supports the format is prepared. For example, for "RT Component", which is a software component of RT middleware, the corresponding controller item "Body RTC Item" can be used.
+In the simulation function of Choreonoid, a controller is represented as a project item called a "controller item". Actually, a main controller module implemented separately from the controller item is operated using an item type that inherits the base "ControllerItem" class. There can be various formats of controller module, and controllers in a certain format can be used as long as a controller item type that supports the format is prepared. For example, for "RT Component", which is a software component of RT-middleware, the corresponding controller item "Body RTC Item" can be used.
 
 How to use controller items will be described in :doc:`howto-use-controller` .
 
@@ -74,7 +74,7 @@ What is necessary first for a controller to control a robot is to input and outp
 In concrete, the following elements can be the actual input:
 
 * Joint angle of revolute joint
-* Joint translation of prismatic joint
+* Joint displacement of prismatic joint
 * Force sensor
 * Acceleration sensor
 * Angular acceleration sensor (rate gyro)
@@ -85,7 +85,7 @@ The following elements are the output targets:
 
 * Torque at revolute joint
 * Force at prismatic joint
-* Ccommand of various devices (ex. on/off of a light)
+* Command of various devices (ex. on/off of a light)
 
 You may well regard a controller item as something that defines the interface for input/output.
 
