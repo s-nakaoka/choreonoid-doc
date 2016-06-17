@@ -1,8 +1,8 @@
 
 Implementation of Controller
-===============================
+============================
 
-.. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
+.. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
 
 .. contents::
    :local:
@@ -11,27 +11,27 @@ Implementation of Controller
 
 
 Implementation of Controller
--------------------------------
+----------------------------
 
-The base of how to implement a controller is described below:
+The basiscs of how to implement a controller are described below:
 
 What a controller does is basically the following three things and it executes them repeatedly as "control loop".
 
 1. To input the status of the robot;
-2. To make control calculation; and
-3. To output an order to the robot
+2. To make control calculations; and
+3. To output commands to the robot
 
-These processes are executed by a single controller or in combination with multiple software components. A process where "control calculations" are bundled actually involves diversified processes like different recognitions and motion plans and my include inputs/outputs for something else than the robot. However, from the robot perspective, what a controller does can be sorted out to the above-mentioned three processes.
+These processes are executed by a single controller or in combination with multiple software components. A process where "control calculations" are bundled actually involves diversified processes like different recognitions and motion plans and may include inputs/outputs for something else than the robot. However, from the robot perspective, what a controller does can be sorted out to the above-mentioned three processes.
 
 From this perspective, a controller is a software module having interfaces that handle the above three actions. The actual API for this varies among the controller formats but the essential part is identical.
 
-Here, an explanation is provided using "SR1MinimumController" sample, which was also used in :doc:`howto-use-controller` . The format of the controller is the "simple controller" format designed for the samples in Choreonoid and its content of control is just to maintain the robot's posture. The descriptive language used is C++.
+Here, an explanation is provided using "SR1MinimumController" sample, which was also used in :doc:`howto-use-controller` . The format of the controller is the "simple controller" format designed for the samples in Choreonoid and its content of control is just to maintain the robot's posture. The implementation language used is C++.
 
 When actually developing a controller, the basics that were provided using this sample can be replaced with the desired controller format and the content of control. Generally speaking, diversified knowledge and skills related to control, programming, hardware, etc. are required to develop a controller for a robot. Many of those skills are out of scope of this manual. Study the knowledge and the skills required separately.
 
 
 Source Code of Sample Controller
-------------------------------------
+--------------------------------
 
 First, the source code of SR1MinimumController is as follows: This source code is a file called "SR1MinimumController.cpp" under the directory "sample/SimpleController" of Choreonoid sources. ::
 
@@ -100,7 +100,7 @@ As for compile, it is described in: ::
 in CMakeList.txt unde the same directory. See "src/SimpleControllerPlugin/library/CMakeLists.txt" for detail of this function. Basically, it is OK to link with the library "CnoidSimplerController". (In case of Linux, the file name of the library will be "libCnoidCimpleController.so".
 
 SimpleController Class
--------------------------
+----------------------
 
 A controller of simple controller format is implemented by inheriting SimpleController class. This class becomes available by including cnoid/SimpleController head by ::
 
@@ -159,14 +159,14 @@ With this factory function, the binary file built from this source becomes avail
 
 
 Body Object
-----------------
+-----------
 
 The simple controller inputs and outputs via a "Body item" returned by ioBody(). A Body object is an internal expression of Choreonoid of :doc:`../handling-models/bodymodel`, and an instance of "Body class" defined in C++. Since a Body class has data structure storing the status of the body model, elements like joint angle, torque and sensor status subject to output can of course be stored. The simple controller inputs and outputs via this Body class object.
 
 .. note:: A Body class has various information and functions related to the body model, so it is an over-qualified class for input/output only. This type of class is not usually used for an input/output interface. Generally, a data structure optimised for exchanging only input/output elements is used. So, please be reminded of this point when you apply the description of this section to other controller formats. For example, RT component of OpenRTM normally uses "data port" interface for input/output by data type.
 
 Joint Angle and Joint Torque
---------------------------------
+----------------------------
 
 The joint angle and the joint torque are the fundamental input and output elements to control a robot. With these elements, each joint can be motioned by PD control. In that case, the joint angle is the output value from the robot and the joint torque is an output order to the robot. You had better check first how these values are input and output in the controller format to be used.
 
@@ -197,7 +197,7 @@ For a simple controller, input/output is performed using the above-mentioned fun
 
 
 Initialisation Process
---------------------------
+----------------------
 
 initialize() function of SimpleController inheriting class initialises the controller.
 
@@ -231,7 +231,7 @@ inputs the joint angle of the i-th angle.
 By returning true in the end, it informs the simulator of the successful initialisation.
 
 Control Loop
----------------
+------------
 
 SimpleController inheriting class states a control loop in its control() function.
 
@@ -306,7 +306,7 @@ In the actual controller development, it is necessary to input/output to/from th
 .
 
 Device Objects
---------------------
+--------------
 
 In a Body model of Choreonoid, the device information is represented as "Device object". It is an instance that inherits "Device class" and a different type is defined for each different device type. The device types defined as standard are as follows: ::
 
@@ -403,7 +403,7 @@ The devices that SR1 model has are as follows:
 
 
 Input/Output to/from Device
-------------------------------
+---------------------------
 
 Inputs/outputs to/from a Device object are performed in the following way:
 

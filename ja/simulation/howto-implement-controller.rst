@@ -46,7 +46,7 @@
      8000.0, 8000.0, 8000.0, 8000.0, 8000.0, 8000.0,
      3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 
      8000.0, 8000.0, 8000.0 };
-    
+     
  const double dgain[] = {
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
@@ -56,30 +56,33 @@
  
  class SR1MinimumController : public SimpleController
  {
-     BodyPtr body;
-     double dt;
+     BodyPtr ioBody;
      std::vector<double> qref;
      std::vector<double> qold;
+     double dt;
  
  public:
  
-     virtual bool initialize()
+     virtual bool initialize(SimpleControllerIO* io)
      {
-         body = ioBody();
-         dt = timeStep();
+         io->setJointOutput(JOINT_TORQUE);
+         io->setJointInput(JOINT_ANGLE);
  
-         for(int i=0; i < body->numJoints(); ++i){
-             qref.push_back(body->joint(i)->q());
+         ioBody = io->body();
+         for(int i=0; i < ioBody->numJoints(); ++i){
+             qref.push_back(ioBody->joint(i)->q());
          }
          qold = qref;
-         
+ 
+         dt = io->timeStep();
+ 
          return true;
      }
  
      virtual bool control()
      {
-         for(int i=0; i < body->numJoints(); ++i){
-             Link* joint = body->joint(i);
+         for(int i=0; i < ioBody->numJoints(); ++i){
+             Link* joint = ioBody->joint(i);
              double q = joint->q();
              double dq = (q - qold[i]) / dt;
              double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
@@ -91,7 +94,6 @@
  };
  
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
-
 
 コンパイルについては、同じディレクトリにあるCMakeLists.txt内にある ::
 
@@ -109,26 +111,20 @@ SimpleControllerクラス
 
 により、cnoid/SimpleControllerヘッダをインクルードすることで使えるようになります。
 
-SimpleControllerクラスの定義において本節の解説に関連する部分を以下に示します。（実際のクラス定義はChoreonoidソースの"src/SimpleControllerPlugin/library/SimpleController.h" でされていますので、そちらを参照ください。） ::
+SimpleControllerクラスの定義において本節の解説に関連する部分を以下に示します。（実際のクラス定義はChoreonoidソースの"src/SimpleControllerPlugin/library/SimpleController.h" にありますので、定義の詳細についてはそちらをご確認ください。） ::
 
  class SimpleController
  {
  public:
-     virtual bool initialize() = 0;
+     virtual bool initialize(SimpleControllerIO* io);
      virtual bool control() = 0;
-
- protected:
-     Body* ioBody();
-     double timeStep() const;
-     std::ostream& os() const;
  };
 
+本クラスは、メンバ関数として以下の仮想関数を有しています。
 
-本クラスは、メンバ関数として以下の純粋仮想関数を有しています。
+* **virtual bool initialize(SimpleControllerIO* io)**
 
-* **virtual bool initialize()**
-
- コントローラの初期化処理を行います。
+ コントローラの初期化処理を行います。引数 io を通して制御に関わるオブジェクトや情報を取得できます。
 
 * **virtual bool control()**
 
@@ -136,12 +132,30 @@ SimpleControllerクラスの定義において本節の解説に関連する部�
 
 コントローラ実装の際には、まずSimpleControllerクラスを継承したクラスを定義します。その中で上記の関数をオーバーライドすることにより、コントローラの処理を実装します。
 
-また、SimpleControllerクラスは以下のprotectedメンバ関数も備えています。
+SimpleControllerを継承したクラスを定義したら、そのファクトリ関数を定義しておく必要があります。これは以下のようにマクロを用いて記述すればOKです。 ::
 
-* **Body\* ioBody()**
+ CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
+
+これにより、このソースからビルドされたバイナリファイルが、シンプルコントローラアイテムから利用可能となります。
+
+
+SimpleControllerIO オブジェクト
+-------------------------------
+
+上記のinitialize関数の引数 io として渡されるSimpleControllerIOオブジェクトは、以下のようなメンバ関数を有しています。
+
+* **Body\* body()**
 
  入出力に使うためのBodyオブジェクトを返します。
 
+* **void setJointInput(int stateTypes)**
+
+ コントローラへの入力となる関節の状態値の種類を指定します。
+
+* **void setJointOutput(int stateTypes)**
+
+ コントローラから出力される関節への指令値の種類を指定します。
+ 
 * **double timeStep() const**
 
  制御のタイムステップを返します。上記のcontrol関数は制御中にこの時間間隔で繰り返し呼ばれることになります。
@@ -149,14 +163,6 @@ SimpleControllerクラスの定義において本節の解説に関連する部�
 * **std::ostream& os() const**
 
  テキスト出力用の出力ストリームを返します。このストリームに出力することで、Choreonoidのメッセージビュー上にテキストメッセージを表示できます。
-
-これらのメンバ関数は上記のinitialize()、control()関数内で使用することができます。
-
-SimpleControllerを継承したクラスを定義したら、そのファクトリ関数を定義しておく必要があります。これは以下のようにマクロを用いて記述すればOKです。
-
- CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
-
-これにより、このソースからビルドされたバイナリファイルが、シンプルコントローラアイテムから利用可能となります。
 
 
 Bodyオブジェクト

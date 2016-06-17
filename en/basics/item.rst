@@ -1,6 +1,8 @@
 
 Projects and Items
-======================
+==================
+
+.. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
 
 .. contents::
    :local:
@@ -15,7 +17,7 @@ On Choreonoid, you can perform diversified activities such as simulation of a ro
 
 
 What is a Project Item?
-------------------------
+-----------------------
 
 Of all the data constituting a Project on Choreonoid, those subject to user's explicit operations are called a "Project Item" (also called as an "Item" as abbreviation). A Project normally consists of multiple Items. Diversified types of Items are defined depending on the data to be handled and you have to select and use the types of the constituting Items ( :ref:`basics_itemclass` ) depending on the purpose of the project. You can also add your unique Item Class by developing a plug-in.
 
@@ -23,7 +25,7 @@ In case a Project consists of multiple Items, it is necessary to define the rela
 
 
 Loading of a Project
-----------------------
+--------------------
 
 Load a Project" by selecting "File" ‐ "Load project" from Main Menu on the top of Main Window. Then a dialogue for "Load Choreonoid project file" is prompted.
 
@@ -33,8 +35,10 @@ You can select the project file to be loaded. Note that a project file normally 
 
 In case Choreonoid was started up from command line, you can also load a project using  :ref:`basis_launch_projectfile` as explained in the section of  :doc:`launch` .
 
+.. _basics_sample_project:
+
 Sample Projects
---------------------
+---------------
 
 Choreonoid has some sample projects as default. These samples are stored in "project" directory under "share" directory of Choreonoid. (See :doc:`../install/directories`  for the place of share directory.)
 

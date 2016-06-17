@@ -2,6 +2,8 @@
 Basic Concept
 ===============
 
+.. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
+
 .. contents::
    :local:
    :depth: 1

@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Choreonoid'
-copyright = u'2015, Shin\'ichiro Nakaoka'
+copyright = u'2015 - 2016, Shin\'ichiro Nakaoka'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
