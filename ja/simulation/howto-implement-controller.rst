@@ -150,11 +150,11 @@ SimpleControllerIO オブジェクト
 
 * **void setJointInput(int stateTypes)**
 
- コントローラへの入力となる関節状態値の種類を指定します。状態値は上記のBodyオブジェクトを介してコントローラに渡されます。
+ コントローラへの入力となる関節状態値の種類を指定します。
 
 * **void setJointOutput(int stateTypes)**
 
- コントローラから出力される関節指令値の種類を指定します。指令値も上記のBodyオブジェクトを介してコントローラから出力します。
+ コントローラから出力される関節指令値の種類を指定します。
  
 * **double timeStep() const**
 
@@ -194,8 +194,9 @@ Bodyオブジェクトを介した入出力
    - 関節トルク
  * - JOINT_FORCE
    - 関節(並進)力
- * - LINK_POSITION
-   - リンク位置・姿勢
+
+.. * - LINK_POSITION
+..   - リンク位置・姿勢
 
 .. note:: JOINT_ANGLEとJOINT_DISPLACEMENTが実際に指す内容（シミュレータ内での変数）は同じです。関節には回転（ヒンジ）関節と直動関節があり、それらに合わせた表現をできるように２種類のシンボルが用意されています。JOINT_TORQUEとJOINT_FORCEについても同様です。
 

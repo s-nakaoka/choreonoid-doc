@@ -46,7 +46,7 @@ First, the source code of SR1MinimumController is as follows: This source code i
      8000.0, 8000.0, 8000.0, 8000.0, 8000.0, 8000.0,
      3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 3000.0, 
      8000.0, 8000.0, 8000.0 };
-    
+     
  const double dgain[] = {
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
@@ -56,30 +56,33 @@ First, the source code of SR1MinimumController is as follows: This source code i
  
  class SR1MinimumController : public SimpleController
  {
-     BodyPtr body;
+     BodyPtr ioBody;
      double dt;
      std::vector<double> qref;
      std::vector<double> qold;
  
  public:
  
-     virtual bool initialize()
+     virtual bool initialize(SimpleControllerIO* io)
      {
-         body = ioBody();
-         dt = timeStep();
+         ioBody = io->body();
+         dt = io->timeStep();
+
+         io->setJointInput(JOINT_ANGLE);
+         io->setJointOutput(JOINT_TORQUE);
  
-         for(int i=0; i < body->numJoints(); ++i){
-             qref.push_back(body->joint(i)->q());
+         for(int i=0; i < ioBody->numJoints(); ++i){
+             qref.push_back(ioBody->joint(i)->q());
          }
          qold = qref;
-         
+ 
          return true;
      }
  
      virtual bool control()
      {
-         for(int i=0; i < body->numJoints(); ++i){
-             Link* joint = body->joint(i);
+         for(int i=0; i < ioBody->numJoints(); ++i){
+             Link* joint = ioBody->joint(i);
              double q = joint->q();
              double dq = (q - qold[i]) / dt;
              double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
@@ -92,7 +95,6 @@ First, the source code of SR1MinimumController is as follows: This source code i
  
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
 
-
 As for compile, it is described in: ::
 
  add_cnoid_simple_controller(SR1MinimumController SR1MinimumController.cpp)
@@ -102,45 +104,53 @@ in CMakeList.txt unde the same directory. See "src/SimpleControllerPlugin/librar
 SimpleController Class
 ----------------------
 
-A controller of simple controller format is implemented by inheriting SimpleController class. This class becomes available by including cnoid/SimpleController head by ::
+A controller of simple controller format is implemented by inheriting SimpleController class. This class becomes available by including cnoid/SimpleController header. ::
 
  #include <cnoid/SimpleController>
 
-.
-
-The relevant part to the description of this section in the definition of SimpleController class is as follows: (The actual class definition is made in "src/SimpleControllerPlugin/library/SimpleController.h" of Choreonoid sources. See it for your reference.) ::
+The basic part of this class is defined as follows: ::
 
  class SimpleController
  {
  public:
-     virtual bool initialize() = 0;
+     virtual bool initialize(SimpleControllerIO* io);
      virtual bool control() = 0;
-
- protected:
-     Body* ioBody();
-     double timeStep() const;
-     std::ostream& os() const;
  };
 
+Processing details of the controller are implemented by overriding the virtual functions of the class in a inherited class. The purposes of the virtual functions are as follows:
 
-This class has the following pure virtual function as a member function:
+* **virtual bool initialize(SimpleControllerIO\* io)**
 
-* **virtual bool initialize()**
-
- Initialise the controller:
+ Initialize the controller. The io parameter provides the objects and information used for control.
 
 * **virtual bool control()**
 
  Perform input, control and output processes of the control. This function will be executed repeatedly as a control loop under control.
 
-To implement the controller, define a class that inherits SimpleController class. Implement the processes of the controller by overriding the above function here.
+Once you define a class inheriting SimpleController function, you need to define its factory function. You can do it using a macro as follows: ::
 
-Also, SimpleController class is equipped with the following protected member functions:
+ CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
 
-* **Body\* ioBody()**
+With this factory function, the shared library file compiled from this source becomes available from a simple controller item.
+
+SimpleControllerIO Object
+-------------------------
+
+SimpleController class is equipped with the following protected member functions:
+
+
+* **Body\* body()**
 
  It returns a Body object to be used for input/output.
 
+* **void setJointInput(int stateTypes)**
+
+ It specifies the types of joint state values that are input to the controller.
+
+* **void setJointOutput(int stateTypes)**
+
+ It specifies the types of joint state values that are output from the controller.
+ 
 * **double timeStep() const**
 
  It returns the time step of the control. The above control function is called repeatedly under control with this time interval.
@@ -148,14 +158,10 @@ Also, SimpleController class is equipped with the following protected member fun
 * **std::ostream& os() const**
 
  It returns an output stream to output a text. By outputting to this stream, a text message can be displayed on the message view of Choreonoid.
- 
+
+
 These member functions can be used in the above-mentioned initialise() and control() functions.
 
-Once you define a class inheriting SimpleController function, you need to define its factory function. You can describe it using a macro as follows:
-
-CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
-
-With this factory function, the binary file built from this source becomes available from the simple controller item.
 
 
 Body Object
