@@ -1,8 +1,8 @@
 
-Simulation of Visual Sensor
-===============================
+Simulation of Vision Sensor
+===========================
 
-.. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
+.. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
 
 .. contents::
    :local:
@@ -10,10 +10,10 @@ Simulation of Visual Sensor
 .. highlight:: cpp
 
 
-Visual Sensor
------------------
+Vision Sensor
+-------------
 
-The following device types are defined in Choreonoid for visual sensors:
+The following device types are defined in Choreonoid for vision sensors:
 
 * Camera
 * RangeCamera
@@ -21,11 +21,11 @@ The following device types are defined in Choreonoid for visual sensors:
 
 Camera is a device that corresponds to a video camera. It retrieves two-dimensional image data continuously at a constant frame rate.
 
-RangeCamera is an extended camera and retrieves, in addition to two-dimensional image, the corresponding two-dimensional distance image. An example of this type of sensor is Kinect.
+RangeCamera is an extended camera and retrieves, in addition to two-dimensional image, the corresponding depth map that contains information relating to the distance of the surfaces of scene objects from a viewpoint. An example of this type of sensor is Kinect.
 
-RangeSensor is a device assuming a three-dimensional measurement device using laser. Normally, it outputs one-dimensional distance data equivalent to one line measurement, but is capable of outputting two-dimensional distance image like RangeCamera.
+RangeSensor is a device assuming a three-dimensional measurement device using laser. Normally, it outputs one-dimensional distance data equivalent to one line measurement. Some this type of devices are capable of outputting a two-dimensional depth map like RangeCamera.
 
-These visual sensors are common sensors that are mounted in a robot and have a great demand for simulations. How to simulate these sensors in Choreonoid is explained below:
+These vision sensors are common sensors that are mounted in a robot and have a great demand for simulations. How to simulate these sensors in Choreonoid is explained below:
 
 Addition of Visual Sensor
 ----------------------------
