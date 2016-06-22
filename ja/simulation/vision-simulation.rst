@@ -208,7 +208,7 @@ SR1モデルでは、そのモデルファイル"SR1.wrl"において視覚セ�
 
 これにより、カメラ画像のシミュレーションができていて、それをコントローラ側で取得できていることが分かります。
 
-.. note:: 画像ビューアの中には、ファイルの更新を自動的に検知して表示を更新する機能を有するものがあります。例えば、Ubuntuのデフォルトの画像ビューアである"Eye of GNOME (eog)"もこの機能を有しています。そのようなビューアを用いると、シミュレーションの進行に伴ってカメラ画像が更新されていく様子が確認できます。
+.. note:: 画像ビューアの中には、ファイルの更新を自動的に検知して表示を更新する機能を有するものがあります。例えば、Linux上で動作する画像ビューアの "gThumb" はこの機能を有しています。(Ubuntuでは "apt-get install gthumb" でインストールできます。）そのようなビューアを用いると、シミュレーションの進行に伴ってカメラ画像が更新されていく様子が確認できます。
 
 今回対象としているセンサはRangeCameraですので、通常の画像データに加えて距離画像データも生成されています。そちらのデータについても画像データと同様にアクセスできますので、興味があればサンプルコントローラを改良するなどして試してみて下さい。
 
@@ -221,19 +221,20 @@ CameraSampleControllerのソースコードを以下に示します。 ::
 
  #include <cnoid/SimpleController>
  #include <cnoid/Camera>
-
+ 
  using namespace cnoid;
-
+ 
  class CameraSampleController : public SimpleController
  {
      DeviceList<Camera> cameras;
      double timeCounter;
+     double timeStep;
      
  public:
-     virtual bool initialize()
+     virtual bool initialize(SimpleControllerIO* io)
      {
-         cameras << ioBody()->devices();
-
+         cameras << io->body()->devices();
+ 
          for(size_t i=0; i < cameras.size(); ++i){
              Device* camera = cameras[i];
              os() << "Device type: " << camera->typeName()
@@ -242,13 +243,14 @@ CameraSampleControllerのソースコードを以下に示します。 ::
          }
          
          timeCounter = 0.0;
+         timeStep = io->timeStep();
          
          return true;
      }
-
+ 
      virtual bool control()
      {
-         timeCounter += timeStep();
+         timeCounter += timeStep;
          if(timeCounter >= 1.0){
              for(size_t i=0; i < cameras.size(); ++i){
                  Camera* camera = cameras[i];
@@ -261,9 +263,8 @@ CameraSampleControllerのソースコードを以下に示します。 ::
          return false;
      }
  };
-
+ 
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(CameraSampleController)
-
 
 Cameraデバイスの使用については、 ::
 
@@ -275,7 +276,7 @@ Cameraデバイスの使用については、 ::
 
 に対して ::
 
- cameras << ioBody()->devices();
+ cameras << io->body()->devices();
 
 とすることでロボットモデルが有する全てのCameraデバイスを取得しています。RangeCamera型はCamera型を継承していますので、モデルがRangeCameraを有していればそちらも取得されます。
 

@@ -188,7 +188,7 @@ Next, set "CameraSampleController" to the "controller" property of the added con
 Execution of Simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Start simulation with the above setting: Then, the following message will be displayed first: ::
+Start simulation with the above setting: Then, the following message will first be displayed in the message view: ::
 
  Sensor type: RangeCamera, id: 0, name: LeftCamera
  Sensor type: RangeCamera, id: 1, name: RightCamera
@@ -200,40 +200,40 @@ Then, during the simulation the following information is displayed: ::
  The image of LeftCamera has been saved to "LeftCamera.png".
  The image of RightCamera has been saved to "RightCamera.png".
 
-and the camera image of each is stored as a file. The storage destination is the current directory where Choreonoid is started up and the name is "sensor name.png" This information is updated every second in the latest image.
+and the camera image of each is stored to a file. The file is output to the current directory where Choreonoid is started up and the name is "[sensor name].png" The file is updated every second to the latest image.
 
-Display the stored image in an image viewer. The images to be stored are simulated camera images that correspond to the robot's right eye and the left eye. Examples of the images are shown below:
+Display the image files in an image viewer. The images to be saved are simulated camera images that correspond to the robot's right eye and the left eye. Examples of the images are shown below:
 
 .. image:: images/camera-simulation.png
 
 We can see that the camera images are successfully simulated and are retrieved by the controller.
 
-.. note:: Some image viewers are equipped with the function that automatically detects a file update and updates the display. For example, "Eye of GNOME (eog)", which is the default image viewer of Ubuntu, has such a function, too. If such a viewer is used, you can check how the camera image is updated as the simulation goes on.
+.. note:: Some image viewers are equipped with the function that automatically detects a file update and updates the display. For example, image viewer "gThumb", which is available in Linux, has such a function. (In Ubuntu, you can install it by "apt-get install gthumb".) If such a viewer is used, you can check how the camera image is updated as the simulation goes on.
 
-As the target sensor this time is RangeCamera, distance image data are generated in addition to the normal image data. The distance image data are also accessible just like the normal image data. So, you can try and modify the sample controller if that interests you.
+As the target sensor this time is RangeCamera, the depth map data is generated in addition to the normal image data. It is also accessible just like the normal image data. So, you can try and modify the sample controller if that interests you.
 
 
-Implemented Content of Sample Controller
----------------------------------------------
+Implementation of Sample Controller
+-----------------------------------
 
 The source code of CameraSampleController is as follows: ::
 
-
  #include <cnoid/SimpleController>
  #include <cnoid/Camera>
-
+ 
  using namespace cnoid;
-
+ 
  class CameraSampleController : public SimpleController
  {
      DeviceList<Camera> cameras;
      double timeCounter;
+     double timeStep;
      
  public:
-     virtual bool initialize()
+     virtual bool initialize(SimpleControllerIO* io)
      {
-         cameras << ioBody()->devices();
-
+         cameras << io->body()->devices();
+ 
          for(size_t i=0; i < cameras.size(); ++i){
              Device* camera = cameras[i];
              os() << "Device type: " << camera->typeName()
@@ -242,13 +242,14 @@ The source code of CameraSampleController is as follows: ::
          }
          
          timeCounter = 0.0;
+         timeStep = io->timeStep();
          
          return true;
      }
-
+ 
      virtual bool control()
      {
-         timeCounter += timeStep();
+         timeCounter += timeStep;
          if(timeCounter >= 1.0){
              for(size_t i=0; i < cameras.size(); ++i){
                  Camera* camera = cameras[i];
@@ -261,29 +262,31 @@ The source code of CameraSampleController is as follows: ::
          return false;
      }
  };
-
+ 
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(CameraSampleController)
 
 
-As for the use of Camera device: ::
+As for the use of the Camera device: ::
 
  #include <cnoid/Camera>
 
-Import the definition of Camera class by typing as above: ::
+imports the definition of the Camera type.
+
+The variable to store camera devices is defined as follows: ::
 
  DeviceList<Camera> cameras;
 
-Type as follows: ::
+For this varibale, ::
 
- cameras << ioBody()->devices();
+ cameras << io->body()->devices();
 
-and all Camera devices that the robot model has are obtained. As RangeCamera type inherits Camera type, if the model has RangeCamera type, then it will also be obtained.
+extracts all the camera devices that the robot model has. If the model has RangeCamera devices, they are alos extracted because RangeCamera is a type derived from the Camera type.
 
-For Camera device obtained as above, its information is output in initialize() function to the message view and the image data of the camera is output by ::
+For each camera device obtained as above, its information is output in initialize() function to the message view and its image data is output by ::
 
  camera->constImage().save(filename);
 
-in control() function to the file. In this sample, we don't edit the image data obtained, so constImage() function is used.
+in control() function to the file. In this sample, the constImage() function is used to obtain the image data. This function can be used to avoid unnecessary copy of the original image data when the image data is not edited.
 
-That's all about the part related to Camera device. As many of the other parts are common to  :doc:`howto-implement-controller`, please refer to the description there.
+That's all about the part related to the Camera device. As many of the other parts are common to  :doc:`howto-implement-controller`, please refer to the description there.
 
