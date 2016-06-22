@@ -108,7 +108,7 @@ You can configure the simulation via the property of the simulator item. When yo
 
 .. image:: images/simpropertyview.png
 
-In this example, we make a simulation with these properties configured to the default setting. (If, however, "Synch to actual time" is set to false, change it to "true".)
+In this example, we make a simulation with these properties configured to the default setting. (If, however, "Sync to actual time" is set to false, change it to "true".)
 
 .. See :doc:`simulator-items` for the detail of the property.
 

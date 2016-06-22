@@ -38,9 +38,9 @@ The entire model consists of three links and forms the joint mechanisms as follo
 |   + CRAWLER_TRACK_L (left crawler)
 |   + CRAWLER_TRACK_R (right crawler)
 
-First, a root link called BODY is defined. This corresponds to the green part in the centre of the model. As a root link cannot be made a crawler, define the root link that becomes the base as above.
+First, a root link called BODY is defined. This corresponds to the green part in the center of the model. As a root link cannot be made a crawler, define the root link that becomes the base as above.
 
-"CRAWLER_TRACK_L", which corresponds to th eleft crawler, is defined in the model file as follows: ::
+"CRAWLER_TRACK_L", which corresponds to the left crawler, is defined in the model file as follows: ::
 
  DEF CRAWLER_TRACK_L Joint {
    translation 0.0 0.15 0
@@ -60,7 +60,7 @@ Specify the rotation axis of the crawler in "jointAxis" field. The rotation axis
 
 The shape of the crawler is described in the Segment node. It is necessary to model this part so that the origin of the local coordinate is a point inside the crawler. Any point that is inside the crawler will do, but if you match it with one of the wheels, you may easily understand the mechanism as you may well model a general revolute joint.
 
-The origin and the rotation axis defined here are modelling assuming that the crawler moves the longitudinal direction of the model.
+The origin and the rotation axis defined here are meddling assuming that the crawler moves the longitudinal direction of the model.
 
 "CRAWLER_TRCK_R", which corresponds to the right crawler is described in a similar way.
 

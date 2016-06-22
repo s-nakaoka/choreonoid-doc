@@ -51,9 +51,9 @@ The simulation stops by pressing "Stop Simulation" button below:
 
 .. image:: images/simbar-stop-button.png
 
-In this case, unlike the case using Pause button, all the elements related to the simulation (including the controllers) are terminated (as much as possible). Therefore, you cannot resume from the status totally equal to that when it is terminated. (By pressing "Resume Simulation" button, you can start a simulation from the position and the posture when it is terminated, but it means that only the initial position and posture are maintained while the simulation is started again with all other elements initialised.
+In this case, unlike the case using Pause button, all the elements related to the simulation (including the controllers) are terminated (as much as possible). Therefore, you cannot resume from the status totally equal to that when it is terminated. (By pressing "Resume Simulation" button, you can start a simulation from the position and the posture when it is terminated, but it means that only the initial position and posture are maintained while the simulation is started again with all other elements initialized.
 
-On the other hand, the resources that were used for the simulation are also released. So, it is also possible to resume the simulation as is initialised. Therefore, use Stop operation when you need not resume the simulation.
+On the other hand, the resources that were used for the simulation are also released. So, it is also possible to resume the simulation as is initialized. Therefore, use Stop operation when you need not resume the simulation.
 
 
 Configuration of Time Range
@@ -104,7 +104,7 @@ Recording of Simulation Result
 
 A simulation result can be stored as time-series data that can be used for replay and analysis of the result.
 
-This function is configured using "recording" property of a simulator item. The value of this propoerty can be selected from the following modes:
+This function is configured using "recording" property of a simulator item. The value of this property can be selected from the following modes:
 
 * **full**
 
@@ -118,7 +118,7 @@ This function is configured using "recording" property of a simulator item. The 
 
  No result is recorded. The simulation result can be checked only while the simulation is in execution.
 
-The mode is set to "full" by default. Normally, the recording mode should be set to "full" as it is the best you can replay or analyse the result of a simulation for the entire period of the simulation.
+The mode is set to "full" by default. Normally, the recording mode should be set to "full" as it is the best you can replay or analyze the result of a simulation for the entire period of the simulation.
 
 However, sufficient memory space is required to record all simulation results. The more the simulation targets or the longer the simulation time, the higher the memory consumption. Should the memory used to record simulation results exceeds the free memory space, Choreonoid may go down in the middle of the simulation. So, you have to be careful.
 
@@ -130,7 +130,7 @@ To avoid such a situation, "tail" option is available. This mode suppresses the 
 
 .. note:: When a long-time simulation and the record of all its results are necessary, it is possible to output the result to a file from time to time using "world log file item". In that case, it is OK if there is enough space in the file system even if there is not enough memory.
 
-When the record mode is set to "off", no result will be recorded. Even in this case, it is possible to check the progress of a simulation as the simulation result is reflected on the model from time to time. However, it will not be possible to replay or analyse the result later.
+When the record mode is set to "off", no result will be recorded. Even in this case, it is possible to check the progress of a simulation as the simulation result is reflected on the model from time to time. However, it will not be possible to replay or analyze the result later.
 
 .. _simulation-device-state-recording:
 
@@ -155,7 +155,7 @@ As for the operation of Time bar, if you press the "start animation" button, the
 Display of Ongoing Simulation
 ------------------------------
 
-If the recording of simulation results is enabled, the animation of an ongoing simulation is also displayed by using the above-mentioned replay function as "replay of data being recorded". Note, however, that the result of an ongoing simulation and that of the completed simulation may be somewhat different in the behaviour of replay. In concrete terms:
+If the recording of simulation results is enabled, the animation of an ongoing simulation is also displayed by using the above-mentioned replay function as "replay of data being recorded". Note, however, that the result of an ongoing simulation and that of the completed simulation may be somewhat different in the behavior of replay. In concrete terms:
 
 1. No additional operation is required in terms of replay when you start a simulation. You don't have to select a simulator item again nor to operate Time bar to start animation of the result view.
 
@@ -205,7 +205,7 @@ Further, if the device status is recorded, the data is output to "Devices" as fo
 
 The type of Devices is a MultiDeviceStateSeq item.
 
-The data output in this way is nothing but a project item having its specified type. Therefore, any valid operation to each of the Item type is also available for the simulation result. As a concrete example, the trajectory data owned by an item can be read again after saving or its trajectory can be visualised in the graph view.
+The data output in this way is nothing but a project item having its specified type. Therefore, any valid operation to each of the Item type is also available for the simulation result. As a concrete example, the trajectory data owned by an item can be read again after saving or its trajectory can be visualized in the graph view.
 
 Also, the motion trajectory can be replayed by selecting these items and operating Time bar. In that case, the trajectory of only the selected item can be replayed. If a simulation has multiple dynamic models, it is necessary to select the motion trajectory items of all the models to replay the entire simulation. In fact, however, you don't have to do that much. As was explained, the entire simulation becomes the repay target by selecting the corresponding simulator item.
 

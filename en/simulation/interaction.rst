@@ -61,14 +61,14 @@ If "Move forcibly" is selected, this item is checked and the forced movement mod
 
 If you click on the root link once, then the drag marker is also displayed. You may drag it, too. In that case, you can rotate the model.
 
-When you finish dragging in this operation, the behaviour will follow the physical laws again. If you were making the robot floating over the floor by dragging it and then release drag, the robot will fall onto the floor.
+When you finish dragging in this operation, the behavior will follow the physical laws again. If you were making the robot floating over the floor by dragging it and then release drag, the robot will fall onto the floor.
 
-For "Hold forcibly", operations similar to those of "Move forcibly" are supported. However, the behaviour when you finish dragging is different and the position of the root link is kept as it is dragged. To release the held state, you can release the forced holding mode by unchecking the menu item.
+For "Hold forcibly", operations similar to those of "Move forcibly" are supported. However, the behavior when you finish dragging is different and the position of the root link is kept as it is dragged. To release the held state, you can release the forced holding mode by unchecking the menu item.
 
 
 Synchronization between Simulation and Display
 ----------------------------------------------
 
-As stated in the beginning, interaction operations are valid for ongoing simulation only. They cannot be applied when replaying the result of a completed simulation or verifying a choreographic motion. So, you need to know whether the behaviour of the model currently displayed is due to the ongoing simulation or some other function.
+As stated in the beginning, interaction operations are valid for ongoing simulation only. They cannot be applied when replaying the result of a completed simulation or verifying a choreographic motion. So, you need to know whether the behavior of the model currently displayed is due to the ongoing simulation or some other function.
 
 Further, it is necessary that the simulation progress be synchronized with the display. As an interaction operation by user is performed to the display on the scene view and the content of the operation is fed back to the physical calculation in the simulator, a time lag will cause a bad operation. Normally, the simulation progress and the display are synchronized unless "sync with ongoing update”on Time Bar is disabled. See  :ref:`simulation_playback_ongoing_simulation` for detail.

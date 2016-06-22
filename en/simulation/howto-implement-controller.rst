@@ -13,7 +13,7 @@ Implementation of Controller
 Implementation of Controller
 ----------------------------
 
-The basiscs of how to implement a controller are described below:
+The basics of how to implement a controller are described below:
 
 What a controller does is basically the following three things and it executes them repeatedly as "control loop".
 
@@ -21,7 +21,7 @@ What a controller does is basically the following three things and it executes t
 2. To make control calculations; and
 3. To output commands to the robot
 
-These processes are executed by a single controller or in combination with multiple software components. A process where "control calculations" are bundled actually involves diversified processes like different recognitions and motion plans and may include inputs/outputs for something else than the robot. However, from the robot perspective, what a controller does can be sorted out to the above-mentioned three processes.
+These processes are executed by a single controller or in combination with multiple software components. A process where "control calculations" are bundled actually involves diversified processes such as object recognition and motion planning and may include inputs/outputs for something else than the robot. However, from the robot perspective, what a controller does can be sorted out to the above-mentioned three processes.
 
 From this perspective, a controller is a software module having interfaces that handle the above three actions. The actual API for this varies among the controller formats but the essential part is identical.
 
@@ -99,7 +99,7 @@ As for compile, it is described in: ::
 
  add_cnoid_simple_controller(SR1MinimumController SR1MinimumController.cpp)
 
-in CMakeList.txt unde the same directory. See "src/SimpleControllerPlugin/library/CMakeLists.txt" for detail of this function. Basically, it is OK to link with the library "CnoidSimplerController". (In case of Linux, the file name of the library will be "libCnoidCimpleController.so".
+in CMakeList.txt under the same directory. See "src/SimpleControllerPlugin/library/CMakeLists.txt" for detail of this function. Basically, it is OK to link with the library "CnoidSimplerController". (In case of Linux, the file name of the library will be "libCnoidCimpleController.so".
 
 SimpleController Class
 ----------------------
@@ -117,7 +117,7 @@ The basic part of this class is defined as follows: ::
      virtual bool control() = 0;
  };
 
-Processing details of the controller are implemented by overriding the follwoing virtual functions in a inherited class:
+Processing details of the controller are implemented by overriding the following virtual functions in a inherited class:
 
 * **virtual bool initialize(SimpleControllerIO\* io)**
 
@@ -136,7 +136,7 @@ With this factory function, the shared (dynamic link) library file compiled from
 SimpleControllerIO Object
 -------------------------
 
-A SimpleControllerIO object, which is passed as a parameter to a controller's initialize() function, handles the information used for input/output (I/O) between the controller and the robot. The following functions are available wtih this object:
+A SimpleControllerIO object, which is passed as a parameter to a controller's initialize() function, handles the information used for input/output (I/O) between the controller and the robot. The following functions are available with this object:
 
 * **Body\* body()**
 
@@ -165,9 +165,9 @@ This object is called 'io object' in the following sections.
 I/O using a Body Object
 -----------------------
 
-The simple controller inputs and outputs via a "Body item" returned by ioBody(). A Body object is an internal expression of Choreonoid of :doc:`../handling-models/bodymodel`, and an instance of "Body class" defined in C++. Since a Body class has data structure storing the status of the body model, elements like joint angle, torque and sensor status subject to output can of course be stored. The simple controller inputs and outputs via this Body class object. The Body object for this purpose is obtained by the io objet's body() function.
+The simple controller inputs and outputs via a "Body item" returned by ioBody(). A Body object is an internal expression of Choreonoid of :doc:`../handling-models/bodymodel`, and an instance of "Body class" defined in C++. Since a Body class has data structure storing the status of the body model, elements like joint angle, torque and sensor status subject to output can of course be stored. The simple controller inputs and outputs via this Body class object. The Body object for this purpose is obtained by the io object's body() function.
 
-.. note:: A Body class has various information and functions related to the body model, so it is an over-qualified class for I/O only. This type of class is not usually used for an I/O interface. Generally, a data structure optimised for exchanging only I/O elements is used. So, please be reminded of this point when you apply the description of this section to other controller formats. For example, RT component of OpenRTM normally uses "data port" interface for I/O by data type.
+.. note:: A Body class has various information and functions related to the body model, so it is an over-qualified class for I/O only. This type of class is not usually used for an I/O interface. Generally, a data structure optimized for exchanging only I/O elements is used. So, please be reminded of this point when you apply the description of this section to other controller formats. For example, RT component of OpenRTM normally uses "data port" interface for I/O by data type.
 
 The elements of the robot state handled as I/O data are specified by using the setJointInput() and setJointOutput() functions of the io object. These functions specify input data types and output data types, respectively. The following symbols are used for specifying the data types:
 
@@ -180,7 +180,7 @@ The elements of the robot state handled as I/O data are specified by using the s
  * - JOINT_ANGLE
    - Joint angle values
  * - JOINT_DISPLACEMENT
-   - joint dispacment values
+   - joint displacement values
  * - JOINT_VELOCITY
    - joint velocity values
  * - JOINT_ACCELERATION
@@ -190,7 +190,7 @@ The elements of the robot state handled as I/O data are specified by using the s
  * - JOINT_FORCE
    - joint force values
 
-.. note:: What JOINT_ANGLE specifies in the simulator is same as that of JOINT_DISPLACEMENT. Theare may be revolute joints and prismatic joints, and the two symbols are defined to be able to express both the joint types. JOINT_TORQUE and JOINT_FORCE are defined for the same reason.
+.. note:: What JOINT_ANGLE specifies in the simulator is same as that of JOINT_DISPLACEMENT. There may be revolute joints and prismatic joints, and the two symbols are defined to be able to express both the joint types. JOINT_TORQUE and JOINT_FORCE are defined for the same reason.
 
 When you specify more than one element type, enumerates the corresponding symbols with the bit operator '|'. For example, ::
 
@@ -226,11 +226,11 @@ For the Link object retrieved, it is possible to access to the joint state value
 
  Returns the reference to the joint torque value. The value corresponds to JOINT_TORQUE or JOINT_FORCE. The unit is [N･m] or [N].
 
-As each of these member functions returns the reference to its corresponding variable, you can substitute another value. Outputing values from the controller is done in that way.
+As each of these member functions returns the reference to its corresponding variable, you can substitute another value. Outputting values from the controller is done in that way.
 
 The element types that can actually be used for I/O depend on the type and configuration of a simulator item. Most simulator items support the input of joint angle (displacement) values and the output of joint torque (force) values, and they make it possible to perform basic PD control. In that case, for each Link object of the joints, the joint angle (displacement) value is input by reading the q() value, and the value is then used in the calculation of the PD control, and the resulting joint torque (force) value is set to u() to output it to the robot.
 
-In fact, any element types can be input to a controller in most simulator items. All the element values are contained in the internal physics calculation process, and the simulator can pass the values to the controller as its input values. However, it is not applied to a real robot. In a real robot, inputting a joint displacement requires an encoder at the joint, and inputting a joint torque requires a torque sensor at as well. Joint velocity values and joint accleration values are usually obtained by differentiating the joint displacement values.
+In fact, any element types can be input to a controller in most simulator items. All the element values are contained in the internal physics calculation process, and the simulator can pass the values to the controller as its input values. However, it is not applied to a real robot. In a real robot, inputting a joint displacement requires an encoder at the joint, and inputting a joint torque requires a torque sensor at as well. Joint velocity values and joint acceleration values are usually obtained by differentiating the joint displacement values.
 
 With regard to output, the element types other than the joint torque (force) can only be output in limited situations. An example of such situations is the 'High-gain dynamics' mode of the AIST simulator. When you set it to the 'Dynamics mode' property of an AIST simulator item, it accepts joint displacement, joint velocity, and joint acceleration values as the output values from the controller. In this case, the motion of the robot is calculated so that the given joint posture can be achieved. Note that, however, this function would not be available for the real robot.
 
@@ -495,7 +495,7 @@ In a Link object, its position is stored as a Position type value. This is a cus
 
 * **void setTranslation(const Eigen::MatrixBase<Derived>& p)**
 
- Sets the translation part of the link posiion by giving a thrre-dimension vector expression defined by Eigen library.
+ Sets the translation part of the link position by giving a three-dimension vector expression defined by Eigen library.
    
 * **Position::LinearPart rotation()**
 
@@ -503,11 +503,11 @@ In a Link object, its position is stored as a Position type value. This is a cus
 
 * **setRotation(const Eigen::MatrixBase<Derived>& R)**
 
- Sets the rotation part of the link posiion by giving a 3x3 matrix expression defined by Eigen library.
+ Sets the rotation part of the link position by giving a 3x3 matrix expression defined by Eigen library.
 
 * **setRotation(const Eigen::AngleAxis<T>& a)**
 
- Sets the rotation part of the link posiion by giving an angle-axis rotation expression defined by Eigen library.
+ Sets the rotation part of the link position by giving an angle-axis rotation expression defined by Eigen library.
 
 For example, if you need to input the position of the root link, enable the input by ::
 

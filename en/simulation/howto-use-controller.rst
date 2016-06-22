@@ -12,7 +12,7 @@ Introduction of Controller
 Introduction of Controller
 ----------------------------
 
-It is necessary to introduce a controller to a smiluation project to control a robot in the simulation. The basic flow of introduction is as follows:
+It is necessary to introduce a controller to a simulation project to control a robot in the simulation. The basic flow of introduction is as follows:
 
 1. Select a controller item type to be used.
 2. Prepare a controller itself that complies with the controller item type.
@@ -21,7 +21,7 @@ It is necessary to introduce a controller to a smiluation project to control a r
 
 Here is a concrete explanation about the above operations:
 
-Prepration of Simulation Project
+Preparation of Simulation Project
 ----------------------------------
 
 First, according to the process described in :doc:`simulation-project` , let's create a project with other elements than the controller prepared.
@@ -58,7 +58,7 @@ Since there is no controller, no command is sent to the joints. So, no joint tor
 
 In this way, a robot cannot even stand still without a controller. So what we need first for a robot is a controller. To make it walk and work, we need a certain level of controller that can support such actions.
 
-Selecton of Controller Item Type
+Selection of Controller Item Type
 ----------------------------------
 
 In Choreonoid, controllers are introduced by "Controller Item". A controller item is an abstract item type that defines the base of outputs and inputs. Actually, an item type that inherits this is used. Generally speaking, the controller itself is implemented separately from the controller item. So we have to prepare it as well.
@@ -83,7 +83,7 @@ To use a controller that no existing controller item can support, it will be nec
 
 As for ROS, which have been used a lot recently, the development of the controller items that can support ROS are ongoing.
 
-.. note:: As a method of introducing a controller, you can implement the controller itself as it is as the controller item inheriting type. With this method, you can directly use the native API that accesses to the virtual robot, so the flexibility and the efficiency of the controller can be maximised. However, the controller cannot be used in Choreonoid only and it is not easy to implement it as a plugin. So, this method is generally not used.
+.. note:: As a method of introducing a controller, you can implement the controller itself as it is as the controller item inheriting type. With this method, you can directly use the native API that accesses to the virtual robot, so the flexibility and the efficiency of the controller can be maximized. However, the controller cannot be used in Choreonoid only and it is not easy to implement it as a plugin. So, this method is generally not used.
 
 Preparation of Controller Itself
 -----------------------------------
@@ -127,7 +127,7 @@ For example, let's set "SR1MinimumController", which is a sample of a simple con
 
 .. note:: The sample controller is created if the CMake option when building Choreonoid "BUILD_SIMPLE_CONTROLLER_PLUGIN" is set to ON. (This setting is ON by default.)
 
-.. note:: How to set the controller itself is specifically different from a controller item type to another. Based on the basic flow of introduction of a controller stated in this section, read the document of the controller item to be used actually and configure it. In case of a Body RTC item, for example, you can configure the controller by combining multiple RT components, but you cannot realise it by just specifying one file name of the controller but a more complicated configuration is required.
+.. note:: How to set the controller itself is specifically different from a controller item type to another. Based on the basic flow of introduction of a controller stated in this section, read the document of the controller item to be used actually and configure it. In case of a Body RTC item, for example, you can configure the controller by combining multiple RT components, but you cannot realize it by just specifying one file name of the controller but a more complicated configuration is required.
 
 Execution of Simulation
 ---------------------------

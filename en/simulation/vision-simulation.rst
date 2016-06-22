@@ -39,7 +39,7 @@ In a model file in OpenHRP format, the sensor should be described according the 
  :header-rows: 1
 
  * - Device type in body model
-   - Node type in OpeHRP model file
+   - Node type in OpenHRP model file
  * - Camera
    - VisionSensor (with the type being "COLOR")
  * - RangeCamra
@@ -87,9 +87,9 @@ The basic configuration for simulating vision sensors is as described above, but
  * - Threads for sensors
    - It configures whether or not to use a dedicated thread for each sensor instance when multiple vision sensors are simulated. This property becomes valid when "use thread" is set to true. It should usually be true, but setting it to false may improve the simulation speed depending on the number of the sensors and the GPU being used.
  * - Best effort
-   - A vision sensor is configured with a frame rate and data are updated at the interval of that frame rate. If the best effort is set to true, data update may not be in time for the frame rate. The actual interval depends on the internal data generation process in the simulator. If it is set to false, on the contrary, data will be updated according to the frame rate configured. However, as it is necessary to wait for the completion of the data generation process even if it is not completed in time, the simulation speed can become slower. Therefore, if you prioritise improvement of the simulation speed over keeping of the frame rate, this property should be set to true.
+   - A vision sensor is configured with a frame rate and data are updated at the interval of that frame rate. If the best effort is set to true, data update may not be in time for the frame rate. The actual interval depends on the internal data generation process in the simulator. If it is set to false, on the contrary, data will be updated according to the frame rate configured. However, as it is necessary to wait for the completion of the data generation process even if it is not completed in time, the simulation speed can become slower. Therefore, if you prioritize improvement of the simulation speed over keeping of the frame rate, this property should be set to true.
  * - All scene objects
-   - Objects that can be displayed as 3DCG are called "scene objects". Project items that are displayed on the scene view by checking in Item Tree View correspond to the scene objects. This property configures whether or not to include scene objects other than body items in the virtual world seen by vision sensors. An example of a scene object other than a body item is a scene item. It does not influence on the physical behaviour in the simulation but can be used as an appearance element of a virtual world.
+   - Objects that can be displayed as 3DCG are called "scene objects". Project items that are displayed on the scene view by checking in Item Tree View correspond to the scene objects. This property configures whether or not to include scene objects other than body items in the virtual world seen by vision sensors. An example of a scene object other than a body item is a scene item. It does not influence on the physical behavior in the simulation but can be used as an appearance element of a virtual world.
  * - Precision ratio of range sensors
    - The distance data of a range sensor is simulated using the depth buffer of OpenGL. This property configures the resolution of the depth buffer to the resolution of the distance sensor. The higher the value, the more accurate the distance data.
  * - Depth error
@@ -276,11 +276,11 @@ The variable to store camera devices is defined as follows: ::
 
  DeviceList<Camera> cameras;
 
-For this varibale, ::
+For this variable, ::
 
  cameras << io->body()->devices();
 
-extracts all the camera devices that the robot model has. If the model has RangeCamera devices, they are alos extracted because RangeCamera is a type derived from the Camera type.
+extracts all the camera devices that the robot model has. If the model has RangeCamera devices, they are also extracted because RangeCamera is a type derived from the Camera type.
 
 For each camera device obtained as above, its information is output in initialize() function to the message view and its image data is output by ::
 

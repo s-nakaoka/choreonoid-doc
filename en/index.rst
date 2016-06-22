@@ -13,7 +13,8 @@ Choreonoid Operation Manual
    basics/index
    handling-models/index
    simulation/index
-   plugin-development/index
+
+..   plugin-development/index
 ..   tips/index
 ..   plugins/index
 
