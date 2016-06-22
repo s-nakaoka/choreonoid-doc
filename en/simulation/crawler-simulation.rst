@@ -103,6 +103,7 @@ In a simplified simulation of a crawler, a command value to the crawler shall be
 
 For example, in the case of driving the crawler of the sample model with SimpleController, you can have the control loop process as follows: ::
 
+ // ioBody is the Body object obtained by io->body()
  ioBody->joint("CRAWLER_TRACK_L")->u() = 1.0;
  ioBody->joint("CRAWLER_TRACK_R")->u() = 1.0;
 
@@ -119,19 +120,19 @@ In this case, the model turns to the right.
 Simulation Sample
 -----------------
 
-We have a project "SampleCrawler.cnoid" as a sample to motion the sample crawler model. When we execute a simulation in this project, the crawler model crawls as illustrated in the figure while crossing over a bump on the floor.
+We have a project "SampleCrawler.cnoid" as a sample to move the sample crawler model. When we execute a simulation in this project, the crawler model crawls as illustrated in the figure while crossing over a bump on the floor.
 
 .. image:: images/SampleCrawlerProject.png
 
 The controller used is implemented in the SimpleController format. The source file is "src/sample/SimpleController/SampleCrawlerController.cpp", which you can refer to.
 
-Also, with "SampleCrawlerJoystick.cnoid", you can operate the crawler model with a USB-connected joy stick (game pad). As for the first analogue stick of the joy stick, its up-down-right-left corresponds to forward-back-right-left movement of the crawler model.
+Also, with "SampleCrawlerJoystick.cnoid", you can operate the crawler model with a USB-connected joystick (gamepad). As for the first analogue stick of the joystick, its up-down-right-left corresponds to forward-back-right-left movement of the crawler model.
 
-If a joy stick is not connected, the use of a "virtual joy stick" as follows can realise the same operation as a joy stick.
+If a joystick is not connected, the use of "Virtual Joystick View" as follows can realize the same operation as a real joystick.
 
 .. image:: images/VirtualJoystickView.png
 
-The first analogue stick of the joy stick is allocated on "E", "D", "S", and "F" keys on the keyboard and they correspond to the up, down, left and right on the stick respectively. When you start the simulation, click inside this view to enable the keyboard focus. Then, you can operate the crawler model by pressing these keys.
+The first analogue stick of the joystick is allocated on "E", "D", "S", and "F" keys on the keyboard and they correspond to the up, down, left and right on the stick respectively. When you start the simulation, click inside this view to enable the keyboard focus. Then, you can operate the crawler model by pressing these keys.
 
 The source of this controller is "sample/SimpleController/CameraSampleController.cpp".
 
