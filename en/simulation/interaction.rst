@@ -2,7 +2,7 @@
 Interaction Function
 ========================
 
-.. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
+.. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
 
 .. contents:: 
    :local:
@@ -17,10 +17,10 @@ You may well operate a robot or a substance in a virtual world that are being si
 How to Operate
 ------------------
 
-Interactive operations are performed on Scene View. In case:
+Interactive operations are performed on the scene view. In case:
 
 * Simulation is ongoing;
-* Scene View is in edit mode;
+* Scene view is in edit mode;
 
 The following operations are enabled.
 
@@ -40,7 +40,7 @@ Here, the mouse cursor is placed on the head of the robot and then drag is start
 
 By combining this with the keyboard operation, the magnitude of the force can be changed. If you drag with a Shift key kept pressed, the magnitude of the force becomes ten times. Additionally, if you drag with Ctrl + Shift keys kept pressed, the magnitude of the force becomes a hundred times as much as the original force. If the model is not moved successfully by dragging, try the above operations.
 
-Note that the magnitude of the base force is determined randomly from the mass of the model, but it can be too little or too much. Users cannot configure this part arbitrarily for the time being. We will improve that in the future.
+Note that the magnitude of the base force is determined suitably from the mass of the model, but it can be too little or too much. Users cannot configure this part arbitrarily for the time being. We will improve that in the future.
 
 
 Forced Movement and Holding Operations
@@ -66,10 +66,9 @@ When you finish dragging in this operation, the behaviour will follow the physic
 For "Hold forcibly", operations similar to those of "Move forcibly" are supported. However, the behaviour when you finish dragging is different and the position of the root link is kept as it is dragged. To release the held state, you can release the forced holding mode by unchecking the menu item.
 
 
-Synchronisation between Simulation and Display
------------------------------------------------------
+Synchronization between Simulation and Display
+----------------------------------------------
 
 As stated in the beginning, interaction operations are valid for ongoing simulation only. They cannot be applied when replaying the result of a completed simulation or verifying a choreographic motion. So, you need to know whether the behaviour of the model currently displayed is due to the ongoing simulation or some other function.
 
-Further, it is necessary that the simulation progress be synchronised with the display. As an interaction operation by user is performed to the display on Scene View and the content of the operation is fed back to the physical calculate in the simulator, a time lag will cause a bad operation. Normally, the simulation progress and the display are synchronised unless "Synchronise with update in progress" on Time Bar is disabled See  :ref:`simulation_playback_ongoing_simulation` for detail.
-
+Further, it is necessary that the simulation progress be synchronized with the display. As an interaction operation by user is performed to the display on the scene view and the content of the operation is fed back to the physical calculation in the simulator, a time lag will cause a bad operation. Normally, the simulation progress and the display are synchronized unless "sync with ongoing update”on Time Bar is disabled. See  :ref:`simulation_playback_ongoing_simulation` for detail.
