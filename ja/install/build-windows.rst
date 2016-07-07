@@ -324,7 +324,22 @@ Bulletプラグイン
 `Bullet Physics Library <http://bulletphysics.org>`_ のサイトからソースが取得できます。当方でテストを行ったバージョンはbullet-2.83.7になります。
 
 CMakeが使用できますので、いままでの説明と同様に行います。
-CMakeの設定で、 **BUILD_**＿DEMOS** のすべてと、 **BUILD_BULLET3**、 **BUILD_UNIT_TESTS** をOFFにします。 **INSTALL_EXTRA_LIBS** 、 **INSTALL_LIBS** と **USE_MSVC_RUNTIME_LIBRARY_DLL** をONにします。 **CMAKE_INSTALL_PREFIX** でインストール先を指定できます。
+以下のオプションはONに切り替えておきます。
+
+* **BUILD_EXTRAS**
+* **BUILD_SHARED_LIBS**
+* **INSTALL_EXTRA_LIBS**
+* **INSTALL_LIBS**
+* **USE_DOUBLE_PRECISION**
+* **USE_MSVC_RUNTIME_LIBRARY_DLL**
+
+また、以下のオプションはOFFにしておいた方が無難です。
+
+* **BUILD_XXX_DEMOS** のすべて
+* **BUILD_BULLET3**
+* **BUILD_UNIT_TESTS**
+
+インストール先は  **CMAKE_INSTALL_PREFIX** で設定します。
 
 .. note:: Extras\\HACD\\hacdICHull.cppで"error C2039: 'max' : 'std' のメンバーではありません。"というエラーが表示されたら、このファイルの先頭部分を以下のように修正してください ::
 
@@ -357,4 +372,3 @@ numpy-1.11.0-cp27-none-win_amd64.whl、またはnumpy-1.11.0-cp27-none-win32.whl
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **BUILD_XXX_PLUGIN** のオプションをオンにしてインストールしたプラグインは、その後オプションをオフにしてインストールしても削除されません。プラグインを追加して動作が不安定になった場合など、プラグインを削除したい場合は、手動でファイルを削除してください。プラグインは(コレオノイドのインストール先)/lib/choreonoid-1.5にCnoid***Plugin.dllとしてインストールされています。
-
