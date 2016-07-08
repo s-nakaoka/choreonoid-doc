@@ -34,9 +34,9 @@
 
  ChoreonoidをコンパイルするためのC++コンパイラとして、Microsoft製のVisual C++を用いることができます。製品版でも結構ですし、無料で使用可能なExpress Editionも利用可能です。Visual C++ 2015,2013のExpress Editionは `こちらのページ <https://www.visualstudio.com/downloads/download-visual-studio-vs>`_ からダウンロードできるようです。Visual Studio Express 2015 for Desktop または Visual Studio Express 2013 for Desktop　を選択してください。
 
- 現在、32ビットバイナリ、64ビットバイナリがビルドできることを確認しています。(64ビット版Windows上では32ビットバイナリでも動作可能です。）ですが、Pythonに関わるモジュールで、32ビットバイナリが作成できない不具合を認識しております。Python機能を使用したい場合は、64ビットバイナリを作成してください。
+ 現在、32ビットバイナリ、64ビットバイナリがビルドできることを確認しています。(64ビット版Windows上では32ビットバイナリでも動作可能です。）ビルドに必要なライブラリは、32ビット、64ビットを統一する必要がありますので、混在しないように注意してください。
 
- なお、ビルドに必要なライブラリは、32ビット、64ビットを統一する必要があります。混在しないように注意してください。
+.. note:: 現在Pythonスクリプト機能を利用するためには、Visual C++ 2013 を用いて64ビットバイナリとしてビルドする必要があります。32ビットやVisual C++ 2015ではPython機能のビルドができない不具合がありますので、ご注意ください。
  
 * **CMake**
 
@@ -370,6 +370,9 @@ numpy-1.11.0-cp27-none-win_amd64.whl、またはnumpy-1.11.0-cp27-none-win32.whl
  pip install ダウンロードしたファイル名
 
 後はコレオノイドのビルドに関するCMakeの設定で、 **ENABLE_PYTHON** , **BUILD_PYTHON_PLUGIN** , **BUILD_PYTHON_SIM_SCRIPT_PLUGIN** という項目を "ON"にしてください。
+
+.. note:: 現在Pythonスクリプト機能を利用するためには、Visual C++ 2013 を用いて64ビットバイナリとしてビルドする必要があります。32ビットやVisual C++ 2015ではPython機能のビルドができない不具合がありますので、ご注意ください。
+ 
 
 プラグインのアンインストール
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
