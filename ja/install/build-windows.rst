@@ -331,7 +331,6 @@ CMakeが使用できますので、いままでの説明と同様に行います
 以下のオプションはONに切り替えておきます。
 
 * **BUILD_EXTRAS**
-* **BUILD_SHARED_LIBS**
 * **INSTALL_EXTRA_LIBS**
 * **INSTALL_LIBS**
 * **USE_DOUBLE_PRECISION**
