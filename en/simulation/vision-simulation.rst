@@ -82,10 +82,8 @@ The basic configuration for simulating vision sensors is as described above, but
    - The maximum value is set for the time (latency) from the time when a sensor starts measurement till the result can be output as data. For all the sensors, data can be output if this time is elapsed regardless of the specification of the sensors. Decreasing this value may make a simulation slower.
  * - Record vision data
    - It configures whether or not to perform :ref:`simulation-device-state-recording` in :ref:`simulation-result-recording` for the data obtained by the vision sensor such as image data and distance data. The size of these data is generally large and recording them just for a short time consumes large memory space. So, they should usually not included.
- * - Use thread
-   - It configures whether or not to use a dedicated thread for simulation of the vision sensor. Using a dedicated thread can improve the simulation speed, so it should usually be set to true.
  * - Threads for sensors
-   - It configures whether or not to use a dedicated thread for each sensor instance when multiple vision sensors are simulated. This property becomes valid when "use thread" is set to true. It should usually be true, but setting it to false may improve the simulation speed depending on the number of the sensors and the GPU being used.
+   - It configures whether or not to use a dedicated thread for each sensor instance when multiple vision sensors are simulated. It should usually be true, but setting it to false may improve the simulation speed depending on the number of the sensors and the GPU being used.
  * - Best effort
    - A vision sensor is configured with a frame rate and data are updated at the interval of that frame rate. If the best effort is set to true, data update may not be in time for the frame rate. The actual interval depends on the internal data generation process in the simulator. If it is set to false, on the contrary, data will be updated according to the frame rate configured. However, as it is necessary to wait for the completion of the data generation process even if it is not completed in time, the simulation speed can become slower. Therefore, if you prioritize improvement of the simulation speed over keeping of the frame rate, this property should be set to true.
  * - All scene objects

@@ -13,7 +13,7 @@ Simplified Simulation of Crawler
 What is Crawler
 ---------------
 
-"Crawler" is a mechanism that is used to move a vehicle. It is also called "caterpillar", "endless track" or "tread". Crawlers are generally used for heavy machines and tanks and they are widely used for the transfer mechanism. Systems like belt conveyors are also a type of this mechanism.
+"Crawler" is a mechanism that is used to move a vehicle. It is also called "caterpillar" or "continuous track". Crawlers are generally used for heavy machines and tanks and they are widely used for the transfer mechanism. Systems like belt conveyors are also a type of this mechanism.
 
 Choreonoid is equipped with the function that makes simplified simulation of a crawler. The function does not reproduce an actual crawler but can simulate to some extent a movement on a comparably flat ground. How to use this function is described below:
 
@@ -23,7 +23,7 @@ Creation of Crawler Model
 First, it is necessary to define the crawler mechanism in the model to be used. This can be done as follows:
 
 * Model a crawler part as a single link.
-* Specify "crawler" as the joint type of this link.
+* Specify "pseudoContinuousTrack" as the joint type of this link.
 * Specify the rotation axis of the crawler to the joint axis parameter.
 
 As a sample of the model including a crawler, the "Crawler" model is available. This sample is defined in the file "crawler.wrl" under "model/misc/" in the share directory and has the appearance as follows:
@@ -44,7 +44,7 @@ First, a root link called BODY is defined. This corresponds to the green part in
 
  DEF CRAWLER_TRACK_L Joint {
    translation 0.0 0.15 0
-   jointType "crawler"           
+   jointType "pseudoContinuousTrack"           
    jointAxis 0 1 0
    jointId 0
    children [
@@ -99,20 +99,20 @@ The rotation axis of the crawler is the vector that points the front side of the
 How to Give Command Value
 -------------------------
 
-In a simplified simulation of a crawler, a command value to the crawler shall be given as the magnitude of the driving velocity (the relative velocity that should be realized at the contact points) of the crawler. The interface to do this is currently specified to share with the interface of the joint torque. That is to say, from the interface point of view, when a value is given to the joint torque, it will be handled as the velocity command value to the crawler.
+In a simplified simulation of a crawler, a command value to the crawler shall be given as the magnitude of the driving velocity (the relative velocity that should be realized at the contact points) of the crawler. The command value can be output by specifying the joint velocity value of the corresponding Link object.
 
 For example, in the case of driving the crawler of the sample model with SimpleController, you can have the control loop process as follows: ::
 
  // ioBody is the Body object obtained by io->body()
- ioBody->joint("CRAWLER_TRACK_L")->u() = 1.0;
- ioBody->joint("CRAWLER_TRACK_R")->u() = 1.0;
+ ioBody->joint("CRAWLER_TRACK_L")->dq() = 1.0;
+ ioBody->joint("CRAWLER_TRACK_R")->dq() = 1.0;
 
 By doing so, the right and the left crawlers are given the equal driving force and the entire model moves to the front at the velocity of 1.0 [m/s].
 
 By giving different command values to the right and the left crawlers as follows, you can make the model turn. ::
 
- ioBody->joint("CRAWLER_TRACK_L")->u() =  1.0;
- ioBody->joint("CRAWLER_TRACK_R")->u() = -1.0;
+ ioBody->joint("CRAWLER_TRACK_L")->dq() =  1.0;
+ ioBody->joint("CRAWLER_TRACK_R")->dq() = -1.0;
 
 In this case, the model turns to the right.
 
