@@ -11,7 +11,7 @@
    howto-use-controller
    howto-implement-controller
    vision-simulation
-   crawler-simulation
+   pseudo-continuous-track
    interaction
    sensor-visualization
 ..   logfileitem
