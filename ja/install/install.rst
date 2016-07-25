@@ -11,5 +11,6 @@ Choreonoidを利用するためにはまずPCへインストールすること�
    platform
    build-ubuntu
    build-windows
+   installer-windows
    directories
    options
