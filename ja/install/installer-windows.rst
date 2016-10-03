@@ -4,7 +4,7 @@
 
 インストーラを用いてコレオノイドをWindowsへインストールする方法を解説します。
 
-最初に :doc:`../../download` のページからインストーラをダウンロードして下さい。Choreonoid-x.x.x-win64.exe というファイルがWindows版のインストーラになります。（以下の文中・図中では、バージョン番号は適宜インストール対象のものと置き換えててください。）
+最初に `ダウンロード <http://choreonoid.org/ja/download.html>`_ のページからインストーラをダウンロードして下さい。Choreonoid-x.x.x-win64.exe というファイルがWindows版のインストーラになります。（以下の文中・図中では、バージョン番号は適宜インストール対象のものと置き換えててください。）
 
 .. figure:: images/InstallerIcon.png
 
