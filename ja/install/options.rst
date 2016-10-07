@@ -1,10 +1,13 @@
 
-オプション機能の概要
-====================
+オプション機能
+==============
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
 ここでは、コレオノイド開発版のビルド設定において選択可能なオプション機能について、主要なものの概要を記します。
+
+オプション機能はCMakeの設定で有効化します。この操作については、 :doc:`build-ubuntu` の :ref:`build-ubuntu-cmake` もしくは :doc:`build-windows` の :ref:`build-windows-cmake` を参照してください。
+  
 
 * **ENABLE_PYTHON**
 

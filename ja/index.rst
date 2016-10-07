@@ -13,9 +13,9 @@ Choreonoidマニュアル
    basics/index
    handling-models/index
    simulation/index
+   openrtm/index
    plugin-development/index
 
 ..   python/index
-..   openrtm/index
 ..   tips/index
 ..   plugins/index
