@@ -8,6 +8,7 @@ OpenRTM連携機能
    tank-joystick-project
    tank-joystick-bodyiortc
    tank-joystick-controller
+   tank-joystick-vision-sensors
 
 .. introduction
    
