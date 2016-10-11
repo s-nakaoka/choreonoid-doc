@@ -18,3 +18,5 @@ Choreonoid上で扱うロボットや環境物体のモデルは通常、あら�
    modelfile-openhrp
    modelfile-sr1
    modelfile-yaml
+   modelfile-newformat
+
