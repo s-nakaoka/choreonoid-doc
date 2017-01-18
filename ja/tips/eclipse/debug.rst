@@ -1,9 +1,7 @@
-eclipseを用いてchoreonoidをデバッグする方法
-==============================================================
+Eclipseを用いてChoreonoidをデバッグする方法
+===========================================
 
-
-eclipseを用いてchoreonoidのプログラムをデバッグする方法について解説します。
-eclipse用のプロジェクトの作成方法はいくつかありますが、ここでは既にあるMakefileを用いる方法を解説します。
+Eclipseを用いてChoreonoidのプログラムをデバッグする方法について解説します。Eclipse用のプロジェクトの作成方法はいくつかありますが、ここでは既にあるMakefileを用いる方法を解説します。なお、Eclipseには多数のバージョンがあり、機能も豊富ですので、必ずしも説明の方法で行う必要はありません。
 
 .. contents:: 
    :local:
@@ -14,7 +12,7 @@ eclipse用のプロジェクトの作成方法はいくつかありますが、�
 --------
 
 
-デバッグ用のMakefileを作成するため、choreonoidのトップフォルダで、 ::
+デバッグ用のMakefileを作成するため、Choreonoidのトップフォルダで、 ::
 
  ccmake .
 
@@ -22,7 +20,7 @@ eclipse用のプロジェクトの作成方法はいくつかありますが、�
 
 **CMAKE_BUILD_TYPE** を **Debug** に変更し、**configure** , **generate** して終了します。
 
-.. note:: `インストール <http://choreonoid.org/ja/install/build-ubuntu.html>`_ のページで説明しましたビルドディレクトリを使用した方法では、eclipseにソースファイルを認識させることができませんでしたので、トップフォルダで行ってください。
+.. note:: `インストール <http://choreonoid.org/ja/install/build-ubuntu.html>`_ のページで説明しましたビルドディレクトリを使用した方法では、Eclipseにソースファイルを認識させることができませんでしたので、トップフォルダで行ってください。
 
 既に、トップフォルダでmakeを行っている方は、 ::
 
@@ -30,14 +28,14 @@ eclipse用のプロジェクトの作成方法はいくつかありますが、�
  
 を実行して、Releaseモードでビルドした内容を削除しておいてください。
 
-eclipse のインストール
+Eclipse のインストール
 ---------------------------------
 
 既に使用している環境がある方は、それを使用して頂いて構いません。
 
-ここでは ubuntu 64bit 上に eclipse Neon をインストールする場合を説明しています。
+ここでは ubuntu 64bit 上に Eclipse Neon をインストールする場合を説明しています。
 
-eclipseホームページ https://www.eclipse.org/ を開いて、ダウンロードのページから
+Eclipseホームページ https://www.eclipse.org/ を開いて、ダウンロードのページから
 
 **Get Eclipse Neon** のところの **Download** ボタンを押して、**eclipse-inst-linux64.tar.gz** をダウンロードします。
 
@@ -76,7 +74,7 @@ eclipseホームページ https://www.eclipse.org/ を開いて、ダウンロ�
 .. image:: images/NewProject1.png
    :scale: 70
 
-ダイアログが開いたら、図の様に、Project Nameと、choreonoidのトップフォルダを設定し,終了します。
+ダイアログが開いたら、図の様に、Project Nameと、Choreonoidのトップフォルダを設定し,終了します。
 
 .. image:: images/NewProject2.png
    :scale: 70
@@ -97,7 +95,7 @@ Console画面に、メッセージが表示されて、終了します。
 プログラムの実行
 -----------------------------
 
-まずは、何も設定せずにchoreonoidを起動します。
+まずは、何も設定せずにChoreonoidを起動します。
 
 **Project Explorer** の **bin** フォルダを展開すると、虫のアイコンのついた **choreonoid** があると思います。
 
@@ -106,13 +104,13 @@ Console画面に、メッセージが表示されて、終了します。
 .. image:: images/Run.png
    :scale: 70
 
-choreonoidが起動するので、なにかプロジェクトを開いてシミュレーションを実行してみてください。
+Choreonoidが起動するので、なにかプロジェクトを開いてシミュレーションを実行してみてください。
 
-デバッグモードで動作しているのでかなり遅くなります。動作が確認できましたら、choreonoidを終了して。元のウィンドウに戻ります。
+デバッグモードで動作しているのでかなり遅くなります。動作が確認できましたら、Choreonoidを終了して、元のウィンドウに戻ります。
 
 図の様にツールバーの虫のアイコンの横の三角をクリックすると、choreonoidが登録されているのがわかります。
 
-次回からは、この虫のアイコンをクリックすることでchoreonoidが起動できます。
+次回からは、この虫のアイコンをクリックすることでChoreonoidが起動できます。
 
 .. image:: images/Debug.png
    :scale: 80
@@ -135,7 +133,7 @@ choreonoidが起動するので、なにかプロジェクトを開いてシミ�
 
 
 
-この状態でツールバーの虫のアイコンをクリックしてchoreonoidを起動します。
+この状態でツールバーの虫のアイコンをクリックしてChoreonoidを起動します。
 
 .. image:: images/Confirm.png
    :scale: 80
@@ -149,11 +147,11 @@ choreonoidが起動するので、なにかプロジェクトを開いてシミ�
 .. image:: images/Resume.png
    :scale: 70
 
-choreonoidが起動したら、SR1Liftup.cnoidプロジェクトを開き、シミュレーションを実行します。
+Choreonoidが起動したら、SR1Liftup.cnoidプロジェクトを開き、シミュレーションを実行します。
 
 先ほどブレイクポイントを設定した行でプログラムが止まります。
 
-choreonoidのウィンドウの下にeclipseのウィンドウが隠れている場合は、前面に出してください。
+Choreonoidのウィンドウの下にEclipseのウィンドウが隠れている場合は、前面に出してください。
 
 図のアイコンをクリック、または **F6キー** を押すことで１行ずつのプログラムが実行できます。
 
@@ -167,7 +165,7 @@ choreonoidのウィンドウの下にeclipseのウィンドウが隠れている
 .. image:: images/Variables.png
    :scale: 70
 
-.. note:: デバッグ時に、AISTSimulatorのプロパティのコントローラスレッドがtrueに設定されていると、シミュレーション開始時にchoreonoidがフリーズしてしまうことがあります。そのようなときは、falseの設定にしてデバッグしてください。
+.. note:: デバッグ時に、AISTSimulatorのプロパティのコントローラスレッドがtrueに設定されていると、シミュレーション開始時にChoreonoidがフリーズしてしまうことがあります。そのようなときは、falseの設定にしてデバッグしてください。
 
 プログラムの最初の行で止まらないようにする設定
 -----------------------------------------------------------

@@ -1,10 +1,12 @@
 
-TIPS
+Tips
 ====
 
 .. toctree::
    :maxdepth: 2
 
-  multi-sceneviews
+  eclipse/debug
+
+..   multi-sceneviews
 
    
