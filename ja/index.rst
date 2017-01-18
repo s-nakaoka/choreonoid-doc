@@ -15,6 +15,7 @@ Choreonoidマニュアル
    simulation/index
    openrtm/index
    plugin-development/index
+   eclipse-debug/index
 
 ..   python/index
 ..   tips/index
