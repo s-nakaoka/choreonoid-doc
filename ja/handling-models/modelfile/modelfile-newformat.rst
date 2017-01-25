@@ -409,7 +409,7 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 砲塔ピッチ軸部の記述
 --------------------
 
-次に砲塔ピッチ軸部を記述しましょう。少し長くなりますが、以下をlinks以下に追加してください。 ::
+次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。 ::
 
  -
    name: CANNON_P
@@ -435,29 +435,46 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
              height: 0.1
              radius: 0.11
            appearance: *GREEN
-     - 
-       # Cannon barrel
-       type: RigidBody
-       translation: [ 0.2, 0, 0 ]
-       centerOfMass: [ 0.2, 0, 0 ]
-       mass: 1.0
-       inertia: [
-         0.01, 0,   0,
-         0,    0.1, 0,
-         0,    0,   0.1 ]
+
+
+ここまで記述してモデルの再読み込みを行うと、モデルは以下のように表示されるかと思います。
+
+.. image:: images/tank_cannon_p.png
+
+砲塔ピッチ軸の土台となる部分が表示されました。
+
+形状についてはまだ完成しておらず、上記に加えて砲身の部分も必要です。これを記述したものが以下になりますので、これをリンクノードのelementsに追加してください（インデントを合わせるよう注意して下さい）。 ::
+	     
+ - 
+   # Cannon barrel
+   type: RigidBody
+   translation: [ 0.2, 0, 0 ]
+   centerOfMass: [ 0.2, 0, 0 ]
+   mass: 1.0
+   inertia: [
+     0.01, 0,   0,
+     0,    0.1, 0,
+     0,    0,   0.1 ]
+   elements:
+     Transform:
+       rotation: [ 0, 0, 1, 90 ]
        elements:
          Shape:
-	   rotation: [ 0, 0, 1, 90 ]
-	   geometry:
+           geometry:
              type: Cylinder
              height: 0.2
              radius: 0.02
            appearance: *GREEN
+	 
+モデルの再読み込みを行うと、以下のように砲身部分も表示されるかと思います。
+	   
+.. image:: images/tank_cannon_barrel.png
 
 
-.. 砲身
+砲塔ピッチ軸関節
+----------------
 
-
+	   
 ライトの記述
 ------------
 
