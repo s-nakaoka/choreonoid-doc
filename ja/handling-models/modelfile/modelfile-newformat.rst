@@ -27,13 +27,13 @@ Tankモデルは下図に示す5つの部位で構成されています。
 
 ベースとなる部分が車体です。車体の上部には砲塔・砲身が備わります。この部分は砲塔の土台となってヨー軸回転を行う部分と、その上部に砲身とともに取り付けられるピッチ軸回転を行う２つの部分からなります。車体の左右の側面にはそれぞれ移動用のクローラ機構が取り付けられます。
 
-これら5つの部分が「リンク」としてモデリングされます。車体の部分はモデルの中心となる部分であり、これを「ルートリンク」としてモデリングします。砲塔の２リンクについてはそれぞれ回転関節としてモデリングします。そして、クローラ部分は :doc:`../../simulation/pseudo-continuous-track` に対応する関節タイプのリンクとしてモデリングします。
+これら5つの部分が「リンク」としてモデリングされます。車体の部分はモデルの中心となる部分であり、これを「ルートリンク」としてモデリングします。ルートリンクは各モデルに対して必ずひとつだけ定義する必要があります。砲塔の2リンクについてはそれぞれ回転関節としてモデリングします。また、クローラ部分は :doc:`../../simulation/pseudo-continuous-track` に対応する関節タイプとしてモデリングします。
 
 これらのリンクの間の階層構造（親子関係）は以下のようになります。 ::
 
- - 車体
-     + 砲塔ヨー軸部
-            + 砲塔ピッチ軸部
+ - 車体（ルート）
+     + 砲塔ヨー軸部（回転関節）
+            + 砲塔ピッチ軸部（回転関節）
      + 左クローラ
      + 右クローラ
 
@@ -80,8 +80,8 @@ Tankモデルは下図に示す5つの部位で構成されています。
 
 .. _modelfile_yaml_link_node:
 
-Linkノードのパラメータ
-----------------------
+Linkノード
+----------
 
 LinkノードはYAMLのマッピング形式で記述します。マッピングの要素として、以下のようなパラメータが利用可能です。
 
@@ -119,8 +119,8 @@ LinkノードはYAMLのマッピング形式で記述します。マッピング
 上記のキーを用いてリンクの情報を記述したマッピングの部分を、「Linkノード」と呼びます。
 
 
-ルートリンクの記述
-------------------
+車体リンクの記述
+----------------
 
 ではまず本モデルの車体部分に対応するルートリンクを記述しましょう。対応するLinkノードをlinks以下に次のように記述してください。 ::
 
@@ -187,6 +187,8 @@ translationは通常親リンクからの相対位置を表すパラメータな
 jointTypeは通常親子リンク間を接続する関節のタイプを指定するパラメータですが、ルートリンクの場合は意味が少し異なり、リンクが環境に固定されるか否かを指定します。ここに"fixed"を指定するとリンクが固定されますので、ベース部分が床に固定されているマニピュレータ等に対してはそのように設定してください。一方、今回のモデルのように特定の箇所に固定さない場合は、ここに"free"を指定します。
 
 
+.. _modelfile_yaml_rigidbody_parameters:
+
 剛体パラメータの記述
 --------------------
 
@@ -232,13 +234,15 @@ mass には質量を、inertiaには慣性テンソルの行列要素を指定�
 
 この部分は「Shapeノード」となります。
 
-Shapeノードでは、geometryでどのような幾何形状かを指定し、appearanceで色などの要素を記述します。ここではgeometryに x, y, z軸方向の寸法がそれぞれ0.4[m], 0.3[m], 0.1[m]である直方体を設定し、appearanceに緑色のマテリアルを設定しています。先ほどChoreonoid上でモデルファイルを読み込んだ際にシーンビューに表示されたのが、この形状です。
+Shapeノードでは、geometryで幾何形状を記述し、appearanceで表面の見た目を記述します。ここではgeometryに x, y, z軸方向の寸法がそれぞれ0.4[m], 0.3[m], 0.1[m]である直方体を設定し、appearanceに緑色のマテリアルを設定しています。先ほどChoreonoid上でモデルファイルを読み込んだ際にシーンビューに表示されたのが、この形状です。
 
-今回はgeometryに "type: Box" を指定することで直方体を表現しました。この場合、size というキーにx, y, z軸方向の長さを記述することで形状を指定します。この他にも球(Sphere)、シリンダ(Cylinder)、円柱(Cone)といったプリミティブ形状を利用することが可能です。
+今回はgeometryに "type: Box" を指定し、ボックス（直方体）形状のノードを用いました。この場合、size というキーにx, y, z軸方向の長さを記述することで形状を指定します。この他にも球(Sphere)、シリンダ(Cylinder)、円柱(Cone)といった形状ノードを利用することが可能です。
 
-このような形状の記述については、書き方は多少異なるものの、その構造や形状タイプ、パラメータ等について `VRML97 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/>`_ で定義されているもの（ `Shape <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Shape>`_ 、 `Box <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Box>`_ 、`Sphere <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Sphere>`_ 、 `Cylinder <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cylinder>`_ 、 `Cone <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cone>`_ 、 `Appearance <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Appearance>`_ 、 `Material <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Material>`_ 等）を踏襲するようにしています。VRML97はOpenHRP形式のモデルファイルでベースとしていた形式なので、それの利用経験がある方でしたら勝手をつかみやすいのではないかと思います。
+appearancについては物体表面の材質を記述するmaterialを記述しています。materialではdiffuseColorによって色をRGB値（各要素は0〜1）で指定しています。
 
 appearance の後の "&GREEN" は、YAMLの「アンカー」という機能で、このように記述しておくとこれ以下の部分を後で使いまわせるようになります。緑色は他の部位でも使いますので、ここでこのようにアンカーを入れています。
+
+.. note:: このような形状の記述については、文法的には多少異なるものの、その構造や形状タイプ、パラメータ等について `VRML97 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/>`_ で定義されているもの（ `Shape <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Shape>`_ 、 `Box <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Box>`_ 、`Sphere <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Sphere>`_ 、 `Cylinder <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cylinder>`_ 、 `Cone <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cone>`_ 、 `Appearance <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Appearance>`_ 、 `Material <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Material>`_ 等）を踏襲するようにしています。VRML97はOpenHRP形式のモデルファイルでベースとしていた形式なので、それの利用経験がある方でしたら勝手をつかみやすいのではないかと思います。
 
 .. note:: 冒頭でも述べたように、本チュートリアルでは各リンクの形状について上記のような記述方式を利用してモデルファイル中にテキストとして記述します。これに関して、モデリングツールやCADツール等を用いて別途作成した形状データのファイルを用いることも可能です。そちらについては別のドキュメントで解説します。
 
@@ -295,10 +299,10 @@ Linkノードではこのelementsを用いることで、形状やセンサと�
 .. note:: モデルが複数のリンクを有する場合、リンク間の関係も一般的に階層的なものとなります。これをLinkノードのelementsを用いて記述することも考えられますが、本形式のモデルファイルではそのような記述は行いません。これは、そのような記述を行うと、リンクの階層構造が深くなるに従ってモデルファイル内のテキストの階層も深くなってしまい、テキストとしての確認や編集がしづらくなってしまうからです。リンクの階層構造は、Linkノードの"parent"キーを用いて記述します。
 
 
-砲塔ヨー軸部の記述
-----------------------
+砲塔ヨー軸部リンクの記述
+------------------------
 
-次は砲塔の土台となるリンクを記述しましょう。これまでの記述に以下を加えて下さい。 ::
+次は砲塔の土台となるヨー軸部のリンクを記述しましょう。これまでの記述に以下を加えて下さい。 ::
 
  -
    name: CANNON_Y
@@ -359,7 +363,14 @@ CANNON_Yリンクは、CHASSISリンクの小リンクとしてモデリング�
 
 これで分かるように、リンクの位置を適切に配置するためには、先程のようにtranslationの記述が必要となるわけです。この値もいろいろと変えてどうなるか試してみてください。
 
-なお、モデリングによっては座標系の向き（相対姿勢）も指定したくなる場合があります。これを行う場合は、rotationパラメータを使用します。このパラメータについては、後ほど形状のモデリングでの使用方法を紹介します。リンクの場合もそれと同様に使用可能です。
+なお、相対姿勢（座標系の向き）についても、rotationパラメータを用いて指定することが可能です。 rotation は ::
+
+ rotation: [ x, y, z, θ ]
+
+の形式で記述します。これは姿勢（回転）を回転軸とその軸まわりの回転角度で指定するというもので、 x, y, z に回転軸の単位ベクトルを指定し、θに回転角度を指定します。
+
+このパラメータの実際の使用例は後ほど紹介します。
+
 
 関節の記述
 ----------
@@ -408,8 +419,8 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 
 :ref:`sceneview_forward_kinematics` も可能です。シーンビューを編集モードに切り替えて、CANNON_Yの部分をマウスでドラッグしてください。するとマウスの動きを追従するように関節を回転できるかと思います。うまく行かない場合は、上記リンクページをみて設定等を確認してください。
 
-砲塔ピッチ軸部の記述
---------------------
+砲塔ピッチ軸部リンクの記述
+--------------------------
 
 次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。 ::
 
@@ -452,30 +463,28 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
    # Cannon barrel
    type: RigidBody
    translation: [ 0.2, 0, 0 ]
-   centerOfMass: [ 0.2, 0, 0 ]
+   centerOfMass: [ 0, 0, 0 ]
    mass: 1.0
    inertia: [
      0.01, 0,   0,
      0,    0.1, 0,
      0,    0,   0.1 ]
    elements:
-     Transform:
+     Shape:
        rotation: [ 0, 0, 1, 90 ]
-       elements:
-         Shape:
-           geometry:
-             type: Cylinder
-             height: 0.2
-             radius: 0.02
-           appearance: *GREEN
+       geometry:
+         type: Cylinder
+         height: 0.2
+         radius: 0.02
+       appearance: *GREEN
 	 
 モデルの再読み込みを行うと、以下のように砲身部分も表示されるかと思います。
 	   
 .. image:: images/tank_cannon_barrel.png
 
 
-砲塔ピッチ軸関節
-----------------
+砲塔ピッチ軸関節の記述
+----------------------
 
 このリンクの関節に関わる部分は以下のように記述されています。 ::
 
@@ -494,16 +503,27 @@ jointIdにはヨー軸とは異なるidとして1を指定しています。
 
 この状態で再度関節動作の確認をしてみましょう。関節が追加されたので、関節スライダビューには以下のように関節2つ分のインタフェースが表示されます。 
 
-.. image:: images/jointslider0.png
+.. image:: images/jointslider01.png
 
 このスライダを使うか、シーンビュー上のドラッグを用いて、ヨー軸とピッチ軸の両方を動かしてみて下さい。
 
-ピッチ軸については以下の図のように砲身の上下方向の向きを変えられます。
+ヨー軸については、砲身(CANNON_Pリンク)部分も一体となって動くのが分かるかと思います。これはCANNON_PリンクがCANNON_Yリンクの子リンクとなっているためです。
 
-また、ヨー軸関節を動かすとそれに伴ってピッチ軸部の向きも変わるのが分かるかと覆います。これはピッチ軸部がヨー軸部の子リンクとなっているためです。
+ピッチ軸については、ここを動かすことで砲身の上下方向の向きを以下のように変えられます。
+
+.. image:: images/tank_cannon_p_rotation.png
+
 
 RigidBodyノード
 ---------------
+
+CANNON_Yリンクでは、 :ref:`modelfile_yaml_rigidbody_parameters` をLinkノードで行わずに、別途 RigidBody というノードを用いて行っています。
+
+
+Transformノード
+---------------
+
+.. これを織り込んだのがこれまでの記述、と説明。これまでの記述がTransformを使うとどうなるか説明。
 	   
 ライトの記述
 ------------
