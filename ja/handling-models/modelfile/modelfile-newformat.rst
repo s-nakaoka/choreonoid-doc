@@ -17,6 +17,8 @@
 
 これは砲塔・砲身を動かす２軸の回転関節と、移動用の２つのクローラで構成されるモデルで、カメラとレーザーレンジセンサ、およびライトをデバイスとして備えています。このモデルはクローラ型モバイルロボットのサンプルとなるもので、これを用いたサンプルプロジェクトとして "TankJoystick.cnoid" や "OpenRTM-TankJoystick.cnoid" がChoreonoid本体に含まれています。
 
+.. note:: ベースとなるYAML記法の詳細については、 `YAMLの仕様書 <http://www.yaml.org/spec/1.2/spec.html>`_ を参照して下さい。また、YAMLの解説記事としては、 `プログラマーのためのYAML入門（初級編） <http://magazine.rubyist.net/?0009-YAML>`_ という記事が分かりやすくまとまっていておすすめです。
+
 
 Tankモデルの基本構造
 --------------------
@@ -139,11 +141,12 @@ LinkノードはYAMLのマッピング形式で記述します。マッピング
        Shape:
          geometry:
            type: Box
-           size: [ 0.4, 0.3, 0.1 ]
-         appearance: &GREEN
+           size: [ 0.45, 0.3, 0.1 ]
+         appearance: &BodyMaterial
            material:
              diffuseColor: [ 0, 0.6, 0 ]
-
+             specularColor: [ 0.2, 0.8, 0.2 ]
+             shinines: 0.6
 
 YAMLでは各行のインデントがデータの構造も規定することになりますので、上記の記述でインデントが揃っているところはそのまま揃えて記述するように注意してください。
 
@@ -227,20 +230,43 @@ mass には質量を、inertiaには慣性テンソルの行列要素を指定�
  Shape:
    geometry:
      type: Box
-     size: [ 0.4, 0.3, 0.1 ]
-   appearance: &GREEN
+     size: [ 0.45, 0.3, 0.1 ]
+   appearance: &BodyMaterial
      material:
        diffuseColor: [ 0, 0.6, 0 ]
+       specularColor: [ 0.2, 0.8, 0.2 ]
+       shinines: 0.6
 
-この部分は「Shapeノード」となります。
+この部分は「Shapeノード」となります。先ほどモデルファイルを読み込んだ際にシーンビューに表示された形状は、ここで記述されています。
 
-Shapeノードでは、geometryで幾何形状を記述し、appearanceで表面の見た目を記述します。ここではgeometryに x, y, z軸方向の寸法がそれぞれ0.4[m], 0.3[m], 0.1[m]である直方体を設定し、appearanceに緑色のマテリアルを設定しています。先ほどChoreonoid上でモデルファイルを読み込んだ際にシーンビューに表示されたのが、この形状です。
+Shapeノードでは、geometryで幾何形状を記述し、appearanceで表面の見た目を記述します。
 
-今回はgeometryに "type: Box" を指定し、ボックス（直方体）形状のノードを用いました。この場合、size というキーにx, y, z軸方向の長さを記述することで形状を指定します。この他にも球(Sphere)、シリンダ(Cylinder)、円柱(Cone)といった形状ノードを利用することが可能です。
+今回はgeometryに "type: Box" を指定し、ボックス（直方体）形状のノードを用いました。この場合、size というキーに x, y, z軸方向の長さをリストとして記述します。この他にも球(Sphere)、シリンダ(Cylinder)、円柱(Cone)といった形状ノードを利用することが可能です。
 
-appearancについては物体表面の材質を記述するmaterialを記述しています。materialではdiffuseColorによって色をRGB値（各要素は0〜1）で指定しています。
+appearancについては物体表面の材質を記述するmaterialを記述しています。materialでは以下のパラメータを設定可能です。
 
-appearance の後の "&GREEN" は、YAMLの「アンカー」という機能で、このように記述しておくとこれ以下の部分を後で使いまわせるようになります。緑色は他の部位でも使いますので、ここでこのようにアンカーを入れています。
+.. list-table::
+ :widths: 20, 80
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - ambientIntensity
+   - 環境光に対する反射係数のスカラ値を指定します。値の範囲は0.0から1.0となります。デフォルトでは0.2となっています。
+ * - diffuseColor
+   - 拡散反射係数のRGB値を記述します。RGB値は赤、緑、青のの3成分をリストとして記述したもので、各成分の値の範囲は0.0から1.0となります。
+ * - emissiveColor
+   - 放射色のRGB値を指定します。デフォルトでは無効（全成分が0）となっています。
+ * - specularColor
+   - 鏡面反射係数のRGB値を記述します。デフォルトでは無効（全成分が0）となっています。
+ * - shinines
+   - 光沢度を0.0から1.0のスカラ値で指定します。この値が大きいと鏡面反射によるハイライトがシャープになります。デフォルトでは0.2となっています。
+ * - transparency
+   - 透明度を指定します。値は0.0から1.0のスカラ値で、0.0で完全に不透明となり、1.0で完全に透明となります。デフォルトでは0.0となっています。
+
+ここではdiffuseColor、specularColor、shininessnoの3つのパラメータを設定することで、少し金属的な光沢のある緑色の材質を表現しています。
+
+appearance 直後の "&BodyMaterial" は、YAMLの「アンカー」という機能で、このように記述しておくとこれ以下の部分を後で使いまわせるようになります。このmaterial設定は他の部位でも使いますので、ここでアンカーをつけています。
 
 .. note:: このような形状の記述については、文法的には多少異なるものの、その構造や形状タイプ、パラメータ等について `VRML97 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/>`_ で定義されているもの（ `Shape <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Shape>`_ 、 `Box <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Box>`_ 、`Sphere <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Sphere>`_ 、 `Cylinder <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cylinder>`_ 、 `Cone <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cone>`_ 、 `Appearance <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Appearance>`_ 、 `Material <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Material>`_ 等）を踏襲するようにしています。VRML97はOpenHRP形式のモデルファイルでベースとしていた形式なので、それの利用経験がある方でしたら勝手をつかみやすいのではないかと思います。
 
@@ -304,26 +330,26 @@ Linkノードではこのelementsを用いることで、形状やセンサと�
 
 次は砲塔の土台となるヨー軸部のリンクを記述しましょう。これまでの記述に以下を加えて下さい。 ::
 
- -
-   name: CANNON_Y
-   parent: CHASSIS
-   translation: [ -0.05, 0, 0.08 ]
-   jointType: revolute
-   jointAxis: [ 0, 0, 1 ]
-   jointRange: unlimited
-   jointId: 0
-   centerOfMass: [ 0, 0, 0.025 ]
-   mass: 4.0
-   inertia: [
-     0.1, 0,   0,
-     0,   0.1, 0,
-     0,   0,   0.1 ]
-   elements:
-     Shape:
-       geometry:
-         type: Box
-         size: [ 0.2, 0.2, 0.08 ]
-       appearance: *GREEN
+  -
+    name: CANNON_Y
+    parent: CHASSIS
+    translation: [ -0.04, 0, 0.08 ]
+    jointType: revolute
+    jointAxis: Z
+    jointRange: unlimited
+    jointId: 0
+    centerOfMass: [ 0, 0, 0.025 ]
+    mass: 4.0
+    inertia: [
+      0.1, 0,   0,
+      0,   0.1, 0,
+      0,   0,   0.1 ]
+    elements:
+      Shape:
+        geometry:
+          type: Box
+          size: [ 0.2, 0.2, 0.08 ]
+        appearance: *BodyMaterial
 
 ここまで記述してファイルを保存し、前述の "Ctrl + R" によるモデルの再読み込みを行って下さい。するとシーンビュー上のモデルの表示が以下のようになるかと思います。
 
@@ -349,7 +375,7 @@ CANNON_Yリンクは、CHASSISリンクの小リンクとしてモデリング�
 
 つぎに、このリンクの親リンクからの相対位置（オフセット）を指定します。これを行うのがtranslationパラメータで、本リンクでは ::
 
- translation: [ -0.05, 0, 0.08 ]
+    translation: [ -0.04, 0, 0.08 ]
 
 としています。これによって、CHASSISリンクの原点から後方へ5[cm]、上方へ8[cm]移動した位置に本リンクの原点を設定しています。この位置は親リンクの座標系に基づいています。
 
@@ -378,15 +404,21 @@ CANNON_Yリンクは、CHASSISリンクの小リンクとしてモデリング�
 親子関係のある２つのリンクは通常関節によって接続されます。CANNON_Yリンクについても、親リンクCHASSISに対してヨー軸の関節で接続され、CHASSISに対するヨー軸向きを変えられるようになっています。これに関する情報は、CANNON_Yリンクの以下のパラメータによって記述されています。 ::
 
  jointType: revolute
- jointAxis: [ 0, 0, 1 ]
+ jointAxis: Z
  jointRange: unlimited
  jointId: 0
 
 ここではまずjointTypeにrevoluteを指定しています。これにより、親リンクとの間に回転関節が設定されることになります。（これは一自由度の回転関節であり、ヒンジとも呼ばれます。）
 
-そしてjointAxisには関節の回転軸方向を３次元ベクトルで指定します。座標系は本リンクのローカル座標系です。また、長さ1の単位ベクトルとする必要があります。本モデルではZ軸が鉛直上向きとなる座標系でモデリングしており、回転軸もこの方向としています。これにより、本関節はヨー軸回転を行う関節となります。関節の位置はこのリンクの原点に設定されます。親リンクからみたこの位置は、先ほどtranslationで設定した位置になります。
+jointAxisには関節軸を指定します。ヒンジ関節の場合はその回転軸をここに指定します。指定の仕方は、X、Y、Zの文字で行う場合と、３次元ベクトルとして指定する方法があります。いずれの場合も、軸方向はリンクのローカル座標系で記述します。ここでは'Z'を指定することでZ軸を回転軸としています。3次元ベクトルで指定する場合は、 ::
 
-jointTypeとしては他にprismaticも指定可能です。この場合は直動関節となり、jointAxisにはその方向を指定します。
+ jointAxis: [ 0, 0, 1 ]
+
+となります。この書き方だと、X、Y、Z軸以外にも任意の向きを軸に設定可能です。
+  
+Z軸は本モデルも含めて通常鉛直上向きに設定されるため、本関節はヨー軸回転を行う関節となります。関節の位置はこのリンクの原点に設定されます。親リンクからみたこの位置は、先ほどtranslationで設定した位置になります。
+
+jointTypeとしては他に直動関節に対応する"prismatic"も指定可能です。この場合jointAxisには直動方向を指定します。
 
 関節可動範囲は jointRange を用いて設定します。ここではunlimitedを指定し、可動範囲の制限をなしとしています。可動範囲を設定したい場合は、 ::
 
@@ -426,32 +458,31 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 
 次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。 ::
 
- -
-   name: CANNON_P
-   parent: CANNON_Y
-   translation: [ 0, 0, 0.04 ]
-   jointType: revolute
-   jointAxis: [ 0, 1, 0 ]
-   jointRange: [ -45, 10 ]
-   jointId: 1
-   elements:
-     - 
-       # Turnet
-       type: RigidBody
-       centerOfMass: [ 0, 0, 0 ]
-       mass: 3.0
-       inertia: [
-         0.1, 0,   0,
-         0,   0.1, 0,
-         0,   0,   0.1 ]
-       elements:
-         Shape:
-           geometry:
-             type: Cylinder
-             height: 0.1
-             radius: 0.11
-           appearance: *GREEN
-
+  -
+    name: CANNON_P
+    parent: CANNON_Y
+    translation: [ 0, 0, 0.04 ]
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -45, 10 ]
+    jointId: 1
+    elements:
+      - 
+        # Turnet
+        type: RigidBody
+        centerOfMass: [ 0, 0, 0 ]
+        mass: 3.0
+        inertia: [
+          0.1, 0,   0,
+          0,   0.1, 0,
+          0,   0,   0.1 ]
+        elements:
+          Shape:
+            geometry:
+              type: Cylinder
+              height: 0.1
+              radius: 0.11
+            appearance: *BodyMaterial
 
 ここまで記述してモデルの再読み込みを行うと、モデルは以下のように表示されるかと思います。
 
@@ -461,24 +492,24 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 
 形状についてはまだ完成しておらず、上記に加えて砲身の部分も必要です。これを記述したものが以下になりますので、これをリンクノードのelementsに追加してください（インデントを合わせるよう注意して下さい）。 ::
 	     
- - 
-   # Cannon barrel
-   type: RigidBody
-   translation: [ 0.2, 0, 0 ]
-   centerOfMass: [ 0, 0, 0 ]
-   mass: 1.0
-   inertia: [
-     0.01, 0,   0,
-     0,    0.1, 0,
-     0,    0,   0.1 ]
-   elements:
-     Shape:
-       rotation: [ 0, 0, 1, 90 ]
-       geometry:
-         type: Cylinder
-         height: 0.2
-         radius: 0.02
-       appearance: *GREEN
+      - 
+        # Cannon barrel
+        type: RigidBody
+        translation: [ 0.2, 0, 0 ]
+        centerOfMass: [ 0, 0, 0 ]
+        mass: 1.0
+        inertia: [
+          0.01, 0,   0,
+          0,    0.1, 0,
+          0,    0,   0.1 ]
+        elements:
+          Shape:
+            rotation: [ 0, 0, 1, 90 ]
+            geometry:
+              type: Cylinder
+              height: 0.2
+              radius: 0.02
+            appearance: *BodyMaterial
 	 
 モデルの再読み込みを行うと、以下のように砲身部分も表示されるかと思います。
 	   
@@ -494,15 +525,13 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
  parent: CANNON_Y
  translation: [ 0, 0, 0.04 ]
  jointType: revolute
- jointAxis: [ 0, 1, 0 ]
+ jointAxis: Y
  jointRange: [ -45, 10 ]
  jointId: 1
 
 親リンクはCANNON_Yです。関節はこのリンクとの間に設置されます。また、translation によって、親リンクからのオフセットをZ軸方向に4cmとしています。
 
-関節のタイプは先程と同じでrevoluteを指定し、回転（ヒンジ）関節としています。軸はY軸方向としており、ピッチ軸になります。jointRangeにより、可動範囲を上側に45°、下側に10°としています。
-
-jointIdにはヨー軸とは異なるidとして1を指定しています。
+関節のタイプは先程と同じでrevoluteを指定し、回転（ヒンジ）関節としています。回転軸はピッチ軸に対応するY軸を指定しています。jointRangeにより、可動範囲を上側に45°、下側に10°としています。jointIdには1を設定し、CANNON_Yで設定した0とは異なる値としています。
 
 この状態で再度関節動作の確認をしてみましょう。関節が追加されたので、関節スライダビューには以下のように関節2つ分のインタフェースが表示されます。 
 
@@ -532,6 +561,29 @@ RigidBodyノードを使う際の利点は、ひとつのリンクを記述す�
 
 なお、リンクを複数の剛体に分けられるからといって、必ずしも分けて記述する必要はありません。あくまで分けた方が記述しやすくなる場合にのみ、この記述方法を利用していただければOKです。
 
+砲塔ピッチ軸部形状の記述
+------------------------
+
+砲塔ピッチ軸部の形状は、2つのシリンダ形状を組み合わせることで記述しています。まず土台となる部分は以下のように記述しています。 ::
+
+          Shape:
+            geometry:
+              type: Cylinder
+              height: 0.1
+              radius: 0.11
+            appearance: *BodyMaterial
+
+::
+
+          Shape:
+            rotation: [ 0, 0, 1, 90 ]
+            geometry:
+              type: Cylinder
+              height: 0.2
+              radius: 0.02
+            appearance: *BodyMaterial
+
+   
 Transformノード
 ---------------
 
