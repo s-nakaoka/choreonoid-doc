@@ -419,6 +419,8 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 
 :ref:`sceneview_forward_kinematics` も可能です。シーンビューを編集モードに切り替えて、CANNON_Yの部分をマウスでドラッグしてください。するとマウスの動きを追従するように関節を回転できるかと思います。うまく行かない場合は、上記リンクページをみて設定等を確認してください。
 
+.. _modelfile_yaml_CANNON_P_description:
+
 砲塔ピッチ軸部リンクの記述
 --------------------------
 
@@ -482,6 +484,7 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 	   
 .. image:: images/tank_cannon_barrel.png
 
+ここで使われている"RigidBody"ノードについては、後ほど解説します。
 
 砲塔ピッチ軸関節の記述
 ----------------------
@@ -519,48 +522,66 @@ RigidBodyノード
 
 CANNON_Yリンクでは、 :ref:`modelfile_yaml_rigidbody_parameters` をLinkノードで行わずに、別途 RigidBody というノードを用いて行っています。
 
+このノードではパラメータとしてLinkノードで用いていたものと同様に、 centerOfMass, mass, inertia を記述することが出来ます。また、上位階層からの相対位置を指定するパラメータとして、translation、rotation も利用可能です。さらに子ノードを格納する elements も利用可能です。
+
+RigidBodyノードを使う際の利点は、ひとつのリンクを記述するのに複数のRigidBodyノードを組み合わせることができるという点にあります。リンクの構成によっては、複数の剛体に分けた方が容易に記述・編集できる場合があります。
+
+この例として、CANNON_Yリンクでは2つのRigidBodyノードによってリンクを構成しています。ひとつは砲塔のピッチ軸に対応する部分で、モデルファイル中に"Turnet"というコメントをつけた部分です。ふたつ目は砲身に対応する部分で、モデルファイル中に"Cannon barel"というコメントをつけた部分です。形状についてもそれぞれの剛体に対応する部分をRigidBodyノードのelements以下に分けて記述しています。先ほど :ref:`modelfile_yaml_CANNON_P_description` にて段階的に読み込みんだのが、これらの剛体に対応しています。
+
+このようにRigidBodyを用いて剛体を記述した場合、全てのRigidBodyを反映した剛体パラメータがリンクの剛体パラメータとして設定されます。RigidBodyのtranslationやrotationパラメータによって相対位置を指定している場合はそれも反映した値が設定されますし、複数のRigidBodyがある場合もそれらを統合した値が自動的に計算され設定されます。逆にLinkノードに直接剛体パラメータを記述する方式は、RigidBodyノードを簡略化した記述方法だと言うこともできます。Linkノードの剛体パラメータとRigidBodyノードが両方ある場合は、それら全てを統合した値が設定されます。
+
+なお、リンクを複数の剛体に分けられるからといって、必ずしも分けて記述する必要はありません。あくまで分けた方が記述しやすくなる場合にのみ、この記述方法を利用していただければOKです。
 
 Transformノード
 ---------------
 
 .. これを織り込んだのがこれまでの記述、と説明。これまでの記述がTransformを使うとどうなるか説明。
 	   
-ライトの記述
-------------
 
-以下を砲身形状に続けて追加します。 ::
 
-     -
-       # Device Box
-       type: Transform
-       translation: [ 0.08, 0, 0.09 ]
-       elements:
-         -
-           type: Transform
-           rotation: [ 0, 0, 1, 90 ]
-           elements:
-             Shape:
-               geometry:
-                 type: Cone
-                 height: 0.04
-                 radius: 0.03
-               appearance:
-                 material:
-                   diffuseColor: [ 1.0, 1.0, 0.4 ]
-                   ambientIntensity: 0.3
-                   emissiveColor: [ 0.8, 0.8, 0.3 ]
-         -
-           type: Transform
-           translation: [ 0.02, 0, 0 ]
-           elements:
-             -
-               type: SpotLight
-               name: MainLight
-               direction: [ 1, 0, 0 ]
-               beamWidth: 36
-               cutOffAngle: 40
-               cutOffExponent: 6
-               attenuation: [ 1, 0, 0.01 ]
+デバイスの記述
+--------------
+
+Choreonoidで定義されるロボットモデルにおいて、ロボットに搭載されるセンサ等の機器は「デバイス」と呼ばれます。
+
+各デバイスはそれが設置されるリンクの要素として定義されます。これについても、モデルファイル中で定義することが可能です。
+
+Tankモデルでは、その砲塔ピッチ軸リンクに、スポットライト、カメラ、レーザーレンジセンサの3つのデバイスを搭載することとします。以下ではこれらのデバイスの記述方法について解説します。
+
+
+スポットライトの記述
+--------------------
+
+まず、暗闇の中で活動するロボットのシミュレーションをできるように、ライト（光源）のデバイスを搭載することにしましょう。ライトについてはいくつかの種類がありますが、ここではロボットに搭載するライトとして一般的な、スポットライトを用いることとします。
+
+デバイスはいずれかのリンクに搭載されることになりますので、リンクのelements以下にその定義を記述します。Tankモデルでは砲塔ピッチ軸リンクに搭載しますので、CANNON_Pリンクのelementsに以下の記述を続けて追加してください。 ::
+
+      -
+        type: SpotLight
+        name: MainLight
+        translation: [ 0.08, 0, 0.1 ]
+        direction: [ 1, 0, 0 ]
+        beamWidth: 36
+        cutOffAngle: 40
+        cutOffExponent: 6
+        attenuation: [ 1, 0, 0.01 ]
+        elements:
+          Shape:
+            rotation: [ 0, 0, 1, 90 ]
+            translation: [ -0.02, 0, 0 ]
+            geometry:
+              type: Cone
+              height: 0.04
+              radius: 0.025
+            appearance:
+              material:
+                diffuseColor: [ 1.0, 1.0, 0.4 ]
+                ambientIntensity: 0.3
+                emissiveColor: [ 0.8, 0.8, 0.3 ]
+
+
+.. デバイスノードだけで機能。形状はなくてもよい。
+
 
 
 カメラの記述
