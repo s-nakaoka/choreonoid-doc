@@ -35,7 +35,7 @@
 Visual C++ 2015 または Visual C++ 2013
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ChoreonoidをコンパイルするためのC++コンパイラとして、Microsoft製のVisual C++を用いることができます。製品版でも結構ですし、無料で使用可能なExpress版も利用可能です。Visual C++ 2015,2013のExpress版は `こちらのページ <https://www.visualstudio.com/downloads/download-visual-studio-vs>`_ からダウンロードできるようです。Visual Studio Express 2015 for Desktop または Visual Studio Express 2013 for Desktop　を選択してください。
+ChoreonoidをコンパイルするためのC++コンパイラとして、Microsoft製のVisual C++を用いることができます。製品版でも結構ですし、無料版も利用可能です。無料版のVisual Studio Community 2015 は `こちらのページ <https://www.visualstudio.com/downloads/download-visual-studio-vs>`_ からダウンロードできるようです。
 
 現在、32ビットバイナリ、64ビットバイナリがビルドできることを確認しています。(64ビット版Windows上では32ビットバイナリでも動作可能です。）ビルドに必要なライブラリは、32ビット、64ビットを統一する必要がありますので、混在しないように注意してください。
 
@@ -390,7 +390,7 @@ numpy-1.11.0-cp27-none-win_amd64.whl、またはnumpy-1.11.0-cp27-none-win32.whl
 
 .. note:: Pythonスクリプト機能は現在のところ64ビット版のみ対応しています。
 
-.. note:: Visual C++ 2015 については、アップデートのバージョンによってはPythonスクリプト機能をビルドできない不具合が確認されています。具体的には、Visual Studio Express 2015 for Windows Desktop のバージョン 14.0.25123.00 Update 2 (Visual C++ 2015 00325-20000-00000-AA770) に関してはビルド出来ていたのですが、これより新しいバージョンだと思われる 14.0.25421.03 Update 3 (Visual C++ 2015 00325-20000-00000-AA035) ではビルドできない（Python関連のモジュールで不可解なリンクエラーになってしまう）症状が確認されています。
+.. note:: Visual C++ 2015 については、アップデートのバージョンによってはPythonスクリプト機能をビルドできない不具合が確認されています。具体的には、Visual Studio Express 2015 for Windows Desktop のバージョン 14.0.25123.00 Update 2 (Visual C++ 2015 00325-20000-00000-AA770) に関してはビルド出来ていたのですが、これより新しいバージョンだと思われる 14.0.25421.03 Update 3 (Visual C++ 2015 00325-20000-00000-AA035) ではビルドできない（Python関連のモジュールで不可解なリンクエラーになってしまう）症状が確認されています。その後、14.0.25421.03 Update 3ではビルドできるようになりました。
  
 
 プラグインのアンインストール
