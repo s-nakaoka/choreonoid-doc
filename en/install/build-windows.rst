@@ -247,7 +247,7 @@ Continue repeating the above until the installation points for all requisite lib
    :width: 600px
    
 You can then set a range of optional features as needed for your particular build. 
-For example, a range of Choreonoid functions are off by default, but you can turn these on by toggling the flags that begin with BUILD_.
+For example, a range of Choreonoid functions are off by default, but you can turn these on by toggling the flags that begin with BUILD\_.
 
 You can specify the install path using the **CMAKE_INSTALL_PREFIX** parameter. 
 By default, it is set to "c:\\Program Files\\Choreonoid". 
@@ -320,7 +320,7 @@ Building optional features
 In addition to setting Choreonoid to the default state as per the steps above, there are several modules, plugins, and samples that can be used. 
 These can be enabled with CMake and built into the software. 
 In this section, we describe several key optional features. 
-You will find an in-depth summary of them at :doc:`options` .
+You will find an in-depth summary of them at :doc:`Optional Features<options>`.
 
 OpenRTM plugin
 ~~~~~~~~~~~~~~~~~~~

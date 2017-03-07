@@ -58,6 +58,8 @@ Since there is no controller, no command is sent to the joints. So, no joint tor
 
 In this way, a robot cannot even stand still without a controller. So what we need first for a robot is a controller. To make it walk and work, we need a certain level of controller that can support such actions.
 
+.. _simulation_select_controller_item_type:
+
 Selection of Controller Item Type
 ----------------------------------
 

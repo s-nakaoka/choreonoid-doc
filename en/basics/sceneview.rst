@@ -165,6 +165,8 @@ In this mode, the viewpoint rotation and translation operations change in the fo
 
 This "first-person viewpoint change mode" is useful when, for example, you view the inside of a building as if you enter and search the building.
 
+.. _basics_sceneview_change_camera:
+
 Changing the Drawing Camera
 ---------------------------
 
@@ -186,6 +188,8 @@ Wire Frame Display
 ------------------
 
 Turn on the "wire frame display button" on the scene bar to draw a scene using a wire frame. This is useful when you want to view the polygonal configuration of the model or overlapping between objects. There are some other elements that change the scene drawing method. You can set them in the settings dialog described below.
+
+.. _basics_sceneview_config_dialog:
 
 Settings Dialog
 --------------

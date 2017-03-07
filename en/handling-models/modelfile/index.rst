@@ -18,3 +18,4 @@ The following describes the specifications of OpenHRP model files, which are in 
    modelfile-openhrp
    modelfile-sr1
    modelfile-yaml
+   modelfile-newformat
