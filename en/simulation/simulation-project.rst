@@ -89,6 +89,7 @@ For this operation also, you can specify the target body model by selecting the 
 
 .. note:: Since box1 model, used in this example, is a single link model, it was OK to configure the position and the posture of the entire model as the initial status. In case of a multi-link model having joints, however, the joint angles (or the joint displacement of prismatic joints) are also subject to configuration of the initial status. So, you should configure such configuration as appropriate. See :doc:`../handling-models/index` - :doc:`../handling-models/pose-editing` for how to edit a posture including joints.
 
+.. _simulation_creation_and_configuration_of_simulator_item:
 
 Creation and Configuration of Simulator Item
 ----------------------------------------------

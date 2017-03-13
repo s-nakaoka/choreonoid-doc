@@ -104,6 +104,7 @@ As you can imagine, by clicking a tab, you can bring the view to the front. A vi
 
 For how to change the overlapped tabs, the description is provided in  :ref:`basics_modify_layout` below.
 
+.. _basics_show_hide_views:
 
 How to Show/Hide Views
 ~~~~~~~~~~~~~~~~~~~~~~

@@ -35,7 +35,7 @@
 Visual C++ 2015 または Visual C++ 2013
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ChoreonoidをコンパイルするためのC++コンパイラとして、Microsoft製のVisual C++を用いることができます。製品版でも結構ですし、無料で使用可能なExpress版も利用可能です。Visual C++ 2015,2013のExpress版は `こちらのページ <https://www.visualstudio.com/downloads/download-visual-studio-vs>`_ からダウンロードできるようです。Visual Studio Express 2015 for Desktop または Visual Studio Express 2013 for Desktop　を選択してください。
+ChoreonoidをコンパイルするためのC++コンパイラとして、Microsoft製のVisual C++を用いることができます。製品版でも結構ですし、無料版も利用可能です。無料版のVisual Studio Community 2015 は `こちらのページ <https://www.visualstudio.com/downloads/download-visual-studio-vs>`_ からダウンロードできるようです。
 
 現在、32ビットバイナリ、64ビットバイナリがビルドできることを確認しています。(64ビット版Windows上では32ビットバイナリでも動作可能です。）ビルドに必要なライブラリは、32ビット、64ビットを統一する必要がありますので、混在しないように注意してください。
 

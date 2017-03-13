@@ -27,6 +27,7 @@ from the left.
 
 There is no problem for now if the "preset kinematics" button is on (default). Details on these modes and the functions of other buttons are described later in this manual.
 
+.. _pose_editing_joint_slider_view:
 
 Changing the Posture Using the Joint Slider View
 ------------------------------------------------
