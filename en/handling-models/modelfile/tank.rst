@@ -1,8 +1,6 @@
 
-Tankモデルファイル全記述内容
+Complete Tank model file
 ============================
-
-:doc:`modelfile-newformat` で解説したTankモデルを記述しているモデルファイルの全テキストを以下に掲載します。本モデルは Choreonoid インストール先のの "share/model/misc/tank.body" というファイルに格納されています。 
 
 .. code-block:: YAML
 

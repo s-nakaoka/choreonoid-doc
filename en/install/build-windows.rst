@@ -40,7 +40,6 @@ Visual C++ 2015 or Visual C++ 2013
 You can use Microsoft Visual C++ to compile Choreonoid. 
 The standalone version can be used, or the free version. 
 To download the Visual Studio Community 2015, see `this page <http://www.visualstudio.com/downloads/>`_ . 
-Select either Visual Studio Express 2015 for Desktop or Visual Studio Express 2013 for Desktop.
 
 We have confirmed that both 32-bit and 64-bit binaries can be built. (The 32-bit binary also runs on 64-bit versions of Windows.) 
 You must ensure that the libraries you use are consistent (32-bit or 64-bit).
@@ -443,7 +442,7 @@ Follow the installer’s instructions and, when asked to Customize Python 2.7, c
 Once Python is installed, install **Numpy**. 
 It can be downloaded from `this page <https://pypi.python.org/pypi/numpy/1.11.0/>`_ . 
 Download the file numpy-1.11.0-cp27-none-win_amd64.whl or numpy-1.11.0-cp27-none-win32.whl. 
-Launch the command prompt and enter the directory in which the downloaded files are, then install them with this command:
+Launch the command prompt and enter the directory in which the downloaded files are, then install them with this command: :: 
 
  pip install downloaded filename
 

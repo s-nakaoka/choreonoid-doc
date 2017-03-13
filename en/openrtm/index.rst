@@ -1,5 +1,5 @@
 
-OpenRTM連携機能
+OpenRTM
 ===============
 
 .. toctree::

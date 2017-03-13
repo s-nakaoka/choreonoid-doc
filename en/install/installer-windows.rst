@@ -4,7 +4,7 @@ Installing with the installer (Windows)
 
 Here we describe how to use the dedicated installer to install Choreonoid on Windows.
 
-First download the installer form the `download page <http://choreonoid.org/ja/download.html>`_ . 
+First download the installer form the `download page <http://choreonoid.org/en/download.html>`_ . 
 The file named Choreonoid-x.x.x-win64.exe is the Windows installer. (If you see a different version number in the figures and text below, simply replace it with your own.)
 
 .. figure:: images/InstallerIcon.png

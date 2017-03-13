@@ -402,7 +402,7 @@ Next, we specify the relative position (offset) of this link from the parent lin
 
 This sets the starting point of the link as 5cm back from the CHASSIS link’s starting point and 8cm above. This position is based on the coordinate system used by the parent link.
 
-To confirm that the offset has worked correctly, let’s try disabling the translation code. You can either delete the translation line or add a # at the beginning to comment it out, then re-import the model. appearance: *BodyAppearance parent: CHASSIS translation: [ -0.04, 0, 0.08 ]
+To confirm that the offset has worked correctly, let’s try disabling the translation code. You can either delete the translation line or add a # at the beginning to comment it out, then re-import the model.
 
 This will cause the gun turret to disappear. This is because the turret is positioned within the tank and embedded inside. Try setting the :ref:`wireframe view <basics_sceneview_wireframe>` to ON. You should see the following.
 
@@ -747,18 +747,18 @@ Camera notation
 
 Next, let’s add camera devices. As with the SpotLight node, add this below the CANNON_P link elements. ::
 
-              - 
-                type: Transform
-      translation: [ 0.1, 0, 0.05 ]
-      rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
-                elements:
-                  -
-                    type: Camera
-                    name: Camera
-                    format: COLOR_DEPTH
-                    width: 320
-                    height: 240
-                    frameRate: 30
+      - 
+        type: Transform
+        translation: [ 0.1, 0, 0.05 ]
+        rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
+        elements:
+          -
+            type: Camera
+            name: Camera
+            format: COLOR_DEPTH
+            width: 320
+            height: 240
+            frameRate: 30
 
 The camera is set using the Camera node.
 

@@ -99,7 +99,7 @@ When using OpenRTM in Choreonoid and building a system, these views are essentia
 
 After displaying the views, save this state in the project file. To do so, as described in :ref:`saving a layout <basics_layout_save>`, from the main menu, select File > Project File Options > and place a checkmark next to Layout. With this setting, the view states and their layout will be saved in the project file, allowing them to be reproduced the next time you load the project.
 
-.. note:: Note: these interfaces provide functionality similar to that provided by `RT System Editor <http://www.openrtm.org/openrtm/ja/content/rtsystemeditor-110>`_ , a development tool included in OpenRTM-aist. If using RT System Editor, you must launch the tool and configure it separately from Choreonoid. The above interfaces, by contrast, provide ad integrated approach that does not require running the tools separately.
+.. note:: these interfaces provide functionality similar to that provided by `RT System Editor <http://www.openrtm.org/openrtm/ja/content/rtsystemeditor-110>`_ , a development tool included in OpenRTM-aist. If using RT System Editor, you must launch the tool and configure it separately from Choreonoid. The above interfaces, by contrast, provide ad integrated approach that does not require running the tools separately.
 
 .. _tankjoystick_introduce_robot_io_rtc:
 
@@ -293,7 +293,7 @@ One difference from the TankJoystickControllerRTC is that the Execution Context 
 
 In addition to the Execution Context, we set the Execution Frequency property. The Hz frequency which we set controls when the RTC onExecute variable is called. If we set it to 30, the joystick state will be polled thirty times a second and outputted to the port.
 
-.. note:: Note: setting the Execution Context for the joystick RTC to ChoreonoidExecutionContext does not imply that it will not run. By contrast, you must not set the TankJoystickControllerRTC Execution Context to PeriodicExecutionContext. Doing so will prevent you from controlling the robot as intended and break the simulation, potentially causing the robot to fly about.
+.. note:: setting the Execution Context for the joystick RTC to ChoreonoidExecutionContext does not imply that it will not run. By contrast, you must not set the TankJoystickControllerRTC Execution Context to PeriodicExecutionContext. Doing so will prevent you from controlling the robot as intended and break the simulation, potentially causing the robot to fly about.
 
 Lastly, drag the JoystickRTC to the RTC dialog view and connect the ports. You will find axes, which output the state of the joystick's axes, and buttons, which output the state of its buttons. These correspond to the input ports of the same names on the TankJoystickControllerRTC; connect the two. You should see the following configuration.
 	  
@@ -318,7 +318,7 @@ This view is based on the layout of traditional gamepads. The cursor keys on the
 
 When using a virtualized joystick, you would click this view area to bring keyboard focus to it. Otherwise, keypresses on the keyboard will not provide keyboard input.
 
-.. note:: Note: exercise caution if using a joystick in Ubuntu installed in a VirtualBox instance. If Guest Additions is installed in VirtualBox, devices like /dev/input/js0 and /dev/input/js1 are integrally controlled by the mouse. In this case, the joystick RTC will detect /dev/input/js0 as a joystick and fail to function properly. In order to avoid this, you can create an rtc.conf file and change the device settings. Specifically, you should place an rtc.conf file in the current directory used to launch choreonoid, with the following line in that file:
+.. note:: exercise caution if using a joystick in Ubuntu installed in a VirtualBox instance. If Guest Additions is installed in VirtualBox, devices like /dev/input/js0 and /dev/input/js1 are integrally controlled by the mouse. In this case, the joystick RTC will detect /dev/input/js0 as a joystick and fail to function properly. In order to avoid this, you can create an rtc.conf file and change the device settings. Specifically, you should place an rtc.conf file in the current directory used to launch choreonoid, with the following line in that file:
 
  HumanInterfaceDevice.JoystickRTC.conf.default.device: /dev/input/js2
 
@@ -329,7 +329,7 @@ After configuring the settings above and launching the simulation, each RTC on t
 
 From here, you can use the joystick to move the Tank robot. One analog stick is used to control forward movement, backward movement, and rotation, while the other analog stick is used to change the position of the gun barrel. The first button is used to switch the light on and off. If using the virtual joystick, the E and D keys control forward and backward movement, S and F control rotation, J and L control the yaw of the gun turret, I and K control the pitch of the gun turret, and A controls the light.
 
-.. note:: Note: some joysticks may fail to interactively produce the desired response from the robot or its axes. If this occurs, refer to  :doc:`tank-joystick-controller` and adjust the axis response found in TankJoystickControllerRTC.cpp to match the joystick.
+.. note:: some joysticks may fail to interactively produce the desired response from the robot or its axes. If this occurs, refer to  :doc:`tank-joystick-controller` and adjust the axis response found in TankJoystickControllerRTC.cpp to match the joystick.
 
 Configuring light sources
 ----------------------------------------
