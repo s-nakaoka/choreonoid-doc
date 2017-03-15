@@ -10,5 +10,7 @@ This document describes how to install Choreonoid.
 
    platform
    build-ubuntu
+   build-windows
+   installer-windows
    directories
    options
