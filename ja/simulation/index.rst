@@ -14,6 +14,8 @@
    pseudo-continuous-track
    interaction
    sensor-visualization
+   tank-tutorial/index
+	      
 ..   logfileitem
 ..   複数コントローラの同時使用
 ..   multisimulator-example

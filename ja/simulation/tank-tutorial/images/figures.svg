@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="figures.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="255.44431"
+     inkscape:cy="782.01131"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3369" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon1.png"
+       xlink:href="nocon1.png"
+       inkscape:export-ydpi="81.895531"
+       inkscape:export-xdpi="81.895531"
+       width="170"
+       height="155.83334"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3344"
+       x="80"
+       y="132.3622" />
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon2.png"
+       xlink:href="nocon2.png"
+       inkscape:export-ydpi="81.895531"
+       inkscape:export-xdpi="81.895531"
+       width="170"
+       height="155.83334"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3355"
+       x="270"
+       y="132.3622" />
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon3.png"
+       xlink:href="nocon3.png"
+       inkscape:export-ydpi="81.895531"
+       inkscape:export-xdpi="81.895531"
+       width="169.48051"
+       height="155.35715"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3366"
+       x="460"
+       y="132.3622" />
+  </g>
+</svg>

@@ -113,6 +113,7 @@ Choreonoid起動直後は閲覧モードになっています。モードの切�
 
 具体的な編集操作は対象となるモデルやデータによっても変わってくるので、ここでは詳細を解説しません。（ロボットモデルの操作方法については、 :doc:`../handling-models/index` - :doc:`../handling-models/pose-editing` で解説します。）以下では、主に閲覧モードでの操作方法について解説します。
 
+.. _basics_sceneview_viewpoint:
 
 視点の変更
 ----------
