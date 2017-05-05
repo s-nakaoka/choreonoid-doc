@@ -42,8 +42,8 @@ Step 1ではコントローラが無かったため、シミュレーション�
      {
          joint = io->body()->link("TURRET_P");
  
-         io->setLinkOutput(joint, JOINT_TORQUE);
          io->setLinkInput (joint, JOINT_ANGLE);
+         io->setLinkOutput(joint, JOINT_TORQUE);
  
          qref = qold = joint->q();
  
@@ -187,7 +187,10 @@ CMakeLists.txtの記述
 実装内容の解説
 --------------
 
-最後にTurretController1の実装内容を解説します。
+今回作成したコントローラ "TurretController1" の実装内容は以下のようになっています。
+
+SimpleControllerクラス
+~~~~~~~~~~~~~~~~~~~~~~
 
 まず、シンプルコントローラはChoreonoidで定義されている "SimpleController" クラスを継承したクラスとして実装するようになっています。そこでまず ::
 
@@ -201,27 +204,95 @@ CMakeLists.txtの記述
 
 によって名前区間を省略できるようにしています。
 
-ではコントローラの定義をみていきましょう。まず、 ::
+コントローラのクラス定義は、 ::
 
  class TurretController1 : public SimpleController
  {
      ...
  };
 
-によって、SimpleControllerを継承するかたちでTurretController1を定義しています。
+によって行われています。SimpleControllerを継承するかたちでTurretController1を定義していることが分かります。
 
-SimpleControllerクラスではいくつかの関数が仮想（バーチャル）関数として定義されており、継承先でそれらの関数をオーバーライドすることでコントローラの所定の処理を実装します。通常以下の２つの関数をオーバーライドします。
+SimpleControllerクラスではいくつかの関数が仮想（バーチャル）関数として定義されており、継承先でそれらの関数をオーバーライドすることでコントローラの処理内容を実装します。通常以下の２つの関数をオーバーライドします。
 
 * **virtual bool initialize(SimpleControllerIO* io)**
 * **virtual bool control()**
 
-まずinitialize関数をみていきましょう。これはコントローラの初期化を行う関数で、シミュレーション開始の直前に１回だけ実行されます。
+initialize関数の実装
+~~~~~~~~~~~~~~~~~~~~  
+  
+initialize関数はコントローラの初期化を行う関数で、シミュレーション開始の直前に１回だけ実行されます。
 
 この関数に引数として与えられるSimpleControllerIO型は、コントローラの入出力に必要な機能をまとめたクラスとなっています。この詳細は :doc:`../howto-implement-controller` の :ref:`simulator-simple-controller-io` をみていただくとして、ここではまず ::
 
  joint = io->body()->link("TURRET_P");
 
-によって、Tankモデルの "TURRET_P" リンクを取得しています。これは砲塔ピッチ軸に対応するLinkオブジェクトです。これを用いて入出力を行います。
+によって、砲塔ピッチ軸の入出力を行うためのLinkオブジェクトを取得し、joint変数に格納しています。
 
+io->body() によってTankモデル入出力用のBodyオブジェクトを取得し、続けてこのオブジェクトが有するLinkオブジェクトから "TURRET_P" という名前を持つものを取得しています。これは :doc:`Tankモデルの作成 <../../handling-models/modelfile/modelfile-newformat>` において記述した :ref:`砲塔ピッチ軸部 <modelfile_yaml_TURRET_P_description>` に対応するものです。
 
-.. 制御関数。この関数に実際の制御を行うコードを記述する。シミュレーション中に繰り返しこの関数が実行される。
+次に ::
+
+ io->setLinkInput (joint, JOINT_ANGLE);
+ io->setLinkOutput(joint, JOINT_TORQUE);
+
+によって、この関節に関して入力と出力を行う値のタイプを指定しています。今回はPD制御を行いますので、関節角度を入力し、関節トルクを出力するという設定にしています。 ::
+
+他にPD制御に必要な値として、 ::
+
+ qref = qold = joint->q();
+  
+によって初期関節角度を取得し、それを変数qref、 qoldに代入しています。qrefは目標関節角で、qoldは関節角速度計算用の変数です。また、 ::
+
+ dt = io->timeStep();
+
+によって変数dtにタイムステップを代入しています。これはシミュレーションの物理計算１回あたりに進める内部の時間を表していて、この時間間隔で次の control 関数が呼ばれることになります。
+  
+最後にinitialize関数の戻り値として true を返して、初期化に成功したことをシステムに伝えています。
+
+control関数の実装
+~~~~~~~~~~~~~~~~~
+
+control関数は実際の制御コードを記述する部分で、シミュレーション中に繰り返し実行されます。
+
+ここでは砲塔ピッチ軸に関するPD制御のコードが書かれているだけです。 ::
+
+ static const double P = 200.0;
+ static const double D = 50.0;
+
+はPゲイン、Dゲインの値で、 ::
+
+ double q = joint->q(); // input
+
+によって現在関節角を入力し、 ::
+   
+ double dq = (q - qold) / dt;
+
+によって現在角速度を算出し、 ::
+
+ double dqref = 0.0;
+  
+で目標角速度は0に設定し、 ::
+
+ joint->u() = P * (qref - q) + D * (dqref - dq); // output
+
+によってPD制御で計算したトルク値を関節に出力し、 ::
+   
+ qold = q;
+
+によって次回計算用にqoldを更新しています。
+
+このように、入出力はLinkオブジェクトの変数を用いて行うことがポイントです。joint->q()、joint->u() はそれぞれ関節角度、関節トルクの変数に対応しています。
+
+最後に、正常終了を表すtrueを戻り値として返しています。これによって制御ループが継続されます。
+
+ファクトリ関数の定義
+~~~~~~~~~~~~~~~~~~~~
+
+シンプルコントローラのクラスを定義したら、そのオブジェクトを生成する「ファクトリ関数」も所定の形式で定義しておく必要があります。これは、シンプルコントローラアイテムが実行時にコントローラの共有ライブラリを読み込んで、そこからコントローラのオブジェクトを生成するために必要となります。
+
+これはマクロを使って、 ::
+
+ CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(TurretController1)
+
+と記述することができます。引数としてはこのようにコントローラのクラス名を与えてください。

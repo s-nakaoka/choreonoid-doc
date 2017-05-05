@@ -482,7 +482,7 @@ CANNON_Yについては関節可動範囲を無制限にしているのですが
 
 :ref:`sceneview_forward_kinematics` も可能です。シーンビューを編集モードに切り替えて、CANNON_Yの部分をマウスでドラッグしてください。するとマウスの動きを追従するように関節を回転できるかと思います。うまく行かない場合は、上記リンクページをみて設定等を確認してください。
 
-.. _modelfile_yaml_CANNON_P_description:
+.. _modelfile_yaml_TURRET_P_description:
 
 砲塔ピッチ軸部の記述
 --------------------
