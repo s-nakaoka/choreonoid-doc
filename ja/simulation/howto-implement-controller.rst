@@ -175,6 +175,7 @@ SimpleControllerIO オブジェクト
 
 以下ではこのオブジェクトを「ioオブジェクト」と呼ぶことにします。
 
+.. _simulator-io-by-body-object:
 
 Bodyオブジェクトを介した入出力
 ------------------------------

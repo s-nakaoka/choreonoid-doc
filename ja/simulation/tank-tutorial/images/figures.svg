@@ -26,17 +26,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="255.44431"
-     inkscape:cy="782.01131"
+     inkscape:zoom="2.8"
+     inkscape:cx="302.57103"
+     inkscape:cy="288.04376"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1028"
+     inkscape:window-width="3840"
+     inkscape:window-height="2108"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:snap-global="false">
     <inkscape:grid
        type="xygrid"
        id="grid3369" />
@@ -49,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -57,6 +58,18 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview-layout-org.png"
+       xlink:href="joystickview-layout-org.png"
+       y="379.13385"
+       x="177.16536"
+       id="image4173"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="276.7493"
+       width="389.76376"
+       inkscape:export-xdpi="114.66"
+       inkscape:export-ydpi="114.66" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon1.png"
        xlink:href="nocon1.png"
@@ -93,5 +106,143 @@
        id="image3366"
        x="460"
        y="132.3622" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="405.47809"
+       y="670.78601"
+       id="text4148"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="114.66"
+       inkscape:export-ydpi="114.66"><tspan
+         sodipodi:role="line"
+         id="tspan4150"
+         x="405.47809"
+         y="670.78601"
+         style="fill:#ff0000">仮想ジョイスティックビュー</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.7587707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4152"
+       width="115.35338"
+       height="75.693687"
+       x="452.8938"
+       y="573.9826"
+       inkscape:export-xdpi="114.66"
+       inkscape:export-ydpi="114.66" />
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview.png"
+       xlink:href="joystickview.png"
+       inkscape:export-ydpi="110.8043"
+       inkscape:export-xdpi="110.8043"
+       width="341.25"
+       height="194.0625"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image4149"
+       x="177.16536"
+       y="733.46454" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154"
+       cx="249.82146"
+       cy="801.11212"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154-8"
+       cx="305.35715"
+       cy="882.71936"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154-8-8"
+       cx="387.71429"
+       cy="883.07654"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154-8-8-8"
+       cx="442.85715"
+       cy="800.57654"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="212.17935"
+       y="941.95233"
+       id="text4148-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         id="tspan4150-7"
+         x="212.17935"
+         y="941.95233"
+         style="font-size:15px;fill:#ff0000">左アナログスティック</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="353.70343"
+       y="942.12231"
+       id="text4148-9-5"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         id="tspan4150-7-4"
+         x="353.70343"
+         y="942.12231"
+         style="font-size:15px;fill:#ff0000">右アナログスティック</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="184.06059"
+       y="856.62225"
+       id="text4148-9-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         id="tspan4150-7-5"
+         x="184.06059"
+         y="856.62225"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000">十字ボタン</tspan><tspan
+         sodipodi:role="line"
+         x="184.06059"
+         y="872.62262"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000"
+         id="tspan4273">(カーソルキー</tspan><tspan
+         sodipodi:role="line"
+         x="184.06059"
+         y="888.24762"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000"
+         id="tspan4275"> が対応）</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="455.74332"
+       y="856.69226"
+       id="text4148-9-0-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         id="tspan4150-7-5-4"
+         x="455.74332"
+         y="856.69226"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000">A,B,X,Y</tspan><tspan
+         sodipodi:role="line"
+         x="455.74332"
+         y="875.44226"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000"
+         id="tspan4277">ボタン</tspan></text>
   </g>
 </svg>
