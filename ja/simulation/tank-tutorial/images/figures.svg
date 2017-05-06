@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="302.57103"
-     inkscape:cy="288.04376"
+     inkscape:zoom="1.979899"
+     inkscape:cx="-518.56507"
+     inkscape:cy="390.6165"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,7 +37,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:snap-global="false">
+     inkscape:snap-global="true">
     <inkscape:grid
        type="xygrid"
        id="grid3369" />
@@ -61,51 +61,51 @@
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview-layout-org.png"
        xlink:href="joystickview-layout-org.png"
-       y="379.13385"
-       x="177.16536"
-       id="image4173"
-       style="image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
-       height="276.7493"
-       width="389.76376"
+       inkscape:export-ydpi="114.66"
        inkscape:export-xdpi="114.66"
-       inkscape:export-ydpi="114.66" />
+       width="389.76376"
+       height="276.7493"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image4173"
+       x="177.16536"
+       y="379.13385" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon1.png"
        xlink:href="nocon1.png"
-       inkscape:export-ydpi="81.895531"
-       inkscape:export-xdpi="81.895531"
-       width="170"
-       height="155.83334"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image3344"
+       y="132.3622"
        x="80"
-       y="132.3622" />
+       id="image3344"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="155.83334"
+       width="170"
+       inkscape:export-xdpi="81.895531"
+       inkscape:export-ydpi="81.895531" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon2.png"
        xlink:href="nocon2.png"
-       inkscape:export-ydpi="81.895531"
-       inkscape:export-xdpi="81.895531"
-       width="170"
-       height="155.83334"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image3355"
+       y="132.3622"
        x="270"
-       y="132.3622" />
+       id="image3355"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="155.83334"
+       width="170"
+       inkscape:export-xdpi="81.895531"
+       inkscape:export-ydpi="81.895531" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon3.png"
        xlink:href="nocon3.png"
-       inkscape:export-ydpi="81.895531"
-       inkscape:export-xdpi="81.895531"
-       width="169.48051"
-       height="155.35715"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image3366"
+       y="132.3622"
        x="460"
-       y="132.3622" />
+       id="image3366"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="155.35715"
+       width="169.48051"
+       inkscape:export-xdpi="81.895531"
+       inkscape:export-ydpi="81.895531" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -132,15 +132,15 @@
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview.png"
        xlink:href="joystickview.png"
-       inkscape:export-ydpi="110.8043"
-       inkscape:export-xdpi="110.8043"
-       width="341.25"
-       height="194.0625"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image4149"
+       y="733.46454"
        x="177.16536"
-       y="733.46454" />
+       id="image4149"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="194.0625"
+       width="341.25"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
     <circle
        style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4154"
@@ -244,5 +244,61 @@
          y="875.44226"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15px;font-family:Sans;-inkscape-font-specification:'Sans Bold';fill:#ff0000"
          id="tspan4277">ボタン</tspan></text>
+    <image
+       sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview.png"
+       xlink:href="joystickview.png"
+       inkscape:export-ydpi="110.8043"
+       inkscape:export-xdpi="110.8043"
+       width="341.25"
+       height="194.0625"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image4149-0"
+       x="-389.76379"
+       y="733.46454" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154-8-2"
+       cx="-261.57199"
+       cy="882.71936"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4154-8-8-5"
+       cx="-179.21489"
+       cy="883.07654"
+       r="39.741474"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-371.66983"
+       y="945.74048"
+       id="text4148-9-05"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         x="-371.66983"
+         y="945.74048"
+         style="font-size:15px;fill:#ff0000"
+         id="tspan4253">クローラ（車体）の操作</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-207.12933"
+       y="945.6579"
+       id="text4148-9-5-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043"><tspan
+         sodipodi:role="line"
+         x="-207.12933"
+         y="945.6579"
+         style="font-size:15px;fill:#ff0000"
+         id="tspan4257">砲塔の操作</tspan></text>
   </g>
 </svg>
