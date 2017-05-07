@@ -1,3 +1,60 @@
 
-ステップ6: カメラ画像のシミュレーションと取得
-=============================================
+ステップ6: カメラ画像のシミュレーションと取得（執筆中）
+======================================================
+
+.. contents:: 目次
+   :local:
+   :depth: 2
+
+.. highlight:: C++
+   :linenothreshold: 7
+
+コントローラのソースコード
+--------------------------
+::
+
+ #include <cnoid/SimpleController>
+ #include <cnoid/Camera>
+ #include <cnoid/Joystick>
+ 
+ using namespace cnoid;
+ 
+ class CameraController : public SimpleController
+ {
+     Camera* camera;
+     Joystick joystick;
+     bool prevButtonState;
+     std::ostream* os;
+     
+ public:
+     virtual bool initialize(SimpleControllerIO* io)
+     {
+         camera = io->body()->findDevice<Camera>("Camera");
+         io->enableInput(camera);
+         prevButtonState = false;
+         os = &io->os();
+         return true;
+     }
+ 
+     virtual bool control()
+     {
+         static const int button[] = { 1 };
+         
+         joystick.readCurrentState();
+ 
+         bool currentState = joystick.getButtonState(button[0]);
+         if(currentState && !prevButtonState){
+             const Image& image = camera->constImage();
+             if(!image.empty()){
+                 std::string filename = camera->name() + ".png";
+                 camera->constImage().save(filename);
+                 (*os) << "The image of " << camera->name() << " has been saved to \"" << filename << "\"." << std::endl;
+             }
+         }
+         prevButtonState = currentState;
+ 
+         return true;
+     }
+ };
+ 
+ CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(CameraController)
