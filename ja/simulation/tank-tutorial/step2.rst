@@ -33,8 +33,8 @@
  class TurretController1 : public SimpleController
  {
      Link* joint;
-     double qref;
-     double qold;
+     double q_ref;
+     double q_prev;
      double dt;
  
  public:
@@ -45,7 +45,7 @@
          io->setLinkInput (joint, JOINT_ANGLE);
          io->setLinkOutput(joint, JOINT_TORQUE);
  
-         qref = qold = joint->q();
+         q_ref = q_prev = joint->q();
  
          dt = io->timeStep();
  
@@ -59,17 +59,16 @@
          static const double D = 50.0;
  
          double q = joint->q(); // input
-         double dq = (q - qold) / dt;
-         double dqref = 0.0;
-         joint->u() = P * (qref - q) + D * (dqref - dq); // output
-         qold = q;
- 
+         double dq = (q - q_prev) / dt;
+         double dq_ref = 0.0;
+         joint->u() = P * (q_ref - q) + D * (dq_ref - dq); // output
+         q_prev = q;
+         
          return true;
      }
  };
  
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(TurretController1)
-
 
 以下ではまずこのコントローラをシミュレーションプロジェクトに導入し、シミュレーションを行うまでを解説します。その後、コントローラの実装内容について解説したいと思います。
 
@@ -250,9 +249,9 @@ io->body() によってTankモデル入出力用のBodyオブジェクトを取�
 
 他にPD制御に必要な値として、 ::
 
- qref = qold = joint->q();
+ q_ref = q_prev = joint->q();
   
-によって初期関節角度を取得し、それを変数qref、 qoldに代入しています。qrefは目標関節角で、qoldは関節角速度計算用の変数です。また、 ::
+によって初期関節角度を取得し、それを変数q_ref、 q_prevに代入しています。q_refは目標関節角で、q_prevは関節角速度計算用の変数です。また、 ::
 
  dt = io->timeStep();
 
@@ -276,21 +275,21 @@ control関数は実際の制御コードを記述する部分で、シミュレ�
 
 によって現在関節角を入力し、 ::
    
- double dq = (q - qold) / dt;
+ double dq = (q - q_prev) / dt;
 
 によって現在角速度を算出し、 ::
 
- double dqref = 0.0;
+ double dq_ref = 0.0;
   
 で目標角速度は0に設定し、 ::
 
- joint->u() = P * (qref - q) + D * (dqref - dq); // output
+ joint->u() = P * (q_ref - q) + D * (dq_ref - dq); // output
 
 によってPD制御で計算したトルク値を関節に出力し、 ::
    
- qold = q;
+ q_prev = q;
 
-によって次回計算用にqoldを更新しています。
+によって次回計算用にq_prevを更新しています。
 
 このように、入出力はLinkオブジェクトの変数を用いて行うことがポイントです。joint->q()、joint->u() はそれぞれ関節角度、関節トルクの変数に対応しています。
 

@@ -1,6 +1,6 @@
 
 ステップ4: クローラの制御
-=======================
+=========================
 
 ステップ3で砲塔の制御ができるようになりましたので、ステップ4では車体を動かすクローラ部分の制御をできるようにしましょう。
 
@@ -48,13 +48,13 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
  
      virtual bool control()
      {
-         static const int trackAxis[] = { 0, 1 };
- 
+         static const int axisID[] = { 0, 1 };
+         
          joystick.readCurrentState();
  
          double pos[2];
          for(int i=0; i < 2; ++i){
-             pos[i] = joystick.getPosition(trackAxis[i]);
+             pos[i] = joystick.getPosition(axisID[i]);
              if(fabs(pos[i]) < 0.25){
                  pos[i] = 0.0;
              }
@@ -142,7 +142,7 @@ TrackControllerの実装内容について、このコントローラに特有�
 
 control関数内の ::
 
- static const int trackAxis[] = { 0, 1 };
+ static const int axisID[] = { 0, 1 };
 
 は、クローラ軸に対応させるゲームパッドの軸IDの設定です。これについても、F310以外のゲームパッドを用いる場合は、適切な対応となるよう調整してください。
 

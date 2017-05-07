@@ -78,8 +78,8 @@
  class TurretController2 : public SimpleController
  { 
      Link* joints[2];
-     double qref[2];
-     double qold[2];
+     double q_ref[2];
+     double q_prev[2];
      double dt;
      Joystick joystick;
  
@@ -91,7 +91,7 @@
  
          for(int i=0; i < 2; ++i){
              Link* joint = joints[i];
-             qref[i] = qold[i] = joint->q();
+             q_ref[i] = q_prev[i] = joint->q();
              io->setLinkInput(joint, JOINT_ANGLE);
              io->setLinkOutput(joint, JOINT_TORQUE);
          }
@@ -100,30 +100,30 @@
          
          return true;
      }
-
+ 
      virtual bool control()
      {
          static const double P = 200.0;
          static const double D = 50.0;
-         static const int turretAxis[] = { 3, 4 };
+         static const int axisID[] = { 3, 4 };
  
          joystick.readCurrentState();
  
          for(int i=0; i < 2; ++i){
              Link* joint = joints[i];
              double q = joint->q();
-             double dq = (q - qold[i]) / dt;
-             double dqref = 0.0;
+             double dq = (q - q_prev[i]) / dt;
+             double dq_ref = 0.0;
  
-             double pos = joystick.getPosition(turretAxis[i]);
+             double pos = joystick.getPosition(axisID[i]);
              if(fabs(pos) > 0.25){
                  double deltaq = 0.002 * pos;
-                 qref[i] += deltaq;
-                 dqref = deltaq / dt;
+                 q_ref[i] += deltaq;
+                 dq_ref = deltaq / dt;
              }
              
-             joint->u() = P * (qref[i] - q) + D * (dqref - dq);
-             qold[i] = q;
+             joint->u() = P * (q_ref[i] - q) + D * (dq_ref - dq);
+             q_prev[i] = q;
          }
  
          return true;
@@ -131,6 +131,7 @@
  };
  
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(TurretController2)
+ 
 
 コントローラのコンパイル
 ------------------------
@@ -223,17 +224,17 @@ JoystickクラスのオブジェクトはTurretController2のメンバ変数 ::
  
 ジョイスティックの軸の対応は、control関数内の ::
 
- static const int turretAxis[] = { 3, 4 };
+ static const int axisID[] = { 3, 4 };
 
 で設定しています。ここの3,4がそれぞれ砲塔ヨー軸、ピッチ軸に対応させる軸ID値で、F310の場合は右アナログスティックに対応しています。他のゲームパッドの場合も、jstestコマンドの出力を確認するなどして、適切な軸に対応させて下さい。
 
 実際に目標関節角度を設定している箇所は、control関数内の ::
 
- double pos = joystick.getPosition(turretAxis[i]);
+ double pos = joystick.getPosition(axisID[i]);
  if(fabs(pos) > 0.25){
      double deltaq = 0.002 * pos;
-     qref[i] += deltaq;
-     dqref = deltaq / dt;
+     q_ref[i] += deltaq;
+     dq_ref = deltaq / dt;
  }
 
-の部分になります。ここでqref[i]が目標関節角、dqrefが目標関節角速度に対応する変数です。あとはこれらの目標値を使って、パート1と同様のPD制御を行っています。
+の部分になります。ここでq_ref[i]が目標関節角、dq_refが目標関節角速度に対応する変数です。あとはこれらの目標値を使って、パート1と同様のPD制御を行っています。
