@@ -2,9 +2,10 @@
 Tankモデルファイル全記述内容
 ============================
 
-:doc:`modelfile-newformat` で解説したTankモデルを記述しているモデルファイルの全テキストを以下に掲載します。本モデルは Choreonoid インストール先のの "share/model/misc/tank.body" というファイルに格納されています。 
+.. highlight:: YAML
+   :linenothreshold: 5
 
-.. code-block:: YAML
+:doc:`modelfile-newformat` で解説したTankモデルを記述しているモデルファイルの全テキストを以下に掲載します。本モデルは Choreonoid インストール先の "share/model/tank/tank.body" というファイルに格納されています。 ::
 
  format: ChoreonoidBody
  formatVersion: 1.0
@@ -33,12 +34,13 @@ Tankモデルファイル全記述内容
              specularColor: [ 0.2, 0.8, 0.2 ]
              shinines: 0.6
    -
-     name: CANNON_Y
+     name: TURRET_Y
      parent: CHASSIS
-     translation: [ -0.04, 0, 0.08 ]
+     translation: [ -0.04, 0, 0.1 ]
      jointType: revolute
-     jointAxis: Z
+     jointAxis: -Z
      jointRange: unlimited
+     maxJointVelocity: 90
      jointId: 0
      centerOfMass: [ 0, 0, 0.025 ]
      mass: 4.0
@@ -50,19 +52,20 @@ Tankモデルファイル全記述内容
        Shape:
          geometry:
            type: Box
-           size: [ 0.2, 0.2, 0.08 ]
+           size: [ 0.2, 0.2, 0.1 ]
          appearance: *BodyAppearance
    -
-     name: CANNON_P
-     parent: CANNON_Y
-     translation: [ 0, 0, 0.04 ]
+     name: TURRET_P
+     parent: TURRET_Y
+     translation: [ 0, 0, 0.05 ]
      jointType: revolute
-     jointAxis: Y
-     jointRange: [ -45, 10 ]
+     jointAxis: -Y
+     jointRange: [ -10, 45 ]
+     maxJointVelocity: 90
      jointId: 1
      elements:
        - 
-         # Turnet
+         # Turret
          type: RigidBody
          centerOfMass: [ 0, 0, 0 ]
          mass: 3.0
@@ -75,10 +78,10 @@ Tankモデルファイル全記述内容
              geometry:
                type: Cylinder
                height: 0.1
-               radius: 0.11
+               radius: 0.1
              appearance: *BodyAppearance
        - 
-         # Barrel
+         # Gun
          type: Transform
          translation: [ 0.2, 0, 0 ]
          rotation: [ 0, 0, 1, 90 ]
@@ -99,7 +102,7 @@ Tankモデルファイル全記述内容
                  appearance: *BodyAppearance
        -
          type: SpotLight
-         name: MainLight
+         name: Light
          translation: [ 0.08, 0, 0.1 ]
          direction: [ 1, 0, 0 ]
          beamWidth: 36
@@ -150,7 +153,7 @@ Tankモデルファイル全記述内容
                  specularColor: [ 0.6, 0.6, 1.0 ]
                  shininess: 0.6
    -
-     name: CRAWLER_TRACK_L
+     name: TRACK_L
      parent: CHASSIS
      translation: [ 0, 0.2, 0 ]
      jointType: pseudoContinuousTrack
@@ -162,7 +165,7 @@ Tankモデルファイル全記述内容
        0,    0.02, 0,
        0,    0,    0.02 ]
      elements:
-       Shape: &CRAWLER 
+       Shape: &TRACK 
          geometry:
            type: Extrusion
            crossSection: [
@@ -177,7 +180,7 @@ Tankモデルファイル全記述内容
            material:
              diffuseColor: [ 0.2, 0.2, 0.2 ]
    -
-     name: CRAWLER_TRACK_R
+     name: TRACK_R
      parent: CHASSIS
      translation: [ 0, -0.2, 0 ]
      jointType: pseudoContinuousTrack
@@ -189,4 +192,5 @@ Tankモデルファイル全記述内容
        0,    0.02, 0,
        0,    0,    0.02 ]
      elements:
-       Shape: *CRAWLER 
+       Shape: *TRACK 
+
