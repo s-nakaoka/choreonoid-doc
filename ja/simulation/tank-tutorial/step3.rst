@@ -11,6 +11,7 @@
 .. highlight:: C++
    :linenothreshold: 7
 
+.. _simulation-tank-tutorial-gamepad:
 
 ゲームパッドの準備
 ------------------
