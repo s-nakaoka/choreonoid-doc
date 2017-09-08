@@ -19,6 +19,7 @@ Choreonoid上で扱うロボットや環境物体のモデルは通常、あら�
    modelfile-sr1
    modelfile-yaml
    modelfile-newformat
+   yaml-reference
    tank
    tank-blender
    modelfile-blender
