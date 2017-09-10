@@ -26,14 +26,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-518.56507"
-     inkscape:cy="390.6165"
+     inkscape:zoom="1.4"
+     inkscape:cx="223.94997"
+     inkscape:cy="205.51052"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="3840"
-     inkscape:window-height="2108"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -61,51 +61,51 @@
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview-layout-org.png"
        xlink:href="joystickview-layout-org.png"
-       inkscape:export-ydpi="114.66"
-       inkscape:export-xdpi="114.66"
-       width="389.76376"
-       height="276.7493"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image4173"
+       y="379.13385"
        x="177.16536"
-       y="379.13385" />
+       id="image4173"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="276.7493"
+       width="389.76376"
+       inkscape:export-xdpi="114.66"
+       inkscape:export-ydpi="114.66" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon1.png"
        xlink:href="nocon1.png"
-       y="132.3622"
-       x="80"
-       id="image3344"
-       style="image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
-       height="155.83334"
-       width="170"
+       inkscape:export-ydpi="81.895531"
        inkscape:export-xdpi="81.895531"
-       inkscape:export-ydpi="81.895531" />
+       width="170"
+       height="155.83334"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3344"
+       x="80"
+       y="132.3622" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon2.png"
        xlink:href="nocon2.png"
-       y="132.3622"
-       x="270"
-       id="image3355"
-       style="image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
-       height="155.83334"
-       width="170"
+       inkscape:export-ydpi="81.895531"
        inkscape:export-xdpi="81.895531"
-       inkscape:export-ydpi="81.895531" />
+       width="170"
+       height="155.83334"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3355"
+       x="270"
+       y="132.3622" />
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/nocon3.png"
        xlink:href="nocon3.png"
-       y="132.3622"
-       x="460"
-       id="image3366"
-       style="image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
-       height="155.35715"
-       width="169.48051"
+       inkscape:export-ydpi="81.895531"
        inkscape:export-xdpi="81.895531"
-       inkscape:export-ydpi="81.895531" />
+       width="169.48051"
+       height="155.35715"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image3366"
+       x="460"
+       y="132.3622" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -132,15 +132,15 @@
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview.png"
        xlink:href="joystickview.png"
-       y="733.46454"
-       x="177.16536"
-       id="image4149"
-       style="image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
-       height="194.0625"
-       width="341.25"
+       inkscape:export-ydpi="110.8043"
        inkscape:export-xdpi="110.8043"
-       inkscape:export-ydpi="110.8043" />
+       width="341.25"
+       height="194.0625"
+       preserveAspectRatio="none"
+       style="image-rendering:optimizeQuality"
+       id="image4149"
+       x="177.16536"
+       y="733.46454" />
     <circle
        style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4154"
@@ -247,15 +247,15 @@
     <image
        sodipodi:absref="/home/nakaoka/choreonoid/doc/ja/simulation/tank-tutorial/images/joystickview.png"
        xlink:href="joystickview.png"
-       inkscape:export-ydpi="110.8043"
-       inkscape:export-xdpi="110.8043"
-       width="341.25"
-       height="194.0625"
-       preserveAspectRatio="none"
-       style="image-rendering:optimizeQuality"
-       id="image4149-0"
+       y="733.46454"
        x="-389.76379"
-       y="733.46454" />
+       id="image4149-0"
+       style="image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="194.0625"
+       width="341.25"
+       inkscape:export-xdpi="110.8043"
+       inkscape:export-ydpi="110.8043" />
     <circle
        style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.44562888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4154-8-2"
@@ -300,5 +300,159 @@
          y="945.6579"
          style="font-size:15px;fill:#ff0000"
          id="tspan4257">砲塔の操作</tspan></text>
+    <image
+       y="992.36218"
+       x="240"
+       id="image3372"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ0AAAAgCAIAAACHNboDAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAd
+iklEQVR4nO18d1xUR/f+mbnbqcvSFlgWRXpRqoINNbbYYzT27ovGkmISW4w96htN3iT22HsDNa8t
+ioqKBRSRCIIKqEgVls4Wdu+d3x93WZdqIXmTb34+n4XPvTNnzp25d54z58zMvaiivAze4R3eoVng
+v7oC7/AO/wfwjifv8A6vBuevrsD/FCUKRUV5uU6n/asr8ncEh8M1t7CwFIsxfmc96wO1MD65efP3
+K1duA4JpkcMtLc3+qGo1jx274h2k5n16e71RqWdPswQCoczZhS8Q/EkV+z8NjVr9PPupWq2Su7R+
+i+KHDitateK2DzVvYTX69PpEKBIBEACgaZ2yWm1hYYoQAJDsZ4VHo1bJXaRvp7m0tHr//hs9evh4
+eTm8adkWjSdVVcro4xe6detcXFyyfsOB+fOmUtSfbopu3MjatSeRYWi53MrL0+41SymKivh8gaub
+B6kFQogQwuayxwgh9tSQ/s+AoV1Q2zTjFEMij89v4+75+GGaoqhIYmNTT0lZ5Yuy8jyGYRhCM4yO
+YWj9MaEZhiYMrdHKY2MFcmeevX2LzJDIRLRx73cUJhRAfm5ewo3kj0b1xhgogJXLtlRUKt9O7f79
+NxYsPGRpqVu1+ni7dvI5n/fv3t3n9Yu3iCfXrye5uraysrKUSMTl5eWHDp8ZPap/SxS+Es+fl85d
+cLrz5PGqyqpZnx4/cmCslZXJ6xQsLVV4+fqDURcxUMWYMMZs+YehUaNQr72EEJncJS3l94Y82Xf8
+q2e5yewxRXEwpjCiMMYURSGEaVqrVnEt0U/R0U8jIz0o6m90Dx8+zJ/+8fa8vIKgILWXl1ShKH32
+LCdy2hZTU5P9+2Z5e7/W2NIinnh6tb595wHGCCEcFhZ86tSF27fvh4T4tURnM1CptB/Pjvbv/761
+XAYAFfkFsz89sWvHCA6HemVZjUbD57+0c/W4AUbdiGGYfxhVGIaBWgNh3ExDHGJ8N/h8gUajaajE
+q02n0vLcLyL38gVcgjQEqQFpCNIwSANIc/Dw9orSmjAfu2NRGZdjn7/Xw/l/0bBXQaXSrlp9cseO
+y+7u2iFDbIODgzgczrVr11xdSVmZrqBAxRDmNVW1iCdyZ2lNTU11tcrc3BRj1Lt3RFT0OScne6m0
+vjVqObRaesYnx8VtvFxDA9kUn57dbh0omrvg9HerB2D8ip7N1CUDCwNDGvahP7z+fyHqtc6QaGwg
+jEcbpjG3s2vouITkE5fjd/fqNgpAQ1ANQRqWKk+fpT1Iu//xmB0uTjZ37uSeOfPIx1sslb5lsKpU
+qm/fTMIIMCEKRUnm4+ybcfcwBgwo93nRG6maOGnzgwcPhgwxDQ8PNjU1TUtLy8/Pz8igk5J0o0d3
+WvT1YFPT13URqfnz5715W+rg0eMnTk4OCGEul2Nvb/vrrxe7dA76Y00yw5A5X/23jJgHfTDION3R
+x+vulaSM9JyuXVyb11CYnyeTuxBC6lWLMfZAahPRP+tnjHoMYHP1JCEEIYQQev7siZ19/VgZY8rK
+wuHUxZ/b+oUIRBzAaoLUgNQEVAcO7m0jC+sSOhYAWre2uHw5IzOzuFNH+Sv7wNWrSZcu3rmX9Ohe
+0qNnT/M9POUVFdWmpsJnj5+WvHhR/KKouqKSx+MUFhYV5hfn5xU5OErad/Dl8bjXriZdvpzIFsx9
+/sLdQ96o/o2bztvYlA4cGFFUVHTnzp2c55VxcQyPZ3Ng/6xRo8J5vDcYJFoadoeFtc3IeEoI0ulo
+mmakUhux2PLqtcQWqq2HJcvPP3xa5dejs0ZRhGmNgAsCLiCtSlOqCB7Q+9KVp+s3xDWvweB7EADj
+HwAYIvt6WX/tr6Ky8vqNG4xRra7fuDFq9Ohn2dktUWvcXqiXVdutmxpOfdwjXGWBp37bSZCSICXB
+SgYpE5NuKooV/Xp8zspIJMKBA9zT0nLPn09/5WOd99X66hqs1iEdjZYu3rZv32/Dhy06cyb+3u+Z
+95Izk5Mzb99+eCX2bsr9zPu/Z95PyUxKevTlnB9nffzd3K82VGuRSot0OjR/3vqm9COEKIqDECot
+LS0oILFX6AXzh1+6uNDHx9Ego9FoCwvLX1nVlq6fCAT8Nm1k+fkFzs4OGFMYo86d2x88eMLX1+23
+3+LKSit5fO7gQT1u3krm87g2NmJnuUPO83w7O2t7e+vXvMSZM6mpKXkCBLf3H3ySWThpxSeWYnsA
+eJqVE/Wf3TJna0szbuyVjMAAh/DwJic0GYYBQqDWcALAlq1bL8bE1Gi1FEWJxWIfb++hQ4fKZLIW
+3pA/CrcTEn5ev/7Y0aMUpY++zMzMnJycBHw+tGA6rs60nmG0YRUixB4043YOfO/L73d89CgjsY27
+KyC1uqbyYkxstw6TLM1eTjz26NHmytX0vftuBAQ42to2N01MYWrEuIE8inAxHDl4Tq3UjJ06vGff
+zhgRjABjkv+8IP76veGj+2AAjAhGpLKi6pMZ/+bxOCPGDuJRhIdh756TTenncCiKogAIj8utqoKh
+H4SOGhVuLHDpUurs2bvLK9TPs39q/r79AdO43bu1T05OpSgKY4QxEgoF7dsH/PTTvmfPCoOC29na
+2n2zeH1OTpFKTZ8+E7dixZbEuw9//Gl/Tk7ha+p//32fqKMTT0RNXP/jEImthZubvYUQLITgG9Ba
+IOTv2j7iRNTEY0cmNEMSACAM89KgAhAAhUJhL5V+++23S5cuHTlyZPbz51/NnZuTm/uXjyR1bL/R
+z9fXd/Xq1Ta2ti3SiRAByM3LW7J0aW5uLlM7T1znck3zxNa6dXjQR6fPntDRlQSpYmNjOZQoImy8
+sQxCKPJfHdVq1U8//faaj/hPAsaIoihCgMfnUxRHR79sV35++egxG6ZN39b3fXsOBz17Vty8qvrj
+SVbGI8Nx6zbur1MbNzc5EKawsMjBwQ5jjBBq29Y7OfmBtbXYwcHO0dFeKrWxtLQwNzcNDvYrLi6T
+yexycwt+2Rb19cJ/cbmvHtBommGXZaKik0O6tLMQGnKowHCfY9H3pkwKMxZrFC9jU8OoAiASiTw9
+PYEQby+vgHbtJk+ZcvnSpTFjxuTm5u7ctSslJcXMzKxDhw5jRo/m8/kAcPTo0bi4OIVCQTPMB0OG
+fPjhh4cPH7546VJZWZlEIpkWGdmuXbu4uLjo48cVCoVSqbSxsRnQv3+fPn0MJjwxMfHAwYM5OTm2
+Njb9+vXr06cPm15WVrZ9+/a7SUmEYVxatVqxfDmbPmzYMADgcrmHDx1KSkpavmLFL1u3pqenr/v+
++00bN9rZ2QGAWqMZO3bs1KlTe/XsqVQqd+/Zc/PmTQDYs3t3o7ciLy9v69atZubmmzZt+nj6dAcH
+B0N8wrpejcbxLDLj4pxVbe5UHL8Se8HbRx5/415H2fBHMbEAYG5nLwtox4o5OVkNHRq4Y8els2eT
++vYNaEqbWlPz89pdHEwwQuUVVU2JNYRSpVm/dheFCYVQZVWTKyoUhTDmAACHwxGJuDEX7m/deun9
+fgEnT9xZvebXDh2sF8wP5HBxYmLZveRsubw5B6d+N/Xxf9kqlbK6uZIcruF46r+GxcUl+fq6IYQQ
+AoTQ1KkjAUAg4Gs0NTKZQ1lZFcaIz+dJpdYYY2dnR39/z+jomI8+6tPsDQG1Wrfy23PLl/VXqbRH
+jiYFhfucO3AOap8jrdXu23dn7OgQjNHiJWdXrujXVOxo8CUMplp/WtsneHw+xlhTU1NeUfH1okXu
+7u4LFixguy8ATJo0CQDuJCaamplNmjyZYRixWBx3/XpUdPTUqVNbtWpVXFwsdXAgAE+ePi0tLZ05
+cyZFUampqTt27szJzZ0yZQoApKSkrFq9etCgQZMnT05PT/9l2zZLsbh9+/YajWbuvHkikSgyMtLc
+3Ly0tBTVztiuW7cOY4wxNh5hAgIDuVxu0r17vXv3BoDU1FSGYUJDQwnA6jVrysrKZsyYwefzG+3s
+eXl5mzZtUqlUlVVVALB+w4YZM2ZIpVIwcsOa8bti1q4TmJvb2UpvXL+blfVMpBYof0tLoVMqFQoL
+V1fZzy+9l+HDOsRcuPufH0+GhLhaWzfufQn4vFlfTGD9rtiL8U1dtCFEQv7MLyawfte5s1ebEsMY
+czgcABCJRP5+FiYm6v0HLiz65ljr1uaffOLt4eFsYiIqLSl1lpnevftk0MDAZq5YnyfNc8MYpz/4
+AIwm2kUAd3fWleDzex44/EKhQwhJJObsMguHQyGEMEa9enVas2ZLnz4dLSyanEBkGDLny5PJybkA
+oFBUT4/sVF9CZh0eYF1aqkQYnT6dIpVazJrZuQlVDAAQYpgf1nc8mtap1ZqCgvzo6GiapkNCgs+f
+Pw8An3/+GZfLBYDi4qLjx09MnDiB1ePgIPXz82WPk5OTuVxuaGiIubm5q2vrWv1EKBQEBQUCQLt2
+bXk83tGjR4cOHWppaREVFRUUFDR69CgA8PT0SE1NiY2NDQ0NOXfuXFlZ2cqVK62sxKxmVg8AODk5
+svGJIYUQRiDg+/v73blzp1evngCQkJDg5eVlbm6WlvYgJSVl7drvXFxcWMmG90EqtV+2bCkAGC/K
+E8LUThMThKjmp8V7Tp/m6OLy46mZuTlPPu200DnCBlUr7928+aCkxFiMovBXXw0ZP2HdqtUH162N
+bEahMc6ciLmflIoQAYIoDJUVVXm5L7IysxEQQIABNJoalarmNbVRGFMUp6RE4ewsl8lk7h4V1VVV
+mpoaKysrKysrlVL54kXR48fl8QkvAgPbNq/q7f0uzpMngznNeU0nGAYIgzFiiYEQZgMY/RFCHh6t
+s7JyAgKa3Ka1+t8Xn5cQZbWaphknJ8sxY4KbknzwIN/KXhL1a5rMyXLw4EYWOgnDEELqTPUQSE9P
+Hz78I1bAzs525swZ3t7eZ8+eraioGDdO73MzDEPTdFVVlUgkYocfQzfq2DE8JiZm9uxPunXr1rt3
+L1tbW9DPJr2UCQwMOHz4cGZmZkBAu6ysLKVSOXLkKDaLpmlnZ2eGYR4+TJfJZJaWFsYdlO3lxoue
+hhSGYUJCQrZv31FdXS0QCG7fvj1kyGCGYTIzswBg/vwFrPz+/fuafjjGS4uscoIxACBCSDPxCSEE
+V1RSpaUTvSLLywrkWjNUXoKUSqRUNtzs4+HhOHJEp1+2ne7ZM6BP79CmK/MS7w9+73Xi+NdRBQAe
+no5Hj2aXlDzz9SmRu1iJxWJbOzuhUKhWq4uKXiCEhALB2bPJAwYEz57du3lVb+930XL5/vz8CJXK
+kc9/VF2dYGoqEInYLF1lZU+dTgcAoGeFEVtenrq4OGU9aZIn+/cnXr7+/L3Z0/+78rvCwkqRiCcQ
+cAWC+hWurq6haSYvv8LSTtJ2wIC1P2yROpi3D5XXE2NXXgnRx/Os7ZTL5dOmRfL5AnNzM1NTU4QQ
+wxAOhyuVSr/4Yo5xcR6PxzAMIawGfTcyNzdfs2Z1fHz86dOnz549O3369I4dw0ljU0YcDsUwDJfL
+7dix45Ahg43SOQzDsL5BvSJsr6vLE1LbBCYoKHj79h0JCQlWVlYVFRUhISEGPYsXLxaJhA0Vsl5V
+wy1sDTfvNLNKjQiBinKkEEmUYK2zgAoFUqmQshpVVaHGdhlPm9b/9Jnrixb90qG9t6Wlab1cpUqz
+buUWjICDyBvFJ9XV6nUrt2AMFJBm4pPVq0aMG9vl4KHrR47ECwTFfn6WQUG21hIRxaFKFDXOcomZ
+mdmUKe2WLLk2eVJXD4/mtle+vd/V7+SJnCtXS6dNc+TzawCCV6xQy934AqGLi5M6Pyd+8WJTLpfi
+coxJgvXDip4trVrJEuKTGlUeG5uxedutXp/O4PL5ZtZWH360i6KwRqW1kph4eNj++MOQgsLKRd+c
+ycgoUqm0HB6HoRl5gJ+5rXWniaPnfLlv946Rrq51wjKGHU/0/9kOTwQCvotczyiGptkeKZM53bp1
+i8vhWltLjDXorWxdc0thHB4WFtahw3dr15069d/wsA5sBzfIPEh9gDF2dHAgDCOTyZ5kZdnZ2hpv
+XCcMI3OSJSTcLi0psbS0NKSLhAIAqKyosLCwMK4AYRjCMKYmopCQkCtXrkisJO3athVbWhKGkcmc
+AKCwsCA8LMy4DnVaUffUsKDEth0jTDBpxu8iDIMrKjCPD0olUimRSoWUSlStRFVVyKwR/7mgID8i
+Qr5xY8y06SsOHVxdL1ck5M9ZGMnGJzeuJzd10YYwMRGwBXkYYi8nNCPp7e2wfNmwZUs/vHUr8+Ch
+6z/8kOjkZEZR+PffC778skNYmImLi83o0X7jJ2y+Evs1n89tSs/b+11abf23OBwc7BQl5ddmTFMW
+FXXbsrUauBVV6lpfy5gt+lN7e+ui4tKGmh88yF+46ExE5EQTsQUA9Jz9MUIgMQGxkDCVJcs+/h4A
+iosq8/OrPvtuFiMwL6mGMpW+rG1rl8DBAyJnHDu0b4y19UsDRhgCQBiWJIT1wUBPF9B7S2xf6dG9
++5kzZ1atXj1wQH9LsbhEobC3l7q7u9VKEZqmWZ1paWnl5RV2drbVSmVxcbFYLKZpmhBSUlJy9Nix
+Nq6ueXn5R48d69K5s6mpKU3TgwYNXLFi5dp167p06cLn8/Pz8jp06GBhYdG9e7ez586t/HbVgP79
+LS0tCgtfdOnS2dnZGWN84OChTh3DCwoLO3XsyHZfmqbZCvTo3m3Fym+5XO7sWTPZlNatWvn6+u7Y
+sVNRrHCWO/v66PfDNj63gRBihxV22QQhAohghg2FmnroCACVVyCMkVKJlCqkVIJSiVQqVFUFdXmS
+mpr68/oNAoGga9eu/v72V682bhD/N0AIhYW1CQtrs27tmIsXU/ILylu1spk0aYu3t1QiMevb1zM1
+VbHom6h/rxnRlIa397uMwQWIX7hQZGZGGMalvBxhrKmq1vJNG3W66rKlkcH641nRIR8NlTg7GVIw
+AoQAY2TtIOFyuVotrdHQphZCK2vzkmqop8MlqG11Scm0mVHHDr2c1zd4TeyYArVx/Mt5sFqvQyAU
+Llz49eHDh/fs3afVaiUSyYdDh76cVa71iAAgv6DwxIkT5eXlQoHA3cNj7JgxhAAB4PF46WnpZ8+e
+43A4PXr0GPbhh2wRdzf3OZ9/fvzEiU2bNlMUZWtr6+vnb25uIRSKli5dum/v3p27dul0Ont7+8DA
+QCsryYTx46Oio2/evGlnZ+fj7WOYvNVrc/dwlslUarW/f1tDlWbNnHnk6NEzZ89WVVXt3LGjts4E
+jDaw6C0CSxH0sj0G29FcHE8IqqjADKOnh1KJlMqG656LFn1TWVU1cuRIPp/ftWtXPp///HluI8qA
+ZGU842LgUFBTU2MhNtvw056o/SdBz2JGq6PVSs1/T17CCAAIIkhH61xcHLKy8p9kZHMpQiFSo9E1
+WdsG4HKpPn30IfvYsZ03b05c/E0PmmE++6zz9OnH3+vh06tX47t4397vMoaHiYkHAFRWAgBwODGE
+AEBdL6ue06WnTKPaTE35RY8fO/l44NqlaIxe/gQCjkaj02i0fD7XON1gBFWVVYWPM+yM1llA73Mb
+R/Lks08/JUb0YNj9XQQAiNTe7tNPZhsXZ2Poxd8sMhwDQETXLhFdu9QXI8TExGTevLkNiwOAv7+f
+v79fwywrseXs2bPqpUdEdI2I6GpIsbGx3rN7l7G25cuX6WVrWyEUCsaPGzt+3FhjMdbZIoAAIL+g
+YNeuXWq1ms3h8/lTJk+yt7cHfSyEAUi9+IRh2H1f+kuV5+cX8flYrQa1GtUyqtLIuXj46FGxQuHm
+5hYZGQkAERER48ePf/IkCxpg6NDum7/fxVIiNNTH20seFu4HoN9ohwCC23s7Ododj77MJiAEQKBH
+z2Cpk82m73ey+/IiIoIaan4dfL1wcLduKefOPe7Xz5PhkG8W9Z4ydVtAO/m48Z2HfhBST/iPee/3
+sVKZIBLxBQJCiEd1NVAUu4rSjNPFnjaq7eih8YuWnI35cWP4+DGmErGqorKyulLibo8Rxgg4PEqt
+1qrVNF/AQwgQAobWvcjKsXKWYYoqzHhyY+/BkcPbTYuss0PBaDwhQBgghGFI7UYNAGCtNCK1a21v
+DdZ4k/qBwN8AhAGEpPa2EyaM27d3v6mZaXl5xcQJ4+3s7GppxhCCGo4ni77JranRtmnD9fQQMuYO
+J39vPJBw9fZmDy5fujx48OC5c/WWIjY2tn///g1nwwDgszkjjU83bYyyl8k6dgnkYMJBhKa1K5Zs
+9fF1be3t6e3disLAwaSosDg6+vKGjXMbantTcLnUzp2RPd5bFRIql0j4Pj52B/ZPyMoqnjfvEELo
+gyF1Jlf/GJ5oCAlaubJ1376Yos6PH68sKuKZmACXizFiGHZsaeh06U8bahMKuWvXDDx06O76/2yM
+mDYJY/zrmg1CEd/V03n45L4CAV+joWtqtDweN+3uozOHLmVn5dM0M3rtsux7KXePn/xudf8O7V3q
+6SQMw5JB/8cmGkhitIqH/pAe/jekCQAiwACxt7cfO3bM3n37J4wfb2tnCy9ZjRiGjU/q8KTf+5bx
+CWWJiaXXrhVoYaIkEPv6mPu3Fbf1l5iZ8RpeKDMra8DAgba2ttnZ2QAgFAqrq6vFluLXqaSd1NrV
+TcZBwKUIrdWvk8hbOXn5uHEpQmFSIDY99WuL7oMx3Nzsv/560NrvrmzeMrykpNTRyaF1azsXF7uJ
+k3a7utq29X/5Fs3b8wTj+i+t0bSOYZieO3c+fPSkMuNxxpEj5m5u7pP/pdHU1F080XOkuLhEKGzy
+BYARIwJtbc2+Wbajy+RxfD73tzORF2Iefr9wm0pVo9FoNRr6bsKjjPTn8+f2cHCw+PizX7PvpyWd
++HXnthH1ZrpY8PiCqsoKDpenX3YmCIAghBh2iY0hCBDSz5yiRo3fa2L4sGHDhw176+J/BvTGiAC7
+WQIA7OzsvvxyDpsIAMiwHxKgrLSMx6/zUMLDTcPDTbVah0ePq+7/Xno3qejcb9knf31M0zUuLiaB
+AbZBwfZt/aUCgd5JViqVIpFoyZIlS5YsUavVM2bM0Gg0EonV61Q15lzcoweZGDEYAaFpjVrNMCTq
+4OkbV25TiMEAlZVVNTVvEJC8Ep07ea5ff14kFPLt+Xwen8fj+vk5h4S0yn6m+GN4cnf58rxbt0LZ
+IJqQ+OXL07duNeSqMjL6ApyPj/eYEllvOpg9fvgwa/v2o2PGNPeecPfubjTDLF25V6vVabX00A/a
+du7kumLlbxoNXaPVDRrgO3t2V6GQe+NGlrJSdTfq+LatHzVKEgBwdJL9nnwvtEO4TqdDLFUwBgCM
+MBDAFCYN3oB96zvzd0O9dhntFyao9vGxKRyK8yA12dGpkU3TXC728Tb38TYfMUKuVOru3Su6fSc/
+IeH57j1J27bXYMz4+dqEtnfqGO5C0zSXy+3WrZuvr29iYmJMTEx6WtryFctfp6rv9enU+/2OhvFk
+wpiHGKOhI/sFB3vrx5PcgnX/3tWy+1EHGo1Wrdap1bRYbMrhcCiKun8/NzHx6Rdz3jcWe3ue5B85
+0p/HMxEKAcDH1NRTpYKnTw25FJeLADBFsa/+GCITAJKU9ODChTiaZj77dJy1tWWTFwAAgJ7vedA0
+M3/Bf3NySiUSE1tb059+HErTjLu7jWHX4/OcMkJrt2we5e7W5HuULq1a37p+Lf5GnLevv6WlGNhe
+Amzo/s+hRPMwbi+q/wYXlJSWpKfeVymVQcHtm9cjEnHCw6Xh4VKAwBcvlAkJ2ddvPImLe3zlavoq
+XQ2AMDFxkYVFgYMDt3370LFjx3h6ePxJLWo52rWTDx0aMmXK3u07JoktOZs2Xd695/p/fhgTHFxn
++/nbf5doj7uHq9UrBtMioZA/d/nly/G1+yMxQuDWRt7jvQ7OMvvXv9apUykUhfr2bfwDGZs2x3Xq
+2NrP79UfBHiUnpb97KlK9Zbf7PhnQygUOctd3D3f7GtPxsjIKLp27dHhI1dTUwsHDmy7Yf3ENyq+
+Z9fpI0diHR1tEGaXdhi1SuXp1TrxzkOJxJJNVClVNtYWa3/49K0r2SiWLTu+YeMFhoGOHd02bZwk
+lVrUE2jp97ve4R3+f8C7L/+9wzu8Gu948g7v8Gq848k7vMOr8f8AufCNqfdMEvwAAAAASUVORK5C
+YII=
+"
+       preserveAspectRatio="none"
+       height="30"
+       width="252.1875"
+       inkscape:export-xdpi="90.863266"
+       inkscape:export-ydpi="90.863266" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:0.58640226;stroke:#ff0000;stroke-width:2.73451614;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4152-3"
+       width="98.763557"
+       height="28.96146"
+       x="309.47433"
+       y="992.56323"
+       inkscape:export-xdpi="90.863266"
+       inkscape:export-ydpi="90.863266" />
   </g>
 </svg>

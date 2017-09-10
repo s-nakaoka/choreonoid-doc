@@ -40,8 +40,8 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
          trackL = io->body()->link("TRACK_L");
          trackR = io->body()->link("TRACK_R");
  
-         io->setLinkOutput(trackL, JOINT_VELOCITY);
-         io->setLinkOutput(trackR, JOINT_VELOCITY);
+         trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+         trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
  
          return true;
      }
@@ -84,7 +84,7 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
 
 コントローラを追加するには、シンプルコントローラアイテムを追加すればOKです。ステップ2で行った :ref:`simulation-tank-tutorial-create-controller-item` と同様の操作でアイテムを生成して下さい。生成するアイテムの名前はコントローラの名前と合わせて、"TrackController" とするとよいでしょう。生成したアイテムの「コントローラモジュール」プロパティには、今回作成したコントローラファイル "TankTutorial_TankController.so" を指定します。
 
-ここで注意が必要なのが、追加したコントローラアイテムの配置です。ひとつ目のコントローラアイテムと同様の配置ということになると、まず以下のような配置が考えられます。
+ここで注意が必要なのが、追加したコントローラアイテムの配置です。まず、ひとつ目のコントローラアイテムと同様に、以下のように配置することが考えられます。
 
 .. image:: images/trackcontrolleritem1.png
 
@@ -133,18 +133,18 @@ TrackControllerの実装内容について、このコントローラに特有�
 
 によって、左右それぞれのクローラに対応する入出力用リンクを取得しています。
 
-簡易クローラの場合、指令値はトルクではなく駆動速度で与えるようになっています。このため、 ::
+簡易クローラの場合、指令値はトルクではなく駆動速度で与えるようになっています。これに対応する「駆動モード」として、入出力用リンクに以下の設定をします。 ::
 
- io->setLinkOutput(trackL, JOINT_VELOCITY);
- io->setLinkOutput(trackR, JOINT_VELOCITY);
+ trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+ trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
   
-を実行して、出力する値のタイプを速度に設定しています。
+このように"Link::JOINT_SURFACE_VELOCITY" を指定すると、クローラ表面の進行速度を出力値として与えることができるようになります。簡易クローラの関節に対してはデフォルトでこのモードになっていますが、ここでは説明のため明示的に指定しています。
 
 control関数内の ::
 
  static const int axisID[] = { 0, 1 };
 
-は、クローラ軸に対応させるゲームパッドの軸IDの設定です。これについても、F310以外のゲームパッドを用いる場合は、適切な対応となるよう調整してください。
+は、クローラ軸に対応させるゲームパッドの軸IDの設定です。これについても、 :ref:`simulation-tank-tutorial-gamepad` で述べたもの以外のゲームパッドを用いる場合は、適切な対応となるよう値を修正する必要があるかもしれません。
 
 出力は関節速度を格納する変数dqにセットします。control関数内の ::
 

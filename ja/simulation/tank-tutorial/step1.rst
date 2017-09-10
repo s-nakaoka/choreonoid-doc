@@ -62,7 +62,9 @@ Tankアイテムのチェックが入ると、このモデルがシーンビュ�
 
 ここでシーンビューに対する :ref:`basics_sceneview_viewpoint` 操作を行って、Tankモデルが見やすく表示されるようにしておくとよいでしょう。例えばシーンビュー上でマウスのホイールを操作することで、視点を前後に移動させ、モデルを大きく表示することができます。上図もそのような操作を適用したものとなっています。
 
-.. note:: Tankモデルの詳細は :doc:`../../handling-models/modelfile/modelfile-newformat` をご参照下さい。このチュートリアルにより、モデルファイルの記述方法も学ぶことができます。
+.. note:: Tankモデルは本ドキュメンと作成後に更新され、現在は :doc:`../../handling-models/modelfile/tank-blender` となっています。このモデルはCOLLADA形式のメッシュファイルを使用しており、その読み込みには「Assimpプラグイン」が必要となります。Assimpプラグインがビルドされていない場合、モデル読み込み時に「"tank.dae"のファイル形式はシーンローダでサポートされていません。」というメッセージがメッセージビュー上に表示され、読み込んだモデルにチェックを入れてもシーンビュー上に表示されません。この場合は、 :ref:`build-ubuntu-install-packages` を再度実行することでAssimpライブラリをインストールしてから、 :ref:`build-ubuntu-cmake` で **BUILD_ASSIMP_PLUGIN** をONにして再度ビルドを行って下さい。これでもうまく表示されない場合は、Tankモデルの簡易版である "share/model/tank/simpletank.body" を読み込むようにして下さい。
+	  
+.. note:: Tankモデルの詳細は :doc:`../../handling-models/modelfile/modelfile-newformat` や :doc:`../../handling-models/modelfile/tank-blender` をご参照下さい。これらのチュートリアルにより、モデルファイルの作成方法も学ぶことができます。
 
 床モデルの読み込み
 ------------------
@@ -73,7 +75,7 @@ Tankモデルを読み込みましたが、このままではシミュレーシ�
 
 .. image:: images/flooritem.png
 
-Tankアイテムと同様に、
+tankアイテムと同様に、
 
 * Worldアイテムの小アイテムとなっているか
 * Floorアイテムのチェックが入っているか
