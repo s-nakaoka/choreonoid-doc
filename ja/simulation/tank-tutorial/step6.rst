@@ -100,19 +100,17 @@ GLビジョンシミュレータアイテムの導入によりカメラ画像を
  
      virtual bool control()
      {
-         static const int button[] = { 1 };
-         
          joystick.readCurrentState();
  
-         bool currentState = joystick.getButtonState(button[0]);
+         bool currentState = joystick.getButtonState(1);
          if(currentState && !prevButtonState){
              const Image& image = camera->constImage();
              if(!image.empty()){
                  std::string filename = camera->name() + ".png";
                  camera->constImage().save(filename);
-                 (*os) << "The image of " << camera->name() 
+                 (*os) << "The image of " << camera->name()
                        << " has been saved to \"" << filename << "\"."
-		       << std::endl;
+                       << std::endl;
              }
          }
          prevButtonState = currentState;
@@ -144,7 +142,7 @@ CMakeLists.txt に ::
 
 ではシミュレーションを実行しましょう。
 
-Cameraコントローラの機能として、ゲームパッドもしくは仮想ジョイスティックビューのBボタンを押すと、現在のカメラ画像がファイルに保存されます。この際メッセージビュー上に ::
+Cameraコントローラの機能として、ゲームパッドもしくは仮想ジョイスティックビューのBボタン（プレイステーション用ゲームパッドの場合は○ボタン）を押すと、現在のカメラ画像がファイルに保存されます。この際メッセージビュー上に ::
 
  The image of Camera has been saved to "Camera.png".
 
