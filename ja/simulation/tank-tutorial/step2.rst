@@ -41,8 +41,7 @@
      virtual bool initialize(SimpleControllerIO* io)
      {
          joint = io->body()->link("TURRET_P");
-         io->setLinkInput(joint, JOINT_ANGLE);
-         joint->setActuationMode(Link::JOINT_TORQUE);
+         io->enableIO(joint);
          q_ref = q_prev = joint->q();
  
          dt = io->timeStep();
@@ -248,21 +247,15 @@ initialize関数はコントローラの初期化を行う関数で、シミュ�
 
 によって、砲塔ピッチ軸の入出力を行うためのLinkオブジェクトを取得し、joint変数に格納しています。
 
-io->body() によってTankモデル入出力用のBodyオブジェクトを取得し、続けてこのオブジェクトが有するLinkオブジェクトから "TURRET_P" という名前を持つものを取得しています。これは :doc:`Tankモデルの作成 <../../handling-models/modelfile/modelfile-newformat>` において記述した :ref:`砲塔ピッチ軸部 <modelfile_yaml_TURRET_P_description>` に対応するものです。
+io->body() によってTankモデル入出力用のBodyオブジェクトを取得し、続けてこのオブジェクトが有するLinkオブジェクトから "TURRET_P" という名前を持つものを取得しています。これは :doc:`Tankモデルの作成 <../../handling-models/modelfile/modelfile-newformat>` において記述した :ref:`砲塔ピッチ軸部 <modelfile_yaml_TURRET_P_description>` の関節に対応するものです。
 
 次に ::
 
- io->setLinkInput(joint, JOINT_ANGLE);
+ io->enableIO(joint);
 
-によって、このリンクからコントローラに入力する値を設定しています。今回はPD制御を行いますので、コントローラの側からみて、関節角度を入力し、関節トルクを出力することになります。この場合、上記のようにJOINT_ANGLEを指定することで、関節角度の入力が可能となります。入力可能な値のタイプについては :doc:`../howto-implement-controller` の :ref:`simulator-io-by-body-object` をご参照下さい。
+によって、この関節に対する入出力を有効にしています。この記述は関節のデフォルトの入出力を有効化するもので、通常は関節角度を入力し、関節トルクを出力することになります。これによってこの関節に対してPD制御を行うことが可能となります。関節に対して入出力を何も設定しない場合、制御を行うことはできませんので、ご注意下さい。入出力を設定する関数としては、他に入力飲みを設定する enableInput という関数と、出力のみを設定する enableOutput という関数も利用可能です。
 
-出力値については、 ::
-
- joint->setActuationMode(Link::JOINT_TORQUE);
-
-によって設定しています。ここでは実際には関節の「駆動モード」を指定しています。駆動モードは関節を駆動するためにシミュレータ内部で参照される値を示しています。ここではLink::JOINT_TORQUEを指定することで、トルク値の出力を行い、そのトルクが関節にかかっているものとしてシミュレーションが行われます。（通常は駆動モードとしてLink::JOINT_TORQUEがデフォルトで設定されています。その場合は必ずしもコントローラで指定する必要はありませんが、ここでは説明のため明示的に指定しています。）
-
-.. note:: これまでは出力値の設定も入力と同様にSimpleControllerIOクラスのsetLinkOutputという関数を用いて行っていました。この関数も引き続き使用することが可能ですが、今後は出力値については上記のようにLinkクラスのsetJointActuationMode関数を使って設定するようにします。
+.. note:: 同様のことを行う関数として、SimpleControllerIOのsetLinkInput、setJointInput、setLinkOutput、setJointOutputといった関数もありますが、これらは古い仕様の関数を互換性のために残しているものですので、今後はenableXXXの関数を使うようにしてください。
 
 他にPD制御に必要な値として、 ::
 

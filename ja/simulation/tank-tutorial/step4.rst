@@ -40,8 +40,8 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
          trackL = io->body()->link("TRACK_L");
          trackR = io->body()->link("TRACK_R");
  
-         trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
-         trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+         io->enableOutput(trackL);
+         io->enableOutput(trackR);
  
          return true;
      }
@@ -131,14 +131,14 @@ TrackControllerの実装内容について、このコントローラに特有�
  trackL = io->body()->link("TRACK_L");
  trackR = io->body()->link("TRACK_R");
 
-によって、左右それぞれのクローラに対応する入出力用リンクを取得しています。
+によって、左右それぞれのクローラに対応する入出力用リンクを取得しています。また、 ::
 
-簡易クローラの場合、指令値はトルクではなく駆動速度で与えるようになっています。これに対応する「駆動モード」として、入出力用リンクに以下の設定をします。 ::
-
- trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
- trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+ io->enableOutput(trackL);
+ io->enableOutput(trackR);
   
-このように"Link::JOINT_SURFACE_VELOCITY" を指定すると、クローラ表面の進行速度を出力値として与えることができるようになります。簡易クローラの関節に対してはデフォルトでこのモードになっていますが、ここでは説明のため明示的に指定しています。
+によってそれぞれのクローラへの出力を有効にしています。
+
+簡易クローラの場合は、出力する指令値はトルクではなく、クローラの表面速度で与えるようになっています。また、入力については特に入力する値はありません。従って、ここでは出力のみを有効化する "enableOutput" 関数を用いています。
 
 control関数内の ::
 
