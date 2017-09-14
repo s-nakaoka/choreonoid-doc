@@ -853,14 +853,14 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 
  -
    type: Shape
-     geometry:
-       type: Box
-       size: [ 0.04, 0.015, 0.01 ]
-     appearance:
-       material:
-         diffuseColor: [ 0.2, 0.2, 0.8 ]
-         specularColor: [ 0.6, 0.6, 1.0 ]
-         shininess: 0.6
+   geometry:
+     type: Box
+     size: [ 0.04, 0.015, 0.01 ]
+   appearance:
+     material:
+       diffuseColor: [ 0.2, 0.2, 0.8 ]
+       specularColor: [ 0.6, 0.6, 1.0 ]
+       shininess: 0.6
 
 これを追加してモデルを読み込み直すと、以下のように青い箱状の形状が追加されます。
 
