@@ -19,7 +19,7 @@
 
 これに関して、本チュートリアルでは、Choreonoid独自の 「シンプルコントローラ（SimpleController）」の形式でコントローラの実装を行います。シンプルコントローラは、C++言語とChoreonoid内部のデータ構造を用いてコントローラを実装するもので、OpenRTMやROSと比べて覚えることが少なくて済み、コードも比較的シンプルなものになるといった利点があります。
 
-ただしこれはChoreonoidの独自形式であるため、汎用性の面ではOpenRTMやROSに劣ります。また、OpenRTMやROSが提供するような通信機能を提供するものでもありません。ChoreonoidはOpenRTMやROSと連携する機能も備えていますので、必要に応じてそれらの機能を用いるようにして下さい。OpenRTMと連携する機能に関しては、 :doc:`ここ <../../openrtm/index>` に解説があります。
+ただしこれはChoreonoidの独自形式であるため、汎用性の面ではOpenRTMやROSに劣ります。また、OpenRTMやROSが提供するような通信機能を提供するものでもありません。ChoreonoidはOpenRTMやROSと連携する機能も備えていますので、必要に応じてそれらの機能を用いるようにして下さい。OpenRTMに関しては、 :doc:`../../openrtm/index` で解説しています。
 
 コントローラ "TurretController1" の実装
 ---------------------------------------
@@ -41,10 +41,7 @@
      virtual bool initialize(SimpleControllerIO* io)
      {
          joint = io->body()->link("TURRET_P");
- 
-         io->setLinkInput (joint, JOINT_ANGLE);
-         io->setLinkOutput(joint, JOINT_TORQUE);
- 
+         io->enableIO(joint);
          q_ref = q_prev = joint->q();
  
          dt = io->timeStep();
@@ -132,7 +129,18 @@ CMakeLists.txtの記述
 コントローラのコンパイル
 ------------------------
 
-コンパイルを行いましょう。今回はChoreonoid本体と一緒にコンパイルを行う手法を採っているので、再度Choreonoid本体のコンパイルを行えばOKです。Choreonoidのビルドディレクトリで、 ::
+コンパイルを行いましょう。今回はChoreonoid本体と一緒にコンパイルを行う手法を採っているので、再度Choreonoid本体のコンパイルを行えばOKです。今回CMakeLists.txtが追加されましたので、まずそれを認識させるため、CMakeを再実行しましょう。Choreonoidのソースディレクトリをビルドディレクトリとしている場合は、 ::
+
+ cmake .
+
+を実行すればOKです。ビルドディレクトリをソースディレクトリとは分けている場合は、ビルドディレクトリに移動して、cmakeのパラメータにソースディレクトリを指定します。例えば、ソースディレクトリ直下にbuildというビルドディレクトリを作成している場合は、 ::
+
+ cd build
+ cmake ..
+
+となるかと思います。
+
+つぎにビルドディレクトリ上で続けて ::
 
  make
 
@@ -163,8 +171,6 @@ CMakeLists.txtの記述
 
 この配置によって、コントローラの制御対象がTankモデルであることを明示します。これを実現するにあたっては、Tankアイテムを選択状態としてからコントローラアイテムの生成を行ってもよいですし、生成後にこの配置になるようドラッグしてもOKです。
 
-.. note:: シンプルコントローラアイテムを利用するためには、Choreonoidビルド時のCMakeオプションで "BUILD_SIMPLE_CONTROLLER_PLUGIN" がONになっている必要があります。デフォルトではONになっていますので問題ないかと思いますが、新規メニューに「シンプルコントローラ」がない場合はこの項目を確認して下さい。
-
 .. _simulation-tank-tutorial-set-controller:
 
 コントローラ本体のセット
@@ -194,6 +200,7 @@ CMakeLists.txtの記述
 
 うまくいかない場合は、メッセージビューも確認してみて下さい。コントローラの設定や稼働に問題があると、シミュレーション開始時にその旨を知らせるメッセージが出力される場合があります。
 
+なお、このコントローラでは砲塔ヨー軸の制御は行っていないため、そちらには力がかかっていません。Step1の時と同様に、 :doc:`../interaction` を用いて砲塔部分をドラッグすると、ヨー軸に関してはフリーで動かせることが分かります。
 
 実装内容の解説
 --------------
@@ -240,14 +247,15 @@ initialize関数はコントローラの初期化を行う関数で、シミュ�
 
 によって、砲塔ピッチ軸の入出力を行うためのLinkオブジェクトを取得し、joint変数に格納しています。
 
-io->body() によってTankモデル入出力用のBodyオブジェクトを取得し、続けてこのオブジェクトが有するLinkオブジェクトから "TURRET_P" という名前を持つものを取得しています。これは :doc:`Tankモデルの作成 <../../handling-models/modelfile/modelfile-newformat>` において記述した :ref:`砲塔ピッチ軸部 <modelfile_yaml_TURRET_P_description>` に対応するものです。
+io->body() によってTankモデル入出力用のBodyオブジェクトを取得し、続けてこのオブジェクトが有するLinkオブジェクトから "TURRET_P" という名前を持つものを取得しています。これは :doc:`Tankモデルの作成 <../../handling-models/modelfile/modelfile-newformat>` において記述した :ref:`砲塔ピッチ軸部 <modelfile_yaml_TURRET_P_description>` の関節に対応するものです。
 
 次に ::
 
- io->setLinkInput (joint, JOINT_ANGLE);
- io->setLinkOutput(joint, JOINT_TORQUE);
+ io->enableIO(joint);
 
-によって、この関節に関して入力と出力を行う値のタイプを指定しています。今回はPD制御を行いますので、関節角度を入力し、関節トルクを出力するという設定にしています。入出力可能な値の詳細については、 :doc:`../howto-implement-controller` の :ref:`simulator-io-by-body-object` をご参照下さい。
+によって、この関節に対する入出力を有効にしています。この記述は関節のデフォルトの入出力を有効化するもので、通常は関節角度を入力し、関節トルクを出力することになります。これによってこの関節に対してPD制御を行うことが可能となります。関節に対して入出力を何も設定しない場合、制御を行うことはできませんので、ご注意下さい。入出力を設定する関数としては、他に入力飲みを設定する enableInput という関数と、出力のみを設定する enableOutput という関数も利用可能です。
+
+.. note:: 同様のことを行う関数として、SimpleControllerIOのsetLinkInput、setJointInput、setLinkOutput、setJointOutputといった関数もありますが、これらは古い仕様の関数を互換性のために残しているものですので、今後はenableXXXの関数を使うようにしてください。
 
 他にPD制御に必要な値として、 ::
 

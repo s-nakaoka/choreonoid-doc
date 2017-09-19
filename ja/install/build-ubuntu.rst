@@ -54,12 +54,18 @@ gitの使用方法の詳細についてはgitのマニュアルや解説記事�
 開発ツールと依存ソフトウェアのインストール
 ------------------------------------------
 
+開発ツール
+~~~~~~~~~~
+
 Choreonoidをソースコードからビルドするためには、以下の開発ツールが必要になります。
 
 - C/C++標準開発ツール一式: C/C++コンパイラ、Make等の標準開発ツール一式が必要です。Ubuntuであれば "build-essential" というパッケージで一式インストールできます。C/C++コンパイラに関しては通常GCCを用いますが、Clang/LLVMも利用可能です。
 - `CMake <http://www.cmake.org/>`_ :  ビルドツールです。本ツール独自の記述から、Make や Visual Studio といった標準ビルドツールのファイルを生成します。多くの環境に対応したビルド記述を効率的に行うことが可能です。
 
-また、基本機能をビルドするにあたって以下のライブラリも必要になります。
+依存ライブラリ
+~~~~~~~~~~~~~~  
+  
+基本機能をビルドするにあたって以下のライブラリも必要になります。
 
 * `Boost C++ Libraries <http://www.boost.org/>`_ : C++の便利なライブラリ集です。
 * `Eigen <eigen.tuxfamily.org>`_ : 行列・ベクトル・線形代数演算のための高速・高機能なテンプレートライブラリです。
@@ -81,6 +87,11 @@ Choreonoidをソースコードからビルドするためには、以下の開�
 * `PulseAudio <http://www.freedesktop.org/wiki/Software/PulseAudio/>`_ : 音声出力を行うためのシステムです。Ubuntuでは標準でインストールされていますが、Mediaプラグインをビルドする場合には別途開発用ライブラリが必要になります。
 * `libsndfile <http://www.mega-nerd.com/libsndfile/>`_ : 音声ファイルを読み込むためのライブラリです。Mediaプラグインを利用する際に必要です。
 
+.. _build-ubuntu-install-packages:
+
+依存パッケージのインストール
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
 Ubuntuの場合、"misc/script" 以下にある "install-requisites-ubuntu-x.x.sh" というスクリプトを用いることにより、以上のソフトウェアのほとんどを簡単にインストールすることができます。x.xはUbuntuのバージョンに対応します。例えば Ubuntu 16.04 であれば ::
 
  misc/script/install-requisites-ubuntu-16.04.sh

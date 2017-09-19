@@ -129,7 +129,7 @@ Ubuntuでは、利用可能なOpenGLのバージョンは"glxinfo" というコ�
      virtual bool control()
      {
          static const int buttonID[] = { 0, 2, 3 };
- 
+        
          joystick.readCurrentState();
  
          bool changed = false;
@@ -142,10 +142,10 @@ Ubuntuでは、利用可能なOpenGLのバージョンは"glxinfo" というコ�
          prevButtonState = currentState;
  
          if(joystick.getButtonState(buttonID[1])){
-             light->setBeamWidth(std::min(0.7854f, light->beamWidth() + 0.001f));
+             light->setBeamWidth(std::max(0.1f, light->beamWidth() - 0.001f));
              changed = true;
          } else if(joystick.getButtonState(buttonID[2])){
-             light->setBeamWidth(std::max(0.1f, light->beamWidth() - 0.001f));
+             light->setBeamWidth(std::min(0.7854f, light->beamWidth() + 0.001f));
              changed = true;
          }
  
@@ -181,11 +181,11 @@ CMakeLists.txt に ::
 
 シミュレーションを実行して、ライトの操作ができるようになっていることを確認しましょう。
 
-ライトの操作はゲームパッドのボタンに割り当てられています。ゲームパッドF310や仮想ジョイスティックビューの場合、A、X、Yボタンを使います。
+ライトの操作はゲームパッドもしくは仮想ジョイスティックビューのA、X、Yボタン（プレイステーションのゲームパッドの場合は×、□、△ボタン）に割り当てられています。
 
 まずAボタンでライトのオン・オフを切り替えられます。
 
-また、X、Yボタンで、ライトの照射範囲を変えられます。Xボタンを押すと照射範囲を広くし、Yボタンを押すと狭くします。
+また、X、Yボタンで、ライトの照射範囲を変えられます。Xボタンを押すと照射範囲を狭くし、Yボタンを押すと広くします。
 
 これまで実現してきたクローラや砲塔の操作も引き続き可能ですので、Tankモデルを移動させながら、Labo1の様々な箇所をライトで照射してみてください。
 
@@ -206,7 +206,7 @@ control関数では、 ::
 
  static const int buttonID[] = { 0, 2, 3 };
 
-により、ライトの操作に使うボタンのIDを設定しています。これらのIDは、F310や仮想ジョイスティックビューではAボタン、Xボタン、Yボタンとなります。他のゲームパッドを用いる場合は、ここを調整するようにしてください。
+により、ライトの操作に使うボタンのIDを設定しています。これらのIDが通常A、X、Yボタンに対応します。ボタンの対応がうまくいかない場合は、ここを調整するようにしてください。
 
 Aボタンの状態について、 ::
 
@@ -234,10 +234,9 @@ Aボタンの状態について、 ::
 ライトの照射範囲を変える操作についても同様です。照射範囲拡大の操作については、 ::
 
  if(joystick.getButtonState(buttonID[1])){
-     light->setBeamWidth(std::min(0.7854f, light->beamWidth() + 0.001f));
+     light->setBeamWidth(std::max(0.1f, light->beamWidth() - 0.001f));
      changed = true;
- }
 
-によってXボタンの状態を判定し、ボタンが押されていればSpotLightのsetBeamWidth関数で、照射角度の値を増やしています。Yボタンの操作についてもこれと同様です。
+によってXボタンの状態を判定し、ボタンが押されていればSpotLightのsetBeamWidth関数で、照射角度の値を減らしています。Yボタンの操作についてもこれと同様です。
 
 デバイスの扱いに関しては、より詳細な解説が :doc:`../howto-implement-controller` の :ref:`simulation-device` 以降の節にもありますので、そちらもご参照下さい。
