@@ -2,7 +2,7 @@
 Installation
 ============
 
-To use Choreonoid, it is necessary to install it to your PC first. 
+To use Choreonoid, it is necessary to install it on your PC first. 
 This document describes how to install Choreonoid.
 
 .. toctree::

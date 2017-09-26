@@ -4,9 +4,9 @@ Building and Installation from Source Code (for Ubuntu Linux)
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
-Thought there are different distributions for Linux, currently Ubuntu Linux is the only distribution version that Choreonoid officiall supports. This document describes how to build Choreonoid from the source code for Ubuntu Linux. You may be able to build in other versions if you grasp the basics. Try to do so if required.
+Even though there are different distributions of Linux, currently Ubuntu Linux is the only distribution version that Choreonoid officially supports. This document describes how to build Choreonoid from source code in Ubuntu Linux. You may be able to build other versions if you grasp the basics. Try to do so if required.
 
-In the latest development version of Choreonoid, we have verified the build and the operation on Ubuntu version 12.04, 14.04 and x64 architecture.
+In the latest development version of Choreonoid, we have verified the build process and operation for Ubuntu versions 12.04, 14.04 and the x64 architecture.
 
 
 .. contents::
