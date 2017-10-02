@@ -13,10 +13,25 @@ In the latest development version of Choreonoid, we have verified the build proc
    :local:
 
 
-How to Get Source Codes
+How to Get Source Code
 -----------------------
 
-The source codes of the development version of Choreonoid are managed as `git <http://git-scm.com/>`_ repository and published in the following addresses of `github <https://github.com/>`_ .
+Release version
+~~~~~~~~~~~~~~~
+
+The source code of the release version of Choreonoid can be downloaded from its `download webpage <http://choreonoid.org/ja/download.html>`_. Please download the corresponding version of the "source package" from this site. As it is a ZIP file, you can use ::
+
+ unzip choreonoid-1.5.0.zip
+
+to extract the source package to an appropriate directory.
+
+After executing the previous command a directory named choreonoid-1.5.0 containing the source code will be created. In the present manual, this directory is hereinafter referred to as the **"source directory"**.
+
+
+Development version
+~~~~~~~~~~~~~~~~~~~
+
+The source code of the development version of Choreonoid are managed as `git <http://git-scm.com/>`_ repository and published in the following addresses of `github <https://github.com/>`_ .
 
 - https://github.com/s-nakaoka/choreonoid
 
