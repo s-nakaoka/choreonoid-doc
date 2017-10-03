@@ -1,19 +1,19 @@
 
 SR1サンプルモデル
-=================
+==========
 
 ここでは、シンプルなヒューマノイドロボットのサンプルモデルである "SR1" モデルの表している内容について説明します。
 
 このモデルはshareディレクトリの "model/SR1" ディレクトリ以下にある以下のファイルで記述されています。
 
 * SR1.wrl: モデルファイル本体
-* SR1.yaml: 追加情報ファイル
+* SR1.body: 追加情報ファイル
 
 ここではモデルファイルの本体である "SR1.wrl" の記述内容について紹介します。追加情報ファイルの内容については、次の :doc:`modelfile-yaml` を参照してください。（Choreonoidにおいては、モデルの追加情報ファイルが用意されている場合は、通常そちらを読み込むようにします。）
 
 
 関節構造
---------
+----
 
 SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 頭2関節(HEAD_JOINT0, HEAD_JOINT1)、 腕16関節(LARM_SHOULDER_P〜LARM_WRIST_R、RARM_SHOULDER_P〜RARM_WRIST_R)、 足14関節(LLEG_HIP_R〜LLEG_ANKLE_R、RLEG_HIP_R〜RLEG_ANKLE_R)で構成され、 次に示すJoint-Segment階層構造を持ちます。 Joint位置と各Jointに設定された座標系、Segment名と実際のリンクの対応については、下図を参照してください．
 
@@ -83,7 +83,7 @@ SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 �
 
 
 視覚センサ
-----------
+-----
 
 上記のとおり視覚センサは、CHESTの下に2個取り付けられています。
 
