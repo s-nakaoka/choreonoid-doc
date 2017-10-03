@@ -9,6 +9,7 @@ OpenRTM連携機能
    tank-joystick-bodyiortc
    tank-joystick-controller
    tank-joystick-vision-sensors
+   reset-omniname
 
 .. introduction
    
