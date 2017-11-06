@@ -6,7 +6,7 @@ Tips
    :maxdepth: 2
 
   eclipse/debug
-
+  howto-create-movingimage
+  
 ..   multi-sceneviews
-
    
