@@ -7,6 +7,7 @@ Tips
 
   eclipse/debug
   howto-create-movingimage
+  howto-use-commands
   
 ..   multi-sceneviews
    
