@@ -53,54 +53,52 @@
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0 };
- 
+
  class SR1MinimumController : public SimpleController
  {
      BodyPtr ioBody;
      double dt;
      std::vector<double> qref;
      std::vector<double> qold;
- 
- public:
- 
-     virtual bool initialize(SimpleControllerIO* io)
-     {
-         ioBody = io->body();
-         dt = io->timeStep();
 
-         io->setJointInput(JOINT_ANGLE);
-         io->setJointOutput(JOINT_TORQUE);
- 
-         for(int i=0; i < ioBody->numJoints(); ++i){
-             qref.push_back(ioBody->joint(i)->q());
-         }
-         qold = qref;
- 
-         return true;
-     }
- 
-     virtual bool control()
+ public:
+
+     virtual bool initialize(SimpleControllerIO* io) override
      {
-         for(int i=0; i < ioBody->numJoints(); ++i){
-             Link* joint = ioBody->joint(i);
-             double q = joint->q();
-             double dq = (q - qold[i]) / dt;
-             double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
-             qold[i] = q;
-             joint->u() = u;
-         }
-         return true;
+	 ioBody = io->body();
+	 dt = io->timeStep();
+
+	 for(auto joint : ioBody->joints()){
+	     joint->setActuationMode(Link::JOINT_TORQUE);
+	     io->enableIO(joint);
+	     qref.push_back(joint->q());
+	 }
+	 qold = qref;
+
+	 return true;
+     }
+
+     virtual bool control() override
+     {
+	 for(int i=0; i < ioBody->numJoints(); ++i){
+	     Link* joint = ioBody->joint(i);
+	     double q = joint->q();
+	     double dq = (q - qold[i]) / dt;
+	     double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
+	     qold[i] = q;
+	     joint->u() = u;
+	 }
+	 return true;
      }
  };
- 
+
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
 
-コンパイルについては、同じディレクトリにあるCMakeLists.txt内にある ::
+このコントローラはChoreonoidに付属のサンプルであり、デフォルトでChoreonoid本体と一緒にビルドされるようになっています。（CMakeの設定で **BUILD_SIMPLE_CONTROLLER_SAMPLES** がONになっていればOKです。）
 
- add_cnoid_simple_controller(SR1MinimumController SR1MinimumController.cpp)
+サンプルとは別に新たにコントローラを実装してビルドする方法については、本ページ最後の :ref:`simulation-build-simple-controller` をご参照ください。
 
-という記述で行っています。この関数の詳細は"src/SimpleControllerPlugin/library/CMakeLists.txt"を参照してください。基本的には、"CnoidSimpleController" というライブラリとリンクすればOKです。(Linuxの場合、ライブラリは"libCnoidSimpleController.so"というファイル名になります。）
-
+以下ではまず本コントローラのソースコードについて解説を行います。
 
 SimpleControllerクラス
 ----------------------
@@ -567,8 +565,58 @@ Linkオブジェクトにおいて、その位置姿勢はPosition型の値と�
 
 リンク位置姿勢の出力については、これをサポートしたシミュレータが必要で、特殊な利用形態となります。例えばAISTシミュレータアイテムでは、「動力学モード」を「運動学」にすると、シミュレーションにおいて動力学計算を行わず、与えた位置姿勢を再現するだけのモードとなります。この場合、ロボットのルートリンクの位置姿勢を出力することで、ルートリンクがその位置姿勢へ移動します。また、関節角も出力しておけば、ルートリンクからの順運動学の結果となる姿勢が再現されます。
 
-
 その他のサンプル
 ----------------
  
-Choreonoidでは、本節で挙げた以外にも様々なコントローラのサンプルを用意しています。それらを用いたプロジェクトが :ref:`basics_sample_project` に挙げてありますので、参考にしていただければと思います。
+Choreonoidでは、SR1MinimumController以外にも様々なコントローラのサンプルを用意しています。それらを用いたプロジェクトが :ref:`basics_sample_project` に挙げてありますので、参考にしてください。
+
+.. _simulation-build-simple-controller:
+
+補足: シンプルコントローラのビルド方法
+--------------------------------------
+
+シンプルコントローラを自前で新たに実装してビルドする方法として、大きく分けて以下の２つがあります。
+
+1. Choreonoid本体と一緒にビルドを行う
+2. Choreonoid本体とは別にビルドを行う
+
+以下ではそれぞれの方法について概要を述べます。
+
+Choreonoid本体と一緒にビルドを行う方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+この方法では、サンプルのコントローラと同様に、Choreonoid本体のビルド時に自前のコントローラも一緒にビルドすることになります。逆に言えば、自前のコントローラをビルドする際にも、Choreonoid本体をビルドするコマンドを使用して、Choreonoidの一部としてコントローラをビルドするということになります。Choreonoidをソースコードからビルドしてお使いの場合は、この方法が一番手軽かと思われます。
+
+Choreonoid本体はCMakeを用いてビルドの記述が行われており、本手法はその中に自前のコントローラのビルド記述も含めてしまうというものです。CMakeにおいてビルドの記述には通常 "CMakeLists.txt" という名前のファイルを用いることになっているため、本手法ではコントローラについてもこのファイルにてビルドの記述を行います。この際、Choreonoid本体で定義されている "add_cnoid_simple_controller" というCMakeの関数を用いることで、シンプルコントローラのビルド記述を簡潔に行うことができます。この関数に与える引数は以下のようになっています。 ::
+
+ add_cnoid_simple_controller(コントローラ名 ソースファイル ...)
+
+ソースファイルは１つでも結構ですし、複数記述することも可能です。
+
+あとはこのCMakeLists.txtをChoreonoidのビルドにおいて認識されるようにする必要があります。これを行うためには、Choreonoidのソースディレクトリに含まれる "ext" という名前のディレクトリを用います。このディレクトリ以下に作成したサブディレクトリ内にCMakeLists.txtがあると、それがChoreonoid本体のビルドにおいて認識され、取り込まれるようになります。コントローラについても、ext以下に適当な名前でディレクトリを作成し、そこに対応するソースファイルとCMakeLists.txtを格納してください。
+
+具体的な例として、自前の "MyController" というコントローラのC++ソースコードを、 "MyController.cpp" というファイルに記述するとしましょう。まず、Choreonoidのextディレクトリ内にこのファイルを格納するサブディレクトリを作成して下さい。名前は何でも結構ですが、ここではコントローラ名と対応付けて "MyController" というディレクトリを作成することにします。
+
+そして、以下の内容を記述したCMakeLists.txtを作成し、同じディレクトリに保存してください。 ::
+
+ add_cnoid_simple_controller(MyController MyController.cpp)
+
+この結果、ディレクトリ／ファイル構成は以下のようになります。 ::
+
+ Choreonoidソースディレクトリ
+  + ext
+    + MyController
+      - CMakeLists.txt
+      - MyController.cpp
+
+あとはChoreonoid本体をビルドすればMyControllerについてもビルドされます。つまり、Choreonoid本体のビルドディレクトリにてcmakeとmakeを実行します。ビルドに成功すれば、 :ref:`simulation-set-controller-to-controller-item` にて述べたシンプルコントローラの標準ディレクトリ内に、MyController.so (Linuxの場合。Windowsの場合はMyController.dll) というファイルが生成されているはずです。
+
+.. note:: ext以下に作成したコントローラのCMakeLists.txtに対して直接cmakeを実行することは避けてください。本手法ではコントローラのCMakeLists.txtはあくまでChoreonoid本体のビルド記述の一部として取り込まれるものなので、それとは独立してcmakeを適用できるものではありません。
+
+.. note:: コントローラが外部のライブラリをリンクして使う場合など、コントローラの構成が複雑になってくると、add_cnoid_simple_controller以外にもCMakeLists.txtの記述が必要になる場合があります。その場合は、CMakeのマニュアルやadd_cnoid_simple_controller関数の定義などを参照して、適切な記述を行うようにしてください。（add_cnoid_simple_controller関数はChoreonoidソースのsrc/Body/CMakeListst.txt内にて定義されています。）
+
+
+
+.. という記述で行っています。この関数の詳細は"src/SimpleControllerPlugin/library/CMakeLists.txt"を参照してください。基本的には、"CnoidSimpleController" というライブラリとリンクすればOKです。(Linuxの場合、ライブラリは"libCnoidSimpleController.so"というファイル名になります。）
+
+
