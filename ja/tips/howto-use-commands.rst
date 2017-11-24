@@ -2,22 +2,21 @@
 Linuxの基本的な使用方法について
 ==================
 
-Linuxの端末の起動方法やコマンドラインの使用方法について解説します。
+ここではUbuntu Linux 16.04で、標準のUnityデスクトップ環境を使う場合の端末の起動方法やコマンドラインの使用方法について解説します。
 
 .. contents::
    :local:
    
-Linuxの端末起動方法
-------------
+端末の起動方法
+-------
 
 .. |search_computer| image:: images/search_computer.png
 
 ホーム画面の左端に表示されているランチャーの「コンピュータを検索」 |search_computer| をクリックします。
 
-検索ボックスとアプリケーション等の一覧が表示されるので、検索ボックスに"端末"と入力します。
+検索ボックスとアプリケーション等の一覧が表示されるので、検索ボックスに"term" あるいは "端末"と入力します。
 
 .. image:: images/search_computer_window.png
-.. image:: images/search_computer_window2.png
 
 入力した結果「端末」が表示されるので、「端末」をクリックすると、「端末」が起動されます。
 
