@@ -10,6 +10,7 @@
    execution-and-playback
    howto-use-controller
    howto-implement-controller
+   howto-build-controller
    actuation-mode
    vision-simulation
    pseudo-continuous-track

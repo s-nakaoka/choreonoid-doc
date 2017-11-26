@@ -264,6 +264,8 @@ CMake で Visual Studio のソリューションファイルが生成されて�
 .. figure:: images/VS2.png
 
 
+.. _build-windows-install:
+
 インストール
 ------------
 
