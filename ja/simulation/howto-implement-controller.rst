@@ -67,7 +67,8 @@
 	 ioBody = io->body();
 	 dt = io->timeStep();
 
-	 for(auto joint : ioBody->joints()){
+         for(int i=0; i < ioBody->numJoints(); ++i){
+             Link* joint = ioBody->joint(i);
 	     joint->setActuationMode(Link::JOINT_TORQUE);
 	     io->enableIO(joint);
 	     qref.push_back(joint->q());
@@ -111,7 +112,7 @@ SimpleControllerクラス
  class SimpleController
  {
  public:
-     virtual bool initialize(SimpleControllerIO* io);
+     virtual bool initialize(SimpleControllerIO* io) = 0;
      virtual bool control() = 0;
  };
 
@@ -175,6 +176,9 @@ Bodyオブジェクトを介した入出力
 
 .. Bodyクラスはモデルに関する様々な情報と機能を有するので、入出力だけを行うためには実はオーバースペックなデータ構造です。シンプルコントローラでは実装の簡便さを優先してこれを用いていますが、入出力のインタフェースとしては通常このようなデータ構造は用いずに、特定の入出力要素のやりとりに最適化されたデータ構造を用いるのが一般的です。例えば、OpenRTMのRTコンポーネントでは、特定のデータをやりとりする「データポート」というインタフェースを用いて入出力を行います。
 
+Linkオブジェクト
+~~~~~~~~~~~~~~~~
+
 Bodyオブジェクトでは、モデルを構成する個々のパーツ（剛体）が「Linkクラス」のオブジェクトとして表現されており、関節に関する情報もこれに含まれるようになっています（ :ref:`model_structure` 参照）。LinkオブジェクトはBodyクラスの以下のような関数を用いて取得することができます。
 
 * **int numJoints() const**
@@ -211,37 +215,40 @@ Bodyオブジェクトでは、モデルを構成する個々のパーツ（剛�
 
 ただし、どの値をアクチュエータへの指令値とするか、またどの値を入力として読み込むかについては、アクチュエータのタイプや制御方式によって変わってきます。
 
-これに関わるパラメータとして、まず「アクチュエーションモード」という概念があります。これは関節駆動時にどの状態変数を指令値として使うかを決めるパラメータで、そのモードとしてLinkクラスに以下のシンボルが定義されています。
+アクチュエーションモード
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. list-table::
+関節への出力に関わる概念として、「アクチュエーションモード」があります。これは関節駆動時にどの状態変数を指令値として使うかを決めるものであり、モードとして以下のシンボルがLinkクラスに定義されています。
+
+.. list-table:: **Link::ActuationMode列挙型のシンボル**
  :widths: 20,60,20
  :header-rows: 1
 
  * - シンボル
    - 内容
    - 状態変数
- * - NO_ACTUATION
+ * - **NO_ACTUATION**
    - 駆動なし。関節はフリーの状態となる。
    - 
- * - JOINT_EFFORT
+ * - **JOINT_EFFORT**
    - 関節に与える力やトルクを指令値とする。
    - Link::u()
- * - JOINT_FORCE
+ * - **JOINT_FORCE**
    - JOINT_EFFORTと同じ。直動関節用に定義。
    - Link::u()
- * - JOINT_TORQUE
+ * - **JOINT_TORQUE**
    - JOINT_EFFORTと同じ。回転関節用に定義。
    - Link::u()
- * - JOINT_DISPLACEMENT
+ * - **JOINT_DISPLACEMENT**
    - 関節変位（関節角度や関節並進位置）を指令値とする。
    - Link::q()
- * - JOINT_ANGLE
+ * - **JOINT_ANGLE**
    - JOINT_DISPLACEMENTと同じ。回転関節用に定義。
    - Link::q()
- * - JOINT_VELOCITY
+ * - **JOINT_VELOCITY**
    - 関節の角速度やオフセット速度を指令値とする。
    - Link::dq()
- * - JOINT_SURFACE_VELOCITY
+ * - **JOINT_SURFACE_VELOCITY**
    - リンク表面と環境との接触における相対速度を指令値とする。簡易的なクローラやベルトコンベアのシミュレーションで使用する。 :doc:`pseudo-continuous-track` 参照。
    - Link::dq()
 
@@ -255,7 +262,10 @@ Bodyオブジェクトでは、モデルを構成する個々のパーツ（剛�
 
  アクチュエーションモードを設定します。
 
-アクチュエーションモードを適切に設定した上で、コントローラからどの状態変数の入出力を行うかをIOオブジェクトを用いて設定します。SimpleControllerIOクラスにはこれを行うための以下の関数が定義されています。
+入出力の有効化
+~~~~~~~~~~~~~~
+
+コントローラからどの状態変数の入出力を行うかについては、IOオブジェクトを用いて設定します。SimpleControllerIOクラスにはこれを行うための以下の関数が定義されています。
 
 * **void enableInput(Link\* link)**
 
@@ -335,16 +345,12 @@ Linkオブジェクトに設定されているアクチュエーションモー�
 
 ただし、入力に関しては、enableInputにてstateTypesパラメータを与えることにより、任意の状態量を入力することが可能です。
 
-.. note:: LINK_POSITIONについて。
-
-.. 実はコントローラへの入力に関しては、多くのシミュレータアイテムで上に挙げた全ての要素の入力が可能となっています。それらはシミュレータ内部の物理計算において保持されている値なので、シミュレーションにおいてはその値を返すだけで入力を実現できるのです。ただし、対象がロボットの実機となると話が違ってきます。実機の場合、関節変位の入力にはエンコーダが、関節トルクの入力にはトルクセンサが必要となりますし、関節速度や加速度は関節変位の微分によって算出するのが一般的です。
-
-
+.. note:: ３次元空間中のリンクの位置と姿勢を直接入出力の対象とする **LINK_POSITION** というシンボルも利用可能となっています。これについては後ほど :ref:`simulation-implement-controller-link-position` にて解説します。
 
 初期化処理
 ----------
 
-SimpleController継承クラスのinitialize()関数では、コントローラの初期化を行います。
+SimpleController継承クラスのinitialize関数では、コントローラの初期化を行います。
 
 サンプルでは、まず ::
 
@@ -358,52 +364,57 @@ SimpleController継承クラスのinitialize()関数では、コントローラ�
 
 によって値をdtというメンバ変数に格納しています。
 
-次に、 ::
+次に、以下のfor文でロボットの全関節に対してループを回して初期化の処理を行っています。 ::
 
- io->setJointInput(JOINT_ANGLE);
- io->setJointOutput(JOINT_TORQUE);
+ for(int i=0; i < ioBody->numJoints(); ++i){
+     ...
+ }
 
-によって、コントローラへの入力を関節角度とし、コントローラからの出力を関節トルクとしています。このような入出力要素の設定は初期化時に一回行っておけばOKです。
+まずこのループの中の ::
 
-なお、ここでは全ての関節に対して入力・出力のタイプが同じになるため、setJointInput, setJointOutput関数で一括して設定しています。関節ごとに入出力のタイプを変えたい場合は、setLinkInput, setLinkOutput関数を使います。
+ Link* joint = ioBody->joint(i);
+
+によってi番目の関節に対応するリンクオブジェクトを取得し、変数jointに設定しています。
 
 そして ::
 
- for(int i=0; i < ioBody->numJoints(); ++i){
-     qref.push_back(ioBody->joint(i)->q());
- }
+ joint->setActuationMode(Link::JOINT_TORQUE);
+
+によって、この関節に対してアクチュエーションモードの設定を行っています。ここでは Link::JOINT_TORQUE を指定することで、関節トルクを指令値としています。また、 ::
+
+ io->enableIO(joint);
+
+とすることで、この関節に対する入出力を有効化しています。アクチュエーションモードに JOINT_TORQUE が設定されているため、出力は関節トルク、入力は関節角度となります。これによってPD制御を行います。
+
+次に ::
+
+ qref.push_back(joint->q());
+
+によってロボットの初期状態における関節角度をベクタ変数qrefに格納しています。こちらもPD制御で用います。ここで各関節に対するforループを終了します。
+
+次に ::
+
  qold = qref;
 
-によって目標関節角度を格納する qref という変数に、初期化時（シミュレーション開始時）のロボットの関節角度を格納しています。qoldは1ステップ前の関節角度を格納する変数で、こちらも制御計算で使います。qrefと同じ値に初期化しています。
-
-ここでは、 ::
-
- ioBody->joint(i)->q()
-
-という記述で、i番目の関節の関節角度を取得しています。
+によってベクタ変数qoldをqrefと同じ値で初期化しています。これはPD制御において1ステップ前の関節角度を参照するための変数となります。
 
 最後に、initialize関数の戻り値としてtrueを返すことで、初期化に成功したことをシミュレータに伝えます。
 
 制御ループ
 ----------
 
-SimpleController継承クラスでは、そのcontrol()関数に制御ループを記述します。
+SimpleController継承クラスでは、そのcontrol関数に制御ループを記述します。
 
-サンプルでは以下のfor文 ::
+初期化の時と同様に、以下のfor文 ::
 
  for(int i=0; i < ioBody->numJoints(); ++i){
+     Link* joint = ioBody->joint(i);
      ...
  }
 
 により、全ての関節に対して制御計算を行っています。この中身が各関節に対する処理コードです。
 
-まず、 ::
-
- Link* joint = ioBody->joint(i);
-
-でi番目の関節に対応するLinkオブジェクトを取得しています。
-
-次に現在の関節角度の入力を行います。 ::
+まず、 現在の関節角度の入力を行います。 ::
 
  double q = joint->q();
 
@@ -431,41 +442,37 @@ PD制御によって関節トルクの指令値を計算します。まず、制
 
 .. _simulation-device:
 
-デバイス
---------
+デバイスに対する入出力
+----------------------
 
-以上の例では関節角度を入力し、関節トルクを出力しました。これは関節に備え付けられたエンコーダ、アクチュエータといったデバイスを対象に入出力を行っていると考えることができます。
+デバイスとは
+~~~~~~~~~~~~
 
-そのように入出力の対象となるデバイスは他にも様々なものが存在し得ます。例えば、エンコーダと同様に、センサとして主に入力の対象となるものとして、
+これまでは入出力の対象として、関節角度や関節トルクといった関節に関わる状態量への入出力を扱いました。一方で、関節とは独立した入出力要素もあります。Choreonoidではそれらを「デバイス」として定義しており、Bodyモデルの構成要素となります。
+
+.. 以上の例では関節角度を入力し、関節トルクを出力しました。これは関節に備え付けられたエンコーダ、アクチュエータといったデバイスを対象に入出力を行っていると考えることができます。
+
+.. そのように入出力の対象となるデバイスは他にも様々なものが存在し得ます。例えば、エンコーダと同様に、センサとして主に入力の対象となるものとして、
 
 .. 一般的にロボットは関節エンコーダ、アクチュエータ以外にも多様なデバイスを備えています。
 
-.. 以上の例では、入出力の対象として、関節の状態量である関節角度と関節トルクを扱いました。一方で、関節とは独立した入出力要素もあります。Choreonoidでは、それらを「デバイス」として定義しており、Bodyモデルの構成要素となります。
-.. デバイスの例としては、まず
-
-.. その例として、
+デバイスの例としては、まず
 
 * 力センサ、加速度センサ、角速度センサ（レートジャイロ）
-* カメラ、レーザーレンジファインダ
-* マイク
+* カメラ、レーザーレンジセンサ
 
-といったデバイスが挙げられます。
+といったデバイスが挙げられます。これらはセンサとして主に入力の対象となるものです。
 
 .. が、カメラのズーム変更等、操作指令を出力したい場合もあります。
 .. 主に出力の対象となるものとして、
 
-また、アクチュエータと同様に、主に出力の対象として外界に働きかけるものとして、
+また、主に出力の対象として外界に働きかけるものとして、
 
+* ライト
 * スピーカ
 * ディスプレイ
-* ライト
 
-といったデバイスもあり得ます。
-
-.. * ディスプレイ
-.. * プロジェクタ
-.. * スピーカ
-.. （※これらのうち、ライト以外はChoreonoidではまだサポートされていません。）
+といったデバイスもあり得ます。(スピーカ、ディスプレイは例として挙げただけでまだ実装されていません。）
 
 実際のコントローラ開発においては、これらの多様なデバイスに対しても入出力を行う必要が出てきます。これを行うためには、
 
@@ -476,11 +483,10 @@ PD制御によって関節トルクの指令値を計算します。まず、制
 
 .. _simulation-device-object:
 
-
 デバイスオブジェクト
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
-Choreonoidのボディモデルにおいて、デバイスの情報は「Deviceオブジェクト」として表現されます。これは「Deviceクラス」を継承した型のインスタンスで、デバイスの種類ごとにそれぞれ対応する型が定義されています。標準で定義されているデバイス型は以下のようになっています。 ::
+Choreonoidのボディモデルにおいて、デバイスの情報は「Deviceオブジェクト」として表現されます。これは「Deviceクラス」を継承した型のインスタンスで、デバイスの種類ごとにそれぞれ対応する型が定義されています。標準で定義されている主なデバイス型は以下のようになっています。 ::
 
  + Device
    + ForceSensor (力センサ)
@@ -493,9 +499,47 @@ Choreonoidのボディモデルにおいて、デバイスの情報は「Device�
      + PointLight (点光源ライト）
      + SpotLight (スポットライト）
 
-ロボットに搭載されているデバイスの情報は、通常はモデルファイルにおいて記述します。OpenHRP形式のモデルファイルについては、 :doc:`../handling-models/modelfile/modelfile-openhrp` の :ref:`oepnrhp_modelfile_sensors` を記述します。
+ロボットに搭載されているデバイスの情報は、通常はモデルファイルにおいて記述します。標準形式のモデルファイルでは、 :doc:`../handling-models/modelfile/yaml-reference` の :ref:`body-file-reference-devices` を記述します。
 
-シンプルコントローラでは、Bodyオブジェクトと同様に、デバイスに対してもChoreonoid内部表現であるDeviceオブジェクトをそのまま用いて入出力を行います。DeviceオブジェクトはBodyオブジェクトから以下の関数を用いて取得できます。
+シンプルコントローラでは、Body、Linkオブジェクトと同様に、デバイスに対してもChoreonoidの内部表現であるDeviceオブジェクトをそのまま用いて入出力を行います。
+
+.. note:: 関節角度や関節トルクは
+
+本節で使用しているSR1モデルが有するデバイスオブジェクトは以下のようになっています。
+
+.. tabularcolumns:: |p{3.5cm}|p{3.5cm}|p{6.0}|
+
+.. list-table::
+ :widths: 30,30,40
+ :header-rows: 1
+
+ * - 名前
+   - デバイスの型
+   - 内容
+ * - WaistAccelSensor
+   - AccelerationSensor
+   - 腰リンクに搭載された加速度センサ
+ * - WaistGyro
+   - RateGyroSensor
+   - 腰リンクに搭載されたジャイロ
+ * - LeftCamera
+   - RangeCamera
+   - 左目に対応する距離画像センサ
+ * - RightCamera
+   - RangeCamera
+   - 右目に対応する距離画像センサ
+ * - LeftAnkleForceSensor
+   - ForceSensor
+   - 左足首に搭載された力センサ
+ * - RightAnkleForceSensor
+   - ForceSensor
+   - 右足首に搭載された力センサ
+
+
+デバイスオブジェクトの取得
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DeviceオブジェクトはBodyオブジェクトから以下の関数を用いて取得できます。
 
 * **int numDevices() const**
 
@@ -538,62 +582,47 @@ DeviceListはstd::vectorと同様の関数や演算子を備えており、例�
 
 findDevice関数を用いることで、型と名前でデバイスを特定して取得することもできます。例えばSR1モデルは腰リンクに搭載された "WaistAccelSensor" という名前の加速度センサを有しています。これを取得するには、Bodyオブジェクトに対して ::
 
- AccelerationSensor* waistAccelSensor =
+ AccelerationSensor* accelSensor =
      ioBody->findDevice<AccelerationSensor>("WaistAccelSensor");
 
-とすればOKです。
+などとすればOKです。
 
-SR1モデルが有するデバイスは以下のとおりです。
+.. _simulation-implement-controller-device-io:
 
-.. tabularcolumns:: |p{3.5cm}|p{3.5cm}|p{6.0}|
-
-.. list-table::
- :widths: 30,30,40
- :header-rows: 1
-
- * - 名前
-   - デバイスの型
-   - 内容
- * - WaistAccelSensor
-   - AccelerationSensor
-   - 腰リンクに搭載された加速度センサ
- * - WaistGyro
-   - RateGyroSensor
-   - 腰リンクに搭載されたジャイロ
- * - LeftCamera
-   - RangeCamera
-   - 左目に対応する距離画像センサ
- * - RightCamera
-   - RangeCamera
-   - 右目に対応する距離画像センサ
- * - LeftAnkleForceSensor
-   - ForceSensor
-   - 左足首に搭載された力センサ
- * - RightAnkleForceSensor
-   - ForceSensor
-   - 右足首に搭載された力センサ
-
-
-デバイスに対する入出力
-----------------------
+入出力方法
+~~~~~~~~~~
 
 Deviceオブジェクトを介した入出力は、以下のようにして行います。
 
 * **入力**
 
- 対応するDeviceオブジェクトのメンバ関数を用いて値を取得する。
+ シンプルコントローラのIOオブジェクトに対して
+
+ * **void enableInput(Device\* device)**
+
+ 関数を実行し、デバイスへの入力を有効にしておく。その上で、対応するDeviceオブジェクトのメンバ関数を用いて値を取得する。
 
 * **出力**
 
- 対応するDeviceオブジェクトのメンバ関数を用いて値を設定した後、Deviceオブジェクトの "notifyStateChange()" 関数を実行する。
+ 対応するDeviceオブジェクトのメンバ関数を用いて値を設定した後、Deviceオブジェクトの
+
+ * **void notifyStateChange()**
+
+ 関数を実行し、デバイスの状態の更新をシミュレータに伝える。
 
 これらを行うためには、使用するデバイスのクラス定義を知っている必要があります。例えば加速度センサのクラスである"AccelerationSensor"に関しては、その状態にアクセスするための"dv()"というメンバ関数があります。これは加速度をVector3型の3次元ベクトルで返します。
 
-従って、加速度センサ waistAccelSensor の加速度は、 ::
+SR1モデルの加速度センサの入力は以下のような流れになります。まずコントローラの initialize 関数で ::
+
+ AccelerationSensor* accelSensor =
+     ioBody->findDevice<AccelerationSensor>("WaistAccelSensor");
+ io->enableInput(accelSensor);
+
+などとして、accelSensorへの入力を有効化しておきます。そして、control関数内で加速度センサの値を参照した箇所で ::
 
  Vector3 dv = waistAccelSensor->dv();
 
-といったかたちで取得できます。
+といったかたちで取得することができます。
 
 同様に、ForceSensorやRateGyroSensorに関しても該当するメンバ関数を用いて状態の入力を行うことが可能です。
 
@@ -608,14 +637,14 @@ Deviceオブジェクトを介した入出力は、以下のようにして行�
 ..
 .. deviceで指定したデバイスの状態やデータのコントローラへの入力を有効にします。
 
-
+.. _simulation-implement-controller-link-position:
 
 リンク位置姿勢の入出力
 ----------------------
 
 コントローラの入出力の対象としては、他にリンクの位置姿勢があります。ここで言う位置姿勢というのは関節角度のことではなく、リンクという剛体そのもののグローバル座標における位置と姿勢を意味します。この値は通常ロボット実機に対して入出力を行うことはできません。空間中に固定されていないロボットに対して、あるリンクの正確な位置と姿勢を知ることは（かなり性能のよいモーションキャプチャでも無ければ）困難ですし、あるリンクの位置姿勢をコントローラからの出力で直接変えることは物理的に不可能です。しかしながら、シミュレーションにおいてはそのようなことも可能となるため、シミュレーション限定での利用を想定してこの値の入出力機能も備えています。
 
-これを行うためには、ioオブジェクトに対してsetLinkInput, setLinkOutput関数を用いて状態値シンボル"LINK_POSITION"を指定します。すると対象のLinkオブジェクトを介してそのリンクの位置姿勢の入出力を行うことが可能となります。
+これを行うためには、状態量のシンボルとして **LINK_POSITION** を指定します。出力を行う場合はLinkオブジェクトのsetActuationMode関数に **Link::LINK_POSITION** を指定し、IOオブジェクトのenableIO関数やenableOutput関数を用いて出力を有効化します。入力については、IOオブジェクトのenableInput関数で **SimpleControllerIO::JOINT_POSITION** を指定します。
 
 Linkオブジェクトにおいて、その位置姿勢はPosition型の値として格納されています。これはChoreonoidの実装に用いているEigenという行列・ベクトルライブラリの"Transform"型をカスタマイズしたもので、基本的には３次元の同次座標変換行列を格納したものとなっています。この値にはLinkクラスの以下のような関数を用いてアクセスできます。
 
@@ -643,10 +672,9 @@ Linkオブジェクトにおいて、その位置姿勢はPosition型の値と�
 
  姿勢（回転）成分を設定します。引数は回転軸と回転角度で回転を表現するEigenのAngleAxis型になります。
 
+例として、ルートリンクの位置を入力する場合は、まずコントローラのinitialize関数にて ::
 
-例として、ルートリンクの位置を入力する場合は、まずSimpleControllerのinitialize関数にて ::
-
- io->setLinkInput(io->body()->rootLink(), LINK_POSITION);
+ io->enableInput(io->body()->rootLink(), LINK_POSITION);
 
 などとします。そして control 関数にて ::
 
@@ -662,5 +690,3 @@ Linkオブジェクトにおいて、その位置姿勢はPosition型の値と�
 ----------------
  
 Choreonoidでは、SR1MinimumController以外にも様々なコントローラのサンプルを用意しています。それらを用いたプロジェクトが :ref:`basics_sample_project` に挙げてありますので、参考にしてください。
-
-.. _simulation-build-simple-controller:
