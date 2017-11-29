@@ -1,16 +1,16 @@
 
-Tankモデルファイル全記述内容
-============================
+SimpleTankモデルファイル全記述内容
+==================================
 
 .. highlight:: YAML
    :linenothreshold: 5
 
-:doc:`modelfile-newformat` で解説したTankモデルを記述しているモデルファイルの全テキストを以下に掲載します。本モデルは Choreonoid インストール先の "share/model/tank/tank.body" というファイルに格納されています。 ::
+:doc:`modelfile-newformat` で解説したTankモデルを記述しているモデルファイルの全テキストを以下に掲載します。本モデルは Choreonoid インストール先の "share/model/tank/simpletank.body" というファイルに格納されています。 ::
 
  format: ChoreonoidBody
  formatVersion: 1.0
  angleUnit: degree
- name: Tank
+ name: SimpleTank
  
  links:
    -
@@ -32,7 +32,7 @@ Tankモデルファイル全記述内容
            material:
              diffuseColor: [ 0, 0.6, 0 ]
              specularColor: [ 0.2, 0.8, 0.2 ]
-             shinines: 0.6
+             shininess: 0.6
    -
      name: TURRET_Y
      parent: CHASSIS
@@ -123,41 +123,35 @@ Tankモデルファイル全記述内容
                  ambientIntensity: 0.3
                  emissiveColor: [ 0.8, 0.8, 0.3 ]
        - 
-         type: Transform
+         type: Camera
+         name: Camera
          translation: [ 0.1, 0, 0.05 ]
          rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
+         format: COLOR_DEPTH
+         fieldOfView: 65
+         width: 320
+         height: 240
+         frameRate: 30
          elements:
-           -
-             type: Camera
-             name: Camera
-             format: COLOR_DEPTH
-             fieldOfView: 65
-             width: 320
-             height: 240
-             frameRate: 30
-           -
-             type: RangeSensor
-             name: RangeSensor
-             scanAngle: 90
-             scanStep:  0.5
-             scanRate:  10
-             maxDistance: 10
-           -
-             type: Shape
+           Shape:
+             translation: [ 0, 0, 0.005 ]
+             rotation: [ 1, 0, 0, 90 ]
              geometry:
-               type: Box
-               size: [ 0.04, 0.015, 0.01 ]
+               type: Cylinder
+               radius: 0.02
+               height: 0.02
              appearance:
                material:
                  diffuseColor: [ 0.2, 0.2, 0.8 ]
                  specularColor: [ 0.6, 0.6, 1.0 ]
-                 shininess: 0.6
+                 shininesss: 0.6
    -
      name: TRACK_L
      parent: CHASSIS
      translation: [ 0, 0.2, 0 ]
-     jointType: pseudoContinuousTrack
+     jointType: fixed
      jointAxis: Y
+     actuationMode: jointSurfaceVelocity
      centerOfMass: [ 0, 0, 0 ]
      mass: 1.0
      inertia: [
@@ -183,8 +177,9 @@ Tankモデルファイル全記述内容
      name: TRACK_R
      parent: CHASSIS
      translation: [ 0, -0.2, 0 ]
-     jointType: pseudoContinuousTrack
+     jointType: fixed
      jointAxis: Y
+     actuationMode: jointSurfaceVelocity
      centerOfMass: [ 0, 0, 0 ]
      mass: 1.0
      inertia: [
@@ -193,4 +188,3 @@ Tankモデルファイル全記述内容
        0,    0,    0.02 ]
      elements:
        Shape: *TRACK 
-

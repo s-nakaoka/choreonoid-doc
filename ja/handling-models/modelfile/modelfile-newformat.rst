@@ -1,6 +1,8 @@
 
-新YAML形式モデルファイルチュートリアル
-=====================
+Bodyファイルチュートリアル
+==========================
+
+本ページではChoreonoidの標準モデルファイル形式である「Bodyファイル」の記述方法について、チュートリアル形式で解説を行います。
 
 .. contents::
    :local:
@@ -8,30 +10,36 @@
 
 .. highlight:: YAML
 
-概要
---
+.. _bodyfile-tutorial-simple-tank-model:
 
-現在github上で開発中のバージョンでは、YAMLをベースとした新形式のモデルファイルの導入を進めています。これは従来のOpenHRP形式のモデルファイルと比較して、より簡潔に記述でき、記述可能な情報の自由度も高い形式となっており、今後OpenHRP形式を置き換えるべく開発を進めています。YAMLの形式については :doc:`modelfile-yaml` でも用いていましたが、本形式は追加情報だけでなくモデル本体も含む全ての情報を記述可能なものとしています。
+SimpleTankモデル
+----------------
 
-本節ではこの新しい形式のモデルファイルについて、チュートリアルの形態で解説を行います。これにより、新形式の仕様に加えて、モデルファイルの編集をどのように進めていったらよいかも学ぶことができます。題材とするモデルは以下に示す"Tank"モデルとなります。
+対象とするモデルは以下に示す "SimpleTank" モデルとなります。
 
 .. image:: images/tank.png
 
-これは砲塔・砲身を動かす２軸の回転関節と、移動用の２つのクローラで構成されるモデルで、カメラとレーザーレンジセンサ、およびライトをデバイスとして備えています。このモデルはクローラ型モバイルロボットのサンプルとなるもので、これを用いたサンプルプロジェクトとして "TankJoystick.cnoid" や "OpenRTM-TankJoystick.cnoid" がChoreonoid本体に含まれています。
+これは砲塔・砲身を動かす２軸の回転関節と、移動用の２つのクローラで構成されるモデルで、カメラとライトをデバイスとして搭載しています。
 
-.. note:: ベースとなるYAML記法の詳細については、 `YAMLの仕様書 <http://www.yaml.org/spec/1.2/spec.html>`_ を参照して下さい。また、YAMLの解説記事としては、 `プログラマーのためのYAML入門（初級編） <http://magazine.rubyist.net/?0009-YAML>`_ という記事が分かりやすくまとまっていておすすめです。
+SimpleTankは、クローラ型モバイルロボットの標準サンプルである "Tank" モデルを簡略化したもので、基本的な構造はTankモデルと同じです。Tankモデルについては、
 
+* TankJoystick.cnoid
+* TankVisionSensors.cnoid
 
-Tankモデルの基本構造
-------------
+といったサンプルプロジェクトがChoreonoid本体に含まれています。
 
-Tankモデルは下図に示す5つの部位で構成されています。
+本マニュアルでは、このモデルを題材にシミュレーションを行う方法をまとめた :doc:`../../simulation/tank-tutorial/index` も用意しています。
+
+モデルの基本構造
+----------------
+
+SimpleTankモデルは下図に示す5つの部位で構成されています。
 
 .. image:: images/tank_decomposed.png
 
 ベースとなる部分が車体です。車体の上部には砲塔・砲身が備わります。この部分は砲塔の土台となってヨー軸回転を行う部分と、その上部に砲身とともに取り付けられるピッチ軸回転を行う２つの部分からなります。車体の左右の側面にはそれぞれ移動用のクローラ機構が取り付けられます。
 
-これら5つの部分が「リンク」としてモデリングされます。車体の部分はモデルの中心となる部分であり、これを「ルートリンク」としてモデリングします。ルートリンクは各モデルに対して必ずひとつだけ定義する必要があります。砲塔の2リンクについてはそれぞれ回転関節としてモデリングします。また、クローラ部分は :doc:`../../simulation/pseudo-continuous-track` に対応する関節タイプとしてモデリングします。
+これら5つの部分が「リンク」としてモデリングされます。車体の部分はモデルの中心となる部分であり、これを「ルートリンク」としてモデリングします。ルートリンクは各モデルに対して必ずひとつだけ定義する必要があります。砲塔の2リンクについてはそれぞれ回転関節としてモデリングします。また、クローラ部分は :doc:`../../simulation/pseudo-continuous-track` に対応するリンクとしてモデリングします。
 
 これらのリンクの間の階層構造（親子関係）は以下のようになります。 ::
 
@@ -41,12 +49,12 @@ Tankモデルは下図に示す5つの部位で構成されています。
      + 左クローラ
      + 右クローラ
 
-なお、本チュートリアルでは各リンクの形状をモデルファイル本体にテキストで記述します。これにより、CADやモデリングツール等で作成した形状データを用いずに、テキストファイルだけでモデリングを完結しています。これに対して、CADやモデリングツール等で作成した形状データを用いることももちろん可能です。その方法については別途解説します。
+なお、本チュートリアルでは各リンクの形状をモデルファイル本体にテキストで記述します。これにより、CADやモデリングツール等で作成した形状データを用いずに、テキストファイルだけでモデリングを完結しています。これに対して、CADやモデリングツール等で作成した形状データを用いることも可能です。これについては :doc:`tank-blender` をご参照ください。
 
 モデルファイルの用意
-----------
+--------------------
 
-モデルファイルはYAML形式のテキストファイルとして作成します。YAML形式のファイルは通常 ".yaml" の拡張子をつけますが、モデルファイルについては ".body" の拡張子をつけます。
+Body形式のモデルファイルはテキストファイルとして作成します。ファイルの拡張子は通常 ".body" とします。
 
 モデルファイルの作成を開始するにあたって、まずはテキストエディタを用いて空のテキストを作成し、拡張子 ".body" をつけた適当なファイル名で保存しておきましょう今回は "simpletank.body" というファイル名で保存することにします。このファイルはChoreonoidのshareディレクトリの"model/tank"ディレクトリに完成品が格納されています。今回はそのファイルの内容を解説しながら、完成に至るまでの作成手順の例を示すということになります。
 
@@ -54,9 +62,17 @@ Tankモデルは下図に示す5つの部位で構成されています。
 
 .. note:: Ubuntuの標準テキストエディタ "gedit" を使ってモデルファイルを作成する場合、メインメニューの「表示」-「ハイライト」で表示される設定ダイアログで "YAML" を選択すると、YAMLのフォーマットに適した色付けがされ、編集しやすくなるかと思います。
 
+YAMLについて
+------------
+
+Bodyファイルは記述方式のベースとしてYAMLを採用しています。YAMLの実際の記述方法は以下の解説を読めば概ね理解できると思いますが、より詳細な情報については `YAMLの仕様書 <http://www.yaml.org/spec/1.2/spec.html>`_ や各種解説記事を参照してください。
+
+解説記事については、以下が分かりやすくて良いかと思います。
+
+* `プログラマーのためのYAML入門（初級編） <http://magazine.rubyist.net/?0009-YAML>`_
 
 ヘッダの記述
-------
+------------
 
 まずモデルファイルのヘッダとして、YAMLのマッピングを用いて以下のように記述します。 ::
 
@@ -205,16 +221,19 @@ jointTypeは通常親子リンク間を接続する関節のタイプを指定�
 .. _modelfile_yaml_rigidbody_parameters:
 
 剛体パラメータの記述
-----------
+--------------------
 
-各リンクは通常剛体としてモデリングされます。この情報を記述する :ref:`modelfile_yaml_link_node` として、centerOfMass, mass, inertia があります。CHASSISリンクではこれらに関して以下のように記述しています。 ::
+各リンクは通常剛体としてモデリングされます。この情報を記述する :ref:`modelfile_yaml_link_node` として、centerOfMass, mass, inertia があります。CHASSISリンクではこれらに関して以下のように記述しています。
 
- centerOfMass: [ 0, 0, 0 ]
- mass: 8.0
- inertia: [
-   0.1, 0,   0,
-   0,   0.1, 0,
-   0,   0,   0.5 ]
+.. code-block:: yaml
+ :dedent: 0
+
+     centerOfMass: [ 0, 0, 0 ]
+     mass: 8.0
+     inertia: [
+       0.1, 0,   0,
+       0,   0.1, 0,
+       0,   0,   0.5 ]
 
 centerOfMass には、リンクのローカル座標における重心位置を記述します。CHASSISリンクのローカル座標原点は車体中央部に設定しており、重心もそこにに一致させています。
 
@@ -222,12 +241,15 @@ mass には質量を、inertiaには慣性テンソルの行列要素を指定�
 
 ここでは慣性テンソルに適当な値を設定していますが、適切な計算やCADツールなどを用いて、妥当な値を設定するようにしてください。
 
-慣性テンソルは対称行列なので、上三角部分の6要素のみを記述してもOKです。この場合、上記の値は ::
+慣性テンソルは対称行列なので、上三角部分の6要素のみを記述してもOKです。この場合、上記の値は
 
- inertia: [
-   0.1, 0,   0,
-        0.1, 0,
-             0.5 ]
+.. code-block:: yaml
+ :dedent: 0
+
+     inertia: [
+       0.1, 0,   0,
+            0.1, 0,
+                 0.5 ]
 
 と書けます。
 
@@ -239,17 +261,20 @@ mass には質量を、inertiaには慣性テンソルの行列要素を指定�
 車体形状の記述
 -------
 
-リンクの形状は、Linkノードの "elements" 以下に記述します。CHASSISリンクに関しては以下のように記述されています。 ::
+リンクの形状は、Linkノードの "elements" 以下に記述します。CHASSISリンクに関しては以下のように記述されています。
 
- Shape:
-   geometry:
-     type: Box
-     size: [ 0.45, 0.3, 0.1 ]
-   appearance: &BodyAppearance
-     material:
-       diffuseColor: [ 0, 0.6, 0 ]
-       specularColor: [ 0.2, 0.8, 0.2 ]
-       shinines: 0.6
+.. code-block:: yaml
+ :dedent: 0
+
+       Shape:
+         geometry:
+           type: Box
+           size: [ 0.45, 0.3, 0.1 ]
+         appearance: &BodyAppearance
+           material:
+             diffuseColor: [ 0, 0.6, 0 ]
+             specularColor: [ 0.2, 0.8, 0.2 ]
+             shininess: 0.6
 
 この部分は「Shapeノード」となります。先ほどモデルファイルを読み込んだ際にシーンビューに表示された形状は、ここで記述されています。
 
@@ -287,7 +312,7 @@ appearancについては物体表面の材質を記述するmaterialを記述し
 .. _modelfile_yaml_anchor:
 
 アンカーの設定
--------
+--------------
 
 上記のコードでは、 ::
 
@@ -302,7 +327,7 @@ appearancについては物体表面の材質を記述するmaterialを記述し
 .. _modelfile_yaml_elements:
 
 elementsの記述
------------
+--------------
 
 モデルファイルにおいては、ある構成要素の情報をまとめたものを「ノード」と呼びます。その例としてこれまでLinkノードやShapeノードを紹介してきました。
 
@@ -353,30 +378,34 @@ Linkノードではこのelementsを用いることで、形状やセンサと�
 .. note:: モデルが複数のリンクを有する場合、リンク間の関係も一般的に階層的なものとなります。これをLinkノードのelementsを用いて記述することも考えられますが、本形式のモデルファイルではそのような記述は行いません。これは、そのような記述を行うと、リンクの階層構造が深くなるに従ってモデルファイル内のテキストの階層も深くなってしまい、テキストとしての確認や編集がしづらくなってしまうからです。リンクの階層構造は、Linkノードの"parent"キーを用いて記述します。
 
 砲塔ヨー軸部リンクの記述
-------------
+------------------------
 
-次は砲塔の土台となるヨー軸部のリンクを記述しましょう。これまでの記述に以下を加えて下さい。 ::
+次は砲塔の土台となるヨー軸部のリンクを記述しましょう。これまでの記述に以下を加えて下さい。
 
-  -
-    name: TURRET_Y
-    parent: CHASSIS
-    translation: [ -0.04, 0, 0.08 ]
-    jointType: revolute
-    jointAxis: -Z
-    jointRange: unlimited
-    jointId: 0
-    centerOfMass: [ 0, 0, 0.025 ]
-    mass: 4.0
-    inertia: [
-      0.1, 0,   0,
-      0,   0.1, 0,
-      0,   0,   0.1 ]
-    elements:
-      Shape:
-        geometry:
-          type: Box
-          size: [ 0.2, 0.2, 0.08 ]
-        appearance: *BodyAppearance
+.. code-block:: yaml
+ :dedent: 0
+
+   -
+     name: TURRET_Y
+     parent: CHASSIS
+     translation: [ -0.04, 0, 0.1 ]
+     jointType: revolute
+     jointAxis: -Z
+     jointRange: unlimited
+     maxJointVelocity: 90
+     jointId: 0
+     centerOfMass: [ 0, 0, 0.025 ]
+     mass: 4.0
+     inertia: [
+       0.1, 0,   0,
+       0,   0.1, 0,
+       0,   0,   0.1 ]
+     elements:
+       Shape:
+         geometry:
+           type: Box
+           size: [ 0.2, 0.2, 0.1 ]
+         appearance: *BodyAppearance
 
 ここまで記述してファイルを保存し、前述の再読み込みを行って下さい。するとシーンビュー上のモデルの表示が以下のようになるかと思います。
 
@@ -494,35 +523,43 @@ TURRET_Yについては関節可動範囲を無制限にしているのですが
 砲塔ピッチ軸部の記述
 ----------
 
-次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。 ::
+次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。
 
-  -
-    name: TURRET_P
-    parent: TURRET_Y
-    translation: [ 0, 0, 0.04 ]
-    jointType: revolute
-    jointAxis: Y
-    jointRange: [ -45, 10 ]
-    jointId: 1
-    elements:
-      - 
-        # Turnet
-        type: RigidBody
-        centerOfMass: [ 0, 0, 0 ]
-        mass: 3.0
-        inertia: [
-          0.1, 0,   0,
-          0,   0.1, 0,
-          0,   0,   0.1 ]
-        elements:
-          Shape:
-            geometry:
-              type: Cylinder
-              height: 0.1
-              radius: 0.11
-            appearance: *BodyAppearance
+.. code-block:: yaml
+ :dedent: 0
 
-nameに指定したように、このリンクの名前は "TURRET_P" としています。
+   -
+     name: TURRET_P
+     parent: TURRET_Y
+     translation: [ 0, 0, 0.05 ]
+     jointType: revolute
+     jointAxis: -Y
+     jointRange: [ -10, 45 ]
+     maxJointVelocity: 90
+     jointId: 1
+     elements:
+       - 
+         # Turret
+         type: RigidBody
+         centerOfMass: [ 0, 0, 0 ]
+         mass: 3.0
+         inertia: [
+           0.1, 0,   0,
+           0,   0.1, 0,
+           0,   0,   0.1 ]
+         elements:
+           Shape:
+             geometry:
+               type: Cylinder
+               height: 0.1
+               radius: 0.1
+             appearance: *BodyAppearance
+
+nameに指定したように、このリンクの名前は "TURRET_P" としています。 ::
+
+ # Turret
+
+という記述はコメントです。#のあとの行末までのテキストはコメントとなります。
 
 ここまで記述してモデルの再読み込みを行うと、モデルは以下のように表示されるかと思います。
 
@@ -575,28 +612,31 @@ appearanceについては、先ほどと同様にBodyAppearanceをエイリア�
 砲身部分の記述
 -------
 
-次に砲身部分の記述も追加しましょう。以下のコードをTURRET_Pリンクのelementsに追加してください（インデントを合わせるよう注意して下さい）。 ::
-	     
-      - 
-        # Barrel
-        type: Transform
-        translation: [ 0.2, 0, 0 ]
-        rotation: [ 0, 0, 1, 90 ]
-        elements:
-          RigidBody:
-            centerOfMass: [ 0, 0, 0 ]
-            mass: 1.0
-            inertia: [
-              0.01, 0,   0,
-              0,    0.1, 0,
-              0,    0,   0.1 ]
-            elements:
-              Shape:
-                geometry:
-                  type: Cylinder
-                  height: 0.2
-                  radius: 0.02
-                appearance: *BodyAppearance
+次に砲身部分の記述も追加しましょう。以下のコードをTURRET_Pリンクのelementsに追加してください（インデントを合わせるよう注意して下さい）。 
+
+.. code-block:: yaml
+ :dedent: 0
+
+       - 
+         # Gun
+         type: Transform
+         translation: [ 0.2, 0, 0 ]
+         rotation: [ 0, 0, 1, 90 ]
+         elements:
+           RigidBody:
+             centerOfMass: [ 0, 0, 0 ]
+             mass: 1.0
+             inertia: [
+               0.01, 0,   0,
+               0,    0.1, 0,
+               0,    0,   0.1 ]
+             elements:
+               Shape:
+                 geometry:
+                   type: Cylinder
+                   height: 0.2
+                   radius: 0.02
+                 appearance: *BodyAppearance
 	 
 モデルの再読み込みを行うと、以下のように砲身部分も表示されるかと思います。
 	   
@@ -656,26 +696,29 @@ Transformパラメータ
 
 Transformノードを用いる代わりに、対象となるノードに直接 translation や rotation のパラメータを記述する方法もあります。これらのパラメータを「Transformパラメータ」と呼びます。
 
-例えばRigidBodyノードもTransformパラメータに対応していますので、砲身部分は以下のように記述することも可能です。 ::
+例えばRigidBodyノードもTransformパラメータに対応していますので、砲身部分は以下のように記述することも可能です。
 
-      - 
-        # Barrel
-        type: RigidBody:
-        translation: [ 0.2, 0, 0 ]
-        rotation: [ 0, 0, 1, 90 ]
-        centerOfMass: [ 0, 0, 0 ]
-        mass: 1.0
-        inertia: [
-          0.01, 0,   0,
-          0,    0.1, 0,
-          0,    0,   0.1 ]
-        elements:
-	  Shape:
-            geometry:
-              type: Cylinder
-              height: 0.2
-              radius: 0.02
-            appearance: *BodyAppearance
+.. code-block:: yaml
+ :dedent: 0
+
+       - 
+         # Gun
+         type: RigidBody:
+         translation: [ 0.2, 0, 0 ]
+         rotation: [ 0, 0, 1, 90 ]
+         centerOfMass: [ 0, 0, 0 ]
+         mass: 1.0
+         inertia: [
+           0.01, 0,   0,
+           0,    0.1, 0,
+           0,    0,   0.1 ]
+         elements:
+          Shape:
+             geometry:
+               type: Cylinder
+               height: 0.2
+               radius: 0.02
+             appearance: *BodyAppearance
 
 Transformのtranslationとrotationを、そのままRigidBodyに持ってきただけです。こちらの方が記述がシンプルになります。内部的にはTransformノードを挿入するのと同じ処理が行われていますが、それを簡略化した記述方法だと考えてください。
 
@@ -683,7 +726,7 @@ Transformパラメータは、他にShapeノードや後ほど解説するデバ
 
 
 砲塔ピッチ軸関節の記述
------------
+----------------------
 
 砲塔ピッチ軸関節の記述についても確認しましょう。TURRET_Pリンクでは、以下の部分で関節を記述しています。 ::
 
@@ -710,14 +753,14 @@ Transformパラメータは、他にShapeノードや後ほど解説するデバ
 
 
 デバイスの記述
--------
+--------------
 
-Choreonoidで定義されるロボットモデルにおいて、ロボットに搭載されるセンサ等の機器は「デバイス」と呼ばれます。本Tankモデルでは、スポットライト、カメラ、レーザーレンジセンサの3つのデバイスを搭載することとします。以下ではこれらのデバイスの記述方法について解説します。
+Choreonoidで定義されるロボットモデルにおいて、ロボットに搭載されるセンサ等の機器は「デバイス」と呼ばれます。本Tankモデルではスポットライトとカメラの２つのデバイスを搭載することとします。以下ではこれらのデバイスの記述方法について解説します。
 
 .. _modelfile-tank-spotlight:
 
 スポットライトの記述
-~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 .. その砲塔ピッチ軸リンクに、
 .. 各デバイスはそれが設置されるリンクの要素として定義されます。これについても、モデルファイル中で定義することが可能です。
@@ -726,68 +769,95 @@ Choreonoidで定義されるロボットモデルにおいて、ロボットに�
 
 デバイスはいずれかのリンクに搭載されることになりますので、リンクのelements以下にその定義を記述します。ライトの方向を変えられるように、ライトは砲塔ピッチ軸部に搭載することにしましょう。これにより、砲塔ヨー軸、ピッチ軸の動きと連動してライトの向きも変わることになります。
 
-これを実現するため、TURRET_Pリンクのelementsに以下の記述を追加してください。 ::
+これを実現するため、TURRET_Pリンクのelementsに以下の記述を追加してください。
 
-      -
-        type: SpotLight
-        name: Light
-        translation: [ 0.08, 0, 0.1 ]
-        direction: [ 1, 0, 0 ]
-        beamWidth: 36
-        cutOffAngle: 40
-        cutOffExponent: 6
-        attenuation: [ 1, 0, 0.01 ]
-        elements:
-          Shape:
-            rotation: [ 0, 0, 1, 90 ]
-            translation: [ -0.02, 0, 0 ]
-            geometry:
-              type: Cone
-              height: 0.04
-              radius: 0.025
-            appearance:
-              material:
-                diffuseColor: [ 1.0, 1.0, 0.4 ]
-                ambientIntensity: 0.3
-                emissiveColor: [ 0.8, 0.8, 0.3 ]
+.. code-block:: yaml
+ :dedent: 0
 
+       -
+         type: SpotLight
+         name: Light
+         translation: [ 0.08, 0, 0.1 ]
+         direction: [ 1, 0, 0 ]
+         beamWidth: 36
+         cutOffAngle: 40
+         cutOffExponent: 6
+         attenuation: [ 1, 0, 0.01 ]
 
-ここでは type: SpotLight により、スポットライトのデバイスに対応するSpotLightノードの記述としています。またライトに対応する形状を、SpotLightノードのelements以下に記述しています。記述内容のポイントを以下にまとめます。
+ここでは type: SpotLight により、スポットライトのデバイスに対応するSpotLightノードの記述としています。記述内容のポイントを以下にまとめます。
 
 * このデバイスの名前として"Light"を設定しています。デバイスを扱うプログラムからは名前を使ってデバイスにアクセスすることが多いため、デバイスにはこのように名前を設定するようにしてください。
 * デバイスノードでも :ref:`modelfile_yaml_transform_parameters` が利用可能です。ここではtranslationによってライトの設置位置を指定しています。これはTURRET_Pリンク原点からの相対位置になります。
 * SpotLightのdirectionパラメータで、光軸方向を指定しています。モデルの正面を向けたいので、X軸方向としています。
 * beamWidth, cutOffAngle, cutOffExponent のパラメータでスポットライトとの照射範囲を設定しています。また、attenuationで光源からの距離に対する光の減衰具合を設定しています。
-* ライトの形状としては円錐形状（Coneノード）を使用しています。これもデフォルトの座標系だと向きが合わないので、 :ref:`modelfile_yaml_transform_parameters` を利用して向きを変えています。また、光源がこの形状によって隠れてしまうことのないよう、少し後方にずらした位置としています。レンダリングにおいて影も発生させる場合にはこの点注意する必要があります。
-* ライトのmaterialでemissiveColorも設定し、暗闇の中でもライトの部分が光って見えるようにしています。
+
+ライト形状の記述
+~~~~~~~~~~~~~~~~
+
+ライトに対応する形状を記述しましょう。SpotLightノードの最後にelementsとして以下を追記してください。
+
+.. code-block:: yaml
+ :dedent: 0
+
+         elements:
+           Shape:
+             rotation: [ 0, 0, 1, 90 ]
+             translation: [ -0.02, 0, 0 ]
+             geometry:
+               type: Cone
+               height: 0.04
+               radius: 0.025
+             appearance:
+               material:
+                 diffuseColor: [ 1.0, 1.0, 0.4 ]
+                 ambientIntensity: 0.3
+                 emissiveColor: [ 0.8, 0.8, 0.3 ]
+
+ここではライトの形状としては円錐形状（Coneノード）を使用しています。これもデフォルトの座標系だと向きが合わないので、 :ref:`modelfile_yaml_transform_parameters` を利用して向きを変えています。また、光源がこの形状によって隠れてしまうことのないよう、少し後方にずらした位置としています。レンダリングにおいて影も発生させる場合にはこの点注意する必要があります。
+
+materialではemissiveColorも設定し、暗闇の中でもライトの部分が光って見えるようにしています。
 
 ここまで記述してモデルの再読み込みを行うと、ライトの形状が以下のように表示されるかと思います。
 
 .. image:: images/tank_light.png
 
-.. note:: デバイスを搭載するにあたって、対応する形状は必ずしもなくても構いません。また、対応する形状があるとしても、必ずしもデバイスノードのelements以下に記述しなければいけないわけではありません。今回の例ではモデリングを分かりやすくするためにそうしましたが、デバイスは基本的に形状とは関係なく機能します。
+これにより、ライトが正しい位置と向きで設置されているかをモデルの見た目で確認することができます。
 
-.. デバイスノードだけで機能。形状はなくてもよい。
+ただし、デバイスを搭載するにあたって、対応する形状は必ずしもなくても構いません。また、対応する形状があるとしても、必ずしもデバイスノードのelements以下に記述しなければいけないわけではありません。今回の例ではモデリングを分かりやすくするためにそうしましたが、デバイスは基本的に形状とは関係なく機能します。
 
 .. _modelfile-tank-camera:
 
 カメラの記述
-~~~~~~
+~~~~~~~~~~~~
 
-カメラのデバイスも追加しましょう。SpotLightノードと同様に、以下をTURRET_Pリンクのelements以下に追加します。 ::
+カメラのデバイスも追加しましょう。SpotLightノードと同様に、以下をTURRET_Pリンクのelements以下に追加します。
 
-              - 
-                type: Transform
-		translation: [ 0.1, 0, 0.05 ]
-		rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
-                elements:
-                  -
-                    type: Camera
-                    name: Camera
-                    format: COLOR_DEPTH
-                    width: 320
-                    height: 240
-                    frameRate: 30
+.. code-block:: yaml
+ :dedent: 0
+
+       - 
+         type: Camera
+         name: Camera
+         translation: [ 0.1, 0, 0.05 ]
+         rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
+         format: COLOR_DEPTH
+         fieldOfView: 65
+         width: 320
+         height: 240
+         frameRate: 30
+         elements:
+           Shape:
+             translation: [ 0, 0, 0.005 ]
+             rotation: [ 1, 0, 0, 90 ]
+             geometry:
+               type: Cylinder
+               radius: 0.02
+               height: 0.02
+             appearance:
+               material:
+                 diffuseColor: [ 0.2, 0.2, 0.8 ]
+                 specularColor: [ 0.6, 0.6, 1.0 ]
+                 shininesss: 0.6
 
 カメラはCameraノードを用いて記述します。
 
@@ -803,9 +873,7 @@ COLORを指定した場合は通常のカラー画像となります。DEPTHの�
 
 
 カメラ位置姿勢の記述
-~~~~~~~~~~
-
-カメラの位置と姿勢はCameraノードの上位に挿入したTransformノードで設定しています。Cameraノードだけを考えればそこにTransformパラメータを記述してもよいのですが、今回は他にレーザーレンジセンサも搭載しますので、それらを同じ位置姿勢にまとめるため、Transformノードを使っています。
+~~~~~~~~~~~~~~~~~~~~
 
 カメラの位置については ::
 
@@ -819,7 +887,6 @@ COLORを指定した場合は通常のカラー画像となります。DEPTHの�
 
  rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
 
-
 と記述することにより、カメラの向きを望みのものに設定しています。
 
 rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` で説明したように、回転軸と回転角度の組で指定します。ここではさらにその組が２つ与えられています。実はrotationはこのように複数の姿勢表現を列挙して記述することも可能となっています。この場合、姿勢値（回転指令）を右側から順番に適用していくことになります。（各要素を回転行列と考えて、行列の掛け算をこの順番で適用するのと同じとなります。）
@@ -828,86 +895,57 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 
 この２つの回転をひとつの回転表現にまとめることも可能ですが、そのようにまとめた値は直観的に把握したり算出したりすることが困難です。これに対して上記のような複数の回転を組み合わせることで、このようなテキストによる記述も容易となります。
 
-レーザーレンジセンサの記述
-~~~~~~~~~~~~~
 
-レーザーレンジセンサも搭載しましょう。
-以下をCameraと同階層のelementsに追加してください。 ::
+カメラの形状
+~~~~~~~~~~~~
 
-  -
-    type: RangeSensor
-    name: RangeSensor
-    scanAngle: 90
-    scanStep:  0.5
-    scanRate:  10
-    maxDistance: 10
-
-レーザーレンジセンサはこのようにRangeSensorタイプのノードとして記述します。ここで記述しているパラメータは、scanAngleが水平方向の計測視野角、scanStepが角度の分解能、scanRateが計測のフレームレート、maxDistanceが最大計測距離の指定となっています。
-
-このセンサについても、デフォルトの姿勢（計測方向）はカメラと同じ座標系となっています。カメラと同じTransformノードを適用することで、カメラと同じ位置姿勢での設置としています。
-
-センサ形状の記述
-~~~~~~~~
-
-上でも述べたように、デバイスを搭載するにあたって、必ずしもその形状は必要ありません。ただし形状があるとデバイスの設置位置が分かりやすくなるため、ここではカメラとレーザーレンジセンサに対応する形状を付与することにします。ただしそれらのセンサの形状を正確にモデリングするには手間がかかりますので、ここでは模式的な箱形状で対応することにします。以下を上記センサ群と同じ階層に追加してください。 ::
-
- -
-   type: Shape
-   geometry:
-     type: Box
-     size: [ 0.04, 0.015, 0.01 ]
-   appearance:
-     material:
-       diffuseColor: [ 0.2, 0.2, 0.8 ]
-       specularColor: [ 0.6, 0.6, 1.0 ]
-       shininess: 0.6
-
-これを追加してモデルを読み込み直すと、以下のように青い箱状の形状が追加されます。
+ここではカメラのレンズを想定したものとして、シリンダ形状を付与しています。これにより、モデルの表示は以下のようになります。
 
 .. image:: images/tank_camera.png
-
-この形状部分は上記センサと同じTransformノードに含まれていますので、センサがこの形状の位置にあることは保証されています。これにより、センサが正しい位置姿勢で設置されていることを確認できます。
 
 .. _modelfile_yaml_crawlers:
 
 クローラの記述
--------
+--------------
 
 最後にクローラの部分を記述します。
 
 左クローラの記述
-~~~~~~~~
+~~~~~~~~~~~~~~~~
 
-まずは左側のクローラから記述しましょう。 :ref:`modelfile_yaml_links` で述べたlinksの階層（インデント）に戻って、以下の記述を追加してください。 ::
+まずは左側のクローラから記述しましょう。 :ref:`modelfile_yaml_links` で述べたlinksの階層（インデント）に戻って、以下の記述を追加してください。
 
- -
-   name: TRACK_L
-   parent: CHASSIS
-   translation: [ 0, 0.2, 0 ]
-   jointType: pseudoContinuousTrack
-   jointId: 0
-   jointAxis: [ 0, 1, 0 ]
-   centerOfMass: [ 0, 0, 0 ]
-   mass: 1.0
-   inertia: [
-     0.02, 0,    0,
-     0,    0.02, 0,
-     0,    0,    0.02 ]
-   elements:
-     Shape: &TRACK 
-       geometry:
-         type: Extrusion
-         crossSection: [
-           -0.2, -0.1,
-            0.2, -0.1,
-            0.3,  0.06,
-           -0.3,  0.06,
-           -0.2, -0.1
-           ]
-         spine: [ 0, -0.05, 0, 0, 0.05, 0 ]
-       appearance:
-         material:
-           diffuseColor: [ 0.2, 0.2, 0.2 ]
+.. code-block:: yaml
+ :dedent: 0
+
+   -
+     name: TRACK_L
+     parent: CHASSIS
+     translation: [ 0, 0.2, 0 ]
+     jointType: fixed
+     jointAxis: Y
+     actuationMode: jointSurfaceVelocity
+     centerOfMass: [ 0, 0, 0 ]
+     mass: 1.0
+     inertia: [
+       0.02, 0,    0,
+       0,    0.02, 0,
+       0,    0,    0.02 ]
+     elements:
+       Shape: &TRACK 
+         geometry:
+           type: Extrusion
+           crossSection: [
+             -0.22, -0.1,
+              0.22, -0.1,
+              0.34,  0.06,
+             -0.34,  0.06,
+             -0.22, -0.1
+             ]
+           spine: [ 0, -0.05, 0, 0, 0.05, 0 ]
+         appearance:
+           material:
+             diffuseColor: [ 0.2, 0.2, 0.2 ]
 
 この状態でモデルの再読み込みを行うと、以下のように左側のクローラがモデルに加わるかと思います。
 
@@ -923,34 +961,39 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 
 クローラは本来、金属やゴムでできた履帯を繋ぎあわせたベルト状のものを内部のホイールで駆動して回すという機構ですが、そのような複雑な機構をシミュレートするのは一般的には難しい課題です。そこで今回モデリングするクローラは、リンクひとつで表される擬似的なクローラとします。リンクひとつなのでベルト状の履帯はなく、クローラ全体がひとつの剛体で表現されています。踏破能力は正確なクローラには全く及びませんが、クローラと環境との接触部分に推進力を与えることで、ある程度クローラに近い動きを実現することが可能です。この詳細は :doc:`../../simulation/pseudo-continuous-track` を参照してください。
 
-このような擬似クローラ（簡易クローラ）は、リンクのjointTypeに "pseudoContinuousTrack" を指定することで利用可能となります。
+このような擬似クローラ（簡易クローラ）の場合、関節が動くわけではありませんので、リンクのjointTypeには "fixed" を指定します。
 
-この場合、jointAxis には想定されるクローラのホイールの回転軸方向を指定します。この軸に対して右ねじ正方向の回転が前進方向となります。ここではY軸を回転軸としています。
+jointAxis には想定されるクローラのホイールの回転軸方向を指定します。この軸に対して右ねじ正方向の回転が前進方向となります。ここではY軸を回転軸としています。
+
+そして actuationMode に "jointSurfaceVelocity" 設定します。このようにしておくと、このリンクが擬似クローラとして駆動されることになります。（このパラメータはモデル使用時に制御プログラム側でも設定できるので、必ずしもモデルファイルに記述しておく必要はありませんが、擬似クローラの場合はモデルファイルにも書いておいたほうが分かりやすくてよいかと思います。）
 
 クローラの形状は "Extrusion"タイプの幾何形状ノードによって記述しています。これは押し出し形状とも呼ばれるもので、まず断面の形状をcrossSectionで指定し、それをspineの記述に従って押し出すようなかたちで立体形状を記述するものです。ここではクローラの断面を台形とし、それをY軸方向に押し出して幅を持たせた形状としています。この記述方式は本々VRML97で定義されているものであり、その詳細は `VRML97のExtrusionノードの仕様 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Extrusion>`_ を参照いただければと思います。
 
 ここで記述した形状にも :ref:`modelfile_yaml_anchor` を行います。ここでは "TRACK" というアンカーをつけて、右側のクローラの形状としても使い回すことにします。
 
 右クローラの記述
-~~~~~~~~
+~~~~~~~~~~~~~~~~
 
-右側のクローラも記述しましょう。先ほど同様にlinksの階層に以下を追加してください。 ::
+右側のクローラも記述しましょう。先ほど同様にlinksの階層に以下を追加してください。
 
- -
-   name: TRACK_R
-   parent: CHASSIS
-   translation: [ 0, -0.2, 0 ]
-   jointType: pseudoContinuousTrack
-   jointId: 1
-   jointAxis: [ 0, 1, 0 ]
-   centerOfMass: [ 0, 0, 0 ]
-   mass: 1.0
-   inertia: [
-     0.02, 0,    0,
-     0,    0.02, 0,
-     0,    0,    0.02 ]
-   elements:
-     Shape: *TRACK 
+.. code-block:: yaml
+ :dedent: 0
+
+   -
+     name: TRACK_R
+     parent: CHASSIS
+     translation: [ 0, -0.2, 0 ]
+     jointType: fixed
+     jointAxis: Y
+     actuationMode: jointSurfaceVelocity
+     centerOfMass: [ 0, 0, 0 ]
+     mass: 1.0
+     inertia: [
+       0.02, 0,    0,
+       0,    0.02, 0,
+       0,    0,    0.02 ]
+     elements:
+       Shape: *TRACK 
 
 このリンクの内容は、一部左右対称となっている以外は左クローラとほぼ同じ内容となっています。形状に関しては先ほど"CRAWLER"という名前で設定したアンカーをエイリアスとして参照しています。 ::
 
@@ -958,11 +1001,9 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 
 .. image:: images/tank.png
 
+.. 追加情報の記述について
+.. ----------------------
 
+.. 以上でモデル本体の記述は完了ですが、更に付加的な情報を追加記述することも可能です。
 
-追加情報の記述について
------------
-
-以上でモデル本体の記述は完了ですが、更に付加的な情報を追加記述することも可能です。
-
-これは :doc:`modelfile-yaml` と同様に記述します。そこではOpenHRP形式のモデルファイルとYAMLファイルを組み合わせる方法を解説していますが、今回扱った形式のモデルファイルは元々YAMLで記述されていますので、 :doc:`modelfile-yaml` もそのまま同じファイルに含めることが可能です。
+.. これは :doc:`modelfile-yaml` と同様に記述します。そこではOpenHRP形式のモデルファイルとYAMLファイルを組み合わせる方法を解説していますが、今回扱った形式のモデルファイルは元々YAMLで記述されていますので、 :doc:`modelfile-yaml` もそのまま同じファイルに含めることが可能です。
