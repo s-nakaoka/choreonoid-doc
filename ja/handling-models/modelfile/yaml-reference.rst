@@ -29,34 +29,42 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
 
 リンク構造、動力学/機構パラメータを定義するノードとして、以下のノードが定義されています。
 
-* linksノード
-* RigidBodyノード
-* Transform
+* :ref:`body-file-reference-link-node`
+* :ref:`body-file-reference-rigid-body-node`
+* :ref:`body-file-reference-transform-node`
 
 リンクの形状、表示を定義するノードとして、以下のノードが定義されています。
 
-* Shapeノード
-* geometryノード
-* appearanceノード
-* materialノード
-* Resource
+* :ref:`body-file-reference-shape-node`
+* :ref:`body-file-reference-geometry-node`
+ * :ref:`body-file-reference-box-node`
+ * :ref:`body-file-reference-sphere-node`
+ * :ref:`body-file-reference-cylinder-node`
+ * :ref:`body-file-reference-capsule-node`
+ * :ref:`body-file-reference-cone-node`
+ * :ref:`body-file-reference-extrusion-node`
+ * :ref:`body-file-reference-elevation-grid-node`
+* :ref:`body-file-reference-appearance-node`
+* :ref:`body-file-reference-material-node`
+* :ref:`body-file-reference-resource-node`
 
 各種センサ・デバイスを定義するノードとして以下のノードが定義されています。
 
-* AccelerationSensorノード
-* RateGyroSensorノード
-* ForceSensorノード
-* RangeSensorノード 
-* Cameraノード
-* SpotLightノード
+* :ref:`body-file-reference-acceleration-sensor-node`
+* :ref:`body-file-reference-rate-gyro-sensor-node`
+* :ref:`body-file-reference-force-sensor-node`
+* :ref:`body-file-reference-camera-node`
+* :ref:`body-file-reference-range-sensor-node`
+* :ref:`body-file-reference-spot-light-node`
 
 閉リンク機構を定義するノードとして以下のノードが定義されています。
 
-* ExtraJointノード
+* :ref:`body-file-reference-extra-joint-node`
 
 ノードをグループ化するためのノードとして以下のノードが定義されています。
 
-* Group
+* :ref:`body-file-reference-group-node`
+
 以下では各ノードの詳細を説明します。
 
 ヘッダ
@@ -85,8 +93,9 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
 リンク構造、動力学/機構パラメータを定義するノード
 -------------------------------------------------
 
+.. _body-file-reference-link-node:
 
-linkノード
+Linkノード
 ~~~~~~~~~~
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
@@ -97,12 +106,12 @@ linkノード
 
  * - キー
    - 内容
+ * - type
+   - Link
  * - name
    - リンクの名称。モデル内で重複しない任意の文字列を指定可能
  * - parent
    - 親リンク。親リンクの名前（nameに記述した文字列）で指定する。ルートリンクの場合は使用しない
- * - type
-   - Link(default) または ContinuousTrack
  * - translation
    - 本リンクローカルフレームの親リンクからの相対位置。ルートリンクの場合はモデル読み込み時のデフォルト位置として使われる
  * - rotation
@@ -146,6 +155,8 @@ linkノード
 .. note::
 	剛体パラメータ(centerOfMass, mass, inertia)は次に述べるRigidBodyノードで記述することも可能です。その場合elementsを用いてRigidBodyノードをLinkノードの子ノードとして配置します。
 
+.. _body-file-reference-rigid-body-node:
+
 RigidBodyノード
 ~~~~~~~~~~~~~~~
 
@@ -159,6 +170,8 @@ RigidBodyノードはリンクの剛体パラメータを定義します。
 
  * - キー
    - 内容
+ * - type
+   - RigidBody
  * - centerOfMass
    - 重心位置。リンクローカル座標で指定
  * - mass
@@ -168,6 +181,7 @@ RigidBodyノードはリンクの剛体パラメータを定義します。
  * - elements
    - 子ノードでリンクの形状やセンサーなどを記述。
 
+.. _body-file-reference-transform-node:
 
 Transformノード
 ~~~~~~~~~~~~~~~
@@ -180,6 +194,8 @@ Transformノード
 
  * - キー
    - 内容
+ * - type
+   - Transform
  * - translation
    - 位置のオフセット
  * - rotation
@@ -193,6 +209,8 @@ Transformノード
 リンク形状・見た目を定義するノード
 ----------------------------------
 
+.. _body-file-reference-shape-node:
+
 Shapeノード
 ~~~~~~~~~~~
 
@@ -202,61 +220,138 @@ Shapeノード
 
  * - キー
    - 内容
+ * - type
+   - Shape
  * - geometry
-   - リンクの形状を定義するノード
+   - リンクの形状を :ref:`body-file-reference-geometry-node` のいずれかで記述
  * - appearance
-   - リンクの見た目を定義するノード
+   - リンクの色やテクスチャを :ref:`body-file-reference-appearance-node` として記述
 
-geometryノード
+.. _body-file-reference-geometry-node:
+
+幾何形状ノード
 ~~~~~~~~~~~~~~
 
-.. list-table:: geometryノードのフィールド
- :widths: 15,15,70
+幾何形状の記述には、以下のBox、Shpere、Cyinder、Capsule、Cone、Extrusion、ElevationGridのいずれかのノードを使用することができます。
+
+.. _body-file-reference-box-node:
+
+Boxノード
+'''''''''
+
+Boxノードは直方体を記述する幾何形状ノードです。
+
+.. list-table:: Boxノードのフィールド
+ :widths: 15,85
  :header-rows: 1
 
  * - キー
-   - 形状種別
    - 内容
  * - type
-   - \-
-   - | "Box" 直方体
-     | "Sphere" 球体
-     | "Cylinder"  円柱
-     | "Cone"  円錐
-     | "Extrusion"  押し出し
-     | "ElevationGrid" グリッドの格子点ごとの高さを与えてメッシュを作成
+   - Boxを指定
  * - size
-   - Box
    - 直方体の縦横奥行きの長さ
- * - radius
+
+.. _body-file-reference-sphere-node:
+
+Sphereノード
+''''''''''''
+
+Sphereノードは球を記述する幾何形状ノードです。
+
+.. list-table:: Sphereノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
    - Sphere
+ * - radius
    - 球の半径
+
+.. _body-file-reference-cylinder-node:
+
+Cylinderノード
+''''''''''''''
+
+Cylinderノードは円柱を記述する幾何形状ノードです。
+
+.. list-table:: Cylinderノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
+   - Cylinder
  * - radius
-   - Cylinder
-   - 底面の半径
+   - 半径
  * - height
-   - Cylinder
    - 高さ
  * - bottom
-   - Cylinder
    - true:底面あり(default)  false:底面なし
- * - side
-   - Cylinder
-   - true:側面あり(default)  false:側面なし
+ * - top
+   - true:上面あり(default)  false:上面なし
+
+.. _body-file-reference-capsule-node:
+
+Capsuleノード
+''''''''''''''
+
+Capsuleノードはカプセル（円柱＋球２つ）を記述する幾何形状ノードです。
+
+.. list-table:: Capsuleノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
+   - Capsule
  * - radius
+   - 半径
+ * - height
+   - 高さ
+
+.. _body-file-reference-cone-node:
+
+Coneノード
+''''''''''
+
+Coneノードは円錐を記述する幾何形状ノードです。
+
+.. list-table:: Coneノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
    - Cone
+ * - radius
    - 底面の半径
  * - height
-   - Cone
    - 高さ
  * - bottom
-   - Cone
    - true:底面あり(default)  false:底面なし
- * - side
-   - Cone
-   - true:側面あり(default)  false:側面なし
- * - crossSection
+
+.. _body-file-reference-extrusion-node:
+
+Extrusionノード
+'''''''''''''''
+
+Extrusionノードは押し出し形状を記述する幾何形状ノードです。
+
+.. list-table:: Extrusionノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
    - Extrusion
+ * - crossSection
    - | 押し出す断面の形状を頂点の座標で指定(x-z平面)。
      | crossSection: [ x0, z0, x1, z1, x2, z2, ・・・, xn, zn ]
      | のようにx座標,z座標を並べる。改行・スペースを入れて良い。
@@ -264,69 +359,72 @@ geometryノード
      |                 x1, z1,
      |                  ：
  * - spine
-   - Extrusion
    - | crossSectionで指定した断面を沿わせて動かす区分的直線を端点の座標で指定。
      | spine: [ x0, y0, z0, x1, y1, z1, ・・・, xn, yn, zn ]
  * - orientation
-   - Extrusion
    - spineの各点におけるcrossSectionの回転をaxis-angle形式のパラメータ(x, y, z, θ)を並べて指定。
      1組のみ指定した場合は全spineで同じ回転が使われる。spineの個数より少ない場合は不足分が回転無しになり、spineの個数より多い場合は無視される。
  * - scale
-   - Extrusion
    - crossSectionで指定した断面のspineの各点における拡大率。x軸方向の拡大率、z軸方向の拡大率をspineの個数分並べて指定。1組のみ指定した場合は全spineで同じ拡大率になる。spineの個数より指定が少ない場合、未指定分は0倍に拡大され1点になる。spineの個数より多く指定された分は無視される。
  * - creaseAngle
-   - Extrusion
    - 光源と法線ベクトルの角度によってシェーディングを変えるための閾値。creaseAngle未満のときはスムーズシェーディングされる。デフォルトは0。
  * - beginCap
-   - Extrusion
    - true:開始端側の断面あり(default) false:開始端側の断面なし
  * - endCap
-   - Extrusion
    - true:終端側の断面あり(default) false:終端側の断面なし
- * - xDimension
+
+※参照: http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Extrusion
+
+
+.. _body-file-reference-elevation-grid-node:
+
+ElevationGridノード
+'''''''''''''''''''
+
+ElevationGridノードはグリッドの格子点ごとに高さを与えた地形状の形状を記述する幾何形状ノードです。
+
+.. list-table:: ElevationGridノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
    - ElevationGrid
+ * - xDimension
    - x軸方向のグリッドの数
  * - zDimension
-   - ElevationGrid
    - z軸方向のグリッドの数
  * - xSpacing
-   - ElevationGrid
    - x軸方向のグリッド間隔
  * - zSpacing
-   - ElevationGrid
    - z軸方向のグリッド間隔
  * - ccw
-   - ElevationGrid
    - true: 頂点の順序が反時計回り false: 頂点の順序が時計回り
  * - creaseAngle
-   - ElevationGrid
    - 光源と法線ベクトルの角度によってシェーディングを変えるための閾値。creaseAngle未満のときはスムーズシェーディングされる。デフォルトは0。
  * - height
-   - ElevationGrid
    - 各格子点上の高さを配列で指定。格子点の個数(xDimension*zDimension)分の要素が必要。
 
+※参照: http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#ElevationGrid
 
-.. note::
-    Extrusionについては
-    http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Extrusion
+.. _body-file-reference-appearance-node:
 
-    ElevationGridについては
-    http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#ElevationGrid
-
-
-appearanceノード
+Appearanceノード
 ~~~~~~~~~~~~~~~~
 
-.. list-table:: appearanceノードのフィールド
+.. list-table:: Appearanceノードのフィールド
  :widths: 15,85
  :header-rows: 1
 
  * - キー
    - 内容
  * - material
-   - 物体表面の材質パラメータを定義するノード
+   - 物体表面の材質を :ref:`body-file-reference-material-node` として記述
 
-materialノード
+.. _body-file-reference-material-node:
+
+Materialノード
 ~~~~~~~~~~~~~~
 
 .. list-table:: materialノードのフィールド
@@ -348,6 +446,8 @@ materialノード
  * - transparency
    - 透過度(0:透明 〜 1:不透明)
 
+.. _body-file-reference-resource-node:
+
 Resourceノード
 ~~~~~~~~~~~~~~
 
@@ -359,6 +459,8 @@ Resourceノード
 
  * - キー
    - 内容
+ * - type
+   - Resource
  * - uri
    - リンク形状のメッシュファイルのパス
  * - node
@@ -387,32 +489,6 @@ Deviceノード
  * - rotation
    - ローカル座標系の姿勢を、親ノード座標系からのオフセット値で指定([x, y, z, θ]  ベクトル[x, y, z]の周りにθ回転)。
 
-使用可能なデバイスの一覧は以下です。
-
-    - AccelerationSensor
-    - RateGyroSensor
-    - ForceSensor
-    - RangeSensor
-    - Camera
-    - SpotLight
-
-デバイスの継承関係は以下のようになっており、親クラスの設定項目は子クラスでも有効です。
-デバイスごとの説明ではそのクラスで追加された設定項目についてのみ説明します。
-
-::
-
-  + Device
-    + AccelerationSensor
-    + RateGyroSensor
-    + ForceSensor
-    + RangeSensor
-    + Camera
-      + RangeCamera
-    + Light
-      + PointLight
-        + SpotLight
-
-
 .. note::
   各種センサノードはそのセンサが取り付けられているLinkノードの下に取り付けます。 例えば、サンプルモデルの腰部(WAIST)に加速度センサを取り付けている場合は、次のように記述します。
 
@@ -426,6 +502,7 @@ Deviceノード
             type: AccelerationSensor
             id: 0
 
+.. _body-file-reference-acceleration-sensor-node:
 
 AccelerationSensorノード
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -438,17 +515,17 @@ AccelerationSensorノードは、3軸加速度センサを定義します。
 
  * - フィールド
    - 内容
+ * - type
+   - AccelerationSensor
  * - maxAcceleration
    - 計測可能な最大加速度。3次元ベクトルの3要素のリストとして指定する。
 
-
-
+.. _body-file-reference-rate-gyro-sensor-node:
 
 RateGyroSensorノード
 ~~~~~~~~~~~~~~~~~~~~
 
 RateGyroSensorノードは、3軸角速度センサを定義します。
-
 
 .. tabularcolumns:: |p{3.0cm}|p{12.0cm}|
 
@@ -458,9 +535,12 @@ RateGyroSensorノードは、3軸角速度センサを定義します。
 
  * - キー
    - 内容
+ * - type
+   - RateGyroSensor
  * - maxAngularVelocity
    - 計測可能な最大角速度。3次元ベクトルの3要素のリストとして指定する。
 
+.. _body-file-reference-force-sensor-node:
 
 ForceSensorノード
 ~~~~~~~~~~~~~~~~~
@@ -473,42 +553,17 @@ ForceSensorノードは、力／トルクセンサを定義します。
 
  * - キー
    - 内容
+ * - type
+   - ForceSensor
  * - maxForce
    - 計測可能な力の最大値。3次元ベクトルの3要素のリストとして指定する。
  * - maxTorque
    - 計測可能なトルクの最大値。3次元ベクトルの3要素のリストとして指定する。
 
-
-RangeSensorノード
-~~~~~~~~~~~~~~~~~
-
-RangeSensorノードは、距離センサを定義します。
-
-
-.. list-table:: RangeSensorノードのフィールド
- :widths: 15,85
- :header-rows: 1
-
- * - キー
-   - 内容
- * - on
-   - 
- * - scanAngle
-   - 距離をスキャンする角度。0度を中心として、その両側にscanStepの倍数の角度でscanAngleの範囲内の角度が計測される。センサにスキャン機能がない場合は0とする。
- * - scanStep
-   - スキャン中に距離が計測される角度の刻み幅
- * - scanRate
-   - １秒間あたり行うスキャン回数[Hz]
- * - minDistance
-   - 計測可能な最小距離[m]
- * - maxDistance
-   - 計測可能な最大距離[m]
-
-.. note::
-   このセンサが取り付けられているリンクに対するこのセンサの姿勢。センサ座標系において、Z軸マイナス方向が計測正面、スキャンする場合の計測面はXZ平面となります。 これはVisionSensorと同じですので、従来VisionSensorで代用していたモデルを変更する場合は 位置、姿勢はそのまま使えます。
+.. _body-file-reference-camera-node:
 
 Cameraノード
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 Cameraノードは、視覚センサを定義します。
 
@@ -518,6 +573,8 @@ Cameraノードは、視覚センサを定義します。
 
  * - キー
    - 内容
+ * - type
+   - Camera
  * - format
    - | センサから取得する情報の種類を指定する。
      |   ・"COLOR"  色情報を取得
@@ -546,6 +603,39 @@ Cameraノードは、視覚センサを定義します。
 .. note::
     内部的にはformatが"COLOR"のときCamera、"COLOR"以外のときRangeCameraとして扱われます。
 
+.. _body-file-reference-range-sensor-node:
+
+RangeSensorノード
+~~~~~~~~~~~~~~~~~
+
+RangeSensorノードは、距離センサを定義します。
+
+.. list-table:: RangeSensorノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
+   - RangeSensor
+ * - on
+   - 
+ * - scanAngle
+   - 距離をスキャンする角度。0度を中心として、その両側にscanStepの倍数の角度でscanAngleの範囲内の角度が計測される。センサにスキャン機能がない場合は0とする。
+ * - scanStep
+   - スキャン中に距離が計測される角度の刻み幅
+ * - scanRate
+   - １秒間あたり行うスキャン回数[Hz]
+ * - minDistance
+   - 計測可能な最小距離[m]
+ * - maxDistance
+   - 計測可能な最大距離[m]
+
+.. note::
+   このセンサが取り付けられているリンクに対するこのセンサの姿勢。センサ座標系において、Z軸マイナス方向が計測正面、スキャンする場合の計測面はXZ平面となります。 これはVisionSensorと同じですので、従来VisionSensorで代用していたモデルを変更する場合は 位置、姿勢はそのまま使えます。
+
+.. _body-file-reference-spot-light-node:
+
 SpotLightノード
 ~~~~~~~~~~~~~~~
 
@@ -557,6 +647,8 @@ SpotLightノードは、ライトを定義します。
 
  * - キー
    - 内容
+ * - type
+   - SpotLight
  * - on
    - true/falseでライトのON/OFFを指定します。
  * - color
@@ -578,6 +670,7 @@ SpotLightノードは、ライトを定義します。
 閉リンク機構を定義するノード
 ------------------------------
 
+.. _body-file-reference-extra-joint-node:
 
 ExtraJointノード
 ~~~~~~~~~~~~~~~~
@@ -612,8 +705,10 @@ ExtraJointノードは閉リンク機構を定義します。閉リンクの1つ
 ノードをグループ化するノード
 ---------------------------
 
+.. _body-file-reference-group-node:
+
 Groupノード
-~~~~~~~~~~~~~~
+~~~~~~~~~~~
 
 一部のノードをグループ化するために使用します。
 
@@ -647,4 +742,3 @@ Groupノード
   elements: *SUBSYSTEM
 
 で記述できます。
-

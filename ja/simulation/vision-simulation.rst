@@ -32,20 +32,7 @@ RangeSensorはレーザを用いた３次元計測装置を想定したデバイ
 
 視覚センサを利用するためには、まずボディモデルにおいて使用したいセンサがデバイスとして定義されている必要があります。
 
-OpenHRP形式のモデルファイルにおいては、 :ref:`oepnrhp_modelfile_sensors` の仕様に従ってセンサを記述しておきます。各センサとモデルファイルにおけるノードの対応は以下のとおりです。
-
-.. list-table::
- :widths: 45,55
- :header-rows: 1
-
- * - ボディモデルにおけるデバイス型
-   - OpenHRPモデルファイルにおけるノード型
- * - Camera
-   - VisionSensor (typeを"COLOR"とする）
- * - RangeCamra
-   - VisionSensor (typeを"COLOR_DEPTH"とする）
- * - RangeSensor
-   - RangeSensor
+Choreonoidのモデルファイル（拡張子body)においては、 :ref:`body-file-reference-devices` の仕様に従ってセンサを記述しておきます。
 
 .. _simulation-gl-vision-simulator:
 
@@ -224,7 +211,6 @@ SR1モデルでは、そのモデルファイル"SR1.wrl"において視覚セ�
 
 CameraSampleControllerのソースコードを以下に示します。 ::
 
-
  #include <cnoid/SimpleController>
  #include <cnoid/Camera>
  
@@ -235,26 +221,30 @@ CameraSampleControllerのソースコードを以下に示します。 ::
      DeviceList<Camera> cameras;
      double timeCounter;
      double timeStep;
-     
+     std::ostream* os;
+ 
  public:
-     virtual bool initialize(SimpleControllerIO* io)
+     virtual bool initialize(SimpleControllerIO* io) override
      {
+         os = &io->os();
+ 
          cameras << io->body()->devices();
  
          for(size_t i=0; i < cameras.size(); ++i){
              Device* camera = cameras[i];
-             os() << "Device type: " << camera->typeName()
-                  << ", id: " << camera->id()
-                  << ", name: " << camera->name() << std::endl;
+             io->enableInput(camera);
+             *os << "Device type: " << camera->typeName()
+                 << ", id: " << camera->id()
+                 << ", name: " << camera->name() << std::endl;
          }
-         
+
          timeCounter = 0.0;
          timeStep = io->timeStep();
-         
+
          return true;
      }
- 
-     virtual bool control()
+
+     virtual bool control() override
      {
          timeCounter += timeStep;
          if(timeCounter >= 1.0){
@@ -262,7 +252,8 @@ CameraSampleControllerのソースコードを以下に示します。 ::
                  Camera* camera = cameras[i];
                  std::string filename = camera->name() + ".png";
                  camera->constImage().save(filename);
-                 os() << "The image of " << camera->name() << " has been saved to \"" << filename << "\"." << std::endl;
+                 *os << "The image of " << camera->name()
+                     << " has been saved to \"" << filename << "\"." << std::endl;
              }
              timeCounter = 0.0;
          }
@@ -286,7 +277,13 @@ Cameraデバイスの使用については、 ::
 
 とすることでロボットモデルが有する全てのCameraデバイスを取得しています。RangeCamera型はCamera型を継承していますので、モデルがRangeCameraを有していればそちらも取得されます。
 
-このようにして取得したCameraデバイスに関して、initialize()関数内でその情報をメッセージビューに出力し、control()関数内の ::
+このようにして取得したCameraデバイスに関して、initialize関数のforループ内で ::
+
+ io->enableInput(camera);
+
+とすることで、各カメラからの入力を有効化しています。また、カメラの情報をテキストメッセージとして出力しています。
+
+control関数内では ::
 
  camera->constImage().save(filename);
 
