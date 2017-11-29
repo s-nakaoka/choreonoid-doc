@@ -20,13 +20,14 @@ Choreonoidはこの無限軌道機構の簡易的なシミュレーションを�
 無限軌道モデルの作成
 --------------------
 
-まず利用するモデルにおいて無限軌道機構を定義しておく必要があります。これは以下のようにして行います。
+まず利用するモデルにおいて無限軌道機構とするリンクを定義しておく必要があります。これは以下のようにして行います。
 
 * 無限軌道の全体をひとつのリンクとしてモデリングする
-* このリンクの関節タイプとして"pseudoContinuousTrack"を指定する
-* 関節の可動軸パラメータに無限軌道の回転軸を指定する
+* このリンクの関節タイプとして固定関節（"fixed"）を指定する
+* 関節軸のパラメータに無限軌道の回転軸方向を指定する
+* :ref:`simulation-implement-controller-actuation-mode` として "JOINT_SURFACE_VELOCITY" を指定する
 
-無限軌道を含むモデルのサンプルとして、"Crawler"というモデルを用意しています。これはshareディレクトリの "model/misc/" 以下にある "crawler.wrl"というファイルで定義されており、以下のような外観をもっています。
+無限軌道を含むモデルのサンプルとして、"Crawler"というモデルを用意しています。これはshareディレクトリの "model/misc/" 以下にある "crawler.body"というファイルで定義されており、以下のような外観をもっています。
 
 .. image:: images/crawler-model.png
 
@@ -40,23 +41,26 @@ Choreonoidはこの無限軌道機構の簡易的なシミュレーションを�
 
 まずBODYというルートリンクを定義しています。これはモデル中心部の緑色の部分に対応します。ルートリンクをクローラにすることはできませんので、このようにまずベースとなるルートリンクを定義してください。
 
-左クローラに対応する "CRAWLER_TRACK_L" はモデルファイルにおいて以下のように定義されています。 ::
+左クローラに対応する "CRAWLER_TRACK_L" はモデルファイルにおいて以下のように定義されています。
 
- DEF CRAWLER_TRACK_L Joint {
-   translation 0.0 0.15 0
-   jointType "pseudoContinuousTrack"
-   jointAxis 0 1 0
-   jointId 0
-   children [
-     DEF CRAWLER_TRACK_L_LINK Segment {
-       ...
-     }
-   ]
- }
+.. code-block:: yaml
 
-関節タイプを指定する "jointType" フィールドに "pseudoContinuousTrack" を指定しています。これによって、このリンクが無限軌道の簡易シミュレーションの対象であることを示しています。
+ -
+   name: CRAWLER_TRACK_L
+   parent: BODY
+   translation: [ 0.0, 0.15, 0 ]
+   jointType: fixed
+   jointAxis: [ 0, 1, 0 ]
+   jointId: 0
+   actuationMode: jointSurfaceVelocity
+   elements:
+     ...
+
+関節タイプを指定する "jointType" フィールドには "fixed" を指定しています。
 
 関節可動軸を指定する "jointAxis" フィールドには、クローラの回転軸を指定します。クローラの回転軸とは、クローラを駆動する内部の車輪を想定した際に、その回転軸に一致するベクトルです。ここでは "0 1 0" を指定し、Y軸と一致させています。
+
+アクチュエーションモードはコントローラ側で設定することもできますが、モデルファイルにて "actuationMode" というフィールドを記述することで、デフォルトのアクチュエーションモードを設定することもできます。本モデルのクローラ部についてはこれ以外のアクチュエーションモードで駆動することは通常考えられませんので、このようにモデルファイル中で設定しています。
 
 クローラの形状はSegmentノードで記述しています。この部分は、ローカル座標の原点がクローラ内部の点となるようにモデリングする必要があります。ク
 
@@ -64,7 +68,7 @@ Choreonoidはこの無限軌道機構の簡易的なシミュレーションを�
 
 右クローラに対応する "CRAWLER_TRCK_R" も同様に記述しています。
 
-.. note:: Choreonoidの以前のバージョンでは無限軌道の簡易シミュレーションに対応する関節タイプを"crawler"としていました。このタイプもまだ使うことが出来ますが、今後は"pseudoContinuousTrack"を使うようにしてください。
+.. note:: Choreonoidの以前のバージョンでは、関節タイプに "pseudoContinuousTrack" を指定することで無限軌道の簡易シミュレーションを行うリンクとしていましたが、今後は上記のようにアクチュエーションモードによって指定するようにしてください。
 
 対応シミュレータアイテム
 ------------------------
@@ -104,27 +108,32 @@ Choreonoidはこの無限軌道機構の簡易的なシミュレーションを�
 
 無限軌道の簡易シミュレーションにおいて、無限軌道への指令値は、その駆動速度（接触点で実現すべき相対速度）の大きさとして与えます。この値は、無限軌道に対応する関節の関節速度値として出力すればOKです。
 
-例えば、サンプルモデルのクローラをSimpleControllerを用いて駆動させる場合、まずinitialize()関数にて ::
+例えば、サンプルモデルのクローラをSimpleControllerを用いて駆動させる場合、まずinitialize関数にて ::
 
- io->setJointOutput(JOINT_VELOCITY);
+ Link* crawlerL = io->body()->link("CRAWLER_TRACK_L");
 
-とすることで指令値の出力をできるようにします。  
- 
-そして、制御ループで以下のような処理を行えばOKです。 ::
+などとしてクローラ部のリンクを取得し、これに対して ::
 
- ioBody->joint("CRAWLER_TRACK_L")->dq() = 1.0;
- ioBody->joint("CRAWLER_TRACK_R")->dq() = 1.0;
+ crawlerL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+ io->enableOutput(crawlerL);
+
+などとして、簡易クローラに対する出力を有効化します。（モデルファイル中でactuationModeが設定されている場合、setActuationModeはなくてもOKです。）
+
+上記は左側のクローラに対する記述になりますが、右側についても同様の記述をしておきます。
+
+そして、control関数内で以下のような処理を行えばOKです。 ::
+
+ crawlerL->dq() = 1.0;
+ crawlerR->dq() = 1.0;
 
 このようにすると、左右のクローラに同じ駆動力が与えられて、モデル全体が1.0[m/s]の速度で前方に進むことになります。（ここで用いている変数ioBodyはio->body()によって得られる入出力用Bodyオブジェクトです。）
 
 また、以下のように左右に異なる指令値を与えることで、モデルを旋回させることができます。 ::
 
- ioBody->joint("CRAWLER_TRACK_L")->dq() =  1.0;
- ioBody->joint("CRAWLER_TRACK_R")->dq() = -1.0;
+ crawlerL->dq() =  1.0;
+ crawlerR->dq() = -1.0;
 
 この場合、モデルが右に回転します。
-
-.. note:: Choreonoidの以前のバージョンで用いられていた"crawler"タイプの関節では、上記の速度指令値を関節トルクに対応する変数を介して出力するようになっていました。これについて"pseudoContinuousTrack"においては素直に関節速度として出力するようになりましたので、移行の際にはご注意ください。
 
 シミュレーションサンプル
 ------------------------
