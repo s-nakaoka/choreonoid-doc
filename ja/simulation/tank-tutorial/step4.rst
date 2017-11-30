@@ -35,27 +35,30 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
      Joystick joystick;
  
  public:
-     virtual bool initialize(SimpleControllerIO* io)
+     virtual bool initialize(SimpleControllerIO* io) override
      {
          trackL = io->body()->link("TRACK_L");
          trackR = io->body()->link("TRACK_R");
  
+         trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+         trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+
          io->enableOutput(trackL);
          io->enableOutput(trackR);
  
          return true;
      }
  
-     virtual bool control()
+     virtual bool control() override
      {
          static const int axisID[] = { 0, 1 };
-         
+ 
          joystick.readCurrentState();
  
          double pos[2];
          for(int i=0; i < 2; ++i){
              pos[i] = joystick.getPosition(axisID[i]);
-             if(fabs(pos[i]) < 0.25){
+             if(fabs(pos[i]) < 0.2){
                  pos[i] = 0.0;
              }
          }
@@ -131,14 +134,21 @@ TrackControllerの実装内容について、このコントローラに特有�
  trackL = io->body()->link("TRACK_L");
  trackR = io->body()->link("TRACK_R");
 
-によって、左右それぞれのクローラに対応する入出力用リンクを取得しています。また、 ::
+によって、左右それぞれのクローラに対応する入出力用リンクを取得しています。次に ::
+
+ trackL->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+ trackR->setActuationMode(Link::JOINT_SURFACE_VELOCITY);
+
+によって、各クローラリンクの :ref:`simulation-implement-controller-actuation-mode` として JOINT_SURFACE_VELOCITY を指定しています。 Tankモデルについては :ref:`modelfile_yaml_crawlers` で示したように、モデルファイルにおいてアクチュエーションモードの指定をしていますので、この記述は無くても結構です。ただし、モデルファイルでそのように指定されているとは限りませんので、このようにアクチュエーションモードを明示的に設定するのが望ましいかと思います。
+
+そして、 ::
 
  io->enableOutput(trackL);
  io->enableOutput(trackR);
   
-によってそれぞれのクローラへの出力を有効にしています。
+によって各クローラリンクへの出力を有効にしています。
 
-簡易クローラの場合は、出力する指令値はトルクではなく、クローラの表面速度で与えるようになっています。また、入力については特に入力する値はありません。従って、ここでは出力のみを有効化する "enableOutput" 関数を用いています。
+アクチュエーションモードが JOINT_SURFACE_VELOCITY の場合、出力する指令値はトルクではなく、クローラの表面速度で与えるようになっています。また、入力については特に必要ありません。従って、ここでは出力のみを有効化する "enableOutput" 関数を用いています。JOINT_SURFACE_VELOCITYの場合、リンクの状態変数 dq を用いて表面速度を出力します。
 
 control関数内の ::
 
