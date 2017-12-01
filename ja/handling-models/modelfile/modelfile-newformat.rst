@@ -842,12 +842,12 @@ materialではemissiveColorも設定し、暗闇の中でもライトの部分�
          rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
          format: COLOR_DEPTH
          fieldOfView: 65
+         nearClipDistance: 0.02
          width: 320
          height: 240
          frameRate: 30
          elements:
            Shape:
-             translation: [ 0, 0, 0.005 ]
              rotation: [ 1, 0, 0, 90 ]
              geometry:
                type: Cylinder
@@ -902,6 +902,12 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 ここではカメラのレンズを想定したものとして、シリンダ形状を付与しています。これにより、モデルの表示は以下のようになります。
 
 .. image:: images/tank_camera.png
+
+なお、カメラの定義にて ::
+
+ nearClipDistance: 0.02
+
+という記述をしています。これはカメラ画像内に収める外界の範囲をカメラ中心点より少し前方にずらすための記述です。今回カメラの形状を付与していることにより、そのままではその形状によって前方の視界が遮られることになってしまいます。この記述を入れることで、カメラ形状の外側をカメラ画像に映すことが可能となります。
 
 .. _modelfile_yaml_crawlers:
 

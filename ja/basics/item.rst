@@ -40,7 +40,7 @@ Choreonoidをコマンドラインから起動している場合は、:doc:`laun
 
 Choreonoidでは標準でいくつかのサンプルプロジェクトが付属しています。それらのサンプルはChoreonoidのshareディレクトリ以下の "project" ディレクトリに格納されています。（shareディレクトリの場所については :doc:`../install/directories` を参照してください。）
 
-以下にいくつかのサンプルの概要を示しますので、興味があるものがあれば読み込んで試してみてください。
+以下に主なサンプルの概要を示しますので、興味があるものがあれば読み込んで試してみてください。
 
 .. tabularcolumns:: |p{4.5cm}|p{10.5cm}|
 
@@ -54,8 +54,6 @@ Choreonoidでは標準でいくつかのサンプルプロジェクトが付属�
    - 箱４つを落下させるシミュレーション
  * - SR1Walk.cnoid
    - サンプルの二足歩行ロボットモデル"SR1"の歩行シミュレーション
- * - SR1WalkHighGain.cnoid
-   - AISTSimulatorItemの「ハイゲインモード」を用いたSR1ロボットの歩行シミュレーション
  * - SR1Walk2D.cnoid
    - AISTSimulatorItemの「2Dモード」を用いたSR1ロボットの歩行シミュレーション
  * - SR1Liftup.cnoid
@@ -80,7 +78,7 @@ Choreonoidでは標準でいくつかのサンプルプロジェクトが付属�
    - コンベアーベルト機構のシミュレーションサンプル
 
 
-上に挙げたもののうち、ロボットの制御を含むサンプルについては、Choreonoidビルド時に "BUILD_SIMPLE_CONTROLLER_PLUGIN" と "BUILD_SIMPLE_CONTROLLER_SAMPLE" を "ON" にしておく必要があります（デフォルトではONになっています）。また、ここに挙げたもの以外にも、オプションのプラグインを有効にした際などに追加されるサンプルがあります。
+上に挙げたもののうち、ロボットの制御を含むサンプルについては、Choreonoidビルド時に **BUILD_SIMPLE_CONTROLLER_SAMPLES** を "ON" にしておく必要があります（デフォルトではONになっています）。また、ここに挙げたもの以外にも、オプションのプラグインを有効にした際などに追加されるサンプルがあります。
 
 .. _basics_project_sr1walk:
 

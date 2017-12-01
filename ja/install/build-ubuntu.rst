@@ -6,7 +6,7 @@
 
 Linuxには様々なディストリビューションがありますが、現在のところChoreonoidが公式にサポートしているディストリビューションは Ubuntu Linux になります。本ドキュメントでは、Ubuntu Linux におけるChoreonoidのソースコードからのビルド方法について説明します。ポイントを押さえれば他のディストリビューションでもビルド出来ると思われますので、必要であればトライしてみてください。
 
-Choreonoidの最新版であるバージョン1.5では、Ubuntuバージョン14.04、16.04、x64アーキテクチャ(64ビット）でのビルドと動作を確認しています。
+Choreonoidの最新版であるバージョン1.6では、Ubuntuバージョン14.04、16.04、x64アーキテクチャ(64ビット）でのビルドと動作を確認しています。
 
 .. contents::
    :local:
@@ -20,11 +20,11 @@ Choreonoidの最新版であるバージョン1.5では、Ubuntuバージョン1
 
 Choreonoidのリリース版のソースコードは、 `ダウンロード <http://choreonoid.org/ja/download.html>`_ のページからダウンロードすることが可能です。このページにある「ソースパッケージ」の該当するバージョンをダウンロードしてください。ファイルはZIPファイルになっていますので、適当なディレクトリで ::
 
- unzip choreonoid-1.5.0.zip
+ unzip choreonoid-1.6.0.zip
 
 などとして展開してください。
 
-展開すると choreonoid-1.5.0 といったディレクトリが生成されます。このディレクトリの中にソースコード一式が格納されており、本マニュアルではこれを今後 **「ソースディレクトリ」** と呼ぶことにします。
+展開すると choreonoid-1.6.0 といったディレクトリが生成されます。このディレクトリの中にソースコード一式が格納されており、本マニュアルではこれを今後 **「ソースディレクトリ」** と呼ぶことにします。
 
 
 開発版
@@ -74,11 +74,12 @@ Choreonoidをソースコードからビルドするためには、以下の開�
 * `libjpeg <http://libjpeg.sourceforge.net/>`_ : JPEG形式の画像ファイルを読み込むためのライブラリです。
 * `libpng <http://www.libpng.org/pub/png/libpng.html>`_ : PNG形式の画像ファイルを読み込むためのライブラリです。
 * `LibYAML <http://pyyaml.org/wiki/LibYAML>`_ : YAML形式テキストのパーサです。
-* `GLEW <http://glew.sourceforge.net/>`_ : OpenGLの拡張機能を利用するためのライブラリです。
+* `Assimp <http://assimp.sourceforge.net/>`_ : 様々な形式の3Dモデルファイルを読み込むためのライブラリです。
 
 また、オプションの機能をビルドする際には、以下のようなソフトウェアも追加で必要となってきます。
 
 * `Python <https://www.python.org/>`_ : プログラミング言語Pythonを用いてChoreonoidを操作するための「Pythonプラグイン」を利用する際に必要となります。通常Pythonは標準でインストールされていますが、プラグインをビルドする際に開発用のライブラリが必要となります。
+* `Numpy <http://www.numpy.org/>`_ : 各種科学技術計算を行うためのPythonライブラリです。こちらもPythonプラグインで必要になります。
 * `omniORB <http://omniorb.sourceforge.net/>`_ : オープンソースのCORBA実装です。CORBAプラグインやOpenRTMプラグイン、OpenHRPプラグインを利用する際に必要です。
 * `OpenRTM-aist <http://openrtm.org/>`_ : 産総研によるRTミドルウェアの実装です。OpenRTMプラグインを利用する際に必要です。
 * `Open Dynamics Engine (ODE) <http://www.ode.org/>`_ : 物理計算ライブラリです。この物理計算によるシミュレーションを行うための「ODEプラグイン」を利用する際に必要です。
@@ -102,7 +103,7 @@ Ubuntuの場合、"misc/script" 以下にある "install-requisites-ubuntu-x.x.s
 
 OpenRTM-aistについては今のところUbuntuの標準パッケージにはなっていません。開発元が用意している追加リポジトリからパッケージをインストールするか、ソースコードからビルドするなどしてください。詳しくはOpenRTM-aistのドキュメントを参照ください。OpenRTMプラグインが必要なければ、インストールする必要はありません。
 
-BulletについてはUbuntu 14.04では標準パッケージに含まれているのですが、そちらのパッケージでインストールすると必要なファイルが欠けているようでBulletプラグインをビルドできません。従って、Bulletプラグインをビルドする場合には、Bullet本体をソースコードからビルドしてインストールするようにしてください。こちらについても、Bulletプラグインが必要なければ、インストールする必要はありません。Bulletをビルドする際のCMakeの設定では **BUILD_SHARED_LIBS** と **USE_DOUBLE_PRECISION** を "ON" にしおてきます。
+BulletについてはUbuntuの公式リポジトリに含まれるパッケージがあるのですが、そちらは必要なファイルが欠けているようでBulletプラグインをビルドできません。従って、Bulletプラグインをビルドする場合には、Bullet本体をソースコードからビルドしてインストールするようにしてください。こちらについても、Bulletプラグインが必要なければ、インストールする必要はありません。Bulletをビルドする際のCMakeの設定では **BUILD_SHARED_LIBS** と **USE_DOUBLE_PRECISION** を "ON" にしおてきます。
 
 Qtについては、バージョン4と5のどちらも利用可能となっていますが、Ubuntuにおいてデフォルトではバージョン4を使うようになっています。バージョン5を使いたい場合は、まず以下のようにしてQt5関連のパッケージをインストールします ::
 
