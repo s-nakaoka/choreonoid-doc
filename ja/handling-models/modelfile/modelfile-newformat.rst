@@ -169,7 +169,7 @@ LinkノードはYAMLのマッピング形式で記述します。マッピング
            material:
              diffuseColor: [ 0, 0.6, 0 ]
              specularColor: [ 0.2, 0.8, 0.2 ]
-             shinines: 0.6
+             shininess: 0.6
 
 YAMLでは各行のインデントがデータの構造も規定することになりますので、上記の記述でインデントが揃っているところはそのまま揃えて記述するように注意してください。
 
@@ -298,12 +298,12 @@ appearancについては物体表面の材質を記述するmaterialを記述し
    - 放射色のRGB値を指定します。デフォルトでは無効（全成分が0）となっています。
  * - specularColor
    - 鏡面反射係数のRGB値を記述します。デフォルトでは無効（全成分が0）となっています。
- * - shinines
+ * - shininess
    - 光沢度を0.0から1.0のスカラ値で指定します。この値が大きいと鏡面反射によるハイライトがシャープになります。デフォルトでは0.2となっています。
  * - transparency
    - 透明度を指定します。値は0.0から1.0のスカラ値で、0.0で完全に不透明となり、1.0で完全に透明となります。デフォルトでは0.0となっています。
 
-ここではdiffuseColor、specularColor、shininessnoの3つのパラメータを設定することで、少し金属的な光沢のある緑色の材質を表現しています。
+ここではdiffuseColor、specularColor、shininessの3つのパラメータを設定することで、少し金属的な光沢のある緑色の材質を表現しています。
 
 .. note:: このような形状の記述については、文法的には多少異なるものの、その構造や形状タイプ、パラメータ等について `VRML97 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/>`_ で定義されているもの（ `Shape <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Shape>`_ 、 `Box <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Box>`_ 、`Sphere <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Sphere>`_ 、 `Cylinder <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cylinder>`_ 、 `Cone <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cone>`_ 、 `Appearance <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Appearance>`_ 、 `Material <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Material>`_ 等）を踏襲するようにしています。VRML97はOpenHRP形式のモデルファイルでベースとしていた形式なので、それの利用経験がある方でしたら勝手をつかみやすいのではないかと思います。
 
@@ -857,7 +857,7 @@ materialではemissiveColorも設定し、暗闇の中でもライトの部分�
                material:
                  diffuseColor: [ 0.2, 0.2, 0.8 ]
                  specularColor: [ 0.6, 0.6, 1.0 ]
-                 shininesss: 0.6
+                 shininess: 0.6
 
 カメラはCameraノードを用いて記述します。
 
