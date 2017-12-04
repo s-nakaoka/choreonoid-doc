@@ -14,10 +14,22 @@
    height="1052.3622"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="plugin-dependency.svg">
   <defs
      id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3395">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3397" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3399" />
+    </linearGradient>
     <marker
        inkscape:stockid="TriangleOutL"
        orient="auto"
@@ -32,6 +44,39 @@
          transform="scale(0.8,0.8)"
          inkscape:connector-curvature="0" />
     </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3395"
+       id="linearGradient3393"
+       x1="349"
+       y1="346.36218"
+       x2="375"
+       y2="338.36218"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       gradientTransform="translate(106.15459,74.783888)"
+       inkscape:collect="always"
+       xlink:href="#linearGradient3395"
+       id="linearGradient3393-3"
+       x1="349"
+       y1="346.36218"
+       x2="375"
+       y2="338.36218"
+       gradientUnits="userSpaceOnUse" />
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-5"
+       style="overflow:visible">
+      <path
+         id="path4002-3"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.8,0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -41,13 +86,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="531.16406"
+     inkscape:cx="330.79743"
      inkscape:cy="846.82492"
      inkscape:document-units="px"
-     inkscape:current-layer="g3848"
+     inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
@@ -67,7 +112,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -106,15 +151,17 @@
     </g>
     <g
        id="g3831"
-       transform="translate(166,174)">
+       transform="translate(226,174)"
+       inkscape:export-xdpi="48.950001"
+       inkscape:export-ydpi="48.950001">
       <g
          id="g3833"
          transform="translate(-2.71875,99.649414)">
         <g
-           transform="translate(-11.424805,-50)"
+           transform="translate(82.575195,-50)"
            id="g3848">
           <rect
-             style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:1.31949341;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+             style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:1.31949341;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
              id="rect3835"
              width="298.89703"
              height="93.325653"
@@ -125,7 +172,7 @@
              inkscape:export-ydpi="48.950001" />
           <text
              xml:space="preserve"
-             style="font-size:36px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+             style="font-style:normal;font-weight:normal;font-size:36px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
              x="185.14355"
              y="163.71277"
              id="text3837"
@@ -136,7 +183,7 @@
                sodipodi:role="line"
                id="tspan3839"
                x="185.14355"
-               y="163.71277">SimpleController</tspan><tspan
+               y="163.71277">PythonSimScript</tspan><tspan
                sodipodi:role="line"
                x="185.14355"
                y="208.71277"
@@ -145,8 +192,8 @@
       </g>
     </g>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutL);display:inline"
-       d="m 340,352.36218 0,-225"
+       style="display:inline;fill:url(#linearGradient3393);fill-opacity:1;stroke:#000000;stroke-width:1.48059618;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
+       d="M 489,349.36218 340,127.14568"
        id="path4308"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -160,7 +207,7 @@
        inkscape:connector-type="polyline"
        id="path4492"
        d="m 174,165.36218 85,-45"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutL);display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
        inkscape:export-ydpi="48.950001" />
@@ -170,7 +217,7 @@
        inkscape:connector-type="polyline"
        id="path4494"
        d="m 173,257.36218 0,-45"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutL);display:inline"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
        inkscape:export-ydpi="48.950001" />
@@ -179,12 +226,12 @@
        id="g4496" />
     <g
        id="g4526"
-       transform="matrix(1,0,0,1.0292642,363.28125,-60.112245)"
+       transform="matrix(1,0,0,1.0292642,651.28125,-60.112245)"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
        inkscape:export-ydpi="48.950001">
       <rect
-         style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:0.78912061;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:0.78912061;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect4512"
          width="224.92743"
          height="44.356026"
@@ -192,7 +239,7 @@
          y="128.54132" />
       <text
          xml:space="preserve"
-         style="font-size:36px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         style="font-style:normal;font-weight:normal;font-size:36px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
          x="42.71875"
          y="162.71277"
          id="text4514"
@@ -204,7 +251,7 @@
     </g>
     <g
        id="g4558"
-       transform="translate(93.505859,-4.9999999)"
+       transform="translate(387.50586,-4.9999999)"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
        inkscape:export-ydpi="48.950001">
@@ -212,7 +259,7 @@
          transform="translate(292.28125,-39.350586)"
          id="g4531">
         <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:1.05203938;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:1.05203938;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            id="rect4518"
            width="194.66451"
            height="91.093102"
@@ -220,7 +267,7 @@
            y="230.67278" />
         <text
            xml:space="preserve"
-           style="font-size:36px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           style="font-style:normal;font-weight:normal;font-size:36px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
            x="119.21289"
            y="266.71277"
            id="text4520"
@@ -240,13 +287,13 @@
        inkscape:connector-curvature="0"
        inkscape:connector-type="polyline"
        id="path4537"
-       d="m 509,187.36218 0,-60"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutL);display:inline"
+       d="m 797,187.36218 0,-60"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
        inkscape:export-ydpi="48.950001" />
     <g
-       transform="translate(871.28125,-52.350586)"
+       transform="translate(637.28125,-52.350586)"
        id="g4565"
        inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
        inkscape:export-xdpi="48.950001"
@@ -255,7 +302,7 @@
          id="g4573"
          transform="translate(-262,-3)">
         <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:0.81304812;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:0.81304812;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            id="rect4567"
            width="238.9035"
            height="44.3321"
@@ -263,7 +310,7 @@
            y="128.55328" />
         <text
            xml:space="preserve"
-           style="font-size:36px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           style="font-style:normal;font-weight:normal;font-size:36px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
            x="42.71875"
            y="162.71277"
            id="text4569"
@@ -272,35 +319,6 @@
              id="tspan4571"
              x="42.71875"
              y="162.71277">PythonPlugin</tspan></text>
-      </g>
-    </g>
-    <g
-       id="g4578"
-       transform="translate(712.28125,61.649414)"
-       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
-       inkscape:export-xdpi="48.950001"
-       inkscape:export-ydpi="48.950001">
-      <g
-         transform="translate(-262,-3)"
-         id="g4580">
-        <rect
-           y="128.55328"
-           x="198.1911"
-           height="44.3321"
-           width="238.9035"
-           id="rect4582"
-           style="fill:#ffffff;fill-opacity:1;stroke:#441650;stroke-width:0.81304812;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text4584"
-           y="163.71277"
-           x="214.71875"
-           style="font-size:36px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-           xml:space="preserve"><tspan
-             y="163.71277"
-             x="214.71875"
-             id="tspan4586"
-             sodipodi:role="line">MediaPlugin</tspan></text>
       </g>
     </g>
     <g
@@ -365,5 +383,15 @@
              y="0"
              x="0" /></flowRegion><flowPara
            id="flowPara2997">BodyPlugin</flowPara></flowRoot>    </g>
+    <path
+       style="display:inline;fill:url(#linearGradient3393-3);fill-opacity:1;stroke:#000000;stroke-width:1.48059618;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL-5)"
+       d="m 491.15459,351.14607 40,-226.2165"
+       id="path4308-5"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/nakaoka/choreonoid/doc/ja/basics/images/plugin-dependencies.png"
+       inkscape:export-xdpi="48.950001"
+       inkscape:export-ydpi="48.950001" />
   </g>
 </svg>

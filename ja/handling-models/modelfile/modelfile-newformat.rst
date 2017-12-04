@@ -90,7 +90,7 @@ Bodyファイルは記述方式のベースとしてYAMLを採用しています
 .. _modelfile_yaml_links:
 
 リンクの記述
-------
+------------
 
 モデルが有するリンクの情報は、"links:" に以下のように記述します。 ::
 
@@ -108,7 +108,7 @@ Bodyファイルは記述方式のベースとしてYAMLを採用しています
 .. _modelfile_yaml_link_node:
 
 Linkノード
--------
+----------
 
 LinkノードはYAMLのマッピング形式で記述します。マッピングの要素として、以下のようなパラメータが利用可能です。
 
@@ -145,7 +145,7 @@ LinkノードはYAMLのマッピング形式で記述します。マッピング
 
 
 車体リンクの記述
---------
+----------------
 
 ではまず本モデルの車体部分に対応するルートリンクを記述しましょう。対応するLinkノードをlinks以下に次のように記述してください。 ::
 
@@ -169,7 +169,7 @@ LinkノードはYAMLのマッピング形式で記述します。マッピング
            material:
              diffuseColor: [ 0, 0.6, 0 ]
              specularColor: [ 0.2, 0.8, 0.2 ]
-             shinines: 0.6
+             shininess: 0.6
 
 YAMLでは各行のインデントがデータの構造も規定することになりますので、上記の記述でインデントが揃っているところはそのまま揃えて記述するように注意してください。
 
@@ -180,7 +180,7 @@ YAMLでは各行のインデントがデータの構造も規定することに�
 という記述により、"CHASSIS" という名前に設定しています。
 
 編集中のモデルの確認
-----------
+--------------------
 
 まだルートリンクしか記述していませんが、この時点でもモデルとしては成立しています。そこで、編集中のファイルをChoreonoid上で読み込んで表示させ、正しく記述ができているか確認してみましょう。メインメニューの「ファイル」-「読み込み」-「ボディ」を選択し、表示されるダイアログで対象のファイルを選択します。その際、ダイアログ上で「アイテムツリービューのチェックを入れる」を有効にしておくか、読み込み後にアイテムのチェックボックスをクリックすると、シーンビュー上に以下のように表示されるかと思います。
 
@@ -197,7 +197,7 @@ YAMLでは各行のインデントがデータの構造も規定することに�
 
 
 ルートリンク特有の記述
------------
+----------------------
 
 CHASSISリンクでは、 ::
 
@@ -259,7 +259,7 @@ mass には質量を、inertiaには慣性テンソルの行列要素を指定�
 .. _modelfile_yaml_chassis_shape:
 
 車体形状の記述
--------
+--------------
 
 リンクの形状は、Linkノードの "elements" 以下に記述します。CHASSISリンクに関しては以下のように記述されています。
 
@@ -298,12 +298,12 @@ appearancについては物体表面の材質を記述するmaterialを記述し
    - 放射色のRGB値を指定します。デフォルトでは無効（全成分が0）となっています。
  * - specularColor
    - 鏡面反射係数のRGB値を記述します。デフォルトでは無効（全成分が0）となっています。
- * - shinines
+ * - shininess
    - 光沢度を0.0から1.0のスカラ値で指定します。この値が大きいと鏡面反射によるハイライトがシャープになります。デフォルトでは0.2となっています。
  * - transparency
    - 透明度を指定します。値は0.0から1.0のスカラ値で、0.0で完全に不透明となり、1.0で完全に透明となります。デフォルトでは0.0となっています。
 
-ここではdiffuseColor、specularColor、shininessnoの3つのパラメータを設定することで、少し金属的な光沢のある緑色の材質を表現しています。
+ここではdiffuseColor、specularColor、shininessの3つのパラメータを設定することで、少し金属的な光沢のある緑色の材質を表現しています。
 
 .. note:: このような形状の記述については、文法的には多少異なるものの、その構造や形状タイプ、パラメータ等について `VRML97 <http://tecfa.unige.ch/guides/vrml/vrml97/spec/>`_ で定義されているもの（ `Shape <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Shape>`_ 、 `Box <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Box>`_ 、`Sphere <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Sphere>`_ 、 `Cylinder <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cylinder>`_ 、 `Cone <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Cone>`_ 、 `Appearance <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Appearance>`_ 、 `Material <http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#Material>`_ 等）を踏襲するようにしています。VRML97はOpenHRP形式のモデルファイルでベースとしていた形式なので、それの利用経験がある方でしたら勝手をつかみやすいのではないかと思います。
 
@@ -420,7 +420,7 @@ nameに指定したように、本リンクの名前は "TURRET_Y" としてい�
 .. _modelfile_yaml_alias:
 
 エイリアスの利用
---------
+----------------
 
 上記の形状記述において、appearanceについてはCHASSISリンクと同じでよいので、 :ref:`modelfile_yaml_chassis_shape` で設定した内容を再利用することにします。CHASSISリンクのappearanceには"BodyAppearance"という名前で :ref:`modelfile_yaml_anchor` を行いました。ここでその内容を ::
 
@@ -431,7 +431,7 @@ nameに指定したように、本リンクの名前は "TURRET_Y" としてい�
 .. _modelfile_yaml_offset_position:
 
 リンク相対位置の記述
-----------
+--------------------
 
 TURRET_Yリンクは、CHASSISリンクの小リンクとしてモデリングします。
 
@@ -466,7 +466,7 @@ TURRET_Yリンクは、CHASSISリンクの小リンクとしてモデリング�
 このパラメータの実際の使用例は後ほど紹介します。
 
 関節の記述
------
+----------
 
 親子関係のある２つのリンクは通常関節によって接続されます。TURRET_Yリンクについても、親リンクCHASSISに対してヨー軸の関節で接続され、CHASSISに対するヨー軸向きを変えられるようになっています。これに関する情報は、TURRET_Yリンクの以下のパラメータによって記述されています。 ::
 
@@ -502,7 +502,7 @@ jointIdには、この関節に割り振るID値（0以上の整数）を設定�
 このモデルは砲塔のヨー軸、ピッチ軸の２つの関節を持ちますので、関節IDとしてそれぞれ0と1を割り振ることにします。
 
 関節動作の確認
--------
+--------------
 
 関節が正しくモデリングできているかを確認する場合、ChoreonoidのGUI上で実際にモデルの関節を動かしてみることが有効です。 :doc:`../index` - :doc:`../pose-editing` で紹介した機能を用いてこれを試してみましょう。
 
@@ -521,7 +521,7 @@ TURRET_Yについては関節可動範囲を無制限にしているのですが
 .. _modelfile_yaml_TURRET_P_description:
 
 砲塔ピッチ軸部の記述
-----------
+--------------------
 
 次に砲塔ピッチ軸部を記述していきましょう。まず以下をlinks以下に追加してください。
 
@@ -568,7 +568,7 @@ nameに指定したように、このリンクの名前は "TURRET_P" として�
 砲塔ピッチ軸の土台となる部分が追加されました。
 
 RigidBodyノード
-------------
+---------------
 
 上記の記述において、 :ref:`modelfile_yaml_rigidbody_parameters` はLinkノードで行わずに、別途 RigidBody というノードを用いて行っています。
 
@@ -593,7 +593,7 @@ TURRET_PリンクではRigidBodyノードの使用例として、2つのRigidBod
 .. _modelfile_yaml_turret_pitch_shape:
 
 砲塔ピッチ軸土台部形状の記述
---------------
+----------------------------
 
 砲塔ピッチ軸土台部の形状は、以下のように記述しています。 ::
 
@@ -610,7 +610,7 @@ appearanceについては、先ほどと同様にBodyAppearanceをエイリア�
 
 
 砲身部分の記述
--------
+--------------
 
 次に砲身部分の記述も追加しましょう。以下のコードをTURRET_Pリンクのelementsに追加してください（インデントを合わせるよう注意して下さい）。 
 
@@ -649,7 +649,7 @@ appearanceについては、先ほどと同様にBodyAppearanceをエイリア�
 .. _modelfile_yaml_transform_node:
 
 Transformノード
-------------
+---------------
 
 砲身部分の記述では、RigidBodyノードの上位に ::
 
@@ -692,7 +692,7 @@ Transformノードは、そのelements以下に記述する内容の座標系を
 .. _modelfile_yaml_transform_parameters:
 
 Transformパラメータ
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Transformノードを用いる代わりに、対象となるノードに直接 translation や rotation のパラメータを記述する方法もあります。これらのパラメータを「Transformパラメータ」と呼びます。
 
@@ -842,12 +842,12 @@ materialではemissiveColorも設定し、暗闇の中でもライトの部分�
          rotation: [ [ 1, 0, 0, 90 ], [ 0, 1, 0, -90 ] ]
          format: COLOR_DEPTH
          fieldOfView: 65
+         nearClipDistance: 0.02
          width: 320
          height: 240
          frameRate: 30
          elements:
            Shape:
-             translation: [ 0, 0, 0.005 ]
              rotation: [ 1, 0, 0, 90 ]
              geometry:
                type: Cylinder
@@ -857,7 +857,7 @@ materialではemissiveColorも設定し、暗闇の中でもライトの部分�
                material:
                  diffuseColor: [ 0.2, 0.2, 0.8 ]
                  specularColor: [ 0.6, 0.6, 1.0 ]
-                 shininesss: 0.6
+                 shininess: 0.6
 
 カメラはCameraノードを用いて記述します。
 
@@ -902,6 +902,12 @@ rotationによる姿勢の指定方法は :ref:`modelfile_yaml_offset_position` 
 ここではカメラのレンズを想定したものとして、シリンダ形状を付与しています。これにより、モデルの表示は以下のようになります。
 
 .. image:: images/tank_camera.png
+
+なお、カメラの定義にて ::
+
+ nearClipDistance: 0.02
+
+という記述をしています。これはカメラ画像内に収める外界の範囲をカメラ中心点より少し前方にずらすための記述です。今回カメラの形状を付与していることにより、そのままではその形状によって前方の視界が遮られることになってしまいます。この記述を入れることで、カメラ形状の外側をカメラ画像に映すことが可能となります。
 
 .. _modelfile_yaml_crawlers:
 

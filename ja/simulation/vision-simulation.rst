@@ -114,27 +114,37 @@ GLビジョンシミュレータの設定項目
 
 まず、対象とするロボットモデルとして、Cameraデバイスを有するものを用意します。そのようなモデルであれば何でもよいのですが、以下ではSR1モデルを用いることにします。
 
-SR1モデルでは、そのモデルファイル"SR1.wrl"において視覚センサが以下のように定義されています。 ::
+SR1モデルでは、そのモデルファイル "SR1.body" において視覚センサが以下のように定義されています。
 
- DEF LeftCamera VisionSensor {
-   translation   0.15 0.05 0.15
-   rotation      0.4472 -0.4472 -0.7746 1.8235
-   name          "LeftCamera"
-   type          "COLOR_DEPTH"
-   sensorId      0
-   ...
- }
- 
- DEF RightCamera VisionSensor {
-   translation   0.15 -0.05 0.15
-   rotation      0.4472 -0.4472 -0.7746 1.8235
-   name          "RightCamera"
-   type          "COLOR_DEPTH"
-   sensorId      1
-   ...
- }
+.. code-block:: yaml
 
-ここではロボットの左目、右目に対応する2つのVisionSensorノードが定義されており、それらのtypeは"COLOR_DEPTH"となっていますので、Choreonoid上ではどちらも"RangeCamera"型のデバイスになります。RangeCamera型はCamera型を継承した型なので、Camera型としてその画像データにアクセスすることも可能です。
+ -
+   type: Camera
+   name: LeftCamera
+   translation: [ 0.15, 0.05, 0.15 ]
+   rotation: [ [ 0, 1, 0, -90 ], [ 0, 0, 1, -90 ] ]
+   id: 0
+   format: COLOR
+   nearClipDistance: 0.1
+   elements: &CameraShape
+     Transform:
+       rotation: [ 1, 0, 0, 90 ]
+       elements:
+         Shape:
+           geometry: { type: Cylinder, radius: 0.02, height: 0.025 }
+           appearance:
+             material: { diffuseColor: [ 1, 0, 0 ] }
+ -
+   type: Camera
+   name: RightCamera
+   translation: [ 0.15, -0.05, 0.15 ]
+   rotation: [ [ 0, 1, 0, -90 ], [ 0, 0, 1, -90 ] ]
+   id: 1
+   format: COLOR
+   nearClipDistance: 0.1
+   elements: *CameraShape
+
+ここではロボットの左目、右目に対応する2つのCameraデバイスのノードが定義されています。それらのformatは "COLOR" となっており、カラーのカメラ画像を取得することが可能です。
 
 シミュレーションプロジェクトの作成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,8 +196,8 @@ SR1モデルでは、そのモデルファイル"SR1.wrl"において視覚セ�
 
 以上の状態でシミュレーションを開始してください。するとまずメッセージビューに以下のメッセージが表示されます。 ::
 
- Sensor type: RangeCamera, id: 0, name: LeftCamera
- Sensor type: RangeCamera, id: 1, name: RightCamera
+ Sensor type: Camera, id: 0, name: LeftCamera
+ Sensor type: Camera, id: 1, name: RightCamera
 
 これは対象のモデルが有しているCameraデバイスをリストアップしたもので、それぞれの実際の型、デバイスid、および名前を表示しています。
 
@@ -206,7 +216,7 @@ SR1モデルでは、そのモデルファイル"SR1.wrl"において視覚セ�
 
 .. note:: 画像ビューアの中には、ファイルの更新を自動的に検知して表示を更新する機能を有するものがあります。例えば、Linux上で動作する画像ビューアの "gThumb" はこの機能を有しています。(Ubuntuでは "apt-get install gthumb" でインストールできます。）そのようなビューアを用いると、シミュレーションの進行に伴ってカメラ画像が更新されていく様子が確認できます。
 
-今回対象としているセンサはRangeCameraですので、通常の画像データに加えて距離画像データも生成されています。そちらのデータについても画像データと同様にアクセスできますので、興味があればサンプルコントローラを改良するなどして試してみて下さい。
+今回対象としているデバイスは通常のCamera型となりますが、モデルファイル中のCameraノードにおいて format に COLOR_DEPTH を指定すると、距離画像データも取得可能なRangeCameraとすることができます。その場合、距離画像データについても画像データと同様にアクセスできますので、興味があればSR1モデルやサンプルコントローラを改良して試してみて下さい。
 
 
 サンプルコントローラの実装内容
@@ -278,7 +288,7 @@ Cameraデバイスの使用については、 ::
 
  cameras << io->body()->devices();
 
-とすることでロボットモデルが有する全てのCameraデバイスを取得しています。RangeCamera型はCamera型を継承していますので、モデルがRangeCameraを有していればそちらも取得されます。
+とすることでロボットモデルが有する全てのCameraデバイスを取得しています。
 
 このようにして取得したCameraデバイスに関して、initialize関数のforループ内で ::
 
