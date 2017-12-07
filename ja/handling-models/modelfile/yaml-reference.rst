@@ -232,7 +232,7 @@ Shapeノード
 幾何形状ノード
 ~~~~~~~~~~~~~~
 
-幾何形状の記述には、以下のBox、Shpere、Cyinder、Capsule、Cone、Extrusion、ElevationGridのいずれかのノードを使用することができます。
+幾何形状の記述には、以下のBox、Shpere、Cyinder、Capsule、Cone、Extrusion、ElevationGrid、IndexedFaceSetのいずれかのノードを使用することができます。
 
 .. _body-file-reference-box-node:
 
@@ -408,6 +408,41 @@ ElevationGridノードはグリッドの格子点ごとに高さを与えた地�
 
 ※参照: http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#ElevationGrid
 
+
+.. _body-file-reference-IndexedFaceSet-node:
+
+IndexedFaceSetノード
+''''''''''''''''''''''''
+
+IndexedFaceSetノードは、リストされた頂点から面（ポリゴン）を作成することによって形状を記述する幾何形状ノードです。
+
+.. list-table:: IndexedFaceSetノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - type
+   - IndexedFaceSet
+ * - coordinate
+   - | 頂点の座標を指定。 coordinate: [ x0, y0, z0, x1, y1, z1, ・・・, xn, yn, zn ]
+     | のようにx座標,y座標、z座標を並べる。
+ * - coordIndex
+   - | coordで指定した座標に0からNまでインデックスを付けてポリゴン面を指定。インデックス「-1」は、現在の面が終了したことを示す。
+     | coordIndex: [ 0, 1, 2, 3, -1, 3, 2, 4, 5, -1、  ・・・ ] のようにインデックスを並べる。頂点の順序は反時計回り。
+ * - texCoord
+   - | textureを貼る場合に使用する。テクスチャを頂点にマッピングするための2次元座標を指定。
+     | texCoord: [ s0, t0, s1, t1, ・・・, sm, tm ]
+     | のように、テクスチャの左下を(0.0, 0.0), 右上を(1.0, 1.0)としたときの座標を並べる。
+ * - texCoordIndex
+   - | coordIndexと同様に、各頂点のテクスチャ座標を選択するために使用する。coordIndexフィールドと同じ数のインデックスを含み、同じ位置に面の終了記号である「-1」を含まなければならない。
+     | 指定しない場合は、CoordIndexが使用される。
+ * - creaseAngle
+   - 光源と法線ベクトルの角度によってシェーディングを変えるための閾値。creaseAngle未満のときはスムーズシェーディングされる。デフォルトは0。
+ 
+※参照: http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#IndexedFaceSet
+
+
 .. _body-file-reference-appearance-node:
 
 Appearanceノード
@@ -421,6 +456,10 @@ Appearanceノード
    - 内容
  * - material
    - 物体表面の材質を :ref:`body-file-reference-material-node` として記述
+ * - texture
+   - 物体表面のテクスチャを :ref:`body-file-reference-texture-node` として記述
+ * - textureTransform
+   - テクスチャの平行移動・回転・拡大縮小を :ref:`body-file-reference-textureTransform-node` として記述
 
 .. _body-file-reference-material-node:
 
@@ -445,6 +484,46 @@ Materialノード
    - 鏡面反射率(光のハイライトの色) (RGBそれぞれ0.0〜1.0のリスト)
  * - transparency
    - 透過度(0:透明 〜 1:不透明)
+
+.. _body-file-reference-texture-node:
+
+Textureノード
+~~~~~~~~~~~~~~
+
+.. list-table:: textureノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - url
+   - テクスチャファイルのパス
+ * - repeatS
+   - テクスチャを水平方向に繰り返し表示することを指定
+ * - repeatT
+   - テクスチャを垂直方向に繰り返し表示することを指定
+   
+.. _body-file-reference-textureTransform-node:
+
+TextureTransformノード
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: textureTransformノードのフィールド
+ :widths: 15,85
+ :header-rows: 1
+
+ * - キー
+   - 内容
+ * - translation
+   - 位置のオフセット
+ * - rotation
+   - 姿勢のオフセット
+ * - scale
+   - サイズの拡大・縮小
+ * - center
+   - rotation,scaleの中心点
+
+※参照: http://tecfa.unige.ch/guides/vrml/vrml97/spec/part1/nodesRef.html#TextureTransform
 
 .. _body-file-reference-resource-node:
 
