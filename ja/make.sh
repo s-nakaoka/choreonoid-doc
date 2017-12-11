@@ -1,1 +1,1 @@
-sphinx-build -b html -c . . ../../../_build/html/ja/manuals/1.6
+sphinx-build -b html -c . . ../../website/_build/html/ja/manuals/1.6
