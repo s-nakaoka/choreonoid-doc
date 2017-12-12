@@ -4,7 +4,7 @@ Supported Platforms
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
-We have verified that Choreonoid version 1.6 operates on the following platforms:
+We have verified that development version of Choreonoid operates on the following platforms:
 
 * Ubuntu Linux 14.04, 16.04 (x64 architecture）
 
