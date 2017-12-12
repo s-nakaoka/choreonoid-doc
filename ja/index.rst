@@ -13,6 +13,7 @@ Choreonoidマニュアル
    basics/index
    handling-models/index
    simulation/index
+   agxdynamics/index
    openrtm/index
    plugin-development/index
    tips/index
