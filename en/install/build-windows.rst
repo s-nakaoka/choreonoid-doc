@@ -16,7 +16,7 @@ To build Choreonoid from source and install, you will need the following tools a
 
 * Tools required
 
-  * Visual C++ 2015 or  Visual C++ 2013 
+  * Visual C++ 2015
   * `CMake <http://www.cmake.org/>`_ (3.5.2)
 
 - Libraries required
@@ -34,8 +34,8 @@ Generally speaking, if the first two numbers of your version number are the same
 
 Instructions on installing these tools and libraries follow below.
 
-Visual C++ 2015 or Visual C++ 2013
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Visual C++ 2015
+~~~~~~~~~~~~~~~
 
 You can use Microsoft Visual C++ to compile Choreonoid. 
 The standalone version can be used, or the free version. 
@@ -87,7 +87,6 @@ The figure below shows the menu that will appear, asking you which libraries to 
 By default, multiple versions will be selected. 
 However, old versions are not needed, and you must use the version that matches your compiler, so only select the most recent version. 
 In this example, we’ve selected the msvc2015 64bit version of Qt 5.6. For 32-bit, select msvc2015 32bit. 
-If you are using Visual C++ 2013, select msvc2013.
 
 After this step, installation will begin. 
 By default, Qt is installed to C:Qt. Remember this path for later.
@@ -213,7 +212,7 @@ A dialog like that seen below will appear, and you can select your compiler.
 
 .. figure:: images/cmake1.png
 
-Select “Visual Studio 14 2015 Win64”(64-bit) or “Visual Studio 14 2015” (32-bit), or ”Visual Studio 12 2013 Win64” or “Visual Studio 12 2013,” then click Finish.
+Select “Visual Studio 14 2015 Win64”(64-bit) or “Visual Studio 14 2015” (32-bit), then click Finish.
 
 This will then run CMake’s configure command and detect the compiler and libraries.
 
