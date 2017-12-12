@@ -6,7 +6,7 @@ Building and Installation from Source Code (for Ubuntu Linux)
 
 Even though there are different distributions of Linux, currently Ubuntu Linux is the only distribution version that Choreonoid officially supports. This document describes how to build Choreonoid from source code in Ubuntu Linux. You may be able to build other versions if you grasp the basics. Try to do so if required.
 
-In the latest development version of Choreonoid, we have verified the build process and operation for Ubuntu versions 12.04, 14.04 and the x64 architecture.
+In the latest development version of Choreonoid, we have verified the build process and operation for Ubuntu versions 14.04, 16.04 and the x64 architecture.
 
 
 .. contents::
@@ -21,11 +21,11 @@ Release version
 
 The source code of the release version of Choreonoid can be downloaded from its `download webpage <http://choreonoid.org/ja/download.html>`_. Please download the corresponding version of the "source package" from this site. As it is a ZIP file, you can use ::
 
- unzip choreonoid-1.5.0.zip
+ unzip choreonoid-1.6.0.zip
 
 to extract the source package to an appropriate directory.
 
-After executing the previous command a directory named choreonoid-1.5.0 containing the source code will be created. In the present manual, this directory is hereinafter referred to as the **"source directory"**.
+After executing the previous command a directory named choreonoid-1.6.0 containing the source code will be created. In the present manual, this directory is hereinafter referred to as the **"source directory"**.
 
 
 Development version
