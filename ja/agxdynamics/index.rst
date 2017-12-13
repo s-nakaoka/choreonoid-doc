@@ -9,5 +9,6 @@ AGX Dynamicsプラグイン
    requirements
    license
    install/install
+   getting-started
    agx-simulator-item
    agx-continuous-track
