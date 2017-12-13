@@ -83,9 +83,9 @@ Choreonoidがインストールがされていれば、それに対応するイ�
 
 * **--shared** (共有ライブラリとしてリンク）
 * **-L/usr/local/lib** (リンクパスの追加）
-* **-lCnoidUtil -lCnoidBody** (CoidUtilライブラリとCnoidBodyライブラリをリンク）
+* **-lCnoidUtil -lCnoidBody** (ChoreonoidのUtilライブラリとBodyライブラリをリンク）
 
-CnoidUtil、CnoidBodyのライブラリは、Choreonoid本体を構成するライブラリの一部です。CnoidUtilは様々な機能をまとめたユーティリティライブラリで、CnoidBodyはBodyモデル関連の機能をまとめたライブラリとなっています。シンプルコントローラはこれらのライブラリの機能を利用していますので、最低限これらのライブラリへのリンクが必要となります。
+Util、Bodyのライブラリは、Choreonoid本体を構成するライブラリの一部です。Utilライブラリは様々な機能をまとめたユーティリティライブラリで、Bodyライブラリは :doc:`../handling-models/bodymodel` 関連の機能をまとめたライブラリとなっています。シンプルコントローラはこれらのライブラリの機能を利用していますので、最低限これらのライブラリへのリンクが必要となります。
 
 .. note:: "/usr/local/include" や "/usr/local/lib" は標準でコンパイラのインクルードパスやライブラリパスに含まれている場合があります。その場合、上記の "-I/usr/local/include" や "-L/usr/local/lib" は必要ありません。ただし、Choreonoidを "/usr/local" 以外のディレクトリにインストールしている場合は、対応するパスの追加が通常必要になります。
 
@@ -102,68 +102,70 @@ CnoidUtil、CnoidBodyのライブラリは、Choreonoid本体を構成するラ�
 
 pkg-configの利用
 ~~~~~~~~~~~~~~~~
+
 .. highlight:: sh
 
 Choreonoidをインストールすると、 `pkg-config <https://www.freedesktop.org/wiki/Software/pkg-config/>`_ を利用したコンパイルオプションの設定ができるようになります。
 
 具体的には、 ::
 
- pkg-config --cflags choreonoid
+ pkg-config --cflags choreonoid-body
 
-を実行すると、Choreonoidを利用したプログラムのコンパイルに必要なオプションが出力されますし、 ::
+を実行すると、Bodyライブラリを利用したプログラムのコンパイルに必要なオプションが出力されますし、 ::
 
- pkg-config --libs choreonoid
+ pkg-config --libs choreonoid-body
 
-を実行すると、Choreonoidを利用したプログラムのリンクに必要なオプションが出力されます。
-
-実際には、上記のコマンドで "choreonoid" と指定しているのは、choreonoidのベース部分のみを指しています。シンプルコントローラについては、これに加えてBodyモデル関連の機能も必要となります。その場合は、"choreonoid" の部分を "choreonoid-body-plugin" に置き換えて、 ::
-
- pkg-config --cflags choreonoid-body-plugin
- pkg-config --libs choreonoid-body-plugin
-
-といったかたちで実行します。
+を実行すると、Bodyライブラリを利用したプログラムのリンクに必要なオプションが出力されます。
 
 このコマンドを用いることにより、Choreonoidがどこにインストールされているか、どのライブラリとリンクする必要があるか、といったことをあまり気にせずに、Choreonoidを利用したプログラムをビルドすることができます。
 
-ただし、pkg-config を利用するためには、Choreonoidのインストール先がpkg-configのシステムから認識されている必要があります。デフォルトのインストール先である "/usr/local" に関しては元々pkg-configから認識されるようになっていますが、それ以外のディレクトリにChoreonoidをインストールする場合は、環境変数 "PKG_CONFIG_PATH" 等の設定が必要になることがあります。
+コマンドで "choreonoid-body" と指定している部分は、pkg-configにおいてChoreonoidのBodyライブラリに対応する識別子です。Choreonoidをインストールすると、以下の識別子でChoreonoidの各ライブラリに関する情報を取得できるようになります。
 
-例えば、Choreonoidをホームディレクトリの usr 以下にインストールした場合は、
+* **choreonoid-util** : Utilライブラリ
+* **choreonoid-body** : Bodyライブラリ
+* **choreonoid-base** : Baseライブラリ
+* **choreonoid-body-plugin** : Bodyプラグインライブラリ
+
+シンプルコントローラをビルドする際には通常choreonoid-bodyを用いればOKです。
+
+.. note:: Baseライブラリは、Choreonoidのプラグインを開発する際に使用する基盤ライブラリです。また、Bodyプラグインライブラリは、Bodyプラグインの機能をライブラリとして外部から利用できるようにしたもので、Bodyプラグインに依存する他のプラグインを開発する際に使用します。
+
+なお、pkg-configで上記の識別子を利用するためには、Choreonoidのインストール先がpkg-configのシステムから認識されている必要があります。デフォルトのインストール先である "/usr/local" にインストールする場合はそのままでpkg-configから認識されるようになっていますが、それ以外のディレクトリにChoreonoidをインストールする場合は、環境変数 "PKG_CONFIG_PATH" 等の設定が必要になることがあります。
+
+例えば、Choreonoidをホームディレクトリの usr 以下にインストールした場合は、 ::
 
  export PKG_CONFIG_PATH=$HOME/usr/lib/pkgconfig
 
 を実行しておきます。
 
-.. note:: ここで使っているpkg-configの識別子 "choreonoid-body-plugin" については、本来 "Bodyプラグイン" を利用したプログラムの開発で必要となるオプションに対応しています。シンプルコントローラが依存しているのはそのサブセットである "CnoidBodyライブラリ" となりますので、上記の指定による出力は少し冗長になっているところがあります。これについては今後のバージョンで Bodyライブラリに対応する "choreonoid-body" も指定できるようにしたいと思います。
-
 .. _simulation-build-controller-commands:
 
 ビルドコマンドの実行例
 ~~~~~~~~~~~~~~~~~~~~~~
-.. highlight:: sh
 
 実際にビルドを行うコマンドの例について、Ubuntu Linuxを対象に紹介します。
 
 コントローラのソースファイルは "MyController.cpp" であるとします。これをどこか適当なディレクトリに格納して、コマンドライン上からそのディレクトリに移動してください。
 
-以下のコマンドでコンパイルを行うことができます。::
+以下のコマンドでコンパイルを行うことができます。 ::
 
- g++ -std=c++11 -fPIC `pkg-config --cflags choreonoid-body-plugin` -c MyController.cpp
+ g++ -std=c++11 -fPIC `pkg-config --cflags choreonoid-body` -c MyController.cpp
 
 これを実行すると MyController.cpp をコンパイルした MyController.o というオブジェクトが生成されます。
 
 次に、以下のコマンドでリンクを行います。 ::
 
- g++ --shared -std=c++11 `pkg-config --libs choreonoid-body-plugin` -o MyController.so MyController.o
+ g++ --shared -std=c++11 -o MyController.so MyController.o `pkg-config --libs choreonoid-body`
 
 これにより、MyController.so というファイルが生成されます。これがコントローラのバイナリファイルで、シンプルコントローラアイテムの「コントローラモジュール」に指定して使うことが可能です。
 
 必要であれば標準ディレクトリへのインストールもしておきます。 ::
 
- cp MyController.so `pkg-config --variable=plugindir choreonoid`/simplecontroller
+ cp MyController.so `pkg-config --variable=simplecontrollerdir choreonoid-body`
 
-このpkg-configの使い方で、インストールされているChoreonoidのシンプルコントローラ用標準ディレクトリを取得することができます。/usr/local 以下にインストールされている場合は、上記コマンドにsudoをつけて ::
+このpkg-configの使い方で、シンプルコントローラ用標準ディレクトリのパスを取得することができます。/usr/local 以下にインストールされている場合は、上記コマンドにsudoをつけて ::
 
- sudo cp MyController.so `pkg-config --variable=plugindir choreonoid`/simplecontroller
+ sudo cp MyController.so `pkg-config --variable=simplecontrollerdir choreonoid-body`
 
 として実行してください。
 
@@ -172,26 +174,31 @@ Choreonoidをインストールすると、 `pkg-config <https://www.freedesktop
 Makefileの例
 ~~~~~~~~~~~~
 
-上で述べたコマンドを毎回実行するのは大変です。これを避けてビルドの操作を簡略化するために、Makeコマンドを使うことができます。Makeコマンドでは、ビルド方法をMakefileという名前のファイルに記述します。以下にMyControllerをビルドするためのMakefileの例を示します。
+.. highlight:: makefile
+   :linenothreshold: 5
 
-.. code-block:: makefile
+上で述べたコマンドを毎回実行するのは大変です。これを避けてビルドの操作を簡略化するために、Makeコマンドを使うことができます。Makeコマンドでは、ビルド方法をMakefileという名前のファイルに記述します。以下にMyControllerをビルドするためのMakefileの例を示します。 ::
 
  CONTROLLER=MyController.so
  SRC=MyController.cpp
  OBJ=$(SRC:%.cpp=%.o)
  
  $(CONTROLLER): $(OBJ)
- 	g++ --shared -std=c++11 `pkg-config --libs choreonoid-body-plugin` -o $(CONTROLLER) $(OBJ)
-
+	g++ --shared -std=c++11 -o $(CONTROLLER) $(OBJ) `pkg-config --libs choreonoid-body`
+ 
  %.o: %.cpp
- 	g++ -std=c++11 -fPIC `pkg-config --cflags choreonoid-body-plugin` -c $<
-
+	g++ -std=c++11 -fPIC `pkg-config --cflags choreonoid-body` -c $<
+ 
  install: $(CONTROLLER)
- 	install -s $(CONTROLLER) `pkg-config --variable=plugindir choreonoid`/simplecontroller
+ 	install -s $(CONTROLLER) `pkg-config --variable=simplecontrollerdir choreonoid-body`
  clean:
- 	rm -f *.o *.so
+	rm -f *.o *.so
 
-MyController.cpp を格納しているディレクトリに、上記の内容を記述したファイルを "Makefile" という名前で作成してください。コマンドラインからそのディレクトリに移動し、 ::
+Makefileの仕様上、6、9、12、14行目は行頭からタブを用いてインデントをつける必要がありますので、ご注意下さい。（スペースの場合エラーになります。）
+
+.. highlight:: sh
+
+MyController.cpp を格納しているディレクトリに、上記の内容を記述したファイルを "Makefile" という名前で作成します。コマンドラインからそのディレクトリに移動し、 ::
 
  make
 
@@ -205,4 +212,6 @@ MyController.cpp を格納しているディレクトリに、上記の内容を
 
 Makefileの書き方については、 `Makeのマニュアル <https://www.gnu.org/software/make/manual/>`_ などを参照してください。
 
-ただし、実際にはMakefileを直接書くことはあまりありません。CMake等、より高水準の記述が可能なビルドツールの使用が一般的になっているからです。CMakeはChoreonoid本体のビルドでも使っているため、コントローラを :ref:`simulation-build-controller-method1` でも用いていますが、CMakeはコントローラをChoreonoid本体とは別にビルドする場合でも用いることができます。ただしその場合のCMakeの実行方法やCMakeLists.txtの記述は :ref:`simulation-build-controller-method1` とは少し異なってきますので、ご注意下さい。CMakeについては別途 `CMakeのマニュアル <https://cmake.org/documentation/>`_ を参照してください。
+.. note:: ここでは省略しましたが、コンパイル・リンクにおいては通常-O2または-O3といったオプションも付与します。これらは最適化を有効にするオプションで、これにより生成されるプログラムの実行速度が速くなります。あるいは、デバッグを行う際には、-g といったデバッグ用のオプションをつけて、デバッグ用の情報も生成されるようにします。これらの詳細については、コンパイラのマニュアルや、C/C++プログラム開発に関する各種情報を参照するようにしてください。
+
+実際にはMakefileを直接書くことはあまりありません。CMake等、より高水準の記述が可能なビルドツールの使用が一般的になっているからです。CMakeはChoreonoid本体のビルドでも使っているため、コントローラを :ref:`simulation-build-controller-method1` でも用いていますが、CMakeはコントローラをChoreonoid本体とは別にビルドする場合でも用いることができます。ただしその場合のCMakeの実行方法やCMakeLists.txtの記述は :ref:`simulation-build-controller-method1` とは少し異なってきますので、ご注意下さい。CMakeについては別途 `CMakeのマニュアル <https://cmake.org/documentation/>`_ を参照してください。
