@@ -6,6 +6,8 @@ AGX Dynamicsプラグイン
    :maxdepth: 3
 
    about
-   install
+   requirements
+   license
+   install/install
    agx-simulator-item
    agx-continuous-track
