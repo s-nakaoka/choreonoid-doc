@@ -43,3 +43,27 @@ AGX Dynamicsのサンプルを実行して動作確認をします。
    # AGX Dynamicsの動作確認
    cd /opt/Algoryx/AgX-2.19.1.1/bin
    ./tutorial_trackedVehicle
+
+
+.. note::
+   VMWareなどの仮想マシン上ではウィンドウが開かず失敗する場合があります。
+
+   .. code-block:: txt
+
+      $ ./tutorial_trackedVehicle
+         AGX Library 64Bit AgX-2.19.1.1-81db33e Algoryx(C)
+         Tutorial Tracked Vehicle (agxVehicle::Track)
+        --------------------------------
+      Caught exception: Failed to find window with number: 0
+   ..
+
+   この場合は以下のコマンドで確認をしてください。--agxOnlyは描画なし、--stopAt 5は5秒シミュレーションをしたのち終了するオプションです。
+
+   .. code-block:: txt
+
+      ./tutorial_trackedVehicle --agxOnly --stopAt 5
+         AGX Library 64Bit AgX-2.19.1.1-81db33e Algoryx(C)
+         Tutorial Tracked Vehicle (agxVehicle::Track)
+         --------------------------------
+      Loading scene took 0.236783 sec
+      Stepping 301 timesteps (5.01667 sec simulated time) took 1.69487 sec
