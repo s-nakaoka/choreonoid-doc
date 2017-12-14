@@ -418,5 +418,3 @@ HelloWorldPlugin用のCMakeLists.txtは以下のようになっています。 :
 プラグインに共通のビルド設定をしてくれる関数で、ChoreonoidソースのトップディレクトリにあるCMakeLists.txtにて定義されているものです。これを書いておけば、"make install" 時にインストールするといった処理も行ってくれます。
 
 CMakeLists.txt の記述法の詳細は `CMakeのマニュアル <http://www.cmake.org/cmake/help/help.html>`_ を参照してください。また、このサンプルも含めて、Choreonoid内部の他のライブラリやプラグイン、サンプルのCMakeLists.txtを読むことで、おおよその書き方が分かってくるかと思います。
-
-
