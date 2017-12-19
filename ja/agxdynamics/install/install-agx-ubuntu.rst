@@ -2,6 +2,10 @@
 AGX Dynamicsのインストール(Ubuntu Linux編)
 ============
 
+.. contents::
+   :local:
+   :depth: 1
+
 | AGX Dynamics Ubuntu版のインストール方法について説明します。
 | AGX Dynamicsダウンロードサイトからdebパッケージをダウンロードし、/var/tmpディレクトリに保存している状態から始めます。
 | 本稿では説明のためにagx-setup-2.19.1.2-x64-ubuntu_16.04-double.debをインストールすることとします。
