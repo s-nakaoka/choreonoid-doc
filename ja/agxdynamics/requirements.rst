@@ -2,7 +2,7 @@
 利用要件
 ------------------
 
-ChoreonoidのAGXDynamicsPluginを利用するためには、以下の要件を満たす必要があります。
+ChoreonoidのAGXDynamicsプラグインを利用するためには、以下の要件を満たす必要があります。
 
 * AGX Dynamicsの実行ライセンスの購入とSDKの取得
 * 実行環境にAGX Dynamicsをインストール

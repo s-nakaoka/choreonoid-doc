@@ -2,7 +2,7 @@
 物理マテリアル
 ==============
 
-AGXDynamicsPluginを利用時には以下の物理マテリアル(物性)を利用することができます。
+AGXDynamicsプラグインを利用時には以下の物理マテリアル(物性)を利用することができます。
 
 .. contents::
    :local:
@@ -52,7 +52,7 @@ Material
   :widths: 10,7,7,75
   :header-rows: 1
 
-  * - プロパティ
+  * - パラメータ
     - デフォルト値
     - 単位/型
     - 意味
@@ -75,7 +75,7 @@ Material
   :widths: 10,7,7,75
   :header-rows: 1
 
-  * - プロパティ
+  * - パラメータ
     - デフォルト値
     - 単位/型
     - 意味
@@ -85,8 +85,8 @@ Material
     - 反発粘性。反発を表現します。反発粘性のペアが反発係数となります。
   * - damping
     - 0.075
-    - \-
-    - ダンパ。剛体の侵入の緩和に利用します。
+    - s
+    - ダンパ。接触拘束条件を満たすまでの時間。剛体の侵入の緩和に利用します。
   * - roughness
     - 0.416667
     - \-
@@ -104,32 +104,32 @@ Material
     - m
     - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
 
-* ワイヤー
+* ワイヤーマテリアル
 
 .. list-table::
   :widths: 10,7,7,75
   :header-rows: 1
 
-  * - プロパティ
+  * - パラメータ
     - デフォルト値
     - 単位/型
     - 意味
   * - wireYoungsModulusStretch
     - 6E10
-    - m
-    - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
+    - GPa
+    - 引張ヤング率
   * - wireDampingStretch
     - 0.075
-    - m
-    - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
+    -
+    - 引張拘束のダンパ
   * - wireYoungsModulusBend
     - 6E10
-    - m
-    - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
+    - GPa
+    - 曲げヤング率。0にすると鎖のような振る舞いになります。
   * - wireDampingBend
     - 0.075
-    - m
-    - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
+    -
+    - 曲げ拘束のダンパ
 
 ContactMaterial
 ~~~~~~~~~~~~~~~~~
@@ -138,7 +138,7 @@ ContactMaterial
   :widths: 10,7,7,75
   :header-rows: 1
 
-  * - プロパティ
+  * - パラメータ
     - デフォルト値
     - 単位/型
     - 意味
@@ -152,16 +152,16 @@ ContactMaterial
     - 反発係数。0:完全非弾性衝突、1:完全弾性衝突
   * - damping
     - 0.075
-    -
+    - s
     - ダンパ
   * - friction
     - 0.5
     - double
     - 摩擦係数
-  * - friction
+  * - secondaryFriction
     - -1.0
     - double
-    - 摩擦係数
+    - 副方向摩擦係数。摩擦モデルorientedBox指定時にsecondaryFriction>=0で有効となります。
   * - surfaceViscosity
     - 1.0E-8
     - double
@@ -169,7 +169,7 @@ ContactMaterial
   * - secondarySurfaceViscosity
     - -1.0
     - double
-    - 表面粘性係数
+    - 副方向表面粘性係数。摩擦モデルorientedBox指定時にsecondaryFriction>=0で有効となります。
   * - adhesionForce
     - 0.0
     - N
@@ -191,7 +191,19 @@ ContactMaterial
   * - contactReductionBinResolution
     - 0
     - uint8_t
-    - 接触点削減ビン解像度: 0はAGXSimulatorアイテムのプロパティを利用
+    - 接触点削減ビン解像度。0の場合はAGXSimulatorアイテムのパラメータを利用します。
+  * - primaryDirection
+    - [ 0, 0, 0 ]
+    - Vec3
+    - 摩擦モデルorientedBox指定時の主要方向ベクトル
+  * - referenceBodyName
+    - \-
+    - string
+    - 摩擦モデルorientedBox指定時の参照Body名
+  * - referenceLinkName
+    - \-
+    - string
+    - 摩擦モデルorientedBox指定時の参照Link名
 
 .. note::
   AGXDynamicsは動摩擦係数、静止摩擦係数の区別がありません。実際、値の差は10-20%程度であり、ほとんどの状況では気にしなくて良いとの考えです。

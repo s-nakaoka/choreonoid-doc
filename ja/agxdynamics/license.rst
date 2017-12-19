@@ -6,5 +6,5 @@ AGX Dynamics
 ------------------
 
 
-AGXDynamicsPlugin
+AGXDynamicsプラグイン
 ------------------------------------

@@ -8,7 +8,7 @@
 シミュレーションの実行方法
 ------------------------------
 
-| AGXDynamicsPluginを用いたシミュレーションは :ref:`他の物理シミュレータ<simulation_creation_and_configuration_of_simulator_item>` を利用する方法と同様の方法で実現できます。
+| AGXDynamicsプラグインを用いたシミュレーションは :ref:`他の物理シミュレータ<simulation_creation_and_configuration_of_simulator_item>` を利用する方法と同様の方法で実現できます。
 | シミュレータアイテム「AGXSimulator」を生成し、ワールドアイテムの子アイテムとして配置することで実行可能となります。
 
 AGXSimulatorアイテムの生成と設定

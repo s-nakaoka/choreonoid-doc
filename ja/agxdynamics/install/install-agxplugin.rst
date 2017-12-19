@@ -1,13 +1,13 @@
 
-AGXDynamicsPluginのビルドとインストール
+AGXDynamicsプラグインのビルドとインストール
 ----------------------------------------
 
-| AGXDynamicsPluginはChoreonoidのソースコードに同梱されております。
+| AGXDynamicsプラグインはChoreonoidのソースコードに同梱されております。
 | Choreonoidのビルド前に行う :ref:`build-ubuntu-cmake` のcmakeオプションで
 | 以下のオプションを **ON** にすることでビルドすることができます。
 
-* **BUILD_AGX_DYNAMICS_PLUGIN**      : AGXDynamicsPlugin - AGX Dynamicsのシミュレーションプラグイン
-* **BUILD_AGX_BODYEXTENSION_PLUGIN** : AGXBodyExtensionPlugin - 専用モデルプラグイン(ワイヤーなど)
+* **BUILD_AGX_DYNAMICS_PLUGIN**      : AGXDynamicsプラグイン - AGX Dynamicsのシミュレーションプラグイン
+* **BUILD_AGX_BODYEXTENSION_PLUGIN** : AGXBodyExtensionプラグイン - 専用モデルプラグイン(ワイヤーなど)
 
 | 以下にビルド、インストール方法の詳細を説明します。
 | まず、choreonoidのソースディレクトリに移動し、ccmakeまでコマンドを実行します。
@@ -33,7 +33,7 @@ Cmake Errorがでていないことを確認し、以下のようにmake、make 
 
 .. note::
 
-   AGXBodyExtensionPluginはAGXDynamicsPluginに依存しているため、BUILD_AGX_DYNAMICS_PLUGINがONにならないとccmakeで表示されません。
+   AGXBodyExtensionプラグインはAGXDynamicsプラグインに依存しているため、BUILD_AGX_DYNAMICS_PLUGINがONにならないとccmakeで表示されません。
    一度BUILD_AGX_DYNAMICS_PLUGINをONにしてconfigureを実行してみてください。
 
 .. note::
