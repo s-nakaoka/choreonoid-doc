@@ -15,6 +15,7 @@ Choreonoidマニュアル
    simulation/index
    agxdynamics/index
    openrtm/index
+   reference/index
    plugin-development/index
    tips/index
 
