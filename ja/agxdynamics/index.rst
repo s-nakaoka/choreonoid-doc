@@ -15,5 +15,6 @@ AGX Dynamicsプラグイン
   :maxdepth: 1
 
   agx-simulator-item
+  agx-body
   agx-material
-..  agx-continuous-track
+  agx-continuous-track
