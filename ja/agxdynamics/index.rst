@@ -7,7 +7,7 @@ AGX Dynamicsプラグイン
 
   about
   requirements
-  license
+  ..  license
   install/install
   getting-started
 

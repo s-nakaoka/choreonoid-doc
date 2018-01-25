@@ -15,7 +15,7 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
 1. マテリアルファイルにMaterial、ContactMaterialを記述
 2. ボディファイルにマテリアルファイルで定義したMaterialを設定
 
-をすることで調整することができます。
+で調整することができます。
 
 マテリアルファイル
 --------------
@@ -24,7 +24,7 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
 | このファイルは材質(Material)と同じまたは異なる材質の接触物性(ContactMaterial)を記述することができます。
 | ここで定義した材質名をBodyファイルに記述することで、モデルに材質を設定することができます。
 | マテリアルファイルはワールドアイテムのプロパティに設定することで、読み込まれます。
-| デフォルトではchoreonoid/share/default/materials.yamlが設定されており、自動的に読み込まれます。
+| デフォルトでは ``choreonoid/share/default/materials.yaml`` が設定されており、自動的に読み込まれます。
 
 .. code-block:: yaml
 
