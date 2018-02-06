@@ -75,7 +75,7 @@ AGXMagneticJointは以下のように記述し、利用します。
 4. breakTypeで破壊のタイプを設定します
   * breakType: forceの場合、breakLimitForceとperiodを設定します
   * breakType: impulseの場合、breakLimitImpulseを設定します
-5. 必要に応じてバネの硬さ、ダンピングをjointCompliance、jointDampingに設定します
+5. 必要に応じてバネの硬さ、ダンピングをjointCompliance、jointSpookDampingに設定します
 6. 必要に応じてvalidAxisを設定します。validAxisは関節軸のどの軸をbreakLimitの計算に利用するかを指定することができます。例えば、下図ではvalidAxisを[0, 1, 0]とすることで、XZ軸方向のに加えられた力は考慮しないということになります。
 
 .. image:: images/breakable_joint_validaxis.png
@@ -136,7 +136,7 @@ AGXMagneticJointは以下のように記述し、利用します。
     - m/N
     - double
     - 関節コンプライアンス
-  * - jointDamping
+  * - jointSpookDamping
     - 0.33
     - s
     - double

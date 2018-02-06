@@ -8,6 +8,14 @@ AGXDynamicsプラグインを利用時には以下の物理マテリアル(物�
    :local:
    :depth: 2
 
+サンプル
+--------
+
+AGXDynamicsPluginのマテリアルのサンプルが以下にあります。
+パラメータ値によって動作結果が異なることを確認することができます。
+
+* choreonoid/samples/AGXDynamics/agxMaterialSample.cnoid
+
 マテリアル設定の手順
 --------------
 AGXSimulatorで剛体間の摩擦係数、反発係数などは、
@@ -18,7 +26,7 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
 で調整することができます。
 
 マテリアルファイル
---------------
+----------------
 
 | マテリアルファイルは摩擦係数や反発係数などの物性を記述したリストファイルです。
 | このファイルは材質(Material)と同じまたは異なる材質の接触物性(ContactMaterial)を記述することができます。
@@ -42,7 +50,7 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
       materials: [ Ground, agxMat5 ]
       youngsModulus: 1.0E5
       restitution: 0.1
-      damping: 0.08
+      spookDamping: 0.08
       friction: 0.416667
       surfaceViscosity: 1.0E-8
       adhesionForce: 100
@@ -53,9 +61,10 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
 
 
 Material
-~~~~~~~~~~
+----------------
 
 バルクマテリアル
+~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 10,7,4,4,75
@@ -83,6 +92,7 @@ Material
     - ポアソン比
 
 サーフェスマテリアル(ContactMaterialが定義されている場合は利用されません)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 10,7,4,4,75
@@ -98,7 +108,7 @@ Material
     - \-
     - double
     - 反発粘性。反発を表現します。反発粘性のペアが反発係数となります。
-  * - damping
+  * - spookDamping
     - 0.075
     - s
     - double
@@ -124,7 +134,10 @@ Material
     - double
     - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
 
+.. _agx_wire_material:
+
 ワイヤーマテリアル
+~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 10,7,4,4,75
@@ -140,7 +153,7 @@ Material
     - GPa
     - double
     - 引張ヤング率
-  * - wireDampingStretch
+  * - wireSpookDampingStretch
     - 0.075
     - s
     - double
@@ -150,14 +163,14 @@ Material
     - GPa
     - double
     - 曲げヤング率。0にすると鎖のような振る舞いになります。
-  * - wireDampingBend
+  * - wireSpookDampingBend
     - 0.075
     - s
     - double
     - 曲げ拘束のダンパ
 
 ContactMaterial
-~~~~~~~~~~~~~~~~~
+----------------
 
 .. list-table::
   :widths: 10,7,4,4,75
@@ -178,7 +191,7 @@ ContactMaterial
     - \-
     - doulbe
     - 反発係数。0:完全非弾性衝突、1:完全弾性衝突
-  * - damping
+  * - spookDamping
     - 0.075
     - s
     - double
@@ -262,7 +275,7 @@ ContactMaterialが定義されていない場合
 
 * youngsModulus = (m1.youngsModulus * m2.youngsModulus)/(m1.youngsModulus + m2.youngsModulus)
 * restitution = sqrt((1-m1.viscosity) * (1-m2.viscosity))
-* damping = max(m1.damping, m2.damping)
+* spookDamping = max(m1.spookDamping, m2.spookDamping)
 * friction = sqrt(m1.roughness * m2.roughness)
 * surfaceViscosity = m1.surfaceViscosity + m2.surfaceViscosity
 * adhesionForce = m1.adhesionForce + m2.adhesionForce
@@ -366,7 +379,7 @@ ContactMaterialが定義されていない場合
       youngsModulus:
       poissonRatio:
       viscosity:
-      damping:
+      spookDamping:
       roughness:
       surfaceViscosity:
       adhesionForce:
@@ -396,16 +409,8 @@ ContactMaterialが定義されていない場合
       youngsModulus:                  # 以下は使用されない
       poissonRatio:
       viscosity:
-      damping:
+      spookDamping:
       roughness:
       surfaceViscosity:
       adhesionForce:
       adhesivOverlap:
-
-サンプル
---------
-
-AGXDynamicsPluginのマテリアルのサンプルが以下にあります。
-パラメータ値によって動作結果が異なることを確認してみてください。
-
-* choreonoid/samples/AGXDynamics/agxMaterialSample.cnoid

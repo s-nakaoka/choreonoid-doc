@@ -42,7 +42,7 @@ AGXMagneticJointは以下のように記述し、利用することができま�
           connectAxis1: [ 0, 1, 0 ]
           connectAxis2: [ 0, 0, 1 ]
           jointCompliance: 1e-6
-          jointDamping: 1.0
+          jointSpookDamping: 1.0
           validDistance: 1.0
           validAngle: 20
 
@@ -50,7 +50,7 @@ AGXMagneticJointは以下のように記述し、利用することができま�
 
 #. リンクのどの部分に接続したいのかをpositionとconnectionAxisに設定します
 
-#. どのくらいの力、速度で接続するのかをjointCompliacne、jointDampingに設定します
+#. どのくらいの力、速度で接続するのかをjointCompliacne、jointSpookDampingに設定します
 
 #. 接続が有効になる距離、角度をvalidDistance、validAngleに設定します
 
@@ -113,7 +113,7 @@ poistionはリンク座標系からみた相対位置、connectAxisはジョイ�
     - m/N
     - double
     - コンプライアンス
-  * - jointDamping
+  * - jointSpookDamping
     - 0.33
     - s
     - double
