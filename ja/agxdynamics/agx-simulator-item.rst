@@ -7,7 +7,7 @@ AGXSimulatorアイテムでは以下のプロパティが追加で利用でき�
 .. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
 .. list-table::
-  :widths: 10,7,4,4,75
+  :widths: 10,9,4,4,75
   :header-rows: 1
 
   * - パラメータ
@@ -34,19 +34,19 @@ AGXSimulatorアイテムでは以下のプロパティが追加で利用でき�
     - 12
     - 個
     - unsigned int
-    - 接触点削減開始閾値。Link同士の接触点が指定閾値以上になると、削減が行います。
+    - 接触点削減開始閾値。Link同士の接触点が指定閾値以上になると、接触点の削減をします。
   * - ContactWarmstarting
     - false
     - \-
     - bool
-    - 接触状態が前回のステップと変わらない場合、前回のソルバの状態を利用して計算量の削減を行います。
+    - 接触状態が前回のステップと変わらない場合、前回のソルバの解を利用して収束計算の高速化を行います。
   * - AutoSleep
     - false
     - \-
     - bool
-    - 静止している剛体をソルバから除き、計算量を減らします。true、falseを指定します。
+    - 静止している剛体をソルバから除き、計算量を減らします。true、falseを指定します。合わせて各リンクにautoSleepを設定する必要があります。詳細は  :doc:`agx-body` をご確認ください。
   * - SaveToAGXFileOnStart
     - false
     - \-
     - bool
-    - シミュレーション開始時にAGXDynamicsのファイル形式.agxにシーンの保存をします。保存場所はchoreonoidの実行バイナリが置かれているディレクトリです。AGXDynamics単体でのデバック、性能確認に利用できます。
+    - シミュレーション開始時にAGXDynamicsのファイル形式.agxにシーンの保存をします。保存場所はchoreonoidの実行バイナリが置かれているディレクトリまたは実行時のカレントディレクトリです。AGXDynamics単体でのデバック、性能確認に利用することができます。
