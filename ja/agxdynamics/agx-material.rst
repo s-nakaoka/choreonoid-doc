@@ -1,6 +1,6 @@
 
-AGX物理マテリアル
-==============
+物理マテリアルの追加パラメータ
+================================
 
 AGXDynamicsプラグインを利用時には以下の物理マテリアル(物性)を利用することができます。
 
@@ -16,20 +16,18 @@ AGXDynamicsPluginのマテリアルのサンプルが以下にあります。
 
 * choreonoid/samples/AGXDynamics/agxMaterialSample.cnoid
 
-マテリアル設定の手順
+マテリアルの設定手順
 --------------
-AGXSimulatorで剛体間の摩擦係数、反発係数などは、
+AGXSimulatorでリンク間の摩擦係数、反発係数などは、以下の手順で調整することができます。
 
 1. マテリアルファイルにMaterial、ContactMaterialを記述
 2. ボディファイルにマテリアルファイルで定義したMaterialを設定
 
-で調整することができます。
-
-マテリアルファイル
-----------------
+マテリアルファイルと記述方法
+--------------------------
 
 | マテリアルファイルは摩擦係数や反発係数などの物性を記述したリストファイルです。
-| このファイルは材質(Material)と同じまたは異なる材質の接触物性(ContactMaterial)を記述することができます。
+| このファイルは材質(Material)について、同じまたは異なる材質の接触物性(ContactMaterial)を記述することができます。
 | ここで定義した材質名をBodyファイルに記述することで、モデルに材質を設定することができます。
 | マテリアルファイルはワールドアイテムのプロパティに設定することで、読み込まれます。
 | デフォルトでは ``choreonoid/share/default/materials.yaml`` が設定されており、自動的に読み込まれます。
@@ -60,7 +58,7 @@ AGXSimulatorで剛体間の摩擦係数、反発係数などは、
       contactReductionBinResolution: 3
 
 
-Material
+Materialパラメータの説明
 ----------------
 
 バルクマテリアル
@@ -82,16 +80,16 @@ Material
     - 密度。リンクの質量、慣性テンソル、重心の自動計算に利用されます。
   * - youngsModulus
     - 4.0E8
-    - GPa
+    - Pa
     - double
-    - ヤング率。剛体の硬さを表します。値が小さいと剛体同士が侵入しやすくなります。
+    - ヤング率。リンク(剛体)の硬さを表します。値が小さいとリンク同士が侵入しやすくなります。
   * - poissonRatio
     - 0.3
     - \-
     - double
     - ポアソン比
 
-サーフェスマテリアル(ContactMaterialが定義されている場合は利用されません)
+サーフェスマテリアル
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -104,20 +102,20 @@ Material
     - 型
     - 意味
   * - viscosity
-    - 0.5
+    - 0.0
     - \-
     - double
-    - 反発粘性。反発を表現します。反発粘性のペアが反発係数となります。
+    - 反発粘性。反発粘性のペアが反発係数となります。
   * - spookDamping
     - 0.075
     - s
     - double
-    - ダンパ。接触拘束条件を満たすまでの時間。剛体の侵入の緩和に利用します。
+    - ダンパ。接触拘束条件を満たすまでの時間。リンク同士の侵入の緩和に利用します。
   * - roughness
-    - 0.416667
+    - 0.5
     - \-
     - double
-    - 表面粗さ。摩擦を表現します。表面粗さのペアが摩擦係数となります。
+    - 表面粗さ。表面粗さのペアが摩擦係数となります。
   * - surfaceViscosity
     - 5E-09
     - \-
@@ -127,12 +125,15 @@ Material
     - 0.0
     - N
     - double
-    - 粘着力。接着剤のような表現をする時に利用します。形状が接触している時、法線方向に働きます。
+    - 粘着力。形状が接触している時に法線方向に粘着力が働きます。接着剤のような振る舞いをさせたい時に利用します。
   * - adhesivOverlap
     - 0.0
     - m
     - double
-    - 粘着力有効距離。剛体の侵入量>有効距離となると粘着力が有効になります。
+    - 粘着力有効距離。リンクの侵入量>有効距離となると粘着力が有効になります。
+
+.. note::
+  ContactMaterialが定義されているものについては、ContactMaterialのパラメータが利用されます。Materialのサーフェスマテリアルは利用されません。
 
 .. _agx_wire_material:
 
@@ -150,26 +151,26 @@ Material
     - 意味
   * - wireYoungsModulusStretch
     - 6E10
-    - GPa
+    - Pa
     - double
     - 引張ヤング率
   * - wireSpookDampingStretch
     - 0.075
     - s
     - double
-    - 引張拘束のダンパ
+    - 引張スプークダンパ
   * - wireYoungsModulusBend
     - 6E10
-    - GPa
+    - Pa
     - double
     - 曲げヤング率。0にすると鎖のような振る舞いになります。
   * - wireSpookDampingBend
     - 0.075
     - s
     - double
-    - 曲げ拘束のダンパ
+    - 曲げスプークダンパ
 
-ContactMaterial
+ContactMaterialパラメータの説明
 ----------------
 
 .. list-table::
@@ -183,7 +184,7 @@ ContactMaterial
     - 意味
   * - youngsModulus
     - 2.0E8
-    - GPa
+    - Pa
     - double
     - ヤング率
   * - restitution
@@ -195,7 +196,7 @@ ContactMaterial
     - 0.075
     - s
     - double
-    - ダンパ
+    - スプークダンパ
   * - friction
     - 0.5
     - \-
@@ -271,7 +272,7 @@ ContactMaterialが定義されていない場合
 
 | 全てのMaterialのペアの物性がContactMaterialに記述されているのが望ましいのですが、難しいと思います。
 | ContactMaterialが設定されていない場合にはMaterialに記述されているパラメータついて以下の式に従って値を算出します。
-| Materialにもパラメータが設定されていいない場合にはデフォルト値が適用されます。
+| Materialにもパラメータが設定されていない場合にはデフォルト値が適用されます。
 
 * youngsModulus = (m1.youngsModulus * m2.youngsModulus)/(m1.youngsModulus + m2.youngsModulus)
 * restitution = sqrt((1-m1.viscosity) * (1-m2.viscosity))
@@ -294,7 +295,7 @@ ContactMaterialが定義されていない場合
   massType: density          # 密度を使った自動計算
 
 | また、材質はmaterialでマテリアルファイルに定義されているマテリアルか直接指定を選択することができます。
-| デフォルトはマテリアルファイルに定義されているDefault/defualtです。
+| デフォルトはマテリアルファイルに定義されているDefaultまたはdefualtです。
 
 .. code-block:: yaml
 
@@ -310,7 +311,7 @@ ContactMaterialが定義されていない場合
 従来記法
 ~~~~~~~~~
 
-* 従来のChoreonoidの記法です。
+* 従来のChoreonoidの記法です
 * 記載されいているcenterOfMass, mass, inertiaを利用します
 * Materialはdensityを除いて、defaultとなります
 * ContactMaterialはdefault vs xxxxx となります
@@ -339,7 +340,8 @@ ContactMaterialが定義されていない場合
       name: box1
       massType: density     # 密度を利用して重心、質量、慣性テンソルを自動計算する
       material: steel       # マテリアルファイルのsteelを利用
-      density: 1.0          # densityが記述されている場合はsteelのdensityをオーバライドして、直接記述されているものを利用します
+      density: 1.0          # densityが記述されている場合はsteelのdensityを
+                            # オーバライドして、直接記述されているものを利用します
 
 従来記法+マテリアルリストの利用(推奨)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
