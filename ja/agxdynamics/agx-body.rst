@@ -1,12 +1,35 @@
-AGXボディ
+ボディモデルの追加パラメータ
 ===========================
 
-AGXDynamicsプラグインでは下記の機能を追加で利用することができます。
+AGXDynamicsプラグインを利用の際には、ボディモデルについて下記のパラメータを追加で利用することができます。
 
-干渉検出の設定
---------------
+.. contents::
+   :local:
+   :depth: 2
+
+記述方法
+----------------
 
 .. code-block:: txt
+
+  links:
+    -
+      name: Arm
+      jointCompliance: 1e-8
+      jointSpookDamping: 0.0333
+      jointMotor: true
+      jointMotorCompliance: 1e-8
+      jointMotorSpookDamping: 0.0333
+      jointMotorForceRange: [ -1000, 1000 ]
+      jointRangeCompliance: 1e-8
+      jointRangeSpookDamping: 0.0333
+      jointRangeForceRange: [ -1000, 1000 ]
+      jointLock: true
+      jointLockCompliance: 1e-8
+      jointLockSpookDamping: 0.0333
+      jointLockForceRange: [ -1000, 1000 ]
+      convexDecomposition: true
+      autoSleep: true
 
   collisionDetection:
     excludeTreeDepth: 3
@@ -23,8 +46,105 @@ AGXDynamicsプラグインでは下記の機能を追加で利用することが
     enableAGXWireContact: true
     excludeLinksWireContact: [ linkQ, linkR, ... ]
 
+.. _agx_autosleep:
+
+パラメータの説明
+-----------
+
+リンク
+~~~~~~~~~
+
 .. list-table::
-  :widths: 10,7,4,4,75
+  :widths: 10,9,4,4,75
+  :header-rows: 1
+
+  * - パラメータ
+    - デフォルト値
+    - 単位
+    - 型
+    - 意味
+  * - jointCompliance
+    - 1e-8
+    - m/N or rad/Nm
+    - double
+    - 関節のコンプライアンス
+  * - jointSpookDamping
+    - 0.0333
+    - s
+    - double
+    - 関節のスプークダンパ
+  * - jointMotor
+    - false
+    - -\
+    - bool
+    - 関節のモーターの有効化
+  * - jointMotorCompliance
+    - 1e-8
+    - m/N or rad/Nm
+    - double
+    - 関節のモーターのコンプライアンス
+  * - jointMotorSpookDamping
+    - 0.0333
+    - s
+    - double
+    - 関節のモーターのスプークダンパ
+  * - jointMotorForceRange
+    - [ double_min, double_max ]
+    - N or Nm
+    - Vec2
+    - 関節のモーターの最大最小力、トルク制限
+  * - jointRangeCompliance
+    - 1e-8
+    - m/N or rad/Nm
+    - double
+    - 関節角制限のコンプライアンス
+  * - jointRangeSpookDamping
+    - 0.0333
+    - s
+    - double
+    - 関節角制限のスプークダンパ
+  * - jointRangeForceRange
+    - [ double_min, double_max ]
+    - N or Nm
+    - Vec2
+    - 関節角制限の最大最小力、トルク制限
+  * - jointLock
+    - false
+    - -\
+    - bool
+    - 関節ロックの有効化
+  * - jointLockCompliance
+    - 1e-8
+    - m/N or rad/Nm
+    - double
+    - 関節ロックのコンプライアンス
+  * - jointLockSpookDamping
+    - 0.0333
+    - s
+    - double
+    - 関節ロックのスプークダンパ
+  * - jointLockForceRange
+    - [ double_min, double_max ]
+    - N or Nm
+    - Vec2
+    - 関節ロックの最大最小力、トルク制限
+  * - convexDecomposition
+    - false
+    - -\
+    - bool
+    - 凸分割の有効化、無効化。true、falseを指定します。
+  * - autoSleep
+    - false
+    - -\
+    - bool
+    - オートスリープの有効可、無効化。true、falseを指定します。静止している剛体をソルバから除き、計算量を減らします。:doc:`agx-simulator-item` のプロパティAutoSleepも合わせてtrueにしておく必要があります。
+
+
+干渉設定
+~~~~~~~~~
+
+.. list-table::
+  :widths: 15,7,4,6,75
   :header-rows: 1
 
   * - パラメータ
@@ -35,17 +155,26 @@ AGXDynamicsプラグインでは下記の機能を追加で利用することが
   * - excludeLinksDynamic
     - \-
     - \-
-    - string
+    - string list
     - 指定のリンクの干渉を無効化します
-  * - excludeLinkGroups
+  * - | excludeLinkGroups:
+      | -
+      |   name
+      |   links
     - \-
     - \-
-    - string
-    - グループに登録されているリンク間の干渉を無効化します
+    - |
+      |
+      | string
+      | string list
+    - | グループに登録されているリンク間の干渉を無効化します。
+      |
+      | グループ名
+      | リンク名
   * - excludeSelfCollisionLinks
     - \-
     - \-
-    - string
+    - string list
     - 指定のリンクとボディ間の自己干渉を無効化します
   * - (未実装)enableWireContact
     - true
@@ -55,5 +184,29 @@ AGXDynamicsプラグインでは下記の機能を追加で利用することが
   * - (未実装)excludeLinksWireContact
     - \-
     - \-
-    - string
+    - string list
     - 指定のリンクとAGXWireとの干渉を無効化します
+
+
+Convex Decomposition(凸分割)
+---------------------------------
+
+AGXDynamicsは、三角形メッシュの形状を凸形状に分割する機能を持っています。
+リンクパラメータのconvexDecompositionをtrueとすると、三角形メッシュ形状の凸分割を実行します。
+凸分割を行うことで干渉チェックの性能が上がる可能性があります。
+
+.. note::
+  複雑な形状の凸分割は失敗する可能性があります。
+
+.. note::
+  三角形メッシュと凸分割形状とでは接触点が変わる可能性があるので、干渉時の振る舞いが異なる可能性があります。
+
+サンプルは以下にあります。
+
+* プロジェクトファイル: chorenoid/sample/AGXDynamics/agxConvexDecomposition.cnoid
+* ボデイファイル: chorenoid/sample/AGXDynamics/vmark.body
+
+サンプルを実行すると、凸分割が実行され、複数の凸形状で構成された形状となります。
+
+.. image:: images/convexdecomposition.png
+   :scale: 70%
