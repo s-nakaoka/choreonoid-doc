@@ -5,6 +5,9 @@ AGXVehicleContinuousTrack (AGXクローラ)
 AGXVehicleContinuousTrackはAGX Dynamicsを使ったクローラモデルです。
 実装にはAGX DynamicsのモジュールagxVehicleを利用しています。
 
+.. image:: images/continuous-track.png
+   :scale: 70%
+
 .. contents::
    :local:
    :depth: 1
@@ -79,9 +82,9 @@ AGXVehicleContinuousTrackの特徴
       name: WHEEL_R2     # 右後ホイール(自由回転)
 
 
-TRACK_L、TRACK_R以外は通常のChoreonoidの記述方法に従って内容を記述します。
-TRACK_Lの詳細は以下のようになっており、
-内外のフレーム、AGXVehicleContinuousTrackの2種類が記述されています。
+| TRACK_L、TRACK_R以外は通常のChoreonoidの記述方法に従って内容を記述します。
+| TRACK_Lの詳細は以下のようになっており、
+| 内外のフレーム、AGXVehicleContinuousTrackの2種類が記述されています。
 
 .. code-block:: yaml
 
@@ -111,7 +114,7 @@ TRACK_Lの詳細は以下のようになっており、
         nodeThickerThickness: 0.02
         useThickerNodeEvery: 3
         hingeCompliance: 1e-7
-        hingeDamping: 0.0333
+        hingeSpookDamping: 0.0333
         minStabilizingHingeNormalForce: 300.0
         stabilizingHingeFrictionParameter: 1e-6
         enableMerge: false
@@ -119,17 +122,30 @@ TRACK_Lの詳細は以下のようになっており、
         contactReduction: 3
         enableLockToReachMergeCondition: false
         lockToReachMergeConditionCompliance: 1.0E-11
-        lockToReachMergeConditionDamping: 0.001
+        lockToReachMergeConditionSpookDamping: 0.001
         maxAngleMergeCondition: 1.0E-5
+        material: TankTracks
       -
         # 省略
 
+1. AGXVehicleContinuousTrackはリンクのelements部分にAGXVehicleContinuousTrackDeviceとして追加します。AGXVehicleContinuousTrackDeviceは任意のリンクに追加することができます。
+#. 駆動するホイールをsprocketNamesに設定します
+#. クローラベルトと拘束をするホイールをidlerNamesに設定します
+#. 必要に応じてベルトと拘束をしないホイールをrollerNamesに設定します
+#. クローラの進行方向に対して垂直な単位ベクトルをupAxisに設定します
+#. クローラベルトのノード数(numNodes)、幅(nodeWidth)、厚み(nodeThickness)を設定します
+#. 必要に応じて、厚みのあるノードの厚み(nodeThickerThickness)を設定し、何個(useThickerNodeEvery)おきに配置するかを設定します
+#. 必要に応じて
 
-| 内外のフレームは通常のChoreonoidの記述方法で記述されています。AGXVehicleContinuousTrackはリンクのelements部分にAGXVehicleContinuousTrackDeviceとして追加します。
-| AGXVehicleContinuousTrackDeviceは空のリンクやホイールリンク、シャーシリンクなど任意のリンクに追加することができます。
-| 以下にパラメータの説明をします。
+.. image:: images/continuous-track-detail.png
+   :scale: 70%
 
+パラメータの説明
+---------------
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
+
+必須
+~~~~
 
 .. list-table::
   :widths: 20,8,4,4,75
@@ -145,11 +161,6 @@ TRACK_Lの詳細は以下のようになっており、
     - \-
     - string
     - AGXVehicleContinuousTrackを使うことの宣言
-  * - name
-    - \-
-    - \-
-    - string
-    - このクローラベルトの名前
   * - sprocketNames
     - \-
     - \-
@@ -185,11 +196,6 @@ TRACK_Lの詳細は以下のようになっており、
     - m
     - double
     - ノードの幅(基本はホイールの高さ)
-  * - nodeDistanceTension
-    - 5.0E-3
-    - N/m
-    - double
-    - ノード間をつなぐ張力
   * - nodeThickerThickness
     - 0.09
     - m
@@ -200,12 +206,34 @@ TRACK_Lの詳細は以下のようになっており、
     - 個おき
     - unsigned int
     - 厚みのあるノードをxノードおきに配置します。厚みのあるノードを利用しない場合は0。
+  * - material
+    - \-
+    - \-
+    - string
+    - クローラベルトに設定をするマテリアル
+
+ほぼ必須
+~~~~~~~~
+.. list-table::
+  :widths: 20,8,4,4,75
+  :header-rows: 1
+
+  * - パラメータ
+    - デフォルト値
+    - 単位
+    - 型
+    - 意味
+  * - nodeDistanceTension
+    - 5.0E-3
+    - N/m
+    - double
+    - ノード間をつなぐ張力
   * - hingeCompliance
     - 1.0E-10
     - rad/N
     - double
     - ノード間をつなぐヒンジのコンプライアンス
-  * - hingeDamping
+  * - hingeSpookDamping
     - 0.0333
     - s
     - double
@@ -217,12 +245,34 @@ TRACK_Lの詳細は以下のようになっており、
     - | ノード間をつなぐヒンジの内部摩擦計算のための最小抗力。ヒンジに摩擦を入れることで挙動の安定化をしています。
       | ヒンジ間の張力が高くなると、内部摩擦力が強くはたらきクローラベルトの高振動、共振を防ぎます。
       | 抗力が小さくなったり、負の値になることがあるため、その場合に最小値を利用します。
-  * - hingeDamping
+  * - hingeSpookDamping
     - 0.0333
     - s
     - double
     - ノード間をつなぐヒンジのダンパ
   * - stabilizingHingeFrictionParameter
+    - 1e-6
+    - \-
+    - double
+    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+
+性能
+~~~~~~~~
+.. list-table::
+  :widths: 20,8,4,4,75
+  :header-rows: 1
+
+  * - パラメータ
+    - デフォルト値
+    - 単位
+    - 型
+    - 意味
+  * - nodesToWheelsMergeThreshold
+    - 1e-6
+    - \-
+    - double
+    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+  * - nodesToWheelsSplitThreshold
     - 1e-6
     - \-
     - double
@@ -252,7 +302,7 @@ TRACK_Lの詳細は以下のようになっており、
     - \-
     - double
     - ヒンジロック時のコンプライアンス
-  * - lockToReachMergeConditionDamping
+  * - lockToReachMergeConditionSpookDamping
     - 0.001
     - s
     - double
@@ -293,7 +343,7 @@ TRACK_Lの詳細は以下のようになっており、
 
     #nodeDistanceTension: 5.0E-3
     #hingeCompliance: 1.0E-10
-    #hingeDamping: 0.0333
+    #hingeSpookDamping: 0.0333
     #minStabilizingHingeNormalForce: 100
     #stabilizingHingeFrictionParameter: 1.5
 
@@ -325,7 +375,7 @@ TRACK_Lの詳細は以下のようになっており、
   .. code-block:: txt
 
     hingeCompliance: 9.0E-10
-    hingeDamping: 0.01          # 2.0 * dt を目安に設定します。
+    hingeSpookDamping: 0.01          # 2.0 * dt を目安に設定します。
 
 7. 最後の仕上げです。
    minStabilizingHingeNormalForceはクローラベルトが交差したり、クローラが回転している時にホイールに侵入するようであれば値を小さくしていきます。
@@ -346,7 +396,7 @@ TRACK_Lの詳細は以下のようになっており、
   contactReduction: 1
   enableLockToReachMergeCondition: false
   lockToReachMergeConditionCompliance: 1.0E-11
-  lockToReachMergeConditionDamping: 0.05
+  lockToReachMergeConditionSpookDamping: 0.05
   maxAngleMergeCondition: 1.0E-5
   </pre>
   # まずは機能を有効化し、パラメータはデフォルト(コメントアウト)のままで様子をみます。
@@ -356,18 +406,19 @@ TRACK_Lの詳細は以下のようになっており、
   #contactReduction: 1
   enableLockToReachMergeCondition: true
   #lockToReachMergeConditionCompliance: 1.0E-11
-  #lockToReachMergeConditionDamping: 0.05
+  #lockToReachMergeConditionSpookDamping: 0.05
   #maxAngleMergeCondition: 1.0E-5
   </pre>
 
 仕様
 ---------
 
-* クローラはシミュレーション実行時に自動で生成されます。bodyファイルロード時はクローラは描画されません。
+* クローラはシミュレーション実行時に自動で生成されます。bodyファイルロード時にクローラの描画はされません。
 * AGXVehicleContinuousTrackは自動的に自己干渉が設定されます(下記表を参照)。
 
   * クローラベルトとホイールは必ず接触がONになっていないと、すり抜けが発生してしまうためです。
   * クローラベルトとその他の部分の接触はOFFにすることで性能劣化を抑えています。
+
 
   .. list-table::
      :widths: 15,15,15
@@ -375,9 +426,9 @@ TRACK_Lの詳細は以下のようになっており、
      :stub-columns: 1
 
      * -
-       - WHEEL
-       - TRACK
-     * - WHEEL
+       - ホイール
+       - クローラベルト
+     * - ホイール
        - \-
        - 干渉ON
      * - その他のボディのリンク
