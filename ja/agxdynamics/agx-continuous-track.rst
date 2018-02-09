@@ -22,7 +22,7 @@ AGXVehicleContinuousTrackの特徴
 
 * **クローラベルトがホイールから外れにくい**
 
-  クローラベルトがホイールから外れないように、内部で拘束を付加しています。
+  クローラベルトがホイールから外れないように、内部でホイールとベルトのマージ(拘束を付加)しています。
 
 * **性能向上のための最適化**
 
@@ -109,13 +109,15 @@ AGXVehicleContinuousTrackの特徴
         numberOfNodes: 42
         nodeThickness: 0.01
         nodeWidth:  0.09
-        nodeDistanceTension: 2e-4
         nodeThickerThickness: 0.02
         useThickerNodeEvery: 3
+        nodeDistanceTension: 2e-4
         hingeCompliance: 1e-7
         hingeSpookDamping: 0.0333
         minStabilizingHingeNormalForce: 300.0
         stabilizingHingeFrictionParameter: 1e-6
+        nodesToWheelsMergeThreshold: -0.1
+        nodesToWheelsSplitThreshold: -0.05
         enableMerge: false
         numNodesPerMergeSegment: 0
         contactReduction: 3
@@ -170,12 +172,12 @@ AGXVehicleContinuousTrackの特徴
     - \-
     - \-
     - string list
-    - 拘束なしガイドホイール。ベルトとホイール間は拘束されません。複数の場合は [ WHEEL_L1, WHEEL_L3, WHEEL_L4 ]と','区切りで記述します。
+    - 拘束なしガイドホイール。ベルトとホイール間は拘束されません。複数の場合は [ WHEEL_L1, WHEEL_L3, WHEEL_L4 ]とカンマ区切りで記述します。
   * - idlerNames
     - \-
     - \-
     - string list
-    - 拘束ありホイール。ベルトとホイール間は拘束され、外れなくなります。複数の場合は [ WHEEL_L2, WHEEL_L7, WHEEL_L8 ]と','区切りで記述。
+    - 拘束ありホイール。ベルトとホイール間は拘束され、外れなくなります。複数の場合は [ WHEEL_L2, WHEEL_L7, WHEEL_L8 ]とカンマ区切りで記述します
   * - upAxis
     - [ 0, 0, 1]
     - Unit Vector
@@ -225,19 +227,19 @@ AGXVehicleContinuousTrackの特徴
     - 意味
   * - nodeDistanceTension
     - 5.0E-3
-    - N/m
+    - m
     - double
-    - ノード間をつなぐ張力
+    - 初期ノード間距離。ノード間をつなぐ張力を調整するパラメータです。
   * - hingeCompliance
     - 1.0E-10
-    - rad/N
+    - rad/Nm
     - double
     - ノード間をつなぐヒンジのコンプライアンス
   * - hingeSpookDamping
     - 0.0333
     - s
     - double
-    - ノード間をつなぐヒンジのダンパ
+    - ノード間をつなぐヒンジのスプークダンパ
   * - minStabilizingHingeNormalForce
     - 100.0
     - N
@@ -245,28 +247,23 @@ AGXVehicleContinuousTrackの特徴
     - | ノード間をつなぐヒンジの内部摩擦計算のための最小抗力。ヒンジに摩擦を入れることで挙動の安定化をしています。
       | ヒンジ間の張力が高くなると、内部摩擦力が強くはたらきクローラベルトの高振動、共振を防ぎます。
       | 抗力が小さくなったり、負の値になることがあるため、その場合に最小値を利用します。
-  * - hingeSpookDamping
-    - 0.0333
-    - s
-    - double
-    - ノード間をつなぐヒンジのダンパ
   * - stabilizingHingeFrictionParameter
     - 1e-6
     - \-
     - double
-    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような振る舞いになります。
   * - nodesToWheelsMergeThreshold
-    - 1e-6
+    - -0.1
     - \-
     - double
-    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+    - ノードをホイールにマージする時の閾値
   * - nodesToWheelsSplitThreshold
-    - 1e-6
+    - -0.05
     - \-
     - double
-    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+    - ホイールからノードのマージを解除する時の閾値
 
-ノードのマージ(性能向上用のパラメータ)
+複数ノードのマージ(性能向上用のパラメータ)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -412,6 +409,7 @@ AGXVehicleContinuousTrackの特徴
 クローラベルトの安定化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 1. シミュレーションのタイムステップを固定します。
    コンプライアンスやダンパなど、タイムステップによって大きく結果が変わるパラメータがあるので、タイムステップを固定します。
    ここでは以下の通りとします。
@@ -438,24 +436,33 @@ AGXVehicleContinuousTrackの特徴
     #hingeSpookDamping: 0.0333
     #minStabilizingHingeNormalForce: 100
     #stabilizingHingeFrictionParameter: 1.5
+    #nodesToWheelsMergeThreshold: -0.1
+    #nodesToWheelsSplitThreshold: -0.05
+
 
 4. おそらくクローラベルトは硬く、針金のような見た目になると思います。ヒンジ摩擦が強すぎるので、摩擦係数を小さくします。
 
   .. code-block:: txt
 
-    nodeDistanceTension: 0.0                  # ノード間の引張力をなくし、調整をわかりやすくします
+    nodeDistanceTension: 0.0                  # 初期ノード間距離（引張力)をなくし、調整しやすくします
     stabilizingHingeFrictionParameter: 1e-6   # 摩擦係数を小さく。1e-1以下は指数単位で調整していき、針金みたいな曲がり方にならない程度にします
 
 5. このように設定すると、クローラベルトは若干たわみをもった状態になります。
-   たわみを取るために引張力を設定します。
+   たわみを取るために引張力を調整します。
+   引張力は初期ノード間の距離nodeDistanceTensionを設定することで調整することができます。
+   nodeDistanceTensionが大きいと、ヒンジは強い力でノード間をつなげようとしますので、引張力が大きくなります。
+   引張力が大きすぎるとベルトはホイールにくいこんでいきます(下図を参照)。
    ひとまずデフォルト値で様子をみると、引張力が強すぎるためか、ベルトが振動します。
-   そこで振動しない程度に引張力を小さくします。
+   そこで振動しない程度にnodeDistanceTensionを小さくします。
    5.0E-4はベルトがホイールに食い込み、5.0E-5は引張があまり効いてないようみえます。
    この間で調整をかけて以下のようにします。
 
   .. code-block:: txt
 
     nodeDistanceTension: 2.0E-4
+
+.. image:: images/continuous-track-hinge.png
+   :scale: 50%
 
 6. これでクローラを前後方向はスムーズに動くと思います。
    しかし、信地旋回、超信地旋回をさせるとベルトが発振します。
@@ -469,13 +476,28 @@ AGXVehicleContinuousTrackの特徴
     hingeCompliance: 9.0E-10
     hingeSpookDamping: 0.01          # 2.0 * dt を目安に設定します。
 
-7. 最後の仕上げです。
-   minStabilizingHingeNormalForceはクローラベルトが交差したり、クローラが回転している時にホイールに侵入するようであれば値を小さくしていきます。
+7. 次にクローラベルトが交差したり、クローラが回転している時にホイールに侵入するようであればminStabilizingHingeNormalForceは値を小さくしていきます。
    たまに振動したりあばれるようでしたら、値を大きくします。
 
   .. code-block:: txt
 
     minStabilizingHingeNormalForce: 100
+
+8. 最後の仕上げです。
+   ベルトのホイールへの巻きつけがずれているようであれば、nodesToWheelsMergeThresholdとnodesToWheelsSplitThresholdを調節します。
+   この値はベルトとホイールをマージ(拘束)またはマージを解除するタイミングを決める閾値で、ベルトの進行方向ベクトルとホイールの中心方向ベクトルとの内積です(下図を参照)。
+   この値を0に近づけると、2つのベクトルが垂直に近い状態でマージまたはマージを解除することになります。
+   現実にあるクローラはホイールが歯車の形をしており、歯車とベルトをかませてベルトを送り出しています。
+   この値はベルトと歯車をかませて送り出す角度、ベルトが歯車から外れる角度から逆算して与えても良いでしょう。
+
+  .. code-block:: txt
+
+    nodesToWheelsMergeThreshold: -0.1    # 2つのベクトル間の角度が1.67rad(95.7deg)以上になった場合にマージ
+    nodesToWheelsSplitThreshold: -0.05   # 2つのベクトル間の角度が1.62rad(92.7deg)以上になった場合にマージを解除
+
+.. image:: images/continuous-track-merge-tracks-wheels.png
+   :scale: 50%
+
 
 パフォーマンスチューニング
 ---------------------------
@@ -534,8 +556,6 @@ AGXVehicleContinuousTrackの特徴
   #lockToReachMergeConditionSpookDamping: 0.05
   #maxAngleMergeCondition: 1.0E-5
   </pre>
-
-
 
 
 仕様
