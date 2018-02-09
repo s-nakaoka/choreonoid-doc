@@ -83,8 +83,7 @@ AGXVehicleContinuousTrackの特徴
 
 
 | TRACK_L、TRACK_R以外は通常のChoreonoidの記述方法に従って内容を記述します。
-| TRACK_Lの詳細は以下のようになっており、
-| 内外のフレーム、AGXVehicleContinuousTrackの2種類が記述されています。
+| TRACK_Lの詳細は以下のようになっており、内外のフレーム、AGXVehicleContinuousTrackの2種類が記述されています。
 
 .. code-block:: yaml
 
@@ -135,7 +134,8 @@ AGXVehicleContinuousTrackの特徴
 #. クローラの進行方向に対して垂直な単位ベクトルをupAxisに設定します
 #. クローラベルトのノード数(numNodes)、幅(nodeWidth)、厚み(nodeThickness)を設定します
 #. 必要に応じて、厚みのあるノードの厚み(nodeThickerThickness)を設定し、何個(useThickerNodeEvery)おきに配置するかを設定します
-#. 必要に応じて
+#. :ref:`agx_continous_track_material` を参考にマテリアルを設定します。
+#. :ref:`agx_continous_track_stabilize` を参考にクローラベルトの巻きつけに関わるパラメータを設定します。
 
 .. image:: images/continuous-track-detail.png
    :scale: 70%
@@ -255,18 +255,6 @@ AGXVehicleContinuousTrackの特徴
     - \-
     - double
     - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
-
-性能
-~~~~~~~~
-.. list-table::
-  :widths: 20,8,4,4,75
-  :header-rows: 1
-
-  * - パラメータ
-    - デフォルト値
-    - 単位
-    - 型
-    - 意味
   * - nodesToWheelsMergeThreshold
     - 1e-6
     - \-
@@ -277,6 +265,19 @@ AGXVehicleContinuousTrackの特徴
     - \-
     - double
     - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような感じになる。
+
+ノードのマージ(性能向上用のパラメータ)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+  :widths: 20,8,4,4,75
+  :header-rows: 1
+
+  * - パラメータ
+    - デフォルト値
+    - 単位
+    - 型
+    - 意味
   * - enableMerge
     - false
     - \-
@@ -314,8 +315,95 @@ AGXVehicleContinuousTrackの特徴
     - ノードをマージするかどうか判定するための閾値角度。ヒンジの角度 < 閾値角度になると、ノードがマージされる。
 
 
+
 パラメータ設定の勘所
 ------------------------
+
+.. _agx_continous_track_material:
+
+クローラのマテリアルの設定
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| 現実にあるクローラやタイヤは進行方向とそれに直交する方向で摩擦が異なります。
+| 同様の現象をシミュレーションで表現するためには、摩擦を分けて考える必要があります。
+| AGX Dynamicsで良く利用される摩擦モデル(円錐モデルや箱モデル)は、方向毎に接触パラメータを分けることができません。
+| そこで、専用の摩擦モデルを設定することになります。以下の手順で設定をします。
+| :doc:`agx-material` も参考にしてください。
+
+.. code-block:: yaml
+
+  materials:
+    -
+      name: Ground
+      roughness: 0.5
+      viscosity: 0.0
+    -
+      name: TankTracks         # クローラベルトのマテリアル
+      youngsModulus: 1e10
+      roughness: 1.0
+      viscosity: 0.3
+    -
+      name: TankWheel          # ホイールのマテリアル
+      youngsModulus: 1e10
+      roughness: 0.0
+      viscosity: 0.0
+
+  contactMaterials:
+    -
+      materials: [ Ground, TankTracks]         # 地面とクローラベルトのコンタクトマテリアル
+      youngsModulus: 1e10
+      friction: 1.0
+      secondaryFriction: 0.7
+      restitution: 0.0
+      surfaceViscosity: 1e-2
+      secondarySurfaceViscosity: 4e-2
+      primaryDirection: [ 1, 0, 0 ]
+      frictionModel: [ orientedBox, direct ]
+      referenceBodyName: Tank
+      referenceLinkName: CHASSIS
+    -
+      materials: [ TankWheel, TankTracks ]     # ホイールとクローラベルトのコンタクトマテリアル
+      youngsModulus: 1e10
+      friction: 0.0
+      restitution: 0.0
+
+
+1. マテリアルファイルにクローラベルトとクローラベルトを取り付けるホイールのMaterialを定義します
+2. クローラベルト、ホイール、それぞれのMaterialについてyoungsModulus(ヤング率)、roughness(粗さ)、viscosity(反発粘性)を設定します。ここのパラメータはContactMaterialが設定されていない場合に利用されます。
+
+  * クローラベルトはホイールに強い力で巻きつけられますので、お互いが侵入しにくくなるようにyoungsModulusは大きめに設定します
+  * クローラベルトの粗さ、反発粘性は適当に設定をしてください
+  * ホイールは基本的にクローラベルトとのみ接触します。安定に接触させるために、roughnessとviscosityを0にすると良いでしょう。
+  * クローラベルトとsprocket、idlerホイール間は拘束されておりますので、roughnessを0にしても滑るようなことはありません。
+
+3. 地面とクローラベルトは必ず接触するはずですので、そのContactMaterialをマテリアルファイルに定義します
+
+  * youngsModulusはMaterialと同様に大きめに設定します
+  * friction、secondaryFrictionは材質に合わせて設定します
+  * surfaceViscosity、secondarySurfaceViscosityをクローラベルトが滑らない程度で大きめに設定します
+  * 進行方向としてprimaryDirectionを設定します
+  * 摩擦モデルとしてfrictionModel: [ orientedBox, direct ]を設定します。
+  * referenceBodyNameにクローラベルトを取り付けるボディ名を設定します
+  * referenceLinkNameにクローラベルトを取り付けるボディの本体のリンク名を設定します。これはメインシャーシや質量が大きいリンクを指定します
+4. ホイールとクローラベルトのContactMaterialを定義します
+
+  * youngsModulusはMaterialと同様に大きめに設定します
+  * friction(摩擦係数)とrestitution(反発係数を)を0に設定します
+
+5. 最後にマテリアルをボディファイルのリンクに設定します
+
+  * クローラベルトマテリアルをAGXVehicleContinuousTrackDeviceのmaterialに設定します
+  * ホイールマテリアルをリンクホイールに設定します
+
+.. note::
+  | orientedBoxは進行方向とその垂直方向とで接触パラメータを分けて扱うことができる摩擦モデルです。
+  | ソルバとして、directソルバを選択することで摩擦の計算精度を高めます。
+  | referenceBodyNameとreferenceLinkNameはorientedBoxを利用時に有効となります。
+  | 摩擦力の計算に利用する抗力をreferenceLinkから推定し、-mu * Fn < Fp < mu * Fnとなるようにソルバで摩擦力の計算します。
+  | muは摩擦係数、Fnは推定抗力、Fpは摩擦力です。
+  | このようにすることで、十分な摩擦力をだせるようにします。
+
+.. _agx_continous_track_stabilize:
 
 クローラベルトの安定化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -21,5 +21,5 @@ AGX Dynamicsプラグイン
   agx-material
   agx-continuous-track
   .. agx-wire
-  .. agx-breakable-joint
+  agx-breakable-joint
   .. agx-magnetic-joint
