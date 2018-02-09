@@ -403,6 +403,10 @@ AGXVehicleContinuousTrackの特徴
   | muは摩擦係数、Fnは推定抗力、Fpは摩擦力です。
   | このようにすることで、十分な摩擦力をだせるようにします。
 
+.. note::
+  摩擦モデルをorientedBoxとして設定をしているマテリアルは基本的に使いまわしができません。
+  orientedBoxはreferenceBodyNameとreferenceLinkNameをパラメータとして持っており、異なるモデルにこのマテリアルを設定した場合にはreferenceBodyとreferenceLinkが見つからず機能が有効とならないためです。
+
 .. _agx_continous_track_stabilize:
 
 クローラベルトの安定化
@@ -473,10 +477,43 @@ AGXVehicleContinuousTrackの特徴
 
     minStabilizingHingeNormalForce: 100
 
-..
-  *作成中*　ノードのマージ
-  ----------------------------
+パフォーマンスチューニング
+---------------------------
 
+シミュレーション速度が遅い、動作が安定しない場合には以下を参考にチューニングをしてみると良いでしょう。
+
+モデルの簡略化
+~~~~~~~~~~~~~~~~~
+
+| AGXVehicleContinuousTrackは複数のノードをヒンジジョイントで繋いだものをクローラベルトとして表現しています。
+| これは、多くの剛体とジョイントを利用することになり、シミュレーションの計算量が増加します。
+| 以下を参考にモデルを簡略すると、改善する可能性があります。
+
+シミュレーション速度の向上
+
+* ノード数を減らす
+* ロボットのリンク数減らす
+* rollerホイールを複数利用している場合には、rollerホイールの利用をやめる
+
+  * プリミティブ形状のboxにまとめてに置き換える(下図を参照)
+  * 摩擦、反発係数を0にする
+  * シャーシとホイールをつなぐヒンジジョイントをなくし、fixedにかえる
+
+
+安定性の向上
+
+* ノードの厚さを厚くする
+
+  * ノードの厚さが薄いと、地面と侵入しやすくなり、接触応答が不安定になる可能性がありますので厚くします
+
+.. image:: images/continuous-track-replace-wheels-with-box.png
+   :scale: 70%
+
+
+*作成中* ノードのマージ 　
+----------------------------
+
+..
   # ノードのマージに関するパラメータ(値はデフォルト)を下記に示します。
   <pre>
   enableMerge: false
@@ -497,6 +534,9 @@ AGXVehicleContinuousTrackの特徴
   #lockToReachMergeConditionSpookDamping: 0.05
   #maxAngleMergeCondition: 1.0E-5
   </pre>
+
+
+
 
 仕様
 ---------
