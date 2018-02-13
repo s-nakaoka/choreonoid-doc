@@ -46,11 +46,11 @@ AGXSimulatorでリンク間の摩擦係数、反発係数などは、以下の�
   contactMaterials:
     -
       materials: [ Ground, agxMat5 ]
-      youngsModulus: 1.0E5
+      youngsModulus: 1.0e5
       restitution: 0.1
       spookDamping: 0.08
       friction: 0.416667
-      surfaceViscosity: 1.0E-8
+      surfaceViscosity: 1.0e-8
       adhesionForce: 100
       adhesivOverlap: 0.2
       frictionModel: [ cone, direct ]
@@ -79,7 +79,7 @@ Materialパラメータの説明
     - double
     - 密度。リンクの質量、慣性テンソル、重心の自動計算に利用されます。
   * - youngsModulus
-    - 4.0E8
+    - 4.0e8
     - Pa
     - double
     - ヤング率。リンク(剛体)の硬さを表します。値が小さいとリンク同士が侵入しやすくなります。
@@ -110,17 +110,17 @@ Materialパラメータの説明
     - 0.075
     - s
     - double
-    - ダンパ。接触拘束条件を満たすまでの時間。リンク同士の侵入の緩和に利用します。
+    - スプークダンパ。リンク同士の侵入の緩和(拘束条件を満たす)に利用します。
   * - roughness
     - 0.5
     - \-
     - double
     - 表面粗さ。表面粗さのペアが摩擦係数となります。
   * - surfaceViscosity
-    - 5E-09
+    - 5e-09
     - \-
     - double
-    - 表面粘性。接面方向に働く粘性です。オイルなど濡れを表現する時に利用します。
+    - 表面粘性。接面方向に働く粘性です。表面粘性のペアがContactMaterialのsurfaceViscosityとなります。オイルなど濡れを表現する時に利用します。
   * - adhesionForce
     - 0.0
     - N
@@ -150,7 +150,7 @@ Materialパラメータの説明
     - 型
     - 意味
   * - wireYoungsModulusStretch
-    - 6E10
+    - 6e10
     - Pa
     - double
     - 引張ヤング率
@@ -160,7 +160,7 @@ Materialパラメータの説明
     - double
     - 引張スプークダンパ
   * - wireYoungsModulusBend
-    - 6E10
+    - 6e10
     - Pa
     - double
     - 曲げヤング率。0にすると鎖のような振る舞いになります。
@@ -183,7 +183,7 @@ ContactMaterialパラメータの説明
     - 型
     - 意味
   * - youngsModulus
-    - 2.0E8
+    - 2.0e8
     - Pa
     - double
     - ヤング率
@@ -208,10 +208,10 @@ ContactMaterialパラメータの説明
     - double
     - 副方向摩擦係数。摩擦モデルorientedBox指定時にsecondaryFriction>=0で有効となります。
   * - surfaceViscosity
-    - 1.0E-8
+    - 1.0e-8
     - \-
     - double
-    - 表面粘性係数
+    - 表面粘性係数。摩擦拘束に対するコンプライアンスです。
   * - secondarySurfaceViscosity
     - -1.0
     - \-

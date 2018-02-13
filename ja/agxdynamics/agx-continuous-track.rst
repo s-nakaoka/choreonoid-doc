@@ -111,21 +111,21 @@ AGXVehicleContinuousTrackの特徴
         nodeWidth:  0.09
         nodeThickerThickness: 0.02
         useThickerNodeEvery: 3
-        nodeDistanceTension: 2e-4
-        hingeCompliance: 1e-7
-        hingeSpookDamping: 0.0333
-        minStabilizingHingeNormalForce: 300.0
-        stabilizingHingeFrictionParameter: 1e-6
-        nodesToWheelsMergeThreshold: -0.1
-        nodesToWheelsSplitThreshold: -0.05
-        enableMerge: false
-        numNodesPerMergeSegment: 0
-        contactReduction: 3
-        enableLockToReachMergeCondition: false
-        lockToReachMergeConditionCompliance: 1.0E-11
-        lockToReachMergeConditionSpookDamping: 0.001
-        maxAngleMergeCondition: 1.0E-5
         material: TankTracks
+        nodeDistanceTension: 2.0e-4
+        stabilizingHingeFrictionParameter: 1e-6
+        minStabilizingHingeNormalForce: 100
+        hingeCompliance: 9.0e-10
+        hingeSpookDamping: 0.01
+        nodesToWheelsMergeThreshold: -0.01
+        nodesToWheelsSplitThreshold: -0.009
+        #enableMerge: false
+        #numNodesPerMergeSegment: 3
+        #contactReduction: 3
+        #enableLockToReachMergeCondition: true
+        #lockToReachMergeConditionCompliance: 0.1
+        #lockToReachMergeConditionSpookDamping: 0.01
+        #maxAngleMergeCondition: 1.0e-5
       -
         # 省略
 
@@ -226,12 +226,24 @@ AGXVehicleContinuousTrackの特徴
     - 型
     - 意味
   * - nodeDistanceTension
-    - 5.0E-3
+    - 5.0e-3
     - m
     - double
     - 初期ノード間距離。ノード間をつなぐ張力を調整するパラメータです。
+  * - stabilizingHingeFrictionParameter
+    - 1e-6
+    - \-
+    - double
+    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような振る舞いになります。
+  * - minStabilizingHingeNormalForce
+    - 100.0
+    - N
+    - double
+    - | ノード間をつなぐヒンジの内部摩擦計算のための最小抗力。ヒンジに摩擦を入れることで挙動の安定化をしています。
+      | ヒンジ間の張力が高くなると、内部摩擦力が強くはたらきクローラベルトの高振動、共振を防ぎます。
+      | 抗力が小さくなったり、負の値になることがあるため、その場合に最小値を利用します。
   * - hingeCompliance
-    - 1.0E-10
+    - 1.0e-10
     - rad/Nm
     - double
     - ノード間をつなぐヒンジのコンプライアンス
@@ -240,18 +252,6 @@ AGXVehicleContinuousTrackの特徴
     - s
     - double
     - ノード間をつなぐヒンジのスプークダンパ
-  * - minStabilizingHingeNormalForce
-    - 100.0
-    - N
-    - double
-    - | ノード間をつなぐヒンジの内部摩擦計算のための最小抗力。ヒンジに摩擦を入れることで挙動の安定化をしています。
-      | ヒンジ間の張力が高くなると、内部摩擦力が強くはたらきクローラベルトの高振動、共振を防ぎます。
-      | 抗力が小さくなったり、負の値になることがあるため、その場合に最小値を利用します。
-  * - stabilizingHingeFrictionParameter
-    - 1e-6
-    - \-
-    - double
-    - ヒンジの内部摩擦係数。値を高くすると錆びた関節を回すような振る舞いになります。
   * - nodesToWheelsMergeThreshold
     - -0.1
     - \-
@@ -296,7 +296,7 @@ AGXVehicleContinuousTrackの特徴
     - bool
     - ノードをマージできるようにするために、ヒンジをロックするかどうか
   * - lockToReachMergeConditionCompliance
-    - 1.0E-11
+    - 1.0e-11
     - \-
     - double
     - ヒンジロック時のコンプライアンス
@@ -306,7 +306,7 @@ AGXVehicleContinuousTrackの特徴
     - double
     - ヒンジロック時のダンパ
   * - maxAngleMergeCondition
-    - 1.0E-5
+    - 1.0e-5
     - rad
     - double
     - ノードをマージするかどうか判定するための閾値角度。ヒンジの角度 < 閾値角度になると、ノードがマージされる。
@@ -349,11 +349,11 @@ AGXVehicleContinuousTrackの特徴
     -
       materials: [ Ground, TankTracks]         # 地面とクローラベルトのコンタクトマテリアル
       youngsModulus: 1e10
-      friction: 1.0
-      secondaryFriction: 0.7
+      friction: 0.7
+      secondaryfriction: 0.5
       restitution: 0.0
-      surfaceViscosity: 1e-2
-      secondarySurfaceViscosity: 4e-2
+      surfaceViscosity: 1e-7
+      secondarySurfaceViscosity: 1e-5
       primaryDirection: [ 1, 0, 0 ]
       frictionModel: [ orientedBox, direct ]
       referenceBodyName: Tank
@@ -431,14 +431,13 @@ AGXVehicleContinuousTrackの特徴
 
   .. code-block:: txt
 
-    #nodeDistanceTension: 5.0E-3
-    #hingeCompliance: 1.0E-10
-    #hingeSpookDamping: 0.0333
-    #minStabilizingHingeNormalForce: 100
+    #nodeDistanceTension: 5.03-3
     #stabilizingHingeFrictionParameter: 1.5
+    #minStabilizingHingeNormalForce: 100
+    #hingeCompliance: 1.03-10
+    #hingeSpookDamping: 0.0333
     #nodesToWheelsMergeThreshold: -0.1
     #nodesToWheelsSplitThreshold: -0.05
-
 
 4. おそらくクローラベルトは硬く、針金のような見た目になると思います。ヒンジ摩擦が強すぎるので、摩擦係数を小さくします。
 
@@ -459,7 +458,7 @@ AGXVehicleContinuousTrackの特徴
 
   .. code-block:: txt
 
-    nodeDistanceTension: 2.0E-4
+    nodeDistanceTension: 2.0e-4
 
 .. image:: images/continuous-track-hinge.png
    :scale: 50%
@@ -467,14 +466,13 @@ AGXVehicleContinuousTrackの特徴
 6. これでクローラを前後方向はスムーズに動くと思います。
    しかし、信地旋回、超信地旋回をさせるとベルトが発振します。
    ここで、ヒンジのコンプライアンスとダンパを調整して発振を抑えます。
-   ダンパは2*dtを目安に設定をします。
    コンプライアンスはまずは指数単位で大きくしていき、発振しない程度に調整します。
-   この場合ですと、1.0E-10は発振し、1.0E-9は発振しなくなりましたので、その間で調整をします。
+   この場合ですと、1.0e-10は発振し、1.0e-9は発振しなくなりましたので、その間で調整をします。
 
   .. code-block:: txt
 
-    hingeCompliance: 9.0E-10
-    hingeSpookDamping: 0.01          # 2.0 * dt を目安に設定します。
+    hingeCompliance: 9.0e-10
+    hingeSpookDamping: 0.01
 
 7. 次にクローラベルトが交差したり、クローラが回転している時にホイールに侵入するようであればminStabilizingHingeNormalForceは値を小さくしていきます。
    たまに振動したりあばれるようでしたら、値を大きくします。
