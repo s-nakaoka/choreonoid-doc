@@ -231,4 +231,5 @@ MulticopterPluginを利用したサンプルプロジェクトがchoreonoid/samp
 本サンプルのマルチコプタの動作は、PS4のDUAL SHOCK4を使用して操縦する場合、
 次のとおりに設定されています。
 
+.. figure:: image/image0.png
 
