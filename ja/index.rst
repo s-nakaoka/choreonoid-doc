@@ -19,6 +19,8 @@ Choreonoidマニュアル
    plugin-development/index
    tips/index
 
+..   multicopter/index
+..   trafficcontrol/index
 ..   python/index
 ..   tips/index
 ..   plugins/index
