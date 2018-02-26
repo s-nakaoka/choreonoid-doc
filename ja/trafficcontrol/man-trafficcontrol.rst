@@ -133,8 +133,7 @@ DynamicTrafficControlSimulatorItemの設定項目
 
 サンプル
 --------
-TrafficControlPluginを利用したサンプルプロジェクトがchoreonoid/samples/DynamicTrafficControlPluginにあります。実行して試してみてください。
-本サンプルの動的通信障害シミュレーションでは、基準点(0,0,0)を中心とする半径10mの範囲で最大200msの通信遅延が動的に与えられます。
+DynamicTrafficControlSimulatorItemにはサンプルとして、基準点(0,0,0)を中心とする半径10mの範囲で最大200msの通信遅延が動的に与えられるように設定されています。
 
 .. figure:: image/image1.png
 
