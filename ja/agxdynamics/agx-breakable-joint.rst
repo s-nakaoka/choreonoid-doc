@@ -67,7 +67,7 @@ AGXMagneticJointは以下のように記述し、利用します。
           breakType: force
           period: 3.0                 # 3sec以上
           breakLimitForce: 3000       # 3000N以上の力を
-          validAxis: [0, 1, 0]        # Y軸方向に受けると破壊
+          validAxis: [0, 1, 0]        # Y軸方向にかけると破壊
 
 1. AGXBreakableJointで接続したいリンクをlinkNameに設定します
 2. 関節タイプをjointTypeに設定します
@@ -147,7 +147,7 @@ AGXMagneticJointは以下のように記述し、利用します。
     - string
     - 破壊タイプ: force、impulse
   * - breakLimitForce
-    - double max
+    - double_max
     - N
     - double
     - 関節破壊の力閾値
@@ -157,7 +157,7 @@ AGXMagneticJointは以下のように記述し、利用します。
     - double
     - 時間閾値
   * - breakLimitImpulse
-    - double max
+    - double_max
     - Ns
     - double
     - 関節破壊の力積閾値

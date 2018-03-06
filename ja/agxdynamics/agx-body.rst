@@ -44,7 +44,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
         links: [ linkZ, linkY, linkX, ... ]
     excludeSelfCollisionLinks: [ linkP ]
     enableAGXWireContact: true
-    excludeLinksWireContact: [ linkQ, linkR, ... ]
+    excludeLinksWireCollision: [ linkQ, linkR, ... ]
 
 .. _agx_autosleep:
 
@@ -176,17 +176,11 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - \-
     - string list
     - 指定のリンクとボディ間の自己干渉を無効化します
-  * - (未実装)enableWireContact
-    - true
-    - \-
-    - bool
-    - ボディとAGXWireとの干渉を有効、無効化します
-  * - (未実装)excludeLinksWireContact
+  * - excludeLinksWireCollision
     - \-
     - \-
     - string list
     - 指定のリンクとAGXWireとの干渉を無効化します
-
 
 Convex Decomposition(凸分割)
 ---------------------------------
