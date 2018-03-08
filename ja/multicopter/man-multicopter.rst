@@ -20,12 +20,6 @@ Choreonoidをソースコードからビルドしている場合は、ビルド�
 
 * BUILD_MULTICOPTER_PLUGIN
 
-マルチコプタシミュレーションプラグインがインストールされていると、Choreonoid起動時にメッセージビューに ::
-
- Multicopterプラグインが読み込まれました。
-
-と表示されます。
-
 Bodyモデルの設定
 --------------------
 マルチコプタシミュレーションを行うには、Bodyモデルに以下の設定を追記します。
@@ -65,6 +59,8 @@ MulticopterTargetBodyの記述例） ::
 表面力は、マルチコプタのボディが空気と接触しているときに空気とマルチコプタのボディの間に作用する摩擦力と、マルチコプタのボディ表面に作用する圧力を考慮したもので、
 本プラグインではこの表面力をリンク表面毎に計算しており、下図（左）のようにBodyモデルが単一のリンクで構成されている場合、1つの表面力が与えられますが、例えば下図（右）のように任意のBodyモデルが2つのリンクが連結（内包を含む）するようにして構成されている場合、それぞれのリンクに対して表面力が与えられるため、Bodyモデルの内部にも表面力が発生してしまいます。
 
+.. figure:: image/cutoff.png
+
 そこで本プラグインでは、リンク同士の表面間距離を参考に、リンク表面が他のリンク表面に近接・内包されている場合は、表面力は対象のリンクに与えないようにする処理（この処理をカットオフ処理と呼んでいます）をしています。当該処理では、リンク表面間の距離がcutoffDistance[m]で指定した値より小さい場合は、割合的に表面力を与えます。normMiddleValueは、リンク表面間の距離がcutoffDistance以下のときにリンクに与える表面力の割合を決定するためのパラメータで0〜1の値を設定するものとしています。通常は、0.5を設定してください。これによって、リンク表面間の距離に応じて表面力が割合的に決定されます。
 
 しかしながら、これらの処理は複雑な構成のBodyモデルを使用する場合を考慮して組み込んだものであるため、通常は設定する必要はありません。その場合は、cutoffDistanceおよびnormMiddleValueに-1を指定して当該処理を実行しないように設定してください。
@@ -78,11 +74,14 @@ MulticopterTargetLinkは、これを記述しているリンクがマルチコ�
 MulticopterTargetLinkの記述例） ::
 
  MultiCopterTargetLink:
-   applyForce: [true,true,true,true] 
+   applyForce: [ true, true, true, true ] 
    density: 250
-   centerOfBuoyancy: [0.0, 0.0, 0.0]
+   centerOfBuoyancy: [ 0.0, 0.0, 0.0 ]
    additionalMassCoef: 0.1
-   additionalInertiaMatrix: [0.00041,0,0,0,0.00041,0,0,0,0.00066]
+   additionalInertiaMatrix: [
+     0.00041, 0, 0,
+     0, 0.00041, 0,
+     0, 0, 0.00066 ]
 
 以下はMulticopterTargetLinkノードの定義です。
 
@@ -109,15 +108,15 @@ RotorDeviceの記述例） ::
    -
      type: RotorDevice
      name: droneRotor1
-     position: [0,0,0]
-     direction: [1, 0, 0]
-     valueRange: [-10,10]
-     torqueRange: [-10,10]
+     position: [ 0, 0, 0 ]
+     direction: [ 0, 0, 1 ]
+     valueRange: [ -10, 10 ]
+     torqueRange: [ -10, 10 ]
      effectParameter:
-       wallDistance: 3.0
+       wallDistance: 1.0
        wallNormMiddleValue: 0.5
        wallMaxRate: 0.5
-       groundDistance: 3.0
+       groundDistance: 1.0
        groundNormMiddleValue: 0.5
        groundMaxRate: 0.5
 
@@ -207,10 +206,10 @@ AirDefinitionFileの概要
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 マルチコプタシミュレーションでは、MulticopterSimulatorItemのプロパティでAirDefinitionFileを指定することで、シミュレーション空間内の任意の領域に空気の密度、空気の粘性、定常流速を与えることができます。以下の例のAirDefinitionFileでは、X方向に1[m/s]の定常流速を与えます。 ::
 
- AirEnvironment,1.0.0,,,,
- X,-7.5,15,1,,
- Y,-7.5,15,1,,
- Z,0,5,1,,
+ AirEnvironment,1.0.0
+ X,-7.5,15,1
+ Y,-7.5,15,1
+ Z,0,5,1
  "Index(X,Y,Z)",Density,Velocity(X),Velocity(Y),Velocity(Z),Viscosity
  "0,0,0",1.293,1,0,0,0.000017
  "1,0,0",1.293,1,0,0,0.000017
@@ -226,7 +225,7 @@ AirDefinitionFileの概要
     :widths: 16, 64
 
     "AirEnvironment", "ファイルのバージョンを示しています。通常、本項目の編集は必要ありません。"
-    "X, Y, Z", "指定する領域の各軸方向の設定です。左から順に「グローバル座標系での基準座標[m]」、「計算格子の間隔[m]」、「計算格子の数[個]」を示しています。以下の例では、グローバル座標(-7.5,-7.5,0)を基準点としてX方向に15[m]、Y方向に15[m]、Z方向に5[m]の空間を定義しています。"
+    "X, Y, Z", "指定する領域の各軸方向の設定です。左から順に「グローバル座標系での基準座標[m]」、「計算格子の間隔[m]」、「計算格子の数[個]」を示しています。例では、グローバル座標(-7.5,-7.5,0)を基準点としてX方向に15[m]、Y方向に15[m]、Z方向に5[m]の空間を定義しています。"
     "Index", "計算格子の座標のインデックスです。インデックスに計算格子の間隔を掛けたものを基準点に加えたものがインデックスが指している計算格子点のグローバル座標になります。以上の例の場合では、インデックス[0,0,0]は(-7.5,-7.5,0)、インデックス[0,0,1]は(-7.5,-7.5,5)のグローバル座標での計算格子点を指しています。"
     "Density", "計算格子点に与える密度[kg/m^3]を設定します。"
     "Velocity", "計算格子点に与える速度[m/s]を設定します。"
@@ -240,14 +239,13 @@ MulticopterPluginを利用したサンプルプロジェクトがchoreonoid/samp
 
 * BUILD_CORBA_PLUGIN
 * BUILD_MULTICOPTER_RTM
-* BUILD_OPENHRP_PLUGIN
-* BUILD_OPENHRP_PLUGIN_FOR_3_0
 * BUILD_OPENRTM_PLUGIN
 * BUILD_OPENRTM_SAMPLES
+* BUILD_VISION_SENSOR_RTM_SAMPLE
 * ENABLE_CORBA
 
 本サンプルのマルチコプタの動作は、PS4のDUAL SHOCK4を使用して操縦する場合、
 次のとおりに設定されています。
 
-.. figure:: image/image0.png
+.. figure:: image/controller.png
 
