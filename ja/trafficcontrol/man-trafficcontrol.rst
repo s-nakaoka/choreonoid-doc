@@ -22,16 +22,16 @@
 
 まず、通信制御を行う通信ポートと同数の仮想通信ポートを作成します。 ::
 
- > modprobe ifb numifbs=2
- > modprobe act_mirred
+ $ modprobe ifb numifbs=2
+ $ modprobe act_mirred
 
 1行目と2行目のコマンドは、ifbモジュールを用いて「tc」コマンド（通信障害の効果を与えるために使用する）を使用する際に必要なモジュールを読み込んでいます。
 ここで、1行目のnumifbs=2は、仮想通信ポートを2つ作成することを表しています。
 
 次に、作成した通信ポートを有効にします。通常、生成されたifbの名前は、ifb0、ifb1のように0から昇順に番号を割り振られます。ここでは2つの通信ポートを使用するので、ifb0とifb1を有効にします。 ::
 
- > ip link set dev ifb0 up
- > ip link set dev ifb1 up
+ $ ip link set dev ifb0 up
+ $ ip link set dev ifb1 up
 
 次に、コンフィグファイルを格納するディレクトリを作成します。/usr/local/share/以下にディレクトリcnoid-confを作成してください。
 続いて、コンフィグレーションファイルを作成します。コンフィグレーションファイルは、内向きと外向きの通信ポートを1対1に紐付けるために必要となります。任意のテキストエディタを使用してファイル名を“tc.conf”として作成したディレクトリcnoid-conf内に以下を参考にファイルを作成してください。以下は、eth0とifb0、eth1とifb1をそれぞれ紐付ける設定をの記述例です。 ::
@@ -48,12 +48,20 @@
 
 事前設定の解除
 ----------------------
-事前設定を解除する場合は、管理者権限で以下のコマンドを実行し、仮想通信ポートを削除してください。 ::
+事前設定を解除する場合は、管理者権限で以下のコマンドを実行し、tcの設定と仮想通信ポートを削除してください。 ::
 
- > rmmod ifb
+ // delete tc setting
+ $ tc qdisc del dev eth0 root
+ $ tc qdisc del dev eth1 root
+ $ tc qdisc del dev eth0 ingress
+ $ tc qdisc del dev eth1 ingress
+ $ tc qdisc del dev ifb0 root
+ $ tc qdisc del dev ifb1 root
 
-上記コマンドは、仮想通信ポートの削除のみ行います。
-通信障害シミュレーションプラグインを使用しない場合は、上記の事前設定で生成・編集したファイルおよびディレクトリを手動で削除・修正してください。
+ // unload ifb module
+ $ rmmod ifb
+
+最後に、事前設定で生成・編集したファイルおよびディレクトリを手動で削除・修正してください。
 
 通信障害シミュレーションプラグインの導入
 ----------------------------------------
@@ -135,5 +143,5 @@ DynamicTrafficControlSimulatorItemの設定項目
 --------
 DynamicTrafficControlSimulatorItemにはサンプルとして、基準点(0,0,0)を中心とする半径10mの範囲で最大200msの通信遅延が動的に与えられるように設定されています。
 
-.. figure:: image/image1.png
+.. figure:: image/dynamicsample.png
 
