@@ -7,7 +7,6 @@ Basics of Robot/Environment Models
 
    bodymodel
    pose-editing
-   worlditem
    collision-detection
    legged-model
    modelfile/index

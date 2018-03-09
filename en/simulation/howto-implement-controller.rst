@@ -1,39 +1,38 @@
 
-Implementation of Controller
-============================
+Controller implementation
+=================================
 
 .. sectionauthor:: Shin'ichiro Nakaoka <s.nakaoka@aist.go.jp>
 
-.. contents::
+.. contents:: 
    :local:
 
 .. highlight:: cpp
 
+Controller implementation
+---------------------------------
 
-Implementation of Controller
-----------------------------
+Here we describe the basics of implementing a controller in your workflow.
 
-The basics of how to implement a controller are described below:
+A controller generally performs the three core functions below. These are executed as a repeating control loop.
 
-What a controller does is basically the following three things and it executes them repeatedly as "control loop".
+1. Robot state input
+2. Control calculations
+3. Outputting commands to the robot
 
-1. To input the status of the robot;
-2. To make control calculations; and
-3. To output commands to the robot
+These processes can be managed through standalone controllers for each, or through the combination of multiple software components. We referred to “control calculations” above as a single concept, but this includes a wide range of detection and movement computations and may also include input/output designed for entities other than robots. In the context of robots, however, it is best to think of the controller as ultimately carrying out the three processes above.
 
-These processes are executed by a single controller or in combination with multiple software components. A process where "control calculations" are bundled actually involves diversified processes such as object recognition and motion planning and may include inputs/outputs for something else than the robot. However, from the robot perspective, what a controller does can be sorted out to the above-mentioned three processes.
+This lets us interpret the controller as a software module equipped with the interfaces to perform those three processes. The actual API varies by controller format, but the core aspects are the same.
 
-From this perspective, a controller is a software module having interfaces that handle the above three actions. The actual API for this varies among the controller formats but the essential part is identical.
+Below, we utilize the SR1MinimumController discussed in the section on :doc:`howto-use-controller`  as an example. The controller is structured as a “simple controller” used for sample purposes in Choreonoid. The control routines are limited to maintaining the orientation of the robot by use of PD control of the joints. The controller is written in C++.
 
-Here, an explanation is provided using "SR1MinimumController" sample, which was also used in :doc:`howto-use-controller` . The format of the controller is the "simple controller" format designed for the samples in Choreonoid and its content of control is just to maintain the robot's posture. The implementation language used is C++.
-
-When actually developing a controller, the basics that were provided using this sample can be replaced with the desired controller format and the content of control. Generally speaking, diversified knowledge and skills related to control, programming, hardware, etc. are required to develop a controller for a robot. Many of those skills are out of scope of this manual. Study the knowledge and the skills required separately.
+When developing your own controller, you can refer to this sample and its core functionality while restructuring it in your preferred format and with your preferred control routines. Generally speaking, the development of robot controllers requires a range of knowledge and expertise in control processes, programming, hardware, and more. The majority of these competencies are outside of the scope of this manual. You should pursue each area as needed for your particular use case.
 
 
-Source Code of Sample Controller
---------------------------------
+Sample controller source code
+----------------------------------
 
-First, the source code of SR1MinimumController is as follows: This source code is a file called "SR1MinimumController.cpp" under the directory "sample/SimpleController" of Choreonoid sources. ::
+Below you will find the SR1MinimumController source code. You will find this source code in the file SR1MinimumController, located in the /sample/SimpleController/ path of the Choreonoid source directory. ::
 
  #include <cnoid/SimpleController>
  #include <vector>
@@ -53,479 +52,621 @@ First, the source code of SR1MinimumController is as follows: This source code i
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
      100.0, 100.0, 100.0 };
- 
+
  class SR1MinimumController : public SimpleController
  {
      BodyPtr ioBody;
      double dt;
      std::vector<double> qref;
      std::vector<double> qold;
- 
- public:
- 
-     virtual bool initialize(SimpleControllerIO* io)
-     {
-         ioBody = io->body();
-         dt = io->timeStep();
 
-         io->setJointInput(JOINT_ANGLE);
-         io->setJointOutput(JOINT_TORQUE);
- 
-         for(int i=0; i < ioBody->numJoints(); ++i){
-             qref.push_back(ioBody->joint(i)->q());
-         }
-         qold = qref;
- 
-         return true;
-     }
- 
-     virtual bool control()
+ public:
+
+     virtual bool initialize(SimpleControllerIO* io) override
      {
+	 ioBody = io->body();
+	 dt = io->timeStep();
+
          for(int i=0; i < ioBody->numJoints(); ++i){
              Link* joint = ioBody->joint(i);
-             double q = joint->q();
-             double dq = (q - qold[i]) / dt;
-             double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
-             qold[i] = q;
-             joint->u() = u;
-         }
-         return true;
+	     joint->setActuationMode(Link::JOINT_TORQUE);
+	     io->enableIO(joint);
+	     qref.push_back(joint->q());
+	 }
+	 qold = qref;
+
+	 return true;
+     }
+
+     virtual bool control() override
+     {
+	 for(int i=0; i < ioBody->numJoints(); ++i){
+	     Link* joint = ioBody->joint(i);
+	     double q = joint->q();
+	     double dq = (q - qold[i]) / dt;
+	     double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
+	     qold[i] = q;
+	     joint->u() = u;
+	 }
+	 return true;
      }
  };
- 
+
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
 
-As for compile, it is described in: ::
+This controller is provided as a sample with Choreonoid; by default, it is configured to build simultaneously with Choreonoid. (It is enough for the CMake settings to specify **BUILD_SIMPLE_CONTROLLER_SAMPLES** as “ON.”)
 
- add_cnoid_simple_controller(SR1MinimumController SR1MinimumController.cpp)
+For instructions on how to separately implement the SimpleController in a standalone fashion from the sample, please refer to the section on :doc:`howto-build-controller` .
 
-in CMakeList.txt under the same directory. See "src/SimpleControllerPlugin/library/CMakeLists.txt" for detail of this function. Basically, it is OK to link with the library "CnoidSimplerController". (In case of Linux, the file name of the library will be "libCnoidCimpleController.so".
+The SimpleController Class
+--------------------------------
 
-SimpleController Class
-----------------------
-
-A controller of simple controller format is implemented by inheriting SimpleController class. This class becomes available by including cnoid/SimpleController header. ::
+Controllers in the SimpleController format are implemented by inheriting the SimpleController class. This class can be used per the below: ::
 
  #include <cnoid/SimpleController>
 
-The basic part of this class is defined as follows: ::
+This includes the cnoid/SimpleController header.
+
+Generally speaking, this class is defined as follows: ::
 
  class SimpleController
  {
  public:
-     virtual bool initialize(SimpleControllerIO* io);
+     virtual bool initialize(SimpleControllerIO* io) = 0;
      virtual bool control() = 0;
  };
 
-Processing details of the controller are implemented by overriding the following virtual functions in a inherited class:
+By overriding the inherited class with this virtual function, we specify the controller process. The contents of each function are given below.
 
 * **virtual bool initialize(SimpleControllerIO\* io)**
 
- The controller is initialized by this function. The io parameter provides the objects and information used for control.
+ This function initializes the controller. Use the io argument to poll objects and data implicated in the control process.
 
 * **virtual bool control()**
 
- This function performs input, control and output processes of the control. This function will be executed repeatedly as a control loop under control.
+ This function handles controller input, control, and output. When being controlled, this function is executed as an ongoing control loop.
 
-Once you define a class inheriting the SimpleController class, you need to define its factory function. You can do it using a macro as follows: ::
+If you define a class to inherit SimpleController, you must define a factory function for it. It is fine to use a macro as below to achieve this: ::
 
  CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(SR1MinimumController)
 
-With this factory function, the shared (dynamic link) library file compiled from this source becomes available from a simple controller item.
+This allows the common library files (dynamic links) compiled from source to be usable as an actual controller in the form of a SimpleController item.
 
-SimpleControllerIO Object
--------------------------
+.. _simulator-simple-controller-io:
 
-A SimpleControllerIO object, which is passed as a parameter to a controller's initialize() function, handles the information used for input/output (I/O) between the controller and the robot. The following functions are available with this object:
+IO objects
+--------------
+
+The SimpleControllerIO object passed as an io argument to the above initialize function is an object that contains the requisite information for I/O between the controller and robot. Below, we refer to this object as an “IO object.”
+
+This class inherits the ControllerIO class. Some of the functions defined in the ControllerIO class are below; these can be used to implement the controller as you see fit.
 
 * **Body\* body()**
 
- Returns a Body object to be used for I/O.
+ Returns the body object used for input/output.
 
-* **void setJointInput(int stateTypes)**
+* **std::string optionString() const**
 
- Specifies the types of joint state values that are input to the controller.
+ Returns the option string given to the controller.
 
-* **void setJointOutput(int stateTypes)**
+* **std::vector<std::string> options() const**
 
- Specifies the types of joint state values that are output from the controller.
- 
+ Returns a space-delimited breakdown of the option string.
+
+* **std::ostream& os() const**
+
+ Returns an output stream of messages output from the controller.
+
 * **double timeStep() const**
 
- Returns the time step of the control. The controller's control() function is called repeatedly under control with this time interval.
+ Returns the time step. Given in seconds.
+ 
+* **double currentTime() const**
 
-* **std::ostream\& os() const**
+ Returns the current time. Given in seconds. At the start of the simulation, the time is 0.
 
- Returns an output stream to output a text. By outputting to this stream, a text message can be displayed on the message view of Choreonoid.
+.. _simulator-io-by-body-object:
+
+Input/output using body objects
+-----------------------------------------
+
+The SimpleController allows for input and output via Body objects. The Body object is a Choreonoid internal expression for :doc:`../handling-models/bodymodel` and an instance of the Body class defined in C++. The Body class is a data structure used to store the robot model and its state, so it can be used to store values like joint angle, torque, sensor status, and other data implicated in input/output. This is why the SimpleController allows for input and output via Body objects. These Body objects can be obtained via the body function of the IO object.
 
 
-This object is called 'io object' in the following sections.
+Link objects
+~~~~~~~~~~~~~~~~
 
-
-I/O using a Body Object
------------------------
-
-The simple controller inputs and outputs via a "Body item" returned by ioBody(). A Body object is an internal expression of Choreonoid of :doc:`../handling-models/bodymodel`, and an instance of "Body class" defined in C++. Since a Body class has data structure storing the status of the body model, elements like joint angle, torque and sensor status subject to output can of course be stored. The simple controller inputs and outputs via this Body class object. The Body object for this purpose is obtained by the io object's body() function.
-
-.. note:: A Body class has various information and functions related to the body model, so it is an over-qualified class for I/O only. This type of class is not usually used for an I/O interface. Generally, a data structure optimized for exchanging only I/O elements is used. So, please be reminded of this point when you apply the description of this section to other controller formats. For example, RT component of OpenRTM normally uses "data port" interface for I/O by data type.
-
-The elements of the robot state handled as I/O data are specified by using the setJointInput() and setJointOutput() functions of the io object. These functions specify input data types and output data types, respectively. The following symbols are used for specifying the data types:
-
-.. list-table::
- :widths: 50,50
- :header-rows: 1
-
- * - Symbol
-   - Data
- * - JOINT_ANGLE
-   - Joint angle values
- * - JOINT_DISPLACEMENT
-   - joint displacement values
- * - JOINT_VELOCITY
-   - joint velocity values
- * - JOINT_ACCELERATION
-   - joint acceleration values
- * - JOINT_TORQUE
-   - joint torque values
- * - JOINT_FORCE
-   - joint force values
-
-.. note:: What JOINT_ANGLE specifies in the simulator is same as that of JOINT_DISPLACEMENT. There may be revolute joints and prismatic joints, and the two symbols are defined to be able to express both the joint types. JOINT_TORQUE and JOINT_FORCE are defined for the same reason.
-
-When you specify more than one element type, enumerates the corresponding symbols with the bit operator '|'. For example, ::
-
- JOINT_ANGLE | JOINT_VELOCITY
-
-specifies both the joint angles and joint velocities.
-	  
-The above elements are actually contained in an object of the 'Link' class, which models a link of a robot. A link object of each joint can be retrieved from the Body object using the following member function:
+Body objects are expressed as a Link class object representing the individual components (rigid bodies) making up the model. These objects contain information pertaining to joints. (See :ref:`model_structure` ）. Link objects can be obtained via the Body class functions below.
 
 * **int numJoints() const**
 
- Returns the number of the joints owned by the Body object.
+ Returns the number of joints in the model.
 
 * **Link\* joint(int id)**
 
- Returns the Link object that corresponds to the joint index.
+ Returns the Link object corresponding to the joint ID.
+  
+* **Link\* link(const std::string& name)**
 
-For the Link object retrieved, it is possible to access to the joint state values using the following member function.
+ Returns the Link object with the name given for the name variable.
+ 
+The below member functions (state variables) can be used to access the joint state values for the Link object polled. (These member functions return a reference to the corresponding variable and can be used to substitute a value.) 
 
 * **double& q()**
 
- Returns the reference to the joint angle (displacement) value. The value corresponds to JOINT_ANGLE or JOINT_DISPLACEMENT. The unit is [rad] or [m].
+ Returns a reference to a joint displacement value. Works with JOINT_ANGLE, JOINT_DISPLACEMENT. Units are [rad] or [m].
 
 * **double& dq()**
 
- Returns the reference to the joint velocity value. The value corresponds to JOINT_VELOCITY. The unit is [rad/s] or [m/s].
-
+ Returns a reference to a joint velocity value. Works with JOINT_VELOCITY. Units are [rad/s] or [m/s].
 * **double& ddq()**
 
- Returns the reference to the joint acceleration value. The value corresponds to JOINT_ACCELERATION. The unit is [rad/s^2] or [m/s^2].
-
+ Returns a reference to a joint velocity value. Works with JOINT_ACCELERATION. Units are [rad/s^2] or [m/s^2].
+ 
 * **double& u()**
 
- Returns the reference to the joint torque value. The value corresponds to JOINT_TORQUE or JOINT_FORCE. The unit is [N･m] or [N].
+ Returns a reference to a joint torque (translation) value. Works with JOINT_TORQUE and JOINT_FORCE. Units are [N, m] or [N].
 
-As each of these member functions returns the reference to its corresponding variable, you can substitute another value. Outputting values from the controller is done in that way.
+SimpleController generally uses the above state variables to handle input/output for each joint. In other words, when taking input, it reads the variable value; when giving output, it writes the corresponding variable value.
 
-The element types that can actually be used for I/O depend on the type and configuration of a simulator item. Most simulator items support the input of joint angle (displacement) values and the output of joint torque (force) values, and they make it possible to perform basic PD control. In that case, for each Link object of the joints, the joint angle (displacement) value is input by reading the q() value, and the value is then used in the calculation of the PD control, and the resulting joint torque (force) value is set to u() to output it to the robot.
+However, which value is treated as an actuator command value and which is read as input varies by the type of actuator and control method.
 
-In fact, any element types can be input to a controller in most simulator items. All the element values are contained in the internal physics calculation process, and the simulator can pass the values to the controller as its input values. However, it is not applied to a real robot. In a real robot, inputting a joint displacement requires an encoder at the joint, and inputting a joint torque requires a torque sensor at as well. Joint velocity values and joint acceleration values are usually obtained by differentiating the joint displacement values.
+.. _simulation-implement-controller-actuation-mode:
 
-With regard to output, the element types other than the joint torque (force) can only be output in limited situations. An example of such situations is the 'High-gain dynamics' mode of the AIST simulator. When you set it to the 'Dynamics mode' property of an AIST simulator item, it accepts joint displacement, joint velocity, and joint acceleration values as the output values from the controller. In this case, the motion of the robot is calculated so that the given joint posture can be achieved. Note that, however, this function would not be available for the real robot.
+ActuationMode
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Initialization Process
-----------------------
+ActuationMode is the basic concept implicated in joint output. It is used to determine which state variable to use as a command value when driving joints. The below symbols are defined in the Link class for this mode.
 
-The initialization of a controller is done by overriding the initialize() function in a SimpleController inheriting class.
+.. list-table:: **Link::ActuationMode enumeration symbols**
+ :widths: 20,60,20
+ :header-rows: 1
 
-In the sample, the Body object used for I/O is obtained with: ::
+ * - Symbol
+   - Details
+   - State variable
+ * - **NO_ACTUATION**
+   - No actuation/drive. The joints operate freely.
+   - 
+ * - **JOINT_EFFORT**
+   - A command value is used to assign force and torque to the joint.
+   - Link::u()
+ * - **JOINT_FORCE**
+   - Same as JOINT_EFFORT. Defined for prismatic joints.
+   - Link::u()
+ * - **JOINT_TORQUE**
+   - Same as JOINT_EFFORT. Defined for rotating joints.
+   - Link::u()
+ * - **JOINT_DISPLACEMENT**
+   - A command value for joint displacement (joint angle and joint translation position).
+   - Link::q()
+ * - **JOINT_ANGLE**
+   - Same as JOINT_DISPLACEMENT. Defined for rotating joints.
+   - Link::q()
+ * - **JOINT_VELOCITY**
+   - A command value for joint velocity and offset speed.
+   - Link::dq()
+ * - **JOINT_SURFACE_VELOCITY**
+   - A command value for relative velocity on the intersection of the link surface and environment. This is used for simplified crawler and conveyor belt simulations. For details, see the section on :doc:`pseudo-continuous-track` .
+   - Link::dq()
+
+ActuationMode references and configures the following Link class functions.
+
+* **ActuationMode actuationMode() const**
+
+ Returns the currently set ActuationMode.
+
+* **void setActuationMode(ActuationMode mode)**
+
+ Configures the ActuationMode.
+
+Enabling I/O
+~~~~~~~~~~~~~~~~
+
+IO objects are used to configure which state variables to use as input/output to/from the controller. To do so, the SimpleControllerIO class defines the following functions.
+
+* **void enableInput(Link\* link)**
+
+ Enables input to the state quantity controller for the link specified with the “link” attribute. Works with corresponding state quantities for the ActuationMode set for the link.
+
+* **void enableInput(Link\* link, int stateTypes)**
+
+ Using the link given with “link,” stateTypes enables passing input on status quantity to the controller.
+
+* **void enableOutput(Link\* link)**
+
+ Using the link given with “link,” enables output of status quantity from the controller. The intended output target is the state quantity corresponding to the ActuationMode set for the link.
+
+* **void enableIO(Link\* link)**
+
+ Enables input/output of status quantities for the link given with “link.” The intended output target is the state quantity corresponding to the ActuationMode set for the link.
+ 
+.. note:: SimpleControllerIO includes definitions for functions like setLinkInput, setJointInput, setLinkOutput, and setJointOutput. These are the functions used in Choreonoid version 1.5 and prior; starting in 1.6, they have been replaced by the aforementioned enableIO, enableInput, and enableOutput. You should use the latter functions when using versions 1.6 and later.
+
+The values given to StateTypes in the enableInput function are the below symbols defined for SimpleControllerIO.
+
+.. list-table::
+ :widths: 20,60,20
+ :header-rows: 1
+
+ * - Symbol
+   - Details
+   - State variable
+ * - JOINT_DISPLACEMENT
+   - Joint displacement
+   - Link::q()
+ * - JOINT_ANGLE
+   - Same as JOINT_DISPLACEMENT. Defined for rotating joints.
+   - Link::q()
+ * - JOINT_VELOCITY
+   - Joint speed (angular velocity)
+   - Link::dq()
+ * - JOINT_ACCELERATION
+   - Joint acceleration (angular acceleration)
+   - Link::ddq()
+ * - JOINT_EFFORT
+   - The joint translation force or torque.
+   - Link::u()
+ * - JOINT_TORQUE
+   - Same as JOINT_EFFORT. Defined for rotating joints.
+   - Link::u()
+ * - JOINT_FORCE
+   - Same as JOINT_EFFORT. Defined for prismatic joints.
+   - Link::u()
+   
+To specify multiple elements, separate them with the bitwise operator “|”. For example, using ::
+
+ JOINT_DISPLACEMENT | JOINT_VELOCITY
+
+lets you specify both the joint displacement and velocity.
+
+The ActuationMode available for use varies based on the simulator item (≒ physics engine) type and configuration. The majority of simulator items support JOINT_EFFORT. Combining this with JOINT_DISPLACEMENT input let you perform PD control.
+
+The ActuationMode set for the Link object generally takes the following types of input.
+
+.. list-table::
+ :widths: 50,25,25
+ :header-rows: 1
+
+ * - ActuationMode
+   - Input
+   - Output
+ * - JOINT_EFFORT
+   - Link::q()
+   - Link::u()
+ * - JOINT_DISPLACEMENT
+   - N/A
+   - Link::q()
+ * - JOINT_VELOCITY
+   - Link::q()
+   - Link::dq()
+
+However, using enableInput to pass a stateTypes parameter lets you freely input a state quantity of your choice.
+
+.. note:: You can also use the **LINK_POSITION** symbol against direct input/output on the position and orientation of a link in 3D space. We go into this in later detail in the section on  :ref:`simulation-implement-controller-link-position` .
+
+The initialization process
+--------------------------------
+
+The initialize function inherits the SimpleController class and is used to initialize the controller.
+
+In the sample, first use ::
 
  ioBody = io->body();
 
-This object will be accessed repeatedly, so it is stored in ioBody variable for efficiency and descriptive simplification for use.
+to poll the I/O body object and store it in the member variable ioBody. This lets you use the object in a different function within the controller.
 
-Similarly, the time step value is stored in dt variable with: ::
+Similarly, the time step (delta time) used for control calculations is: ::
 
  dt = io->timeStep();
 
-for control calculation.
+This stores values in a member variable (dt).
 
-Next, ::
-
- io->setJointInput(JOINT_ANGLE);
- io->setJointOutput(JOINT_TORQUE);
-
-specifies the element types used for I/O. Here the joint angles are specified as the input values and the joint torques are specified as the output values. You only have to do this configuration once in the initialization. ::
-
- for(int i=0; i < ioBody->numJoints(); ++i){
-     qref.push_back(ioBody->joint(i)->q());
- }
- qold = qref;
-
-This sets the robot's joint angles when initialized (when the simulation is started) to a variable called qref where the target joint angles are stored. qold is a variable in which the joint angles one step before are stored and this will also be used for control calculation. qold is initialized to the identical value to qref.
-
-Here, the statement ::
-
- ioBody->joint(i)->q()
-
-inputs the joint angle of the i-th angle.
-
-By returning true in the end, it informs the simulator of the successful initialization.
-
-Control Loop
-------------
-
-A control loop is implemented in the control() function of the inheriting class.
-
-In the sample, control calculation is performed with: ::
+Next, we use the following for statement to initiate a loop on all of the robot’s joints and initialize them. ::
 
  for(int i=0; i < ioBody->numJoints(); ++i){
      ...
  }
 
-for all the joints. The content of this is the processing code.
-
-First, with: ::
+The line below in the loop polls the link object for the nth (i) joint and sets it to the joint variable. ::
 
  Link* joint = ioBody->joint(i);
 
-the Link object corresponding to the i-th joint is obtained.
+.
 
-Next, input the current joint angle: ::
+Next, use ::
+
+ joint->setActuationMode(Link::JOINT_TORQUE);
+
+to configure the ActuationMode for this joint. Here we use Link::JOINT_TORQUE to set a command value for joint torque. Also, using ::
+
+ io->enableIO(joint);
+
+enables input/output for the joint. Since the ActuationMode is set to JOINT_TORQUE, the output is joint torque and the input is joint angle. This lets you achieve PD control.
+
+Next,  ::
+
+ qref.push_back(joint->q());
+
+is used to store the vector variable for the joint angle when the robot is in its default state. This also uses PD control. This concludes the for loop used for the joints.
+
+Next,  ::
+
+ qold = qref;
+
+is used to initialize the qold variable to the same value as qref. This variable is used in PD control to reference the joint angle one step prior.
+
+Returning “true” as the return value against the initialize function conveys to the simulator that the initialization succeeded.
+
+Control loops
+-------------------
+
+Next, we give the class inheriting SimpleController a control loop in its control function.
+
+As with initializing, use the for statement below: ::
+
+ for(int i=0; i < ioBody->numJoints(); ++i){
+     Link* joint = ioBody->joint(i);
+     ...
+ }
+
+This performs control calculations against all joints. This code is used for operations on each joint.
+
+First, we input the current joint angle. ::
 
  double q = joint->q();
 
-Calculate the order value of the joint torque by PD control.  First, calculate the joint angular velocity from the difference from the previous joint angle in the control loop. ::
+PD control is used to calculate the command value for joint torque. The difference from the last joint angle in the control loop is used to calculate the current joint angular velocity. ::
 
  double dq = (q - qold[i]) / dt;
 
-Since the purpose of the control is to maintain the initial posture, calculate the torque order value with the joint angle being the initial joint angle and the angular velocity being 0 (state of rest) as a goal. ::
+The goal of the control operation here is to maintain the initial orientation and stance of the model; the joint angle target is the initial joint angle, and the velocity is 0 (still), with a torque command value calculated to that end. ::
 
  double u = (qref[i] - q) * pgain[i] + (0.0 - dq) * dgain[i];
 
-The gain values are obtained from the pgain and dgain arrays defined in the beginning of the source code. The gain values require tuning for each model, but how to tune them is omitted here.
+The pgain and dgain array set at the beginning of the source code are used to extract gain values for each joint. Gain values must be adjusted for each model; in the interest of time, we will omit an explanation of that here.
 
-Save the joint angle in qold variable for next calculation. ::
+Save the joint angle as the qold variable for use in calculation later. ::
 
  qold[i] = q;
 
-Output the calculated torque value. By this, the joint angle can be controlled so that the initial joint angle can be maintained. ::
+This exports a command value on calculated torque. This allows you to control the joint and maintain its initial angle. ::
 
  joint->u() = u;
 
-When the above process is applied to all the joints, the total posture of the robot can be maintained.
+All of the above apply to joints and ensure that the orientation and stance of the entire robot is maintained.
 
-Finally, the control() function informs the simulator of the continuation of the control by returning true. As a result, the control() function is called repeatedly.
+Lastly, when the control function returns true, this conveys to the simulator that the control has been inherited. This allows the control function to be continuously called in a loop.
 
-Devices
--------
+.. _simulation-device:
 
-In the above example, the joint angle was input and the joint torque was output. In other words, the I/O is made to the devices like an encoder and en actuator that are equipped in the joint.
+Device I/O
+----------------------
 
-There are many other different devices as the target of I/O. For example, the followings are the target of inputs as a sensor like an encoder:
+Devices explained
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Force sensor, acceleration sensor and angular velocity sensor (rate gyro)
-* Camera and laser range finder
-* Microphone
+Thus far, we have handled input/output of status quantity implicated in joints, such as with joint angle and torque. By contrast, there are also input/output elements that are separate from joints. These are defined as “devices” in Choreonoid and form constituent elements of Body models.
 
-and other devices.
+Examples of devices include:
 
-The followings are the target of outputs and work to the external world as an actuator:
+* Power sensors, velocity sensors, angular velocity sensors (rate gyros)
+* Cameras and laser range sensors
 
-* Speaker
-* Display
-* Light
+among others. These are generally used as sensors for input.
 
-and other devices.
+In addition, external (outside world) outputs can include:
 
-In the actual controller development, it is necessary to input/output for these diversified devices. To do so,
+* Lights
+* Speakers
+* Displays
 
-* it is necessary to understand how the devices are defined in the model, and
-* how to access the specified devices in the controller format to be used.
+and other devices. (Speakers and display are listed only as examples and not actually implemented at this time.)
+
+When developing actual controllers, input and output must be handled with respect to these numerous devices. To do so, you must ascertain:
+
+* How the device is defined in the model
+* How to access a given device in the controller format
+
+.
 
 .. _simulation-device-object:
 
-Device Objects
---------------
+Device objects
+~~~~~~~~~~~~~~~~~~~~
 
-In a Body model of Choreonoid, the device information is represented as "Device" objects. It is an instance of the class that inherits the Device class and a different type is defined for each different device type. The device types defined as standard are as follows: ::
+Choreonoid’s Body models express device information in the form of Device objects. These are instances that inherit the properties of Device classes; Device objects are defined for each device type. The default devices available include: ::
 
  + Device
-   + ForceSensor 
-   + RateGyroSensor  (angular velocity sensor)
-   + AccelerationSensor 
-   + Camera 
-     + RangeCamera (camera + distance image sensor)
-   + RangeSensor 
+   + ForceSensor (force sensor)
+   + RateGyroSensor (angular velocity sensor)
+   + AccelerationSensor (accelerometer)
+   + Camera (camera）
+     + RangeCamera (camera + distance image sensor）
+   + RangeSensor (range sensor）
    + Light
-     + PointLight 
-     + SpotLight 
+     + PointLight (point light source）
+     + SpotLight (spot light）
 
-The information on the devices installed in a robot is usually described in a model file. For a model file in OpenHRP format, :ref:`oepnrhp_modelfile_sensors` in :doc:`../handling-models/modelfile/modelfile-openhrp` is used to describe the devices.
+Device information in robots is generally described in model files. Standard format model files involve :ref:`body-file-reference-devices` , as discussed in the :doc:`../handling-models/modelfile/yaml-reference` .
 
-In a simple controller, similarly to a Body object, Device objects, which are internal expressions of Choreonoid, are used as they are to the devices for input and output. A Device object can be retrieved from a Body object using the following function:
+As with the Body and Link objects, SimpleController conducts input/output on devices as-is using the Device object, an internal expression of Choreonoid.
+
+The Device objects used by the SR1 model we reference in this section are as follows:
+
+.. tabularcolumns:: |p{3.5cm}|p{3.5cm}|p{6.0}|
+
+.. list-table::
+ :widths: 30,30,40
+ :header-rows: 1
+
+ * - Name
+   - The type of device.
+   - Details
+ * - WaistAccelSensor
+   - AccelerationSensor
+   - Accelerometer installed on the waist link
+ * - WaistGyro
+   - RateGyroSensor
+   - Gyro installed on the waist link
+ * - LeftCamera
+   - RangeCamera
+   - Distance imaging sensor for the left eye of the camera
+ * - RightCamera
+   - RangeCamera
+   - Distance imaging sensor for the right eye of the camera
+ * - LeftAnkleForceSensor
+   - ForceSensor
+   - Force sensor installed on the left ankle
+ * - RightAnkleForceSensor
+   - ForceSensor
+   - Force sensor installed on the right ankle
+
+
+Polling device objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Device objects are polled by using the below functions against Body objects.
 
 * **int numDevices() const**
 
- Returns the number of the devices.
+ Returns the number of devices.
 
 * **Device\* device(int i) const**
 
- Returns the i-th device. The order of the devices are the order described in the model file.
+ Returns the nth (i) device. Device order follows the order of notation within the model file.
 
 * **const DeviceList<>& devices() const**
 
- Returns the list of the devices.
+ Returns a list of all devices.
 
 * **template<class DeviceType> DeviceList<DeviceType> devices() const**
 
- Returns the list of the devices of the type specified.
+ Returns a list of all devices of the type given.
 
 * **template<class DeviceType> DeviceType\* findDevice(const std::string& name) const**
 
- Returns any device having the type and the name specified.
+ If there is a Device of the type and name given, returns it.
 
-Use a template class DeviceList to get the devices of a specific type. DeviceList is an array that stores the device objects of the type specified and it allows extracting only the corresponding type using its constructor, the extraction operator (<<), etc. from DeviceList having other types. For example, if you want to retrieve the force sensor owned by the Body object ioBody, type: ::
+To poll a specific type of device, use DeviceList, a template class. DeviceList is an array that contains the device objects specified. Its constructor and extraction operator (<<) can be used to extract the specific object from the list and exclude others. For instance, if you want to pull the force sensor belonging to “ioBody,” a Body object, use: ::
 
  DeviceList<ForceSensor> forceSensors(ioBody->devices());
 
-or add it to the existing list as follows: ::
+Or, you could add the below against an existing list: ::
 
  forceSensors << ioBody->devices();
 
-DeviceList has functions and operators similar to std::vector. For example, with the following: ::
+.
+
+DeviceList contains functions and operators similar to std::vector. For example, use: ::
 
  for(size_t i=0; i < forceSensors.size(); ++i){
      ForceSensor* forceSensor = forceSensor[i];
      ...
  }
 
-you can access to each device objects.
+to access each object.
 
-By using the findDevice() function, you can identify a device with its type and name and get it. For example, SR1 model has an acceleration sensor called "WaistAccelSensor" mounted in the waist link. You can type as follows ::
+Using the findDevice function lets you specify a device type and name and poll it. For example, the SR1 model has a WaistAccelSensor equipped on the waist link. This is an accelerometer. To poll it, you would use the below against the Body object: ::
 
- AccelerationSensor* waistAccelSensor =
+ AccelerationSensor* accelSensor =
      ioBody->findDevice<AccelerationSensor>("WaistAccelSensor");
 
-to the Body object, then you can get it.
+.
 
-The devices that SR1 model has are as follows:
+.. _simulation-implement-controller-device-io:
 
-.. tabularcolumns:: |p{3.0cm}|p{3.0cm}|p{6.0}|
+I/O methods
+~~~~~~~~~~~~~~~~~~~
 
-.. list-table::
- :widths: 25,25,50
- :header-rows: 1
-
- * - Name
-   - Type of device
-   - Description
- * - WaistAccelSensor
-   - AccelerationSensor
-   - Acceleration sensor mounted in the waist link
- * - WaistGyro
-   - RateGyroSensor
-   - Gyro mounted in the waist link
- * - LeftCamera
-   - RangeCamera
-   - Distance image sensor corresponding to the left eye
- * - RightCamera
-   - RangeCamera
-   - Distance image sensor corresponding to the right eye
- * - LeftAnkleForceSensor
-   - ForceSensor
-   - Force sensor mounted in the left ankle
- * - RightAnkleForceSensor
-   - ForceSensor
-   - Force sensor mounted in the right ankle
-
-
-I/O for Devices
----------------
-
-The I/O for a Device object is performed in the following way:
+Input and output via a Device object is done as follows:
 
 * **Input**
 
- Obtain the value using the member function of the corresponding Device object.
+ Invoke the below function against the SimpleController IO object:
+
+ * **void enableInput(Device\* device)**
+
+ This lets you enable input to the device. You can then use member variables for the corresponding Device object to poll values.
 
 * **Output**
 
- Update the value using the member function of the corresponding Device object and run "notifyStateChange()" function of the Device object.
+ After using the member function for the corresponding Device object, set a value and then invoke the following function for the Device object:
 
-To do so, you must know the class definition of the device to be used. For example, for "AccelerationSensor", which is the class of an acceleration sensor, there is a member function "dv()" to access to its state. This function returns three-dimension vector in Vector3 type.
+ * **void notifyStateChange()**
 
-Thus, the acceleration of the acceleration sensor waistAccelSensor can be obtained as follows: ::
+ This will update the device status on the simulator.
+ 
+To do the above, you must know the class definitions used by the device in question. For example, AccelerationSensor, an accelerometer class, includes the dv() member function used to access its state. This returns a three-dimensional vector result for the acceleration.
+
+Accelerometer input on the SR1 model functions as follows. In the initialize function for the controller, use the below: ::
+
+ AccelerationSensor* accelSensor =
+     ioBody->findDevice<AccelerationSensor>("WaistAccelSensor");
+ io->enableInput(accelSensor);
+
+This will enable input to the accelSensor. Next, in the section referencing the accelerometer value within the control function, use the below: ::
 
  Vector3 dv = waistAccelSensor->dv();
 
-Similarly, it is possible to input the state using the relevant member function for ForceSensor and RateGyroSensor, too.
+to poll it.
 
-Use of visual sensors like a camera or a range sensor requires some preparation. This will be described in :doc:`vision-simulation`.
+Similarly, you can use the corresponding member functions for ForceSensor and RateGyroSensor to handle state input.
 
-For output to a device, see the sample "TankJoystickLight.cnoid", which turns on and off the light.
+When using cameras, range sensors, and other visual sensors, you must configure your settings accordingly. This is explained in the section on  :doc:`vision-simulation` .
 
-I/O of Link Positions
----------------------
+For output to a device, see the sample for TankJoystickLight.cnoid, which handles on/off functionality for the light.
 
-In addition to the I/O elements described above, link positions can be the I/O element. Here, 'link position' is not the joint angle of the corresponding link, but the position and orientation of the link as a rigid body in the global coordinate. It is usually impossible to input/output such a value for a real robot. If the robot is not fixed in the world, it is difficult to know the accurate position of a link unless a motion capture with very good accuracy is available, and it is physically impossible to directly move a real link so that its position is identical to the output from the controller without controlling the joints. However, those are possible in simulation, and the function to input/output link positions is provided for the use limited in the simulation.
+.. _simulation-implement-controller-link-position:
 
-To use this function, specify the I/O for a link using the following functions of the io object:
+Input/output of link position and orientation
+-----------------------------------------------------
 
-* **void setLinkInput(Link\* link, int stateTypes)**
+Other targets of controller input/output are link position and orientation. This refers not to the joint angle, but rather to the position and orientation of the link itself as a rigid body in the global coordinate system. This value ordinarily cannot carry out input/output against a robot device. For robots not fixed to a point in the space, obtaining the exact position and orientation of a specific link (provided you are not using super accurate motion capture) is difficult. Furthermore, it is physically impossible to directly change this position and orientation of a link through controller output. However, the above can be achieved in a simulation, so the system includes input/output of this value for such use.
 
- Specifies the types of the link states that are handled as the input to the controller.
+To do so, specify **LINK_POSITION** as a symbol of state quantity. To generate output, give the setActuationMode function of the Link object the following: **Link::LINK_POSITION**. Then, use the enableIO function or enableOutput function of the IO object to enable output. For input, use the enableInput function for the IO object and set **SimpleControllerIO::JOINT_POSITION**.
 
-* **void setLinktOutput(Link\* link, int stateTypes)**
-
- Specifies the types of the link state that are handled as the output from the controller.
-
-In the above functions, a target link object is specified by the 'link' parameter. For the stateType parameter, only the **LINK_POSITION** symbol that corresponds to the link position can be used currently.
-
-In a Link object, its position is stored as a Position type value. This is a custom type of the 'Transform' type defined in the vector/matrix library 'Eigen', which is used as the standard vector/matrix library in Choreonoid. The value basically stores the elements of a three-dimension homogeneous coordinate transformation matrix. You can access to this value using the following functions of the Link class:
+The position and orientation of Link objects is stored as a Position value. This is a customized “Transform” version of the Eigen matrix and vector library used to implement Choreonoid. It generally works by storing a converted array of 3D homogeneous coordinates. This value can be accessed by using the below Link class functions, among others.
 
 * **Position& T(), Position& position()**
 
- These functions return the reference to the link position value.
+ Returns a reference to the Position value for the position and orientation.
 
 * **Position::TranslationPart translation()**
 
- Returns the translation part of the link position as a three-dimension vector expression.
+ Returns a 3D vector for the position.
 
 * **void setTranslation(const Eigen::MatrixBase<Derived>& p)**
-
- Sets the translation part of the link position by giving a three-dimension vector expression defined by Eigen library.
    
+ Sets the position element. You can use a 3D vector format equivalent to that used by Eigen for the argument.
+
 * **Position::LinearPart rotation()**
 
- Returns the rotation (orientation) part of the link position as a 3x3 matrix expression.
+ Returns a 3x3 array for the orientation (rotation) element.。
 
 * **setRotation(const Eigen::MatrixBase<Derived>& R)**
 
- Sets the rotation part of the link position by giving a 3x3 matrix expression defined by Eigen library.
+ Sets the orientation (rotation). You can use a 3x3 array equivalent to that used by Eigen for the argument. 
 
 * **setRotation(const Eigen::AngleAxis<T>& a)**
 
- Sets the rotation part of the link position by giving an angle-axis rotation expression defined by Eigen library.
+ Sets the orientation (rotation). The argument is the AngleAxis format used by Eigen to describe rotational axis and angle of rotation. 
+ 
+As an example, when entering the root link position, you could use the below for the controller initialize function: ::
 
-For example, if you need to input the position of the root link, enable the input by ::
+ io->enableInput(io->body()->rootLink(), LINK_POSITION);
 
-  io->setLinkInput(io->body()->rootLink(), LINK_POSITION);
-
-in the controller's initialize() function.
-
-Then the controller can obtain the position of the root link by a code like ::
+For the control function, using ::
 
  Position T = io->body()->rootLink()->position();
  Vector3 p = T.translation();
  Matrix3 R = T.rotation();
 
-in the control() function.
+would obtain the root link position and orientation.
 
-Output of a link position is a special function and it requires the simulator to support it. For example, AIST simulator item supports this function when its 'dynamics mode' property is set to 'kinematics'. In this mode, the dynamics calculation is not performed in the simulation but the forward kinematics is only performed for the output from the controller. If the position of the root link is output, the link moves to that position. If the joint angles are also output from the controller, the values are used in the forward kinematics and the resulting pose of the robot is achieved.
+A simulator supporting output of link position and orientation is needed here, which is a special use case. For example, the AIST simulator item allows for changing the dynamics mode to kinematics, with no dynamics calculations performed in the simulation; instead, only the position and orientation given are reproduced. In this case, outputting the position and orientation of the robot’s root link will navigate the root link to that point. If you output the joint angle, it will reproduce the orientation based on the forward kinematics from the root link.
 
-Other Samples
--------------
-
-Choreonoid provides various other samples of controllers, and simulation projects including such controller samples are listed in :ref:`basics_sample_project`. Please refer to those samples for more information on implementing controllers.
+Other samples
+--------------------
+ 
+Choreonoid includes a variety of other controllers besides the SR1MinimumController. You can find :ref:`basics_sample_project` that make use of these, so please have a look.

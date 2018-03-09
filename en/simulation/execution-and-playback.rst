@@ -55,6 +55,7 @@ In this case, unlike the case using Pause button, all the elements related to th
 
 On the other hand, the resources that were used for the simulation are also released. So, it is also possible to resume the simulation as is initialized. Therefore, use Stop operation when you need not resume the simulation.
 
+.. _simulation-time-range:
 
 Configuration of Time Range
 ------------------------------
@@ -83,6 +84,7 @@ When the time range is specified other than to "Unlimited", the simulation is au
 
 When the time range is specified to "Unlimited", the simulation will continue until an explicit stop operation is executed.
 
+.. _simulation-realtime-sync:
 
 Synchronization with Real Time
 ---------------------------------
@@ -138,6 +140,8 @@ Recording of Device States
 --------------------------
 
 The basic element to be recorded as a simulation result is the motion trajectory necessary to replay the physical motion of the model. In addition to this, the change of the device states can also be recorded. To do this, execute a simulation with the "device state output" property of a simulator item set to true. Thus, the state changes of the sensor and the operations like on/off of the devices can also be replayed. Note that this will cause the memory space required and the processing overhead will increase. So, switch this function on and off depending on the necessity.
+
+.. _simulation-result-playback:
 
 Replay of Simulation Result
 -----------------------------

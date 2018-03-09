@@ -46,6 +46,8 @@ View
 
 "View area" is the area where the central GUI element of Choreonoid "View" is displayed. View is a panel-style area on which different data are presented and edited. Different types of views are available on Choreonoid and normally many views are arranged on View area to use. Some of the basic Views are listed below:
 
+.. _basics_mainwindow_itemtreeview:
+
 Item Tree View
 ~~~~~~~~~~~~~~
 .. image:: images/ItemTreeView.png
@@ -133,6 +135,7 @@ Change of Layout
 
 The layout of Views and Tool Bars can be freely changed. The layout you prefer can be realised so that it fits to the work you are engaged in.
 
+.. _basics_modify_view_layout:
 
 How to Change View Layout
 ~~~~~~~~~~~~~~~~~~~~~~~~~

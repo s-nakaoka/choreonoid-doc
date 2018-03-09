@@ -45,6 +45,8 @@ SR1 model is a multi-link model having 29 joints and can make different poses by
 
 Don't forget :ref:`simulation-time-step` , too. This time, too, set it 1000 [fps] for the time being.
 
+.. _controller-no-controller-case:
+
 In Case without Controller
 ----------------------------
 

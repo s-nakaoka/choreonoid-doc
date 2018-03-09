@@ -51,6 +51,8 @@ For example, you may simulate a robot equipped with cameras or laser range senso
 
 Sub-simulators can realize many other different functions in the framework where the situation of a virtual world is monitored so that the corresponding outputs can be provided or the virtual world can be modified.
 
+.. _simulation_controller:
+
 Controller
 ----------
 

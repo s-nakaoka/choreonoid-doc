@@ -115,6 +115,7 @@ You can determine the current mode by checking whether the "edit mode switching 
 
 Since specific edit operations depend on the model and data to be edited, this section does not describe them in detail. ( :doc:`../handling-models/index` - :doc:`../handling-models/pose-editing`  describes operations performed on a robot model.) The following mainly describes operations performed in view mode.
 
+.. _basics_sceneview_viewpoint:
 
 Changing the Viewpoint
 ----------------------

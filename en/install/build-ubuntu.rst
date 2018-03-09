@@ -85,6 +85,8 @@ Also, it is necessary to add the following pieces of software to build optional 
 * `PulseAudio <http://www.freedesktop.org/wiki/Software/PulseAudio/>`_ :  It is a system for audio output. Though it is installed as default in case of Ubuntu, the library for development is separately required when building a Media plug-in.
 * `libsndfile <http://www.mega-nerd.com/libsndfile/>`_ :  It is a library used for reading an audio file. It is required when using a Media plug-in.
 
+.. _build-ubuntu-install-packages:
+
 In case of Ubuntu, you can install without difficulty most of the following pieces of software with the use of “install-requisities-ubuntu-x.x.sh” script located in ”misc/script” x.x stands for the version of Ubuntu. In case of Ubuntu 14.04, for example, if you execute ::
 
  misc/script/install-requisites-ubuntu-14.04.sh
@@ -97,6 +99,8 @@ OpenRTM-asit is not included as a standard package of Ubuntu for the time being.
 
 Bullet is included as a standard package in Ubuntu 14.04, but you cannot build a Bullet plug-in as it seems that a necessary file is missing in this package. Therefore, when you build a Bullet plug-in, you should build Bullet itself from source codes and install it. Again, you need not install a Bullet plug-in if not required. For CMake setting when building Bullet, turn “ON” **BUILD_SHARED_LIBS** and **USE_DOUBLE_PRECISION**.
 
+.. _build-ubuntu-cmake:
+ 
 Build Setting using CMake
 -------------------------
 
