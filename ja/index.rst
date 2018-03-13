@@ -15,12 +15,12 @@ Choreonoidマニュアル
    simulation/index
    agxdynamics/index
    openrtm/index
+   multicopter/index
+   trafficcontrol/index
    reference/index
    plugin-development/index
    tips/index
 
-..   multicopter/index
-..   trafficcontrol/index
 ..   python/index
 ..   tips/index
 ..   plugins/index
