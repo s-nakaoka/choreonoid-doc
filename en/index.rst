@@ -13,6 +13,7 @@ Choreonoid Operation Manual
    basics/index
    handling-models/index
    simulation/index
+   agxdynamics/index
    openrtm/index
    tips/index
 
