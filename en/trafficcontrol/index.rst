@@ -37,7 +37,7 @@ Then, Create the directory “cnoid-conf” under “/usr/local/share/” to sto
 
 The first line indicates the file header, which should not be omitted. The second and the third lines are description to link the communication port with the virtual communication port. Left side of the comma is the communication port and the right side is the corresponding virtual communication port. Furthermore,  a name of the communication port described as eth0 · eth1 in the example differs depending on the computer to be used. Therefore, you need to check a name of communication port with the "ifconfig" command.
 
-Finally, set the permission to using the tc command. Execute "visudo" with the line below. The set user name is user in the following example. ::
+Finally, set the permission to using the tc command. Execute "visudo" with the line below. The set user name is "user" in the following example. Therefore, you need to change the user name to your own. ::
 
  user ALL=(ALL:ALL) NOPASSWD: /sbin/tc
 
