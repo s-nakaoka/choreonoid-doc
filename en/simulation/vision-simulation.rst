@@ -9,6 +9,7 @@ Simulation of Vision Sensor
 
 .. highlight:: cpp
 
+.. _simulation-gl-vision-simulator-sensor:
 
 Vision Sensor
 -------------
@@ -58,6 +59,7 @@ A vision simulator works by allocating it as a child item of a simulator item. A
 
 By doing so, the simulation of vision sensors can be performed to the virtual world that the simulator item is targeting. In concrete terms, the image data of Camera devices, the depth map data of RangeCamera devices, and the distance data of RangeSensor devices are updated at the frame rate configured to the devices.
 
+.. _simulation-gl-vision-simulator-property:
 
 Properties of GL Vision Simulator
 ---------------------------------

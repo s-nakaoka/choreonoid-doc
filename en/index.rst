@@ -15,6 +15,7 @@ Choreonoid Operation Manual
    simulation/index
    agxdynamics/index
    openrtm/index
+   reference/index
    tips/index
 
 ..   plugin-development/index
