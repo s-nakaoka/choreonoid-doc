@@ -14,6 +14,7 @@
 * スレッド数を増やす
 * 摩擦モデルでダイレクトソルバーを利用している場合には、surfaceViscosityを大きくする
 * Contact Warmstartingを使う
+* AMORを使う
 
 
 干渉応答の安定性の向上

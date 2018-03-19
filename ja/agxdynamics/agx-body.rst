@@ -29,6 +29,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
       jointLockSpookDamping: 0.0333
       jointLockForceRange: [ -1000, 1000 ]
       convexDecomposition: true
+      AMOR: true
       autoSleep: true
 
   collisionDetection:
@@ -133,6 +134,11 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - -\
     - bool
     - 凸分割の有効化、無効化。true、falseを指定します。
+  * - AMOR
+    - false
+    - -\
+    - bool
+    - オートスリープの有効可、無効化。true、falseを指定します。静止している剛体をソルバから除き、計算量を減らします。:doc:`agx-simulator-item` のプロパティAutoSleepも合わせてtrueにしておく必要があります。
   * - autoSleep
     - false
     - -\
