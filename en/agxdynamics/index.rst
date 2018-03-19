@@ -14,7 +14,7 @@ AGX Dynamics Plugin
 .. toctree::
   :maxdepth: 1
 
-  .. agx-performance
+
   .. agx-compliance-spookdamping
   agx-simulator-item
   agx-body
@@ -23,3 +23,4 @@ AGX Dynamics Plugin
   .. agx-wire
   .. agx-breakable-joint
   .. agx-magnetic-joint
+  agx-performance-tuning
