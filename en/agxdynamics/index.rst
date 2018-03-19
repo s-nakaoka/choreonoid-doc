@@ -14,9 +14,8 @@ AGX Dynamics Plugin
 .. toctree::
   :maxdepth: 1
 
-
-  .. agx-compliance-spookdamping
   agx-simulator-item
+  agx-compliance-spookdamping
   agx-body
   agx-material
   agx-continuous-track
