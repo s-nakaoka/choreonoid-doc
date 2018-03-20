@@ -17,6 +17,7 @@ Choreonoid Operation Manual
    multicopter/index
    trafficcontrol/index
    openrtm/index
+   reference/index
    tips/index
 
 ..   plugin-development/index
