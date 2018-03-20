@@ -19,7 +19,7 @@ AGX Dynamics Plugin
   agx-body
   agx-material
   agx-continuous-track
-  .. agx-wire
+  agx-wire
   .. agx-breakable-joint
   .. agx-magnetic-joint
   agx-performance-tuning
