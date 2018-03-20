@@ -42,8 +42,20 @@
 
 * **BUILD_BULLET_PLUGIN**
 
- Bulletプラグインをビルドします。このプラグインにより、オープンソースの動力学計算ライブラリである "Bullet Physics" ライブラリを、コレオノイドのシミュレーション機能の計算エンジンとして利用できます。利用の際には、 `Bullet Physics Library <http://bulletphysics.org>`_ ライブラリをインストールしておく必要があります。
+ Bulletプラグインをビルドします。このプラグインにより、動力学計算ライブラリである "Bullet Physics" ライブラリを、コレオノイドのシミュレーション機能の計算エンジンとして利用できます。Bulletの詳細については `Bullet Physics Library <http://bulletphysics.org>`_ を、ビルド方法については、 :doc:`build-bulletPlugin` をご覧ください。
+ 
+* **BUILD_ROKI_PLUGIN**
 
+ ROKIプラグインをビルドします。このプラグインにより、動力学計算ライブラリ"RoKi"をコレオノイドのシミュレーション機能の計算エンジンとして利用できます。ROKIの詳細については `Rokiホームページ <http://www.mi.ams.eng.osaka-u.ac.jp/open-j.html>`_ を、ビルド方法については、 :doc:`build-rokiPlugin` をご覧ください。
+
+* **BUILD_SPRINGHEAD_PLUGIN**
+
+ Springheadプラグインをビルドします。このプラグインにより、動力学計算ライブラリ"Springhead"をコレオノイドのシミュレーション機能の計算エンジンとして利用できます。Springheadの詳細については `Springheadホームページ <http://springhead.info/wiki/>`_ を、ビルド方法については、 :doc:`build-springheadPlugin` をご覧ください。
+ 
+* **BUILD_PhysX_PLUGIN**
+
+ PhysXプラグインをビルドします。このプラグインにより、動力学計算ライブラリ"PhysX"をコレオノイドのシミュレーション機能の計算エンジンとして利用できます。PhysXの詳細については `PhysXホームページ <http://www.nvidia.co.jp/object/physx_new_jp>`_ を、ビルド方法については、 :doc:`build-physxPlugin` をご覧ください。
+ 
 * **ENABLE_CORBA**
 
  コレオノイドが提供するCORBA関連機能のベースとなるモジュールをビルドします。本モジュールの導入には、 `omniORB <http://omniorb.sourceforge.net/>`_ ライブラリのインストールが必要です。
