@@ -16,8 +16,8 @@ Sample
 The sample is below.
 When loading the sample project with Choreonoid and running the simulation, you can see the blue object stick together with the red object automatically (see above figure).
 
-* プロジェクトファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.cnoid
-* ボデイファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.body
+* project file: chorenoid/sample/AGXDynamics/agxMagneticJoint.cnoid
+* body file:    chorenoid/sample/AGXDynamics/agxMagneticJoint.body
 
 
 How to write
@@ -58,8 +58,8 @@ For example, if you set connectAxis in different directions as shown on the left
 
 .. image:: images/magnetic_joint_detail.png
 
-Parameter description
------------------------
+Explanation of parameters
+-----------------------------
 The parameters are described below.
 
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|

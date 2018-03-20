@@ -1,6 +1,6 @@
 
 AGXVehicleContinuousTrack (AGX crawler)
-===========================
+==========================================
 
 AGXVehicleContinuousTrack is a crawler model using AGX Dynamics.
 agxVehicle modulus is used for implementation.
@@ -142,8 +142,8 @@ Link composition of sample model is as below.
 .. image:: images/continuous-track-detail.png
    :scale: 70%
 
-Explanation of parameter
----------------
+Explanation of parameters
+-------------------------------
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
 MUST
@@ -215,7 +215,7 @@ MUST
     - material of crawler belt
 
 Probably MUST
-~~~~~~~~
+~~~~~~~~~~~~~~~~
 .. list-table::
   :widths: 20,8,4,4,75
   :header-rows: 1
@@ -263,8 +263,8 @@ Probably MUST
     - double
     - threshold to unmerge the node from wheel
 
-merge of some nodes (that helps to improve the performance)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Merging multiple nodes (that helps to improve the performance)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 20,8,4,4,75
@@ -319,7 +319,7 @@ Hints to set parameters
 .. _agx_continous_track_material:
 
 Setting for crawler material
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Actual crawler or tire case, the frictions on moving direction and crossing direction are different.
 | To simulate the same phenomenon, user need to set the friction separately.
@@ -407,7 +407,7 @@ Setting for crawler material
 .. _agx_continous_track_stabilize:
 
 Stabilization of crawler belt
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 1. Fix the time step of simulation.

@@ -5,7 +5,7 @@ Compliance and spook damping of constraints
 
 | AGX Dynamics performs numerical calculation of simultaneous equations which have equation of motion and constraints.
 | When the constraint condition is not satisfied, it is necessary to satisfy the condition in some way,
-| AGX Dynamics uses a viscoelasticity (spring damper) model.
+| AGX Dynamics uses a viscoelasticity (spring damper) model to satisfy the constraint condition.
 | Notice that, for formulation and numerical calculation, AGX Dynamics transforms the viscoelastic model as follows and uses parameters such as compliance and spook damping.
 
 .. code-block:: text

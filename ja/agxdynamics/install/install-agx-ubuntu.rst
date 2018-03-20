@@ -14,7 +14,7 @@ AGX Dynamicsのインストール(Ubuntu Linux編)
 ----------------------------
 
 | AGX Dynamicsのインストールは下記のコマンドを実行することで行います。デフォルトでは/opt/Algoryx/AgX-<version>ディレクトリにインストールされます。
-| 次にAGX実行ライセンスファイルをインストールディレクトリに配置し、AGX Dynamicsを実行できるようにします。
+| 次にAGX実行ライセンスファイル(agx.lic)をインストールディレクトリに配置し、AGX Dynamicsを実行できるようにします。
 | 最後に.profileファイルに環境変数設定スクリプトの実行を記述し、OSログイン時に自動的に環境変数が設定されるようにします。
 
 .. code-block:: txt
@@ -44,7 +44,6 @@ AGX Dynamicsのサンプルを実行して動作確認をします。
 
 .. code-block:: txt
 
-   # AGX Dynamicsの動作確認
    cd /opt/Algoryx/AgX-2.19.1.1/bin
    ./tutorial_trackedVehicle
 

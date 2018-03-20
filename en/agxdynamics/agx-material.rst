@@ -58,10 +58,10 @@ How to describe in material file
       contactReductionBinResolution: 3
 
 
-About Material parameter
-------------------------
+Explanation of material parameters
+------------------------------------
 
-bulk material
+Bulk material
 ~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -105,12 +105,12 @@ Surface material
     - 0.0
     - \-
     - double
-    - viscous restitution.The pair of vistous restitution is the restitution coefficient.
+    - viscous restitution.The pair of viscous restitution becomes restitution coefficient.
   * - spookDamping
     - 0.075
     - s
     - double
-    - This defines the time it should take for the solver to restore an overlap.
+    - spook damping. Relax the penetration of links(rigid bodies).
   * - roughness
     - 0.5
     - \-
@@ -120,7 +120,7 @@ Surface material
     - 5e-09
     - \-
     - double
-    - Surface viscosity. The pair of each surface viscosity is the surfaceViscosity of ContactMaterial. It defines how "wet" a surface is.
+    - Surface viscosity. The pair of each surface viscosity becomes the surfaceViscosity of ContactMaterial. It defines how "wet" a surface is.
   * - adhesionForce
     - 0.0
     - N
@@ -153,22 +153,22 @@ Wire Material
     - 6e10
     - Pa
     - double
-    - Young's modulus for strech
+    - young's modulus for strech
   * - wireSpookDampingStretch
     - 0.075
     - s
     - double
-    - Scoop damping for stretch
+    - spook damping for stretch
   * - wireYoungsModulusBend
     - 6e10
     - Pa
     - double
-    - Young's modulus for bending.
+    - young's modulus for bending.
   * - wireSpookDampingBend
     - 0.075
     - s
     - double
-    - Scoop damping for bending
+    - spook damping for bending
 
 Explanation of ContactMaterial parameters
 ------------------------------------------------
@@ -186,22 +186,22 @@ Explanation of ContactMaterial parameters
     - 2.0e8
     - Pa
     - double
-    - Young's modulus
+    - young's modulus
   * - restitution
     - 0.0
     - \-
-    - doulbe
-    - restitution coefficient.   zero :completely inelastic collision、1:completely elastic collision
+    - double
+    - restitution coefficient. 0:completely inelastic collision、1:completely elastic collision
   * - spookDamping
     - 0.075
     - s
     - double
-    - scoop damping
+    - spook damping
   * - friction
     - 0.5
     - \-
     - double
-    - friction coeeficient
+    - friction coefficient
   * - secondaryFriction
     - -1.0
     - \-
@@ -211,7 +211,7 @@ Explanation of ContactMaterial parameters
     - 1.0e-8
     - \-
     - double
-    - Surface viscosity coeeficient. Complaiance for friction constraint.
+    - surface viscosity coeeficient. Complaiance for friction constraint.
   * - secondarySurfaceViscosity
     - -1.0
     - \-
@@ -232,7 +232,7 @@ Explanation of ContactMaterial parameters
     - \-
     - | string
       | string
-    - | frictio model : default(cone), cone, box, scaledBox, orientedBox
+    - | friction model : default(cone), cone, box, scaledBox, orientedBox
       | solver    : default(split), split, direct, iterative, iterativeAndDirect
 
   * - contactReductionMode
@@ -263,7 +263,8 @@ Explanation of ContactMaterial parameters
     - reference link name when orientedBox friction model is used.
 
 .. note::
-  AGXDynamics deos not discern dynamic and static friction coefficient. But actual は動摩擦係数、静止摩擦係数の区別がありません。実際、値の差は10-20%程度であり、ほとんどの状況では気にしなくて良いとの考えです。
+  AGX Dynamics does not distinguish between dynamic friction coefficient and static friction coefficient. Actually, the difference in value is around 10-20%, and most situations do not have to worry about it.
+
 
 .. _not_defined_contact_material:
 
@@ -283,7 +284,7 @@ If the ContactMaterial is not defined
 
 
 How to describe the material in the body file
-------------------------------------------
+----------------------------------------------
 
 | This section describes how to set material in the body file.
 | You can select the types of setting center of gravity, mass and inertia with massType.
@@ -367,7 +368,7 @@ Using conventional description and material file (Recommended)
 
 
 Describe all material paramters directly (Not recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * When set material: useLinkInfo, you can describe material parameters in body file
 * The values of ContactMaterial are calculated according to :ref:`not_defined_contact_material`
@@ -391,7 +392,7 @@ Describe all material paramters directly (Not recommended)
 
 
 Describe everything  (Not recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Every paramters are described in the body file
 * You will be confused which parameters are used in the simulation

@@ -28,7 +28,7 @@ Cmake Errorがでていないことを確認し、以下のようにmake、make 
 .. code-block:: txt
 
    make -j4
-   make install   // インストール
+   make install
 
 
 .. note::

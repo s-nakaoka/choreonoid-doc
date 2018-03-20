@@ -73,7 +73,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - 0.0333
     - s
     - double
-    - 関節のスプークダンパ。
+    - 関節のスプークダンパ
   * - jointMotor
     - false
     - -\
@@ -138,7 +138,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - false
     - -\
     - bool
-    - オートスリープの有効可、無効化。true、falseを指定します。静止している剛体をソルバから除き、計算量を減らします。:doc:`agx-simulator-item` のプロパティAutoSleepも合わせてtrueにしておく必要があります。
+    - 相対的に静止している剛体同士を一体化させ、ソルバの計算量を減らします。true、falseを指定します。合わせて　:doc:`agx-simulator-item`　のプロパティも設定する必要があります。
   * - autoSleep
     - false
     - -\
@@ -188,8 +188,8 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - string list
     - 指定のリンクとAGXWireとの干渉を無効化します
 
-Convex Decomposition(凸分割)
----------------------------------
+Convex Decomposition(凹形状の凸分割)
+-----------------------------------
 
 AGXDynamicsは、三角形メッシュの形状を凸形状に分割する機能を持っています。
 リンクパラメータのconvexDecompositionをtrueとすると、三角形メッシュ形状の凸分割を実行します。

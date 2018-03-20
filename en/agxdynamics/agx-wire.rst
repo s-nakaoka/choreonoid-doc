@@ -167,8 +167,8 @@ Link composition of sample model is as below.
 .. image:: images/wire-detail.png
    :scale: 70%
 
-Parameter description
-------------------
+Explanation of parameters
+--------------------------
 The parameters are described below.
 
 Wire

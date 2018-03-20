@@ -86,8 +86,8 @@ Write and use AGXBreakableJoint as follows.
    :scale: 50%
 
 
-Parameter description
---------------------------
+Parameter descriptionExplanation of parameters
+--------------------------------------------------
 
 The parameters are described below.
 
@@ -150,7 +150,7 @@ The parameters are described below.
     - force
     - \-
     - string
-    - break type: force、impulse
+    - break type: force, impulse
   * - breakLimitForce
     - double_max
     - N

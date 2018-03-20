@@ -14,11 +14,10 @@ AGXMagneticJoint
 ------------
 
 サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
+Choreonoidでサンプルプロジェクトをロードし、シミュレーションを実行すると、上図のように青色のオブジェクトが自動的に赤色のオブジェクトに引き寄せられる挙動を確認することができます。
 
 * プロジェクトファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.cnoid
 * ボデイファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.body
-
-Choreonoidでサンプルプロジェクトをロードし、シミュレーションを実行すると、上図のように青色のオブジェクトが自動的に赤色のオブジェクトに引き寄せられる挙動を確認することができます。
 
 
 記述方法

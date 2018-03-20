@@ -4,7 +4,7 @@ Installing and building AGX Dynamics plugin
 
 | AGX Dynamics plugin is included in the Choreonoid source code.
 | Set the following cmake option **ON** before building Choreonoid.
-| You can check the description of building Choreonoid at ref: `build-ubuntu-cmake`.
+| You can check the description of building Choreonoid at :ref:`build-ubuntu-cmake`.
 
 * **BUILD_AGX_DYNAMICS_PLUGIN**      : AGXDynamicsPlugin - Enable rigid body simulation with AGX Dynamics
 * **BUILD_AGX_BODYEXTENSION_PLUGIN** : AGXBodyExtensionPlugin - Including dedicated models such as wire, breakable joint, etc. Only works with AGXDynamicsPlugin.
@@ -24,7 +24,7 @@ Enable following options ON, then execute configure and generate.
 * BUILD_AGX_BODYEXTENSION_PLUGIN        ON
 
 Make sure that CMake Errors are not occurred.
-Execute make, make install as follows:
+Then execute make, make install as follows:
 
 .. code-block:: txt
 
