@@ -1,5 +1,5 @@
 
-AGXVehicleContinuousTrack (AGX crawler)
+AGX Vehicle Continuous Track (AGX crawler)
 ==========================================
 
 AGXVehicleContinuousTrack is a crawler model using AGX Dynamics.
