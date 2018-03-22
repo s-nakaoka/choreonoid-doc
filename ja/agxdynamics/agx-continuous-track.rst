@@ -1,5 +1,5 @@
 
-AGXVehicleContinuousTrack (AGXクローラ)
+AGX Vehicle Continuous Track (AGXクローラ)
 ===========================
 
 AGXVehicleContinuousTrackはAGX Dynamicsを使ったクローラモデルです。
