@@ -23,3 +23,4 @@ Choreonoidマニュアル
 
 ..   python/index
 ..   plugins/index
+..   teleoperation/index
