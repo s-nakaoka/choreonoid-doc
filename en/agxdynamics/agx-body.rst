@@ -1,5 +1,5 @@
-Additional parameter for body model
-===========================
+Additional parameters for body model
+=======================================
 
 When user uses AGXDynamics plugin, user can use following additional parameters for his body model.
 
@@ -30,6 +30,7 @@ How to write
       jointLockSpookDamping: 0.0333
       jointLockForceRange: [ -1000, 1000 ]
       convexDecomposition: true
+      AMOR: true
       autoSleep: true
 
   collisionDetection:
@@ -49,8 +50,8 @@ How to write
 
 .. _agx_autosleep:
 
-About parameters
------------
+Explanation of parameters
+-----------------------------
 
 link
 ~~~~~~~~~
@@ -68,72 +69,77 @@ link
     - 1e-8
     - m/N or rad/Nm
     - double
-    - compliance for joint
+    - compliance of joint. If value is large joint will be dislocation.
   * - jointSpookDamping
     - 0.0333
     - s
     - double
-    - spook damping for joint
+    - spook damping of joint
   * - jointMotor
     - false
     - -\
     - bool
-    - activation for joint motor
+    - activation of joint motor. It is automatically enabled when ActuationMode is JOINT_TORQUE or JOINT_VELOCITY.
   * - jointMotorCompliance
     - 1e-8
     - m/N or rad/Nm
     - double
-    - compliance for joint motor
+    - compliance of joint motor. It is used for speed control. If the value is reduced, it will output a large force/torque to reach the target speed. If it is enlarged, it becomes impossible to resist external force (gravity and contact force) and it will not reach the target speed.
   * - jointMotorSpookDamping
     - 0.0333
     - s
     - double
-    - scoop damping for joint motor
+    - spook damping of joint motor
   * - jointMotorForceRange
     - [ double_min, double_max ]
     - N or Nm
     - Vec2
-    - Maximum/Minimum torque for joint motor, limit of torque
+    - Maximum/Minimum force/torque of joint motor
   * - jointRangeCompliance
     - 1e-8
     - m/N or rad/Nm
     - double
-    - compliance for limitaion of joint angle
+    - compliance for limitation of joint position/angle. If the value is reduced, it will output a large force/torque to fit the limit position/angle. If it is enlarged, it may come out of the limit angle due to external force (gravity or contact force).
   * - jointRangeSpookDamping
     - 0.0333
     - s
     - double
-    - scoop damping for limitation of joint angle
+    - spook damping of limitation of joint position/angle
   * - jointRangeForceRange
     - [ double_min, double_max ]
     - N or Nm
     - Vec2
-    - Maximum/Minimum torque for limitation of joint anvle, limitation of torque
+    - Maximum/Minimum force/torque of joint for limitation
   * - jointLock
     - false
     - -\
     - bool
-    - activation of lock joint
+    - activation of lock joint. It is used for position control. It is automatically enabled when ActuationMode is JOINT_ANGLE.
   * - jointLockCompliance
     - 1e-8
     - m/N or rad/Nm
     - double
-    - compliance for lock joint
+    - compliance for lock joint. If the value is reduced, it will output a large force/torque to reach the target position/angle. If it is enlarged, it becomes impossible to resist external force (gravity and contact force) and it will not reach the target position/angle.
   * - jointLockSpookDamping
     - 0.0333
     - s
     - double
-    - scoop damping for lock joint
+    - spook damping of lock joint
   * - jointLockForceRange
     - [ double_min, double_max ]
     - N or Nm
     - Vec2
-    - Maximum/Minimum toque for lock joint, limitation of torque
+    - Maximum/Minimum force/toque for lock joint
   * - convexDecomposition
     - false
     - -\
     - bool
     - activation/deactivation of convex decomposition by true/false
+  * - AMOR
+    - false
+    - -\
+    - bool
+    - Merge the relatively resting rigid bodies together and reduce the amount of solver calculation. Specify true or false. Also required to set AMOR of :doc:`agx-simulator-item`.
   * - autoSleep
     - false
     - -\
@@ -141,8 +147,8 @@ link
     - activation/disactivation of auto sleep by true/false. It provides the function of removing non-moving solid from the solver, then reduce the calculation amount.property of :doc:`agx-simulator-item` needs to be changed to true.
 
 
-setting of collision detection
-~~~~~~~~~
+Settings of collision detection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 15,7,4,6,75
@@ -157,7 +163,7 @@ setting of collision detection
     - \-
     - \-
     - string list
-    - disactivate collision of designated link
+    - disable collision of selected link
   * - | excludeLinkGroups:
       | -
       |   name
@@ -168,7 +174,7 @@ setting of collision detection
       |
       | string
       | string list
-    - | disactivate collisions between the links registered in group
+    - | disable collisions between the links registered in group
       |
       | name of group
       | name of link
@@ -176,16 +182,16 @@ setting of collision detection
     - \-
     - \-
     - string list
-    - disactivate self-collision of designated link and body.
+    - disable self-collision of selected link and body.
   * - excludeLinksWireCollision
     - \-
     - \-
     - string list
-    - disactivate of collision between designated link and AGXWire.
+    - disable collision between selected link and AGXWire.
 
 
-Convex Decomposition(divide into 凸(convex) object)
----------------------------------
+Convex Decomposition(divide concave to convexes)
+-------------------------------------------------------------
 
 AGX Dynamics has a function to divide tri-mesh into convex object.
 Set true in convexDecomposition for link paramaeter, convex decomposition (from tri-mesh) is activated.
@@ -202,7 +208,7 @@ Samples are available in below directory.
 * Project file: chorenoid/sample/AGXDynamics/agxConvexDecomposition.cnoid
 * Body file: chorenoid/sample/AGXDynamics/vmark.body
 
-If you run a sample, convex decomposition is activated and the object is devided into some convex objects.
+If you run a sample, convex decomposition is activated and the object is divided into some convex objects.
 
 .. image:: images/convexdecomposition.png
    :scale: 70%

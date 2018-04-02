@@ -1,8 +1,8 @@
 AGXBreakableJoint
 ===========================
 
-| AGXBrekableJointはAGX Dynamicsをつかったジョイントで、一定の条件を満たすとジョイントが破壊(無効化)されます。
-| 実装にはAGX DynamicsのHinge、Prismatic、LockJointを利用しています。
+| AGXBrekableJoint is a joint using AGX Dynamics, and when a certain condition is satisfied the joint will be broken(invalidated).
+| Hinge, Prismatic, LockJoint of AGX Dynamics are used for implementation.
 
 .. _agx_breaking_door:
 
@@ -12,40 +12,43 @@ AGXBreakableJoint
    :local:
    :depth: 2
 
-サンプル
+Sample
 ------------
 
-サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
+This section explains how to use samples. The sample project is below.
+Operate the robot DoubleArm and grasping and pulling the door.
+You will see that the hinge joint will be broken and the door comes off.
 
-* プロジェクトファイル: chorenoid/sample/AGXDynamics/agxBreakableJoint.cnoid
-* ボデイファイル: chorenoid/sample/AGXDynamics/agxBreakableJoint.body
+* project file: chorenoid/sample/AGXDynamics/agxBreakableJoint.cnoid
+* body file: chorenoid/sample/AGXDynamics/agxBreakableJoint.body
 
-DoubleArmを操作し、ドアを掴みながら引くとヒンジ拘束がなくなりドアが外れる様子を確認することができます。
 
-破壊条件
-------------
+Breaking condition
+---------------------
 
-冒頭で説明しました通り、AGXBreakableJointでは一定の条件を満たすと破壊がトリガーされます。
-その条件は以下の2種類で、breakTypeパラメータで指定します。
+As explained at the beginning, AGXBreakableJoint triggers destruction if certain conditions are met.
+These conditions are two types, specified by the breakType parameter.
 
-* **一定時間一定以上の力を受け続けた時(breakType: force)**
+* **Receive force more than specified force continuously during specified time (breakType: force)**
 
 .. image:: images/breakable_joint_breaklimitforce.png
    :scale: 70%
 
-* **受けた力積が閾値を超えた時(breakType: impulse)**
+* **Receive impulse more than specified threshold (breakType: impulse)**
 
 .. image:: images/breakable_joint_breaklimitimpulse.png
    :scale: 70%
 
-breakTypeは力の受け方で使い分けをします。
-例えば、ヒンジで取り付けられたドアを取り外すようなシーン( :ref:`agx_breaking_door` )ではforceが適しています。
-一方でドリルで周期的に衝撃を受けるものについては一定以上の力を受け続けることは難しいため、impulseが適しています。
+breakType is used properly depending on how to receive force.
+For example, in a scene ( :ref:`agx_breaking_door` ) that removing a hinged door, breakType: force is suitable.
+On the other hand, breakType: impulse is suitable for drilling scene.
+Because it is difficult to receive force more than the specified force continuously.
+The drill add the force periodically.
 
-記述方法
-------------
+How to write
+--------------
 
-AGXMagneticJointは以下のように記述し、利用します。
+Write and use AGXBreakableJoint as follows.
 
 .. code-block:: yaml
 
@@ -65,104 +68,106 @@ AGXMagneticJointは以下のように記述し、利用します。
           jointAxis: [ 0, 0, 1 ]
           jointCompliance: 1e-6
           breakType: force
-          period: 3.0                 # 3sec以上
-          breakLimitForce: 3000       # 3000N以上の力を
-          validAxis: [0, 1, 0]        # Y軸方向に受けると破壊
+          period: 3.0                 # More than 3sec,
+          breakLimitForce: 3000       # receive more than 3000N force continuously
+          validAxis: [0, 1, 0]        # on Y axis direction will break the joint
 
-1. AGXBreakableJointで接続したいリンクをlinkNameに設定します
-2. 関節タイプをjointTypeに設定します
-3. 関節の位置と軸をpositionとjointAxisに設定します
-4. breakTypeで破壊のタイプを設定します
-  * breakType: forceの場合、breakLimitForceとperiodを設定します
-  * breakType: impulseの場合、breakLimitImpulseを設定します
-5. 必要に応じてバネの硬さ、ダンピングをjointCompliance、jointSpookDampingに設定します
-6. 必要に応じてvalidAxisを設定します。validAxisは関節軸のどの軸をbreakLimitの計算に利用するかを指定することができます。例えば、下図ではvalidAxisを[0, 1, 0]とすることで、XZ軸方向のに加えられた力は考慮しないということになります。
+1. Set the link you want to connect with AGXBreakableJoint to **linkName**
+2. Set joint type to **jointType**
+3. Set joint position and axis to **position** and **jointAxis**
+4. Set break type to **breakType**
+  * breakType: force, required to set **breakLimitForce** and **period** additionally
+  * breakType: impulse, required to set **breakLimitImpulse** additionally
+5. If necessary, set compliance, spook damping to **jointCompliance** and **jointSpookDamping**
+6. If necessary, set **validAxis** . validAxis can specify which axis of the joint to use for calculating breakLimit.
+   For example, in the figure below, by setting validAxis to [0, 1, 0], it means that the forces applied in the XZ axis direction are not considered.
 
 .. image:: images/breakable_joint_validaxis.png
    :scale: 50%
 
 
-パラメータの説明
-------------
-| 以下にパラメータの説明をします。
+Parameter descriptionExplanation of parameters
+--------------------------------------------------
+
+The parameters are described below.
 
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 .. list-table::
   :widths: 20,9,4,4,75
   :header-rows: 1
 
-  * - パラメータ
-    - デフォルト値
-    - 単位
-    - 型
-    - 意味
+  * - parameter
+    - default value
+    - unit
+    - data type
+    - explanation
   * - type: AGXBreakableJointDevice
     - \-
     - \-
     - string
-    - AGXBreakableJointを使うことの宣言
+    - declaration of using AGXBreakableJoint
   * - link1Name
     - \-
     - \-
     - string
-    - リンク名
+    - name of the link1
   * - link2Name
     - \-
     - \-
     - string
-    - リンク名
+    - name of the link2
   * - jointType
     - \-
     - \-
     - string
-    - 関節タイプ: revolute, prismatic, fixed
+    - joint type: revolute, prismatic, fixed
   * - position
     - [ 0, 0, 0]
     - m
     - Vec3
-    - link1の座標系からみた関節位置
+    - joint position at the link1 coordinate
   * - jointAxis
     - [ 0, 0, 1]
     - \-
     - Unit Vec3
-    - 関節軸
+    - axis of the joint at the link1 coordinate
   * - jointRange
     - [ -inf, inf ]
     - m or deg
     - Vec2
-    - 関節可動範囲
+    - range of the joint motion
   * - jointCompliance
     - 1e-8
-    - m/N
+    - m/N or rad/Nm
     - double
-    - 関節コンプライアンス
+    - compliance of the joint
   * - jointSpookDamping
     - 0.33
     - s
     - double
-    - 関節スプークダンパ
+    - spook damping of the joint
   * - breakType
     - force
     - \-
     - string
-    - 破壊タイプ: force、impulse
+    - break type: force, impulse
   * - breakLimitForce
-    - double max
+    - double_max
     - N
     - double
-    - 関節破壊の力閾値
+    - force threshold of joint broken
   * - period
     - 0
     - s
     - double
-    - 時間閾値
+    - time threshold of joint broken
   * - breakLimitImpulse
-    - double max
+    - double_max
     - Ns
     - double
-    - 関節破壊の力積閾値
+    - impulse threshold of joint broken
   * - offsetForce
     - 0
     - N
     - double
-    - オフセット力
+    - offset force

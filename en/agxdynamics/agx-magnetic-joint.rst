@@ -1,8 +1,8 @@
 AGXMagneticJoint
 ===========================
 
-| AGXMagneticJointはAGX Dynamicsをつかった磁石のような振る舞いをするジョイントです。
-| 実装にはAGX Dynamicsのlock jointを利用しています。
+| AGX Magnetic Joint is a joint that behaves like a magnet using AGX Dynamics.
+| For implementation lock joint of AGX Dynamics is used.
 
 .. image:: images/magnetic_joint.png
 
@@ -10,21 +10,20 @@ AGXMagneticJoint
    :local:
    :depth: 2
 
-サンプル
+Sample
 ------------
 
-サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
+The sample is below.
+When loading the sample project with Choreonoid and running the simulation, you can see the blue object stick together with the red object automatically (see above figure).
 
-* プロジェクトファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.cnoid
-* ボデイファイル: chorenoid/sample/AGXDynamics/agxMagneticJoint.body
-
-Choreonoidでサンプルプロジェクトをロードし、シミュレーションを実行すると、上図のように青色のオブジェクトが自動的に赤色のオブジェクトに引き寄せられる挙動を確認することができます。
+* project file: chorenoid/sample/AGXDynamics/agxMagneticJoint.cnoid
+* body file:    chorenoid/sample/AGXDynamics/agxMagneticJoint.body
 
 
-記述方法
-------------
+How to write
+---------------
 
-AGXMagneticJointは以下のように記述し、利用することができます。
+AGX Magnetic Joint can be described and used as follows.
 
 
 .. code-block:: yaml
@@ -46,85 +45,85 @@ AGXMagneticJointは以下のように記述し、利用することができま�
           validDistance: 1.0
           validAngle: 20
 
-#. AGXMagneticJointで接続したいリンクをlinkNameに設定します
+#. Set the link you want to connect with AGXMagneticJoint to **linkName**
 
-#. リンクのどの部分に接続したいのかをpositionとconnectionAxisに設定します
+#. Set which part of the link you want to connect to **position** and **connectionAxis**
 
-#. どのくらいの力、速度で接続するのかをjointCompliacne、jointSpookDampingに設定します
+#. Set how much force and speed to connect to **jointCompliacne** and **jointSpookDamping**
 
-#. 接続が有効になる距離、角度をvalidDistance、validAngleに設定します
+#. Set the distance and angle at which the connection is valid to **validDistance** and **validAngle**
 
-poistionはリンク座標系からみた相対位置、connectAxisはジョイントの接続方向です。
-例として下図左のようにそれぞれconnectAxisを異なる方向に設定しますと、それぞれのconnectAxisが一致するように接続が行われます。
+poistion is the relative position from the link coordinate and connectAxis is the connection direction of the joint.
+For example, if you set connectAxis in different directions as shown on the left in the figure below, the connection is made so that each connectAxis matches.
 
 .. image:: images/magnetic_joint_detail.png
 
-パラメータの説明
-------------
-| 以下にパラメータの説明をします。
+Explanation of parameters
+-----------------------------
+The parameters are described below.
 
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 .. list-table::
   :widths: 20,9,4,4,75
   :header-rows: 1
 
-  * - パラメータ
-    - デフォルト値
-    - 単位
-    - 型
-    - 意味
+  * - parameter
+    - default value
+    - unit
+    - default value
+    - explanation
   * - type: AGXMagneticJointDevice
     - \-
     - \-
     - string
-    - AGXMagneticJointを使うことの宣言
+    - declaration of using AGXMagneticJoint
   * - link1Name
     - \-
     - \-
     - string
-    - リンク名
+    - name of the link1
   * - link2Name
     - \-
     - \-
     - string
-    - リンク名
+    - name of the link2
   * - position1
     - [0, 0, 0]
     - \-
     - Vec3
-    - link1のローカル座標系からみたジョイント取り付け位置
+    - position of the joint relative from the link1 coordinate
   * - position2
     - [0, 0, 0]
     - \-
     - Vec3
-    - link2のローカル座標系からみたジョイント取り付け位置
+    - position of the joint relative from the link2 coordinate
   * - connectAxis1
     - [0, 0, 1]
     - \-
     - Unit Vec3
-    - link1のローカル座標系からみたジョイント取り付け向き
+    - direction of the joint relative from the link1 coordinate
   * - connectAxis2
     - [0, 0, 1]
     - \-
     - Unit Vec3
-    - link2のローカル座標系からみたジョイント取り付け向き
+    - direction of the joint relative from the link2 coordinate
   * - jointCompliance
     - 1e-8
     - m/N
     - double
-    - コンプライアンス
+    - compliance of the joint
   * - jointSpookDamping
     - 0.33
     - s
     - double
-    - スプークダンパ
+    - spook damping of the joint
   * - validDistance
     - 0
     - m
     - double
-    - ジョイントが有効になる距離
+    - distance threshold when the magnetic joint effective
   * - validAngle
     - 0
     - degree
     - double
-    - ジョイントが有効になる角度
+    - angle threshold when the magnetic joint effective

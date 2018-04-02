@@ -22,5 +22,5 @@ Choreonoidマニュアル
    tips/index
 
 ..   python/index
-..   tips/index
 ..   plugins/index
+..   teleoperation/index

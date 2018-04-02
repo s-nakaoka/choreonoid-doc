@@ -163,7 +163,7 @@ Materialパラメータの説明
     - 6e10
     - Pa
     - double
-    - 曲げヤング率。0にすると鎖のような振る舞いになります。
+    - 曲げヤング率
   * - wireSpookDampingBend
     - 0.075
     - s
@@ -171,7 +171,7 @@ Materialパラメータの説明
     - 曲げスプークダンパ
 
 ContactMaterialパラメータの説明
-----------------
+----------------------------------
 
 .. list-table::
   :widths: 10,7,4,4,75
@@ -190,7 +190,7 @@ ContactMaterialパラメータの説明
   * - restitution
     - 0.0
     - \-
-    - doulbe
+    - double
     - 反発係数。0:完全非弾性衝突、1:完全弾性衝突
   * - spookDamping
     - 0.075

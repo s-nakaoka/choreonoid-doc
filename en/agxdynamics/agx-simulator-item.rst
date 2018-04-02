@@ -1,8 +1,8 @@
 
-AGXSimulator item
+AGXSimulator Item
 =======================
 
-The following properties can be used in AGXSimulator item.
+The following properties can be used in AGXSimulator Item.
 
 .. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
@@ -19,7 +19,7 @@ The following properties can be used in AGXSimulator item.
     - 1
     - thread
     - unsigned int
-    - The number of thread AGX Dynamics uses, which activate the function of parallerization for solver and collision detection. It can be confimed by checking CPU usage via top command etc.
+    - The number of thread AGX Dynamics uses, which activate the function of parallelization for solver and collision detection. It can be confimed by checking CPU usage via top command etc.
   * - ContactReduction
     - true
     - \-
@@ -29,7 +29,7 @@ The following properties can be used in AGXSimulator item.
     - 3
     - piece
     - unsigned int
-    - number of bin for contact redcution. (1-10). It is used for 6-dimensional binning algoruthm.
+    - number of bin for contact reduction. (1-10). It is used for 6-dimensional binning algorithm.
   * - ContactReductionThreshold
     - 12
     - piece
@@ -39,14 +39,19 @@ The following properties can be used in AGXSimulator item.
     - false
     - \-
     - bool
-    - If the status of contact is the same as the last step, using the soution of the last solver, the calculation can be converged quickly.
-  * - AutoSleep
+    - If the status of contact is the same as the last step, using the solution of the last solver, the calculation can be converged quickly.
+  * - AMOR
     - false
     - \-
     - bool
-    - Automatic sleeping function for not-moving rigid body from the solver, which contributes to reducing calculation by true/faulse. Each link needs to be set autoSleep.Details in  :doc:`agx-body` .
+    - Merge the relatively resting rigid bodies together and reduce the amount of solver calculation. Specify true or false. Each link needs to be set AMOR. Details in to :doc:`agx-body`.
+  * - AutoSleep(deprecated)
+    - false
+    - \-
+    - bool
+    - Automatic sleeping function for resting rigid body from the solver, which contributes to reducing calculation by true/faulse. Each link needs to be set autoSleep. Details in :doc:`agx-body` .
   * - SaveToAGXFileOnStart
     - false
     - \-
     - bool
-    - Save the simulation in .agx file format when simulation starts. The stored directry is the one that executable binary is saved or current directry when executed. It can be used for debag of AGXDynamics and performance confirmation.
+    - Save the simulation in .agx file format when simulation starts. The stored directry is the one that executable binary is saved or current directry when executed. It can be used for debugging of AGXDynamics and performance checking.

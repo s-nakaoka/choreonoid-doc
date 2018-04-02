@@ -1,5 +1,5 @@
 
-AGXVehicleContinuousTrack (AGXクローラ)
+AGX Vehicle Continuous Track (AGXクローラ)
 ===========================
 
 AGXVehicleContinuousTrackはAGX Dynamicsを使ったクローラモデルです。
@@ -530,30 +530,48 @@ AGXVehicleContinuousTrackの特徴
    :scale: 70%
 
 
-*作成中* ノードのマージ 　
-----------------------------
+ノードのマージ 　
+~~~~~~~~~~~~~~~~~
 
-..
-  # ノードのマージに関するパラメータ(値はデフォルト)を下記に示します。
-  <pre>
-  enableMerge: false
-  numNodesPerMergeSegment: 3
-  contactReduction: 1
-  enableLockToReachMergeCondition: false
-  lockToReachMergeConditionCompliance: 1.0E-11
-  lockToReachMergeConditionSpookDamping: 0.05
-  maxAngleMergeCondition: 1.0E-5
-  </pre>
-  # まずは機能を有効化し、パラメータはデフォルト(コメントアウト)のままで様子をみます。
-  <pre>
-  enableMerge: true
-  #numNodesPerMergeSegment: 3
-  #contactReduction: 1
-  enableLockToReachMergeCondition: true
-  #lockToReachMergeConditionCompliance: 1.0E-11
-  #lockToReachMergeConditionSpookDamping: 0.05
-  #maxAngleMergeCondition: 1.0E-5
-  </pre>
+ノードのマージは複数のノードを一時的に一つのノードとみなし、計算量を削減します。
+以下の手順で設定をします。
+
+1. ノードのマージ機能を有効にします
+
+  .. code-block:: txt
+
+    enableMerge: false
+
+2. 次にマージするノード数を指定します。3以上から増やして確認していくことがおすすめです。また、ホイールに巻き付いていないノード数を求め、そのノードまとめる数を指定すると良いでしょう。
+
+  .. code-block:: txt
+
+    numNodesPerMergeSegment: 3
+
+3. 次にノードマージするタイミングを決める閾値を設定します。この閾値はノード間をつなぐヒンジジョイントの角度です。角度が閾値より小さい場合にノードをマージします。この値はロボットのスケールにより大きく異なります。
+
+  .. code-block:: txt
+
+     maxAngleMergeCondition: 1.0e-5
+
+4. 接触点削減レベルを指定します。ノードをマージした後の接触点をどの程度残すかを設定します。0ですと、マージをする前と接触点数は変わりませんので、2程度を指定することをおすすめします。
+
+  .. code-block:: txt
+
+    contactReduction: 2
+
+5. さらに、ノードのマージしやすくするために、ノードをつなぐヒンジをロックする機能を有効にします。
+
+  .. code-block:: txt
+
+    enableLockToReachMergeCondition: true
+
+6. 最後にヒンジロック時のヒンジをつなぐ硬さとダンパを設定します。この値に関してもロボットのスケールによって大きく異なります。また、硬くしすぎると、ベルトを段差に沿わせて変形させるようなことができなくなりますので注意してください。
+
+  .. code-block:: txt
+
+    lockToReachMergeConditionCompliance: 1.0e-11
+    lockToReachMergeConditionSpookDamping: 0.001
 
 
 仕様

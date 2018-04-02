@@ -1,6 +1,6 @@
 
-AGXVehicleContinuousTrack (AGX crawler)
-===========================
+AGX Vehicle Continuous Track (AGX crawler)
+==========================================
 
 AGXVehicleContinuousTrack is a crawler model using AGX Dynamics.
 agxVehicle modulus is used for implementation.
@@ -142,8 +142,8 @@ Link composition of sample model is as below.
 .. image:: images/continuous-track-detail.png
    :scale: 70%
 
-Explanation of parameter
----------------
+Explanation of parameters
+-------------------------------
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
 MUST
@@ -215,7 +215,7 @@ MUST
     - material of crawler belt
 
 Probably MUST
-~~~~~~~~
+~~~~~~~~~~~~~~~~
 .. list-table::
   :widths: 20,8,4,4,75
   :header-rows: 1
@@ -263,8 +263,8 @@ Probably MUST
     - double
     - threshold to unmerge the node from wheel
 
-merge of some nodes (that helps to improve the performance)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Merging multiple nodes (that helps to improve the performance)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 20,8,4,4,75
@@ -319,7 +319,7 @@ Hints to set parameters
 .. _agx_continous_track_material:
 
 Setting for crawler material
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Actual crawler or tire case, the frictions on moving direction and crossing direction are different.
 | To simulate the same phenomenon, user need to set the friction separately.
@@ -407,7 +407,7 @@ Setting for crawler material
 .. _agx_continous_track_stabilize:
 
 Stabilization of crawler belt
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 1. Fix the time step of simulation.
@@ -530,30 +530,47 @@ Inprove the stability
    :scale: 70%
 
 
-*Under construction* Merging nodes
---------------------------------------
+Merging nodes
+~~~~~~~~~~~~~~~~
 
-..
-  # ノードのマージに関するパラメータ(値はデフォルト)を下記に示します。
-  <pre>
-  enableMerge: false
-  numNodesPerMergeSegment: 3
-  contactReduction: 1
-  enableLockToReachMergeCondition: false
-  lockToReachMergeConditionCompliance: 1.0E-11
-  lockToReachMergeConditionSpookDamping: 0.05
-  maxAngleMergeCondition: 1.0E-5
-  </pre>
-  # まずは機能を有効化し、パラメータはデフォルト(コメントアウト)のままで様子をみます。
-  <pre>
-  enableMerge: true
-  #numNodesPerMergeSegment: 3
-  #contactReduction: 1
-  enableLockToReachMergeCondition: true
-  #lockToReachMergeConditionCompliance: 1.0E-11
-  #lockToReachMergeConditionSpookDamping: 0.05
-  #maxAngleMergeCondition: 1.0E-5
-  </pre>
+Merging nodes are merge multiple nodes as one node and reduces the amount of computation.
+Follow the setup steps below.
+
+1. Enable node merging function
+
+  .. code-block:: txt
+
+    enableMerge: false
+
+2. Next, specify the number of nodes to be merged. It is recommended to increase from 3 or more. Also, it is a good idea to find the number of nodes not wrapped around the wheel and specify the number of nodes to be grouped together.
+
+  .. code-block:: txt
+
+    numNodesPerMergeSegment: 3
+
+3. Next, set the threshold to determine the timing to merge nodes. This threshold is the angle of the hinge joint connecting the nodes. Merge nodes if angle is less than threshold. This value varies greatly depending on the scale of the robot.
+  .. code-block:: txt
+
+     maxAngleMergeCondition: 1.0e-5
+
+4. Specify the contact point reduction level. Sets how much to leave the contact point after merging nodes. If it is 0, nothing to change the number of contact points before merging, so we recommend specifying about 2.
+
+  .. code-block:: txt
+
+    contactReduction: 2
+
+5. In addition, to make it easier to merge nodes, enable the function to lock hinges connecting nodes.
+
+  .. code-block:: txt
+
+    enableLockToReachMergeCondition: true
+
+6. Finally, set the compliance and damper of the locked hinges. This value also varies greatly depending on the scale of the robot. Also, if you make it too hard, be careful as it will not be able to deform the belt along the step.
+
+  .. code-block:: txt
+
+    lockToReachMergeConditionCompliance: 1.0e-11
+    lockToReachMergeConditionSpookDamping: 0.001
 
 
 Specification

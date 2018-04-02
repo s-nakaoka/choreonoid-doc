@@ -16,11 +16,11 @@ AGXBreakableJoint
 ------------
 
 サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
+DoubleArmを操作し、ドアを掴みながら引くとヒンジ拘束がなくなりドアが外れる様子を確認することができます。
 
 * プロジェクトファイル: chorenoid/sample/AGXDynamics/agxBreakableJoint.cnoid
 * ボデイファイル: chorenoid/sample/AGXDynamics/agxBreakableJoint.body
 
-DoubleArmを操作し、ドアを掴みながら引くとヒンジ拘束がなくなりドアが外れる様子を確認することができます。
 
 破壊条件
 ------------

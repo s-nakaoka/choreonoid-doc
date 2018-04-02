@@ -36,6 +36,7 @@ AGXWireの特徴
 ------------
 
 サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
+Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシミュレーションを実行すると、ワイヤーが表示されます。
 
 * ウィンチ、ワイヤー、ワイヤーリンク
    * プロジェクトファイル: chorenoid/sample/AGXDynamics/agxWireSample.cnoid
@@ -43,8 +44,6 @@ AGXWireの特徴
 * 消火ホース
    * プロジェクトファイル : chorenoid/sample/AGXDynamics/FireHose.cnoid
    * ボディファイル: chorenoid/sample/AGXDynamics/FireHose.body
-
-Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシミュレーションを実行すると、ワイヤーが表示されます。
 
 記述方法
 ------------
