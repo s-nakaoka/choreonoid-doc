@@ -12,9 +12,9 @@ PhysXPluginのビルド
 PhysXのインストール
 --------------------------------------------------------
 
-PhysXPluginを利用するためには、PhysX ライブラリをインストールしておく必要があります。 `PhysXのソース <https://developer.nvidia.com/physx-source-github>`_ をご参照ください。
+PhysXPluginを利用するためには、PhysX ライブラリをインストールしておく必要があります。現在、バージョン3.4で動作を確認しております。
 
-まず、ソースコードを取得します。PhysXのソースコードはgithubで管理されていますが、アクセスするためには、上記のページに記載されている手順が必要です。手順としては、
+まず、ソースコードを取得します。PhysXのソースコードはgithubで管理されていますが、アクセスするためには、 `PhysX Source on GitHub <https://developer.nvidia.com/physx-source-github>`_ のページに記載されている手順が必要です。手順としては、
 
 1. developer.nvidia.comのアカウントを作成します。
 2. そのアカウントでログインしてgithubのアカウントを登録します。
@@ -22,12 +22,12 @@ PhysXPluginを利用するためには、PhysX ライブラリをインストー
 
 です。アカウント作成などのリンクは上記のページにありますので、その指示に従ってください。
 
-これで、NVIDIAGameWorks/PhysX-3.3 のソースにアクセスできるようになったら、 git clone を実行して取得してください。 
+これで、NVIDIAGameWorks/PhysX-3.4 のソースにアクセスできるようになったら、 git clone を実行して取得してください。 
 
 Ubuntuの場合
 ~~~~~~~~~~~~~~~~
 
-PhysXを保存したディレクトリの **physX/PhysX-3.3/PhysXSDK/Source/compiler/linux64** に移動して、 ::
+PhysXを保存したディレクトリの **PhysX-3.4/PhysX_3.4/Source/compiler/linux64** に移動して、 ::
 
   make release
 
@@ -36,7 +36,7 @@ PhysXを保存したディレクトリの **physX/PhysX-3.3/PhysXSDK/Source/comp
 Windowsの場合
 ~~~~~~~~~~~~~~~~~~
 
-PhysXを保存したディレクトリの **physX/PhysX-3.3/PhysXSDK/Source/compiler/vc14win64** の中の PhysX.slnというソリューションファイルを開きます。
+PhysXを保存したディレクトリの **PhysX-3.4/PhysX_3.4/Source/compiler/vc14win64** の中の PhysX.slnというソリューションファイルを開きます。
 
 .. figure:: images/PhysXVC1.png
 
@@ -53,7 +53,7 @@ PhysXを保存したディレクトリの **physX/PhysX-3.3/PhysXSDK/Source/comp
 プラグインのビルド
 ---------------------
 
-choreonoidのビルドの際にCMakeの設定で、 **BUILD_PhysX_PLUGIN** という項目を "ON" にし、**PhysX_DIR** にPhysXを保存したディレクトリの **physX/PhysX-3.3/PhysXSDK** を指定してください。
+choreonoidのビルドの際にCMakeの設定で、 **BUILD_PhysX_PLUGIN** という項目を "ON" にし、**PhysX_DIR** にPhysXを保存したディレクトリの **PhysX-3.4/PhysX_3.4** を指定してください。
 
 シミュレーションの実行
 -------------------------
