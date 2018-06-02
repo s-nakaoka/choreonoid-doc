@@ -79,13 +79,13 @@ Bodyファイルは記述方式のベースとしてYAMLを採用しています
  format: ChoreonoidBody
  formatVersion: 1.0
  angleUnit: degree
- name: Tank
+ name: SimpleTank
 
 最初の行の記述により、このファイルがChoreonoidのモデルファイルとして認識されるようになります。formatVersionは現在のところ1.0となります。今後仕様に変更があった場合に、新しい仕様と区別するためにバージョン番号を明示しておきます。
 
 モデルファイルにおける関節角度の単位を指定する項目として、"angleUnit" があります。今回は "degree" を指定しているので、角度を度数法で記述します。ラジアンで記述したい場合は、ここに "radian" を指定します。通常は degree の方が記述がしやすいのではないかと思います。
 
-モデルの名前は"name"に記述します。
+モデルの名前は "name" に記述します。ここでは "SimpleTank" という名前にしています。
 
 .. _modelfile_yaml_links:
 
