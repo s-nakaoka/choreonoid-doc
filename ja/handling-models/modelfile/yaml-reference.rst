@@ -37,6 +37,7 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
 
 * :ref:`body-file-reference-shape-node`
 * :ref:`body-file-reference-geometry-node`
+
  * :ref:`body-file-reference-box-node`
  * :ref:`body-file-reference-sphere-node`
  * :ref:`body-file-reference-cylinder-node`
@@ -44,6 +45,7 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
  * :ref:`body-file-reference-cone-node`
  * :ref:`body-file-reference-extrusion-node`
  * :ref:`body-file-reference-elevation-grid-node`
+
 * :ref:`body-file-reference-appearance-node`
 * :ref:`body-file-reference-material-node`
 * :ref:`body-file-reference-resource-node`
@@ -793,7 +795,7 @@ ExtraJointノードは閉リンク機構を定義します。閉リンクの1つ
 
 
 ノードをグループ化するノード
----------------------------
+----------------------------
 
 .. _body-file-reference-group-node:
 

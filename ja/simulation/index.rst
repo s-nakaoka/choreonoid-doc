@@ -23,7 +23,6 @@
 ..   multisimulator-example
 ..   high-gain-simulation
 ..   summary-of-properties
-..   samples
 
 
 

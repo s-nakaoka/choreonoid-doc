@@ -7,8 +7,6 @@
 
    bodymodel
    pose-editing
-   worlditem
    collision-detection
    legged-model
    modelfile/index
-..   customizer

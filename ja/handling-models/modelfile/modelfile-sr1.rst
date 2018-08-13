@@ -17,7 +17,7 @@ SR1サンプルモデル
 
 SR1モデルは、 腰1関節(WAIST)、胴体4関節(WAIST_JOINT0〜CHEST)、 頭2関節(HEAD_JOINT0, HEAD_JOINT1)、 腕16関節(LARM_SHOULDER_P〜LARM_WRIST_R、RARM_SHOULDER_P〜RARM_WRIST_R)、 足14関節(LLEG_HIP_R〜LLEG_ANKLE_R、RLEG_HIP_R〜RLEG_ANKLE_R)で構成され、 次に示すJoint-Segment階層構造を持ちます。 Joint位置と各Jointに設定された座標系、Segment名と実際のリンクの対応については、下図を参照してください．
 
-.. code-block:: yaml
+.. code-block:: text
 
 	(Joint Jointノード名 : Segment Segmentノード名)
 	Humanoid SAMPLE

@@ -28,7 +28,7 @@ step2. 移動
 .. figure:: image/2-5_measure_at_destination.png
 
 step3. アームをバルブに近づける
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 次にバルブの近くまでアームを移動させます。右クリックメニューでArmTargetMarkerをクリックして、アーム操作マーカーを表示させてください。
 
 .. figure:: image/2-6_display_ArmTargetMarker.png
