@@ -13,7 +13,7 @@
 
 使用するPCのOSとスペックについては、 :ref:`wrs2018_simulator` で提示した情報を参考にして用意してください。
 
-OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本語版IOSイメージは `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_ のサイトからダウンロードできますが、現在の最新版は18.04となっており、16.04をダウンロードする場合は少し込み入ったリンクをたどる必要あがあります。 `日本国内のダウンロードサイト <https://www.ubuntulinux.jp/ubuntu/mirrors>`_ の一番下に「Japanese Teamのリリースイメージ」とありますので、そこに挙げられているサーバの中から適当に選んで、 "releases/16.04/ubuntu-ja-16.04-desktop-amd64.iso" をダウンロードしてください。
+OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本語版ISOイメージは `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_ のサイトからダウンロードできますが、現在の最新版は18.04となっており、16.04をダウンロードする場合は少し込み入ったリンクをたどる必要あがあります。 `日本国内のダウンロードサイト <https://www.ubuntulinux.jp/ubuntu/mirrors>`_ の一番下に「Japanese Teamのリリースイメージ」とありますので、そこに挙げられているサーバの中から適当に選んで、 "releases/16.04/ubuntu-ja-16.04-desktop-amd64.iso" をダウンロードしてください。
 
 なお、今回のサンプルはUbuntu 18.04でも動作することを確認しています。ただしOpenRTMがまだ18.04に対応していませんので、OpenRTMを使用するサンプルは実行することができません。ROSを使用したサンプルについては、18.04でも動作します。
 
@@ -107,9 +107,9 @@ CMakeによるビルドの設定を行います。Choreonoidのデフォルト�
 
  cmake -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON 
 
-AGX DynamicsやOpenRTMをインストールしていない場合は、それぞれに対応するオプションを上記から除去して実行してください。
+AGX DynamicsやOpenRTMをインストールしていない場合は、それぞれに対応するオプションを上記のコマンドライン引数から除去して実行してください。
 
-makeコマンドでビルドを行います。 ::
+次に、makeコマンドでビルドを行います。 ::
 
  make
 
@@ -117,14 +117,14 @@ makeコマンドでビルドを行います。 ::
 
  make -j 8
 
-この場合、最大で8つのプロセスを並列実行してビルドを行います。4コア8スレッドのCPUの場合はこのように入力するとよいでしょう。通常、CPUの論理コア数を指定します。
+この場合、最大で8つのプロセスを同時に実行してビルドを行います。4コア8スレッドのCPUの場合はこのように入力するとよいでしょう。通常、CPUの論理コア数を指定します。
 
 一度インストールを行った後も、上記の作業を行ったソースディレクトリ上で以下のように実行することで、常に最新版のChoreonoidを利用することができます。 ::
 
  git pull
  make -j 8
 
-今回は、競技会の開催までに当面Choreonoidの開発が続くことを予めご了承ください。これを踏まえて、随時最新版に更新しながら準備を進めてください。何か不具合が生じましたら、 :doc:`support` までご相談ください。
+今回は、競技会の開催が近づくまで当面Choreonoidの開発が続くことを予めご了承ください。これを踏まえて、随時最新版に更新しながら準備を進めていただければと思います。何か不具合が生じましたら、 :doc:`support` までご相談ください。
 
 ゲームパッドの準備
 ~~~~~~~~~~~~~~~~~~
