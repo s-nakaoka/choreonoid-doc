@@ -6,13 +6,21 @@ World Robot Summit 2018
 
 本ページでは、この競技への参加にあたって必要となる技術的な情報をまとめています。競技に必要なモデルやシミュレーションの設定等はChoreonoidのサンプルとして含まれており、競技に参加しない方でも試すことができます。これはChoreonoidの実践的な活用方法を学ぶ上でも有用なサンプルとなっています。
 
+更新: 2018年8月14日
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    overview
    setup
-   sample-controllers
    tasks
+   sample-controllers
+   robotmodels
+   teleoperation-samples
+   controller-implementations
+   teleoperation-ros
+   teleoperation-rtm
+   rules
    support
 
 
