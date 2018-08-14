@@ -17,6 +17,7 @@ Choreonoidマニュアル
    openrtm/index
    multicopter/index
    trafficcontrol/index
+   wrs2018/index
    reference/index
    plugin-development/index
    tips/index
