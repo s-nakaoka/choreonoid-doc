@@ -1,60 +1,135 @@
-競技環境のセットアップ
-======================
+シミュレーション環境の構築
+==========================
 
 .. contents::
    :local:
 
+.. highlight:: sh
 
 シミュレーション用PCの用意
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-本競技はUbuntu Linuxを用いて行うことになっており、現在Ubuntu 16.04を対象として競技用タスクの開発を行っておりますので、まずUbuntu 16.04が使えるPC環境を用意して下さい。
+まずはシミュレーション用のPCを用意して、Choreonoidをインストールします。
 
-PCのスペックについては、以下の条件を満たす環境であればシミュレーションをひととおり試すことができるかと思います。
+使用するPCのOSとスペックについては、 :ref:`wrs2018_simulator` で提示した情報を参考にして用意してください。
 
-* CPU: インテルCore iシリーズ、AMD Ryzenシリーズ等
-* メモリ： 4GB以上
-* GPU（グラフィックスボード）: NVIDIAのGeForceもしくはQuadroのGPUを推奨。インテルのCore i内蔵GPUも可。
+OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本語版IOSイメージは `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_ のサイトからダウンロードできますが、現在の最新版は18.04となっており、16.04をダウンロードする場合は少し込み入ったリンクをたどる必要あがあります。 `日本国内のダウンロードサイト <https://www.ubuntulinux.jp/ubuntu/mirrors>`_ の一番下に「Japanese Teamのリリースイメージ」とありますので、そこに挙げられているサーバの中から適当に選んで、 "releases/16.04/ubuntu-ja-16.04-desktop-amd64.iso" をダウンロードしてください。
 
-AMD製のGPUはLinuxへの対応が十分でない部分があり、動作を保証できません。
+なお、今回のサンプルはUbuntu 18.04でも動作することを確認しています。ただしOpenRTMがまだ18.04に対応していませんので、OpenRTMを使用するサンプルは実行することができません。ROSを使用したサンプルについては、18.04でも動作します。
 
-実際の競技で使用するPCの仕様は以下を検討中です。
+.. note:: Ubuntuはネイティブインストールされたものを使用してください。仮想マシンでも動かないことはありませんが、シミュレーションが遅くなったり、一部不具合が生じる可能性があります。どうしても仮想マシンで試したい場合は、 `VMWareを用いたUbuntu16.04仮想マシンの構築 <http://choreonoid.org/ja/workshop/vmware.html>`_ を参考にしてください。ただし、WRS2018のサンプルシミュレーションが正常に動作することは保証できません。
 
-* CPU: Core i7 8700K（6コア、3.7GHz、ターボブースト時最大4.7GHz）
-* メモリ: 32GB
-* GPU: GeForce GTX 1080
+Gitのインストール
+~~~~~~~~~~~~~~~~~
 
-全てのタスクを問題なく実行するためには、この程度のスペックのPCとAGX Dynamicsが必要となります。
+以下の作業を進めるにあたって、バージョン管理システムのGitが必要となります。まだインストールしていない場合は、以下のコマンドでインストールしておきます。 ::
 
-なお、仮想マシン上での動作は非推奨です。ネイティブでUbuntu Linuxをインストールした環境でお使いください。
+ sudo apt install git
+
+AGX Dynamicsのインストール
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+AGX Dynamicsのライセンスをお持ちの場合は、あらかじめ AGX Dynamics をインストールしておきます。販売元より提示されたAGX Dynamicsのダウンロードサイトから、対応するUbuntuバージョン（通常はx64、Ubuntu 16.04）用のパッケージをダウンロードします。また、USBドングルの提供を受けている場合は、それをPCに挿しておくようにしてください。
+
+パッケージがダウンロードできたら、:doc:`../agxdynamics/install/install-agx-ubuntu` の説明に従ってインストールを行います。
+
+AGX Dynamicsのラインセンスをお持ちでない場合、この作業はスキップしてください。
+
 
 .. _wrs2018_install_choreonoid:
 
-開発版Choreonoidのインストール
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OpenRTM-aistのインストール
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Choreonoid最新版（開発版）マニュアル <../manuals/latest/index.html>`_ の `ソースコードからのビルドとインストール (Ubuntu Linux編) <../manuals/latest/install/build-ubuntu.html>`_　に従って、まずChoreonoidの最新の `開発版 <../manuals/latest/install/build-ubuntu.html#id4>`_ をUbuntu Linux 16.04上にインストールしてください。
+:doc:`teleoperation-rtm` を実行する場合はOpenRTM-aistをインストールしておきます。
 
-インストールの詳細は上記ドキュメントを参照いただくとして、概要としては端末を起動して以下のコマンドを入力していけばOKです。 ::
+現在OpenRTM-aistの公式サイトや関連サーバが停止しておりますが、代わりに臨時の `OpenRTM-aist web on the github <http://openrtm.org/>`_ が設置されており、ここからOpenRTM-aistをダウンロードすることができます。現在ダウンロードできる最新版はバージョン 1.1.2 となっているので、このバージョンをダウンロードしてインストールしましょう。
 
- sudo apt -y install git
+Ubuntu16.04の場合は、上記ページの説明に従って、コマンドラインから以下のように入力することにより、C++版をインストールすることができます。 ::
+
+ git clone https://github.com/n-ando/xenial_package.git
+ cd xenial_package/xenial/main/binary-amd64/
+ sudo dpkg -i openrtm-aist_1.1.2-0_amd64.deb
+ sudo dpkg -i openrtm-aist-example_1.1.2-0_amd64.deb
+ sudo dpkg -i openrtm-aist-dev_1.1.2-0_amd64.deb
+
+OpenRTM-aist関連のパッケージとしては、他にPython版やRTSystemEditor/RTCBuilderといったツールもあります。それらは本サンプルの実行では必要ありませんが、ご自分のシステムの構築や実行にが必要な場合は、上記ページの説明に従ってインストールしておいてください。
+
+Choreonoidのインストール
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+`Choreonoid最新版（開発版）マニュアル <../manuals/latest/index.html>`_ の `ソースコードからのビルドとインストール (Ubuntu Linux編) <../manuals/latest/install/build-ubuntu.html>`_　に従って、Choreonoidの最新の `開発版 <../manuals/latest/install/build-ubuntu.html#id4>`_ をインストールします。
+
+インストールの詳細は上記ドキュメントを参照いただくとして、Ubuntu 16.04においては、以下のコマンドを実行していきます。
+
+まずGitリポジトリからChoreonoidのソースコードを取得します。 ::
+
  git clone https://github.com/s-nakaoka/choreonoid.git
+
+取得したソースコードのディレクトリに移動します。 ::
+
  cd choreonoid
+
+依存パッケージのインストールを行います。 ::
+
  misc/script/install-requisites-ubuntu-16.04.sh
+
+CMakeによるビルドの設定を行います。Choreonoidのデフォルトの機能だけ利用するのであれば、 ::
+
  cmake .
+
+を実行します。
+
+ただしWRS2018のサンプルを実行するためには、以下のオプションも有効（ON）にする必要があります。
+
+* AGX Dynamics を利用する場合
+
+ * BUILD_AGX_DYNAMICS_PLUGIN
+ * BUILD_AGX_BODYEXTENSION_PLUGIN
+
+* 煙や炎を再現する場合
+
+ * DBUILD_SCENE_EFFECTS_PLUGIN
+
+* マルチコプタを使用する場合
+
+ * BUILD_MULTICOPTER_PLUGIN
+ * BUILD_MULTICOPTER_SAMPLES
+
+* OpenRTMを利用する場合
+
+ * ENABLE_CORBA
+ * BUILD_CORBA_PLUGIN
+ * BUILD_OPENRTM_PLUGIN
+ * BUILD_OPENRTM_SAMPLES
+
+これらのオプションの設定はccmakeコマンドを使ってインタラクティブに行うこともできますが、cmakeコマンドにオプションとして与えることもできます。例えば、上記のオプション全てを有効にする場合は、以下のように入力してください。 ::
+
+ cmake -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON 
+
+AGX DynamicsやOpenRTMをインストールしていない場合は、それぞれに対応するオプションを上記から除去して実行してください。
+
+makeコマンドでビルドを行います。 ::
+
  make
 
-なお、最後のmakeは ::
+なお、マルチコアCPUをお使いの場合は、makeコマンドに -j オプションをつけてビルドを並列化するとよいです。例えば次のようにします。 ::
 
  make -j 8
 
-などとするとコンパイルが並列化されて、処理が早く終わります。-j の後の数値が並列処理数で、CPUの論理コア数＋αの値を入力するとよいです。
+この場合、最大で8つのプロセスを並列実行してビルドを行います。4コア8スレッドのCPUの場合はこのように入力するとよいでしょう。通常、CPUの論理コア数を指定します。
 
-.. note:: AGX Dynamicsのライセンスをお持ちの場合は、AGX Dynamicsをインストールし、Choreonoidの "AGX Dynamicsプラグイン" をビルドすることで、AGX Dynamicsを用いたシミュレーションが可能となります。AGX DynamicsプラグインはChoreonoidビルド時にCMakeの設定で **BUILD_AGX_DYNAMICS_PLUGIN** と **BUILD_AGX_BODYEXTENSION_PLUGIN** を ON にしておく必要があります。詳細は `AGX Dynamicsプラグイン <../manuals/latest/agxdynamics/index.html>`_ の `インストール <../manuals/latest/agxdynamics/install/install.html>`_ を参照ください。
-
-一度インストールを行った後も、上記の作業を行ったソースディレクトリ上で以下を実行することで、常に最新版のChoreonoidを利用することができます。 ::
+一度インストールを行った後も、上記の作業を行ったソースディレクトリ上で以下のように実行することで、常に最新版のChoreonoidを利用することができます。 ::
 
  git pull
- make
+ make -j 8
 
-今後本競技の開催に向けてしばらくはChoreonoidの開発が続くことになりますので、随時最新版に更新しながらお試しいただけるとよいかと思います。
+今回は、競技会の開催までに当面Choreonoidの開発が続くことを予めご了承ください。これを踏まえて、随時最新版に更新しながら準備を進めてください。何か不具合が生じましたら、 :doc:`support` までご相談ください。
+
+ゲームパッドの準備
+~~~~~~~~~~~~~~~~~~
+
+今回のサンプルでは、ゲームパッドでロボットを操作することができます。これを行うために、ゲームパッドを用意して、PCに接続しておいてください。
+
+使用可能なゲームパッドについては、:doc:`../simulation/tank-tutorial/index` の :ref:`simulation-tank-tutorial-gamepad` を参照してください。おすすめはプレイステーション4用の `DUALSHOCK4 <http://www.jp.playstation.com/ps4/peripheral/cuhzct1j.html>`_ コントローラです。DUALSHOCK4は `USBワイヤレスアダプター <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ によるワイヤレス接続も可能です。
+

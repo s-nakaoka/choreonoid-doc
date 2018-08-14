@@ -23,7 +23,9 @@
 
 .. image:: images/f310.jpg
 
-これは `ロジクールのF310 <http://gaming.logicool.co.jp/ja-jp/product/f310-gamepad>`_ という製品ですが、他に同様の構成をもつゲームパッドとして、プレイステーション3、4用のゲームパッド（DualShock3、4)や、XBox用のゲームパッドも使用することが可能です。
+これは `ロジクールのF310 <http://gaming.logicool.co.jp/ja-jp/product/f310-gamepad>`_ という製品ですが、他に同様の構成をもつゲームパッドとして、プレイステーション4用の `DUALSHOCK4 <http://www.jp.playstation.com/ps4/peripheral/cuhzct1j.html>`_ やプレイステーション3用のDUALSHOCK3、 `Xbox用コントローラ <https://www.xbox.com/ja-JP/xbox-one/accessories/controllers/xbox-black-wireless-controller>`_ やXbox360用コントローラを利用することも可能です。
+
+これらのゲームパッドは通常USBを用いてPCに接続します。DUALSHOCK4については、 `USBワイヤレスアダプター <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ による接続も可能です。
 
 それら以外の機種を使う場合は、軸やボタンの配置が適切でなくなってしまい、操作しにくくなる場合があります。その場合はソースコードに書かれている軸やボタンのID値を変更するようにして下さい。本ステップ最後の :ref:`simulation-tank-tutorial-step3-implementation` にこれに関する解説があります。
 
