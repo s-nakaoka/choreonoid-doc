@@ -11,7 +11,7 @@
 
 まずはシミュレーション用のPCを用意して、Choreonoidをインストールします。
 
-使用するPCのOSとスペックについては、 :ref:`wrs2018_simulator` で提示した情報を参考にして用意してください。
+使用するPCのOSとスペックについては、 :ref:`wrs2018_overview_simulator` で提示した情報を参考にして用意してください。
 
 OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本語版ISOイメージは `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_ のサイトからダウンロードできますが、現在の最新版は18.04となっており、16.04をダウンロードする場合は少し込み入ったリンクをたどる必要あがあります。 `日本国内のダウンロードサイト <https://www.ubuntulinux.jp/ubuntu/mirrors>`_ の一番下に「Japanese Teamのリリースイメージ」とありますので、そこに挙げられているサーバの中から適当に選んで、 "releases/16.04/ubuntu-ja-16.04-desktop-amd64.iso" をダウンロードしてください。
 
@@ -36,7 +36,7 @@ AGX Dynamicsのライセンスをお持ちの場合は、あらかじめ AGX Dyn
 AGX Dynamicsのラインセンスをお持ちでない場合、この作業はスキップしてください。
 
 
-.. _wrs2018_install_choreonoid:
+.. _wrs2018_install_openrtm:
 
 OpenRTM-aistのインストール
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,6 +54,8 @@ Ubuntu16.04の場合は、上記ページの説明に従って、コマンドラ
  sudo dpkg -i openrtm-aist-dev_1.1.2-0_amd64.deb
 
 OpenRTM-aist関連のパッケージとしては、他にPython版やRTSystemEditor/RTCBuilderといったツールもあります。それらは本サンプルの実行では必要ありませんが、ご自分のシステムの構築や実行にが必要な場合は、上記ページの説明に従ってインストールしておいてください。
+
+.. _wrs2018_install_choreonoid:
 
 Choreonoidのインストール
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,7 +91,7 @@ CMakeによるビルドの設定を行います。Choreonoidのデフォルト�
 
 * 煙や炎を再現する場合
 
- * DBUILD_SCENE_EFFECTS_PLUGIN
+ * BUILD_SCENE_EFFECTS_PLUGIN
 
 * マルチコプタを使用する場合
 
@@ -103,9 +105,13 @@ CMakeによるビルドの設定を行います。Choreonoidのデフォルト�
  * BUILD_OPENRTM_PLUGIN
  * BUILD_OPENRTM_SAMPLES
 
-これらのオプションの設定はccmakeコマンドを使ってインタラクティブに行うこともできますが、cmakeコマンドにオプションとして与えることもできます。例えば、上記のオプション全てを有効にする場合は、以下のように入力してください。 ::
+これらのオプションの設定はccmakeコマンドを使ってインタラクティブに行うこともできますが、cmakeコマンドに-Dオプションを与えることも可能です。例えば、BUILD_SCENE_EFFECTS_PLUGINをONにするには、以下のように入力します。 ::
 
- cmake -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON 
+ cmake -DBUILD_SCENE_EFFECTS_PLUGIN=ON
+
+このオプションは複数つけることができます。上記のオプション全てを有効にする場合は、以下のように入力してください。 ::
+
+ cmake -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON 
 
 AGX DynamicsやOpenRTMをインストールしていない場合は、それぞれに対応するオプションを上記のコマンドライン引数から除去して実行してください。
 

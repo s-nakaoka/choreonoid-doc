@@ -30,7 +30,7 @@
 
 .. * `渡航費、滞在費を支援 <http://worldrobotsummit.org/download/guideline/support_for_participating_teams_ja.pdf>`_
 
-.. _wrs2018_simulator:
+.. _wrs2018_overview_simulator:
 
 使用シミュレータ
 ----------------
@@ -67,6 +67,8 @@ OSはUbntu Linuxを使用します。バージョンは16.04の64ビット版を
 
 なお、AMD製のGPU（Radeon等）はLinuxのドライバが十分整備されていない場合がありますので、使用は避けてください。
 
+.. _wrs2018_overview_robots:
+
 対象ロボット
 ------------
 
@@ -90,9 +92,9 @@ OSはUbntu Linuxを使用します。バージョンは16.04の64ビット版を
 
 WAREC-1とDouble-Arm Robotは、WRS公式の `プラットフォームロボット <http://worldrobotsummit.org/download/201707/WRS_Disaster_Robotics_Category_A_standard_robot_platform_for_for_Simulation_Challenge_of_Tunnel_Disaster_Response_and_Recovery_Challenge-doc_jp.pdf>`_ となっております。Aizu Spiderに関しては、WRS公式というわけではありませんが、元々Choreonoidのサンプルモデルとして提供されているもので、本競技においても活用することが可能です。これらのロボットはいずれも実機のロボットが実際に開発され稼働しています。
 
-本競技ではマルチコプタ（ドローン）を使用することも可能となっています。マルチコプタのモデルとして、日本原子力研究開発機構（JAEA）が開発した以下のサンプルモデルが用意されています。
+本競技ではマルチコプタ（ドローン）を使用することも可能となっています。マルチコプタのモデルとして、日本原子力研究開発機構（JAEA）が開発した以下のクアッドロータ型のサンプルモデルが用意されています。
 
-.. image:: images/multicopter.png
+.. image:: images/quadcopter.png
 
 
 :doc:`../multicopter/index` を用いることで、このようなマルチコプタモデルの飛行シミュレーションを行うことができます。競技においては、他のロボットと併用し、トンネル内の状況を調査したり、他のロボットの作業において俯瞰視点を提供するといったことが期待されています。

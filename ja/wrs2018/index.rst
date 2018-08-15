@@ -11,12 +11,12 @@ World Robot Summit 2018
 
    overview
    setup
+   robot-models
    simulation-samples
-   modelfiles
    sample-controllers
-   controller-implementations
    teleoperation-rtm
    teleoperation-ros
+   controller-implementations
    rules
    support
 
