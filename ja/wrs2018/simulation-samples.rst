@@ -85,9 +85,9 @@ WRS2018の各タスクは、以下の要素を組み合わせたシミュレー�
 タスクT1の実行
 --------------
 
-まずタスクT1の障害走破をみてみましょう。以下のようにChoreonoidを起動して、T1のプロトタイプを読み込んでみてください。（以下ではビルド済みのChoreonoidソースディレクトリ上でコマンドを実行するものとします。） ::
+まず最初のタスクであるT1（障害走破）のサンプルを実行してみましょう。以下のようにChoreonoidを起動して、AizuSpiderSSモデルを対象としたサンプルを読み込んでみてください。 ::
 
- bin/choreonoid --python sample/WRS2018/T1-DoubleArmV7S.py
+ bin/choreonoid --python sample/WRS2018/T1-AizuSpiderSS.py
 
 すると以下のような画面が表示されるかと思います。
 

@@ -7,7 +7,7 @@
 .. highlight:: sh
 
 シミュレーション用PCの用意
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 まずはシミュレーション用のPCを用意して、Choreonoidをインストールします。
 
@@ -20,14 +20,14 @@ OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本
 .. note:: Ubuntuはネイティブインストールされたものを使用してください。仮想マシンでも動かないことはありませんが、シミュレーションが遅くなったり、一部不具合が生じる可能性があります。どうしても仮想マシンで試したい場合は、 `VMWareを用いたUbuntu16.04仮想マシンの構築 <http://choreonoid.org/ja/workshop/vmware.html>`_ を参考にしてください。ただし、WRS2018のサンプルシミュレーションが正常に動作することは保証できません。
 
 Gitのインストール
-~~~~~~~~~~~~~~~~~
+-----------------
 
 以下の作業を進めるにあたって、バージョン管理システムのGitが必要となります。まだインストールしていない場合は、以下のコマンドでインストールしておきます。 ::
 
  sudo apt install git
 
 AGX Dynamicsのインストール
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 AGX Dynamicsのライセンスをお持ちの場合は、あらかじめ AGX Dynamics をインストールしておきます。販売元より提示されたAGX Dynamicsのダウンロードサイトから、対応するUbuntuバージョン（通常はx64、Ubuntu 16.04）用のパッケージをダウンロードします。また、USBドングルの提供を受けている場合は、それをPCに挿しておくようにしてください。
 
@@ -39,7 +39,7 @@ AGX Dynamicsのラインセンスをお持ちでない場合、この作業は�
 .. _wrs2018_install_openrtm:
 
 OpenRTM-aistのインストール
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 :doc:`teleoperation-rtm` を実行する場合はOpenRTM-aistをインストールしておきます。
 
@@ -58,7 +58,7 @@ OpenRTM-aist関連のパッケージとしては、他にPython版やRTSystemEdi
 .. _wrs2018_install_choreonoid:
 
 Choreonoidのインストール
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 `Choreonoid最新版（開発版）マニュアル <../manuals/latest/index.html>`_ の `ソースコードからのビルドとインストール (Ubuntu Linux編) <../manuals/latest/install/build-ubuntu.html>`_　に従って、Choreonoidの最新の `開発版 <../manuals/latest/install/build-ubuntu.html#id4>`_ をインストールします。
 
@@ -132,10 +132,18 @@ AGX DynamicsやOpenRTMをインストールしていない場合は、それぞ�
 
 今回は、競技会の開催が近づくまで当面Choreonoidの開発が続くことを予めご了承ください。これを踏まえて、随時最新版に更新しながら準備を進めていただければと思います。何か不具合が生じましたら、 :doc:`support` までご相談ください。
 
+
+描画に関わる設定
+----------------
+
+Choreonoidのインストールにおいては、 :ref:`build_ubuntu_gpu_driver` が可能であれば、必ず導入しておくようにしてください。また、 :doc:`../install/setup-renderer` についても、可能であればGLSL描画エンジンに切り替えるようにしてください。WRS2018のシミュレーションでは高度な描画能力が要求されるため、完全なシミュレーションを行うためにはこれらの設定が欠かせません。
+
+また、 :ref:`build_ubuntu_qt_style` についても適用しておくとよいかと思います。
+
+
 ゲームパッドの準備
-~~~~~~~~~~~~~~~~~~
+------------------
 
 今回のサンプルでは、ゲームパッドでロボットを操作することができます。これを行うために、ゲームパッドを用意して、PCに接続しておいてください。
 
 使用可能なゲームパッドについては、:doc:`../simulation/tank-tutorial/index` の :ref:`simulation-tank-tutorial-gamepad` を参照してください。おすすめはプレイステーション4用の `DUALSHOCK4 <http://www.jp.playstation.com/ps4/peripheral/cuhzct1j.html>`_ コントローラです。DUALSHOCK4は `USBワイヤレスアダプター <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ によるワイヤレス接続も可能です。
-

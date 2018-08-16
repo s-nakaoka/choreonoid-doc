@@ -5,3 +5,5 @@ OpenRTMによる遠隔操作サンプル
 
 .. contents::
    :local:
+
+OmniORBのバッファ拡大の件も書いておく。
