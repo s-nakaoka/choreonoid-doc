@@ -16,11 +16,15 @@ World Robot Summit 2018
    sample-controllers
    teleoperation-rtm
    teleoperation-ros
-   controller-implementations
-   rules
    support
 
 更新情報
 --------
 
-* 2018年8月14日: 初版公開
+* 2018年8月17日: 初版公開
+
+.. ルール補足 rules
+.. controller-implementations
+.. その他
+.. 複数ロボットの導入について
+.. マルチコプタの制御方法。絶対座標を使ってよいか？

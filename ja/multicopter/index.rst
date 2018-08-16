@@ -28,7 +28,7 @@ Bodyモデルの設定
 * MulticopterTargetLink
 * RotorDevice
 
-サンプルモデルがchoreonoid/share/model/Multicopter/にあります。各設定の記述方法はそちらを参考にしてください。
+サンプルモデルがchoreonoid/share/model/multicopter/にあります。各設定の記述方法はそちらを参考にしてください。
 
 MulticopterTargetBodyの設定
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -98,6 +98,7 @@ MulticopterTargetLinkの記述例） ::
 
 RotorDeviceの設定
 -----------------
+
 RotorDeviceノードは、ロータデバイスを定義します。
 RotorDeviceノードも他のデバイスと同様に、Bodyモデルを構成するリンク毎に搭載することができ、
 リンクのelements以下にその定義を記述することで利用することができます。
@@ -174,6 +175,7 @@ Bodyモデルに設定したRotorDeviceへの入出力を行うには、コン�
 
 MulticopterSimulatorItemの設定
 ------------------------------
+
 マルチコプタシミュレーションでは、MulticopterSimulatorItemを使用します。
 メインメニューの「ファイル」-「新規」から「MulticopterSimulator」を選択し、MulticopterSimulatorItemを生成してください。デフォルトの名前は”MulticopterSimulator”となります。これをアイテムツリービュー上でシミュレータアイテムの子アイテムとして1つ配置してください。なお、マルチコプタシミュレーションはAISTシミュレータ、AGXシミュレータにのみに対応しています。
 
@@ -231,20 +233,21 @@ AirDefinitionFileの概要
     "Velocity", "計算格子点に与える速度[m/s]を設定します。"
     "Viscosity", "計算格子点に与える粘性[Pa*s]を設定します。"
 
+.. _multicopter_plugin_sample_simulation:
 
-サンプルの導入
-^^^^^^^^^^^^^^
-MulticopterPluginを利用したサンプルプロジェクトがchoreonoid/samples/MulticopterRTMにあります。実行して試してみてください。
-なお、本サンプルでは、OpenRTMを使用してRotorDeviceへの入力を行っているため、Choreonoidをソースコードからビルドしている場合は、ビルド時のCMakeの設定で、以下のオプションをONにするようにしてください。
+サンプルプロジェクト
+^^^^^^^^^^^^^^^^^^^^
+マルチコプタのサンプルプロジェクトがchoreonoid/samples/Multicopterにあります。CMakeで BUILD_MULTICOPTER_SAMPLESをONにすると関連ファイルのビルドが行われてサンプルを利用できるようになります。
 
-* BUILD_CORBA_PLUGIN
-* BUILD_MULTICOPTER_RTM
-* BUILD_OPENRTM_PLUGIN
-* BUILD_OPENRTM_SAMPLES
-* BUILD_VISION_SENSOR_RTM_SAMPLE
-* ENABLE_CORBA
+クアッドコプタモデルとシンプルコントローラを用いたサンプルとして、
 
-本サンプルのマルチコプタの動作は、PS4のDUAL SHOCK4を使用して操縦する場合、
-次のとおりに設定されています。
+* QuadcopterJoystick.cnoid
+
+があります。このサンプルでは、クアッドコプタをジョイスティック（ゲームパッド）で操作することができます。 :ref:`simulation-tank-tutorial-gamepad` をした上で、プロジェクトを読み込んでシミュレーションを開始してください。ゲームパッドと操作の対応は以下の図のようになっています。
 
 .. figure:: image/controller.png
+
+まず "Rotor Switch" に対応するボタンを押すとローターの回転が始まりますので、左スティックの "Up" によって機体を上昇させてみてください。
+
+右スティックで機体を前後左右に傾けて推進させることができます。この動作については、右スティックボタン（スティックを押し込む）によって、モードを変えられるようになっています。最初に設定されているモードでは、機体の傾きを維持して、傾いている方向にずっと進んでいきます。２つ目のモードでは、スティックを操作していない間は自動的に傾きを戻して、機体が静止するようになります。右スティックボタンを押すことで、この2つのモードが交互に切り替わるようになっています。
+
