@@ -26,6 +26,8 @@ Gitのインストール
 
  sudo apt install git
 
+.. _wrs2018_install_agx:
+
 AGX Dynamicsのインストール
 --------------------------
 

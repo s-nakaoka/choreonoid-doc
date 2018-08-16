@@ -18,9 +18,6 @@
 * 参加形態: 参加希望者がチームを構成して書類応募。参加費は無料。書類審査を通過すると参加が可能となる。
 * 参加チーム数：全9チーム
 * `賞金 <http://worldrobotsummit.org/download/guideline/prize_money_for_the_wrc2018_ja.pdf>`_ ： 1位:1000万円、2位:300万円、3位:100万円
-
-* 競技ルール: `公式英語版 <http://worldrobotsummit.org/download/rulebook-en/rulebook-Tunnel_Disaster_Response_and_Recovery_Challenge.pdf>`_ ( `日本語参考版 <http://worldrobotsummit.org/download/detailed-rules/detailed-rules-tunnel-disaster-response-and-recovery-challenge-ja.pdf>`_ )
-
 * 公式サイト案内ページ: http://worldrobotsummit.org/wrc2018/disaster/
 
 ※ 参加チームの応募受付は2018年1月〜3月にかけてWRS公式ページを通して行われました。現在応募は終了しており、参加チームも確定しています。
@@ -29,6 +26,16 @@
 
 
 .. * `渡航費、滞在費を支援 <http://worldrobotsummit.org/download/guideline/support_for_participating_teams_ja.pdf>`_
+
+.. _wrs2018_overview_rules:
+
+競技ルール
+----------
+
+競技のルールは以下のドキュメントにまとめられています。
+
+* `公式英語版 <http://worldrobotsummit.org/download/rulebook-en/rulebook-Tunnel_Disaster_Response_and_Recovery_Challenge.pdf>`_ 
+* `日本語参考版 <http://worldrobotsummit.org/download/detailed-rules/detailed-rules-tunnel-disaster-response-and-recovery-challenge-ja.pdf>`_
 
 .. _wrs2018_overview_simulator:
 
@@ -143,6 +150,7 @@ WAREC-1とDouble-Arm Robotは、WRS公式の `プラットフォームロボッ�
 
 タスクの詳細や得点のポイント等については、ルールブック ( `公式英語版 <http://worldrobotsummit.org/download/rulebook-en/rulebook-Tunnel_Disaster_Response_and_Recovery_Challenge.pdf>`_ 、 `日本語参考版 <http://worldrobotsummit.org/download/detailed-rules/detailed-rules-tunnel-disaster-response-and-recovery-challenge-ja.pdf>`_ ) をご参照ください。
 
+.. _wrs2018_overview_operation:
 
 ロボットのオペレーション
 ------------------------
