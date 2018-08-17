@@ -93,6 +93,9 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
               type: link
               linkName: Sphere
               position: [ 0.0, 0.0, 0.1]
+              #twistStiffness: 1.0E10
+              #bendStiffness: 1.0E10
+              #superBendReplacedWithBend: true
     -
       name: Sphere
       parent: Root
@@ -157,8 +160,8 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
   1. ワイヤーは3通りの方法で這わせることができ、這わせ方をtypeとして指定します
 
     * type: free     ワイヤーを指定の位置に這わせます。固定はされません。
-    * type: fixed    ワイヤーを指定のpositionに固定します
-    * type: link     ワイヤーに別のワイヤーをつなぎます
+    * type: fixed    ワイヤーを指定のpositionに固定します。固定部分は自由に回転します(ボールジョイント)。
+    * type: link     ワイヤーと指定のリンクに接続します。接続部分はねじり硬さ、曲げ硬さを設定することができます。
 
   2. 次にどの座標系でワイヤーを這わせるかをlinkNameに設定します
 
@@ -223,7 +226,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     - N/m
     - double
     - 引張方向のヤング率
-  * - wireDampingStretch
+  * - wireSpookDampingStretch
     - 0.075
     - s
     - double
@@ -233,12 +236,26 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     - N/m
     - double
     - 曲げ方向のヤング率
-  * - wireDampingBend
+  * - wireSpookDampingBend
     - 0.075
     - s
     - double
     - 曲げ方向のスプークダンパ
-
+  * - twistStiffness
+    - 0
+    - N/m
+    - double
+    - type:linkのみで有効。ワイヤとリンク接続部分のねじり硬さ。
+  * - bendStiffness
+    - 0
+    - N/m
+    - double
+    - type:linkのみで有効。ワイヤとリンク接続部分の曲げ硬さ。
+  * - superBendReplacedWithBend
+    - false
+    - \-
+    - bool
+    - type:linkのみで有効。ワイヤとリンク接続部分を曲げやすくします。
 
 ウィンチ
 
