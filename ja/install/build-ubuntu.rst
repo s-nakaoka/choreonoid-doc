@@ -263,7 +263,7 @@ Ubuntu16.04以降で標準で使用されるQt5では、環境変数 "QT_STYLE_O
 
 よいスタイルがみつかったら、 ::
 
- export QT_SYTLE_OVERRIDE=cleanlooks
+ export QT_STYLE_OVERRIDE=cleanlooks
 
 といった記述をホームディレクトリの .profile 等のファイルにしておけば、OS起動の度に設定しなくてもよくなります。
 
