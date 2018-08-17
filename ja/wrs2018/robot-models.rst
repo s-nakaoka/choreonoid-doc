@@ -15,6 +15,11 @@ Choreonoidのモデルは通常拡張子が "body" の "Bodyフォーマット" 
 
 モデルファイルは、「ボディアイテム」としてChoreonoid上に読み込むことができます。ボディアイテムの扱いについては、 :doc:`../handling-models/index` をご覧ください。
 
+.. _wrs_standard_model_directory:
+
+標準モデルディレクトリ
+----------------------
+
 Choreonoidには多数のモデルファイルがサンプルとして含まれています。これはChoreonoidの「標準モデルディレクトリ」以下に格納されています。標準モデルディレクトリは、ソースコードにおいては "share/model" になります。Choreonoidをmake installした場合は、インストール先の "share/choreonoid-x.x/model" になります。（ x.xはバージョン番号。:doc:`../install/directories` 参照）
 
 WRS2018の標準ロボットモデルについても、Choreonoidのサンプルモデルとして含まれており、標準モデルディレクトリ以下に格納されています。
