@@ -21,7 +21,7 @@ World Robot Summit 2018
 更新情報
 --------
 
-* 2018年8月17日: 初版公開
+* 2018年8月19日: 初版公開
 
 .. ルール補足 rules
 .. controller-implementations
