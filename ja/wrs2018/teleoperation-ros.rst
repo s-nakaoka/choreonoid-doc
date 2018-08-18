@@ -66,7 +66,7 @@ Choreonoid用のCatkinワークスペースを作成します。
 
 これらがワークスペースで扱うパッケージのソースになります。各リポジトリの内容はなるべく最新に保つようにしてください。
 
-複数のリポジトリの更新等を一括して行うためのツールとして、 `wstool <http://wiki.ros.org/wstool>`_ や `Vcstool <https://github.com/dirk-thomas/vcstool>`_  があります。個人的には、Vcstoolの方が使い勝手が良いように思います。Vcstoolを使う場合は、 ::
+複数のリポジトリの更新等を一括して行うためのツールとして、 `wstool <http://wiki.ros.org/wstool>`_ や `vcstool <https://github.com/dirk-thomas/vcstool>`_  があります。個人的には、vcstoolの方が使い勝手が良いように思います。vcstoolを使う場合は、 ::
 
  sudo apt install python3-vcstool
 
@@ -113,17 +113,17 @@ Choreonoid用のCatkinワークスペースを作成します。
 
 といったオプションです。
 
-また、注意点として、ROSのKineticはPythonのバージョン2.7を使っています。ChoreonoidではデフォルトでPython3を使うようになっているので、そのままではROSのPythonと競合します。そこで、ROS Kineticでは、
+また、注意点として、ROSのKineticはPythonのバージョン2.7を使いますが、ChoreonoidはデフォルトでPython3を使うようになっています。この場合、Pythonバージョン2と3の共有ライブラリが競合するせいか、落ちてしまうことがあるようです。そこで、CMakeの以下のオプションについても設定します。
 
-* USE_PYTHON3
+* USE_PYTHON3: ONだとPython3、OFFだとPython2を使用する
 
-を OFF としなければなりません。ROS Melodicは標準でPython3を使用するのでこの設定は必要ありません。
+ROS Kineticでは、これをOFFとしなければなりません。ROS MelodicはPython3を使用するようなので、このオプションはデフォルトのONのままにしておいてください。
 
 catkin上でのビルドの場合、このようなオプションの設定はワークスペースの設定として行います。具体的にはcatkin configに --cmake-argsオプションを与えて、 ::
 
- catkin config -cmake-args BUILD_AGX_DYNAMICS_PLUGIN -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DUSE_PYTHON3=OFF
+ catkin config --cmake-args -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DUSE_PYTHON3=OFF
 
-のように設定します。
+のように設定します。(Melodicでは最後の -DUSE_PYTHON3=OFF を除去してください。）
 
 設定後 ::
 
@@ -172,5 +172,78 @@ Choreonoidの実行
 Catkinワークスペース上でビルドした場合、上記のsetup.bashスクリプトにより、実行ファイルへのパスは通っている状態です。従って、ディレクトリのどこでも、単にchoreonoidと入力すればChoreonoidが起動します。 ::
 
  choreonoid
+
+ワークスペースの src/choreonoid/samaple/WRS2018 に移動して ::
+
+ choreonoid --python T1-AizuSpiderSS.py
+
+などとすることで、 :doc:`simulation-samples` を実行できます。
+
+遠隔操作サンプルの実行
+----------------------
+
+ROSを用いた遠隔操作のサンプルは、 :doc:`simulation-samples` で紹介したサンプルに "-ROS" のサフィックスをつけた名前で提供しています。
+
+今のところ、以下のプロジェクトを用意しています。
+
+* T1-AizuSpiderSA-ROS.py
+* T1-AizuSpiderSS-ROS.py
+* T1-DoubleArmV7A-ROS.py
+* T1-DoubleArmV7S-ROS.py
+
+:doc:`simulation-samples` で説明したのと同じ要領で、上記のどちらかのプロジェクトを読み込んでください。例えばChoreonoidのソースディレクトリから、 ::
+
+ bin/choreonoid --python samplw/WRS2018/T1-AizuSpiderSA-ROS.py
+
+などとします。
+
+遠隔操作用のノードやツールも起動しておく必要があります。まず操作をゲームパッドで行うため、ゲームパッドを接続した上で、choreonoid_joyパッケージのノードを以下のように起動します。 ::
+
+ rosrun choreonoid_joy node
+
+これでゲームパッドの状態がトピックとして配信されるようになります。
+
+これはROSのjoyパッケージと同様の機能を果たすものなのですが、軸やボタンのマッピングがChoreonoid標準になるという点が異なります。対応しているゲームパッドであれば、機種によらず軸やボタンのマッピングが同じになります。Choreonoidのサンプルはこのマッピングで作られているため、それらを動かす際にはこのchoreonoid_joyを使うのがよいです。
+
+次にカメラ画像の表示をできるようにしましょう。これはいろいろなやり方があるかと思いますが、ここでは rqt_image_view ツールを使うことにします。以下のようにしてこれを起動してください。 ::
+
+ rosrun rqt_image_view rqt_image_view
+
+このツールの左上にどのトピックの画像データを表示するか指定するコンボボックスがありますので、そこで表示したいカメラ画像を指定します。AizuSpiderの場合、 "/AizuSpider/FRONT_CAMERA/image" を選択してください。
+
+以上で準備は完了です。Choreonoid上でシミュレーションを開始してください。うまくいけば、rqt_image_view上にAizuSpiderのカメラ画像が表示されます。また、ゲームパッドでロボットを操作できるようになります。
+
+DoubleArmV7のサンプルも同様に実行することができます。DoubleArmV7の場合、カメラ画像のトピックは "/DoubleArmV7/FRAME_FRONT_CAMERA/image" を選択してください。
+
+.. note:: 本サンプルでは上述のトピックに対応するカメラ画像のみがシミュレートされています。他のカメラの画像もシミュレートしたい場合は、 :doc:`../simulation/vision-simulation` を参照の上、 "GLVisionSimulator" アイテムの設定を行ってください。ただしシミュレート対象のカメラを増やすと、シミュレーションが遅くなる可能性があります。
+
+PC2台を用いた遠隔通信
+---------------------
+
+ROSの場合でも当然シミュレーション側と操作側を別々のPCとすることが可能です。
+
+その場合、シミュレーション用のPCでChoreonoidのシミュレーションプロジェクトを起動し、遠隔操作用のPCでchoreonoid_joyノードとrqt_image_viewを起動します。
+
+2つのPC間でROSノードが通信できるようにするため、共通のROSマスターを使用する必要があります。
+
+概要としては、ROSマスターを設置するホスト(PC)を決め、そちらでroscoreを起動します。そしてもう一方のPCでは、環境変数 ROS_IPに自身のIPアドレスを、ROS_MASTER_URI にマスターのアドレスを設定しておきます。
+
+例えば、
+
+* シミュレーション用PCをマスターとする
+* シミュレーション用PCのIPアドレス: 192.168.0.10
+* 操作用PCのIPアドレス: 192.168.0.20
+
+という構成の場合は、シミュレーション用PCでroscoreを起動し、操作用PCでは、 ::
+
+ export ROS_IP=192.168.0.20
+ export ROS_MASTER_URI=http://192.168.0.10:11311
+
+とします。（ホスト名でアドレスが引けるようになっている場合は、IPアドレスではなくホスト名で指定してもOKです。）
+
+設定が完了したら、シミュレーション用PCのChoreonoidでシミュレーションを開始します。すると遠隔操作用PCのrqt_image_viewにカメラ画像が表示され、遠隔操作用PCに接続されているゲームパッドでロボットの操作ができるようになるはずです。
+
+
+
 
 

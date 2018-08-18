@@ -35,6 +35,8 @@ AGX Dynamicsのインストール(Ubuntu Linux編)
    source .profile                                                // ログインシェルに環境変数を設定
    env | grep -i agx                                              // AGX_DIRやAGX_BINARY_DIRなどが表示されること
 
+.. note:: setup_env.bash の取り込みを .profileに記述すると、LD_LIBRARY_PATHの設定が反映されず、AGX Dynamicsを使用しているプログラムがうまく動作しないことがあるようです。(参考: https://help.ubuntu.com/community/EnvironmentVariables#File-location_related_variables ) その場合は、.bashrc に記述して試してみてください。
+
 
 動作確認
 ----------------------------
