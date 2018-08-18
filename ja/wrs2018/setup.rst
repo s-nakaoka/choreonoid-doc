@@ -78,6 +78,8 @@ Choreonoidのインストール
 
  misc/script/install-requisites-ubuntu-16.04.sh
 
+(Ubuntu 18.04 の場合は、install-requisites-ubuntu-18.04.sh を実行します。）
+
 CMakeによるビルドの設定を行います。Choreonoidのデフォルトの機能だけ利用するのであれば、 ::
 
  cmake .
