@@ -1,6 +1,6 @@
 
 AGX Dynamicsのインストール(Ubuntu Linux編)
-============
+==========================================
 
 .. contents::
    :local:
@@ -17,7 +17,7 @@ AGX Dynamicsのインストール(Ubuntu Linux編)
 | 次にAGX実行ライセンスファイル(agx.lic)をインストールディレクトリに配置し、AGX Dynamicsを実行できるようにします。
 | 最後に.profileファイルに環境変数設定スクリプトの実行を記述し、OSログイン時に自動的に環境変数が設定されるようにします。
 
-.. code-block:: txt
+.. code-block:: text
 
    # インストール
    cd /var/tmp
@@ -35,6 +35,8 @@ AGX Dynamicsのインストール(Ubuntu Linux編)
    source .profile                                                // ログインシェルに環境変数を設定
    env | grep -i agx                                              // AGX_DIRやAGX_BINARY_DIRなどが表示されること
 
+.. note:: setup_env.bash の取り込みを .profileに記述すると、LD_LIBRARY_PATHの設定が反映されず、AGX Dynamicsを使用しているプログラムがうまく動作しないことがあるようです。(参考: https://help.ubuntu.com/community/EnvironmentVariables#File-location_related_variables ) その場合は、.bashrc に記述して試してみてください。
+
 
 動作確認
 ----------------------------
@@ -42,7 +44,7 @@ AGX Dynamicsのインストール(Ubuntu Linux編)
 実行ライセンスファイルが配置されているか、環境変数が設定されているかを確認するために、
 AGX Dynamicsのサンプルを実行して動作確認をします。
 
-.. code-block:: txt
+.. code-block:: text
 
    cd /opt/Algoryx/AgX-2.19.1.1/bin
    ./tutorial_trackedVehicle
@@ -51,7 +53,7 @@ AGX Dynamicsのサンプルを実行して動作確認をします。
 .. note::
    VMWareなどの仮想マシン上ではウィンドウが開かず失敗する場合があります。
 
-   .. code-block:: txt
+   .. code-block:: text
 
       $ ./tutorial_trackedVehicle
          AGX Library 64Bit AgX-2.19.1.1-81db33e Algoryx(C)
@@ -62,7 +64,7 @@ AGX Dynamicsのサンプルを実行して動作確認をします。
 
    この場合は以下のコマンドで確認をしてください。--agxOnlyは描画なし、--stopAt 5は5秒シミュレーションをしたのち終了するオプションです。
 
-   .. code-block:: txt
+   .. code-block:: text
 
       ./tutorial_trackedVehicle --agxOnly --stopAt 5
          AGX Library 64Bit AgX-2.19.1.1-81db33e Algoryx(C)

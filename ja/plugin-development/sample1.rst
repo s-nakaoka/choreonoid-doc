@@ -112,8 +112,11 @@ Sample1Pluginの解説
 ちなみに、上に挙げたプラグインについても、依存関係があり、以下のようになっています。
 
 * BodyPlugin
+
  * PoseSeqPlugin: BodyPluginに依存
+
   * BalancerPlugin: BodyPlugin、PoseSeqPuginに依存
+
  * GRobotPlugin: BodyPluginに依存
 
 ここで、BalancerPluginについては、BodyPluginとPoseSeqPluginの両方に依存していますが、PoseSeqPluginがもともとBodyPluginに依存していますので、このようなときにはrequireするのはPoseSeqPluginだけでOKとなります。

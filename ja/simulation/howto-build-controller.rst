@@ -42,6 +42,8 @@ Choreonoid本体はCMakeを用いてビルドの記述が行われており、�
 
  add_cnoid_simple_controller(MyController MyController.cpp)
 
+.. highlight:: text
+
 この結果、ディレクトリ／ファイル構成は以下のようになります。 ::
 
  Choreonoidソースディレクトリ

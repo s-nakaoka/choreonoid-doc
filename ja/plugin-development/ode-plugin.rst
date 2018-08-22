@@ -79,8 +79,9 @@ ODEの終了関数を呼び出しています。
 ODEシミュレータアイテム
 -----------------------
 
-| シミュレーションのプロジェクトを開くと、「アイテムビュー」上に様々なアイテムが表示されます。その中に「AISTシミュレータアイテム」や「ODEシミュレータアイテム」があります。 :doc:`../manual/simulation/howto-make-project` でも解説していますが、choreonoidは、どのシミュレーションアイテムが選択されているかを識別して、シミュレーションに使用する動力学エンジンを選択します。つまり、動力学エンジンは、Choreonoidがアイテムとして扱えるように、シミュレータアイテムとして実装します。
-ODESimulatorItemのヘッダーファイルです。simulatorItemクラスを継承して、ODESimulatorItemクラスを定義します。 ::
+動力学エンジンは、Choreonoidがアイテムとして扱えるように、 :ref:`simulation_simulator_item` として実装します。ODEPluginでは、ODEをChoreonoidで使うための ODESimulatorItem を実装しています。
+
+ODESimulatorItemはSimulatorItemを継承したクラスとして定義します。これを行っているヘッダーファイルを以下に示します。::
 
  #include <cnoid/SimulatorItem>
  #include "exportdecl.h"
@@ -181,9 +182,12 @@ GUIでODEシミュレータアイテムが削除されると、ODESimulatorItem�
 シミュレーションの実装
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| 次は、シミュレーションの中心部分の実装です。まずは、全体の流れを解説します。
-| ユーザがシミュレーションの開始ボタンを押すと、まずは、ODEモデルの作成を行う関数createSimulationBodyが、シミュレーション対象となるモデルの個数回呼ばれます。
-| 動力学エンジンの多くは、それぞれ独自のモデルの記述方法を持っています。ODEもそうです。Choreonoidでは、ロボットや環境をBodyオブジェクトとして保持しています。これらのBodyオブジェクトからODE用のモデルを構築する必要があります。
+次は、シミュレーションの中心部分の実装です。まずは、全体の流れを解説します。
+
+ユーザがシミュレーションの開始ボタンを押すと、まずは、ODEモデルの作成を行う関数createSimulationBodyが、シミュレーション対象となるモデルの個数回呼ばれます。
+
+動力学エンジンの多くは、それぞれ独自のモデルの記述方法を持っています。ODEもそうです。Choreonoidでは、ロボットや環境をBodyオブジェクトとして保持しています。これらのBodyオブジェクトからODE用のモデルを構築する必要があります。
+
 引数orgBodyには、Bodyオブジェクトのポインタが入っていますので、これからODE用のODEBodyオブジェクトを作成し、そのポインタを返します。ここでは、まだODE用モデルの実体は作成していません。 ::
 
  SimulationBodyPtr ODESimulatorItem::createSimulationBody(BodyPtr orgBody)

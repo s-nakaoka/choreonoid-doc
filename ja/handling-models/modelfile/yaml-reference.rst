@@ -37,6 +37,7 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
 
 * :ref:`body-file-reference-shape-node`
 * :ref:`body-file-reference-geometry-node`
+
  * :ref:`body-file-reference-box-node`
  * :ref:`body-file-reference-sphere-node`
  * :ref:`body-file-reference-cylinder-node`
@@ -44,6 +45,7 @@ YAMLの文法については `プログラマーのための YAML 入門 (初級
  * :ref:`body-file-reference-cone-node`
  * :ref:`body-file-reference-extrusion-node`
  * :ref:`body-file-reference-elevation-grid-node`
+
 * :ref:`body-file-reference-appearance-node`
 * :ref:`body-file-reference-material-node`
 * :ref:`body-file-reference-resource-node`
@@ -647,7 +649,7 @@ Cameraノード
 Cameraノードは、視覚センサを定義します。
 
 .. list-table:: Cameraノードのフィールド
- :widths: 30,70
+ :widths: 30,100
  :header-rows: 1
 
  * - キー
@@ -661,14 +663,19 @@ Cameraノードは、視覚センサを定義します。
      |   ・"COLOR_DEPTH"  色情報と深さ情報を取得
      |   ・"POINT_CLOUD"  3次元点群を取得
      |   ・"COLOR_POINT_CLOUD"  色情報と3次元点群を取得
+ * - lensType
+   - | レンズの種類を指定する。
+     |   ・"NORMAL"  通常レンズ　(デフォルト値）
+     |   ・"FISHEYE"  魚眼レンズ
+     |   ・"DUAL_FISHEYE"  全方位カメラ
  * - on
    - true/falseでカメラのON/OFFを指定
  * - width
    - 画像の幅
  * - height
-   - 画像の高さ
+   - 画像の高さ　(lensType="FISHEYE","DUAL_FISHEYE"の場合はwidthの値から自動で決定 )
  * - fieldOfView
-   - カメラの視野角度
+   - カメラの視野角度　(lensType="DUAL_FISHEYE"の場合は指定不可)
  * - nearClipDistance
    - 視点から前クリップ面までの距離
  * - farClipDistance
@@ -680,7 +687,7 @@ Cameraノードは、視覚センサを定義します。
     視点の姿勢は以下のように定義されます。視線前方向 ・・・ ローカル座標系でZ軸の負の向き   視線上方向 ・・・ ローカル座標系でY軸の正の向き。
 
 .. note::
-    内部的にはformatが"COLOR"のときCamera、"COLOR"以外のときRangeCameraとして扱われます。
+    内部的にはformatが"COLOR"のときCamera、"COLOR"以外のときRangeCameraとして扱われます。レンズのタイプ指定はCameraのときのみ有効です。
 
 .. _body-file-reference-range-sensor-node:
 
@@ -788,7 +795,7 @@ ExtraJointノードは閉リンク機構を定義します。閉リンクの1つ
 
 
 ノードをグループ化するノード
----------------------------
+----------------------------
 
 .. _body-file-reference-group-node:
 

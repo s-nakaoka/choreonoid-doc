@@ -1,6 +1,6 @@
 
 AGXWire
-===========================
+=======
 
 .. image:: images/wire.png
    :scale: 60%
@@ -15,7 +15,7 @@ AGXWireはAGX Dynamicsを使ったワイヤーモデルです。
 .. _agx_wire_feature:
 
 AGXWireの特徴
---------------------------------
+-------------
 
 * **千切れにくい**
 
@@ -33,7 +33,7 @@ AGXWireの特徴
 
 
 サンプル
-------------
+--------
 
 サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
 Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシミュレーションを実行すると、ワイヤーが表示されます。
@@ -46,7 +46,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
    * ボディファイル: chorenoid/sample/AGXDynamics/FireHose.body
 
 記述方法
-------------
+--------
 
 サンプルモデルは以下のリンク構成となっています。
 
@@ -93,6 +93,9 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
               type: link
               linkName: Sphere
               position: [ 0.0, 0.0, 0.1]
+              #twistStiffness: 1.0E10
+              #bendStiffness: 1.0E10
+              #superBendReplacedWithBend: true
     -
       name: Sphere
       parent: Root
@@ -143,6 +146,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
   * ワイヤーの自己干渉を有効にするかどうかをselfCollisionに設定します
   * ワイヤーの材質をmaterialNameに設定します。 :doc:`agx-material` を参考にしてください。
   * wireYoungsModulusStretchなどのパラメータについては直接記述することも可能ですが、マテリアルを利用することを推奨します
+
 3. ワイヤーをウィンチから取り出すようにする場合には以下を設定します
 
   * ウィンチとして利用するリンク名をlinkNameに指定します。これはAGXWireDeviceを設定しているリンクである必要はなく、任意のリンクを指定することができます。
@@ -150,16 +154,20 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
   * linkNameに設定をしたリンクの座標系に対して、ワイヤーを出す向きをnormalに設定します。
   * ウィンチにワイヤーを保管しておく長さをpulledInLengthに設定します
   * ウィンチからワイヤーを引き出す、収納にするのに必要な力をhaulForceRangeに設定します
+
 4. 次にNodeハッシュを利用してワイヤーを空間に這わせます
+
   1. ワイヤーは3通りの方法で這わせることができ、這わせ方をtypeとして指定します
 
     * type: free     ワイヤーを指定の位置に這わせます。固定はされません。
-    * type: fixed    ワイヤーを指定のpositionに固定します
-    * type: link     ワイヤーに別のワイヤーをつなぎます
+    * type: fixed    ワイヤーを指定のpositionに固定します。固定部分は自由に回転します(ボールジョイント)。
+    * type: link     ワイヤーと指定のリンクに接続します。接続部分はねじり硬さ、曲げ硬さを設定することができます。
+
   2. 次にどの座標系でワイヤーを這わせるかをlinkNameに設定します
 
     * linkNameが存在するリンク名の場合: リンク座標系
     * linkNameが空または存在しないリンク名の場合: ワールド座標系
+
   3. 最後に這わせる位置をpositionに設定します
 
 
@@ -167,7 +175,8 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
    :scale: 70%
 
 パラメータの説明
-------------
+----------------
+
 | 以下にパラメータの説明をします。
 
 ワイヤー
@@ -217,7 +226,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     - N/m
     - double
     - 引張方向のヤング率
-  * - wireDampingStretch
+  * - wireSpookDampingStretch
     - 0.075
     - s
     - double
@@ -227,12 +236,26 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     - N/m
     - double
     - 曲げ方向のヤング率
-  * - wireDampingBend
+  * - wireSpookDampingBend
     - 0.075
     - s
     - double
     - 曲げ方向のスプークダンパ
-
+  * - twistStiffness
+    - 0
+    - N/m
+    - double
+    - type:linkのみで有効。ワイヤとリンク接続部分のねじり硬さ。
+  * - bendStiffness
+    - 0
+    - N/m
+    - double
+    - type:linkのみで有効。ワイヤとリンク接続部分の曲げ硬さ。
+  * - superBendReplacedWithBend
+    - false
+    - \-
+    - bool
+    - type:linkのみで有効。ワイヤとリンク接続部分を曲げやすくします。
 
 ウィンチ
 
@@ -299,7 +322,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     - ワイヤーを這わせるまたは取り付ける位置
 
 ワイヤーの干渉設定
------------------------
+------------------
 
 .. image:: images/wire-collision.png
    :scale: 100%
@@ -309,7 +332,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
 | ここでは対策として下記の方法を説明します。
 
 ワイヤーとの指定のリンクとの干渉を無効にする
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 上図左のように、ワイヤーと指定のリンクとの干渉を無効にします。
 これは :doc:`agx-body` の干渉設定のexcludeLinksWireCollisionを設定することで実現できます。
@@ -320,7 +343,7 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
     excludeLinksWireCollision: [ linkQ, linkR, ... ]
 
 ワイヤーと干渉を回避したいリンクにガードをつける
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 もう一つの方法としては、上図右のようにワイヤーと干渉を回避したいリンクにガードをつけることです。
 これはボディファイルに下記のように記述することで実現できます。
@@ -349,6 +372,6 @@ Choreonoidでサンプルプロジェクトをロードし、AGXSimulatorでシ�
 
 
 仕様
--------------------
+----
 
 * ワイヤーマテリアルのパラメータはマテリアルファイル < 直接記述の順番でオーバーライドされますのでご注意ください。

@@ -211,7 +211,7 @@ Jointノードはリンクフレームを定義します。 ::
  * - children
    - 子ノードをぶら下げるフィールドです。0個以上のJointノード、0または1個のSegmentノードをぶらさげます。
  * - jointType
-   - 関節タイプを設定するためのフィールドです。free, slide, rotate, fixed, crawler のうちのいずれかを指定します。"free" は任意軸方向への並進・任意軸回りの回転が可能で、rootリンクが固定されないモデルのrootリンクに設定します（6自由度）。"rotate" はjointAxisで指定する軸回りの回転のみ可能です(1自由度)。"slide" はjointAxisで指定する軸方向への並進直動関節となります(1自由度)。"fixed" は関節を固定します(自由度なし)。"crawler"を指定すると、付随するリンクが簡易的なクローラとして機能するようになります。この詳細は :doc:`../../simulation/crawler-simulation` を参照してください。
+   - 関節タイプを設定するためのフィールドです。free, slide, rotate, fixed, crawler のうちのいずれかを指定します。"free" は任意軸方向への並進・任意軸回りの回転が可能で、rootリンクが固定されないモデルのrootリンクに設定します（6自由度）。"rotate" はjointAxisで指定する軸回りの回転のみ可能です(1自由度)。"slide" はjointAxisで指定する軸方向への並進直動関節となります(1自由度)。"fixed" は関節を固定します(自由度なし)。"crawler"を指定すると、付随するリンクが簡易的なクローラとして機能するようになります。この詳細は :doc:`../../simulation/pseudo-continuous-track` を参照してください。
  * - jointId
    - 関節番号を指定するためのフィールドです。 jointIdは関節角度等の属性値を配列形式に並べて格納する際に何番目の要素に入れるかを指定するために利用されます。多くの場合、ロボットのコントローラ開発において関節角度を読み取ったり、指定したりできるのは制御可能な関節のみですから、そのような関節にjointIdを付ける、と考えていただければよろしいかと思います（必ずそうでなければならないということではありません）。以下、Idのつけ方に関するルールを示します。jointIdは0から始まる。jointIdには連続した整数値を用いる（間が空いたり、重複したりしていないこと）。
  * - jointAxis
@@ -250,7 +250,7 @@ Jointノードはリンクフレームを定義します。 ::
 
 この場合は、以下のように定義します。
 
-.. code-block:: yaml
+.. code-block:: text
 
 	DEF 肘0 Joint {      #← 肘の曲げ
 	  children [
@@ -330,7 +330,7 @@ Segmentノードはリンク形状を定義します。
 
 リンク形状は、Segmentノードに定義します。Segmentノードは、Jointノードの子ノードとして複数個設定でき、Transformノードの子ノードとして記述することも可能です。
 
-.. code-block:: yaml
+.. code-block:: text
 
 	DEF JOINT1 Joint {
 	  children [
@@ -359,7 +359,7 @@ Segmentノードはリンク形状を定義します。
 
 	肘のリンクフレーム
 
-.. code-block:: yaml
+.. code-block:: text
 
 	DEF 肩 Joint {
 	  children [
@@ -381,7 +381,7 @@ Segmentノードはリンク形状を定義します。
 
 Segmentノードのchildrenフィールド下に実際の形状を定義します。形状の定義にはモデリングツールを使用されることをお勧めします。簡単な形状であればテキストエディタを使用して手作業で編集することも可能です。
 
-.. node::
+.. note::
 	”Inline”と言う定義にて各Segmentごとの形状を異なるファイルに記述することもできます。
 	
 ExtraJointノード
@@ -473,7 +473,7 @@ AccelerationSensorノードは、3軸加速度センサを定義します。
 	
 各種センサノードはそのセンサが取り付けられているJointノードの下に取り付けます。 例えば、サンプルモデルの腰部(WAIST)に加速度センサを取り付けられている場合は、次のように記述します。
 
-.. code-block:: yaml
+.. code-block:: text
 
 	DEF WAIST Joint
 	{

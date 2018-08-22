@@ -1,6 +1,6 @@
 
 プラグインリファレンス
-=====================
+======================
 
 .. toctree::
    :maxdepth: 2
@@ -8,7 +8,6 @@
    base
    body-plugin
    poseseq-plugin
-   balancer-plugin
    simplecontroller-plugin
    ode-plugin
    bullet-plugin

@@ -95,6 +95,9 @@ Link composition of sample model is as below.
               type: link
               linkName: Sphere
               position: [ 0.0, 0.0, 0.1]
+              #twistStiffness: 1.0E10
+              #bendStiffness: 1.0E10
+              #superBendReplacedWithBend: true
     -
       name: Sphere
       parent: Root
@@ -155,8 +158,8 @@ Link composition of sample model is as below.
   1. Wires can be routed in three ways. The way of routing is specified as **type**:
 
     * type: free     Route the wire to the specified position. Not fixed.
-    * type: fixed    Fix the wire at the specified position
-    * type: link     Connect another wire to the wire using a link
+    * type: fixed    Fix the wire at the specified position. The fixed point can rotate freely(balljoint).
+    * type: link     Connect the wire to the link. The connecting point has twisting stiffness and bending stiffness.
   2. Set the **linkName** in which coordinate system to route the wire
 
     * When the link exist in which name is the linkName: Link coordinate
@@ -218,7 +221,7 @@ Wire
     - N/m
     - double
     - young's modulus in the stretch direction
-  * - wireDampingStretch
+  * - wireSpookDampingStretch
     - 0.075
     - s
     - double
@@ -228,12 +231,26 @@ Wire
     - N/m
     - double
     - young's modulus in the bending direction
-  * - wireDampingBend
+  * - wireSpookDampingBend
     - 0.075
     - s
     - double
     - spook damping in the bending direction
-
+  * - twistStiffness
+    - 0
+    - N/m
+    - double
+    - Available at type:link. Twisting stiffness between the wire and the link.
+  * - bendStiffness
+    - 0
+    - N/m
+    - double
+    - Available at type:link. Bending stiffness between the wire and the link.
+  * - superBendReplacedWithBend
+    - false
+    - \-
+    - bool
+    - Available at type:link. Make the wire more flexible in the bending direction at the connecting point.
 
 Winch
 
