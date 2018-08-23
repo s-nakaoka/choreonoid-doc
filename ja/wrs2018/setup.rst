@@ -43,19 +43,7 @@ AGX Dynamicsのラインセンスをお持ちでない場合、この作業は�
 OpenRTM-aistのインストール
 --------------------------
 
-:doc:`teleoperation-rtm` を実行する場合はOpenRTM-aistをインストールしておきます。
-
-現在OpenRTM-aistの公式サイトや関連サーバが停止しておりますが、代わりに臨時の `OpenRTM-aist web on the github <http://openrtm.org/>`_ が設置されており、ここからOpenRTM-aistをダウンロードすることができます。現在ダウンロードできる最新版はバージョン 1.1.2 となっているので、このバージョンをダウンロードしてインストールしましょう。
-
-Ubuntu16.04の場合は、上記ページの説明に従って、コマンドラインから以下のように入力することにより、C++版をインストールすることができます。 ::
-
- git clone https://github.com/n-ando/xenial_package.git
- cd xenial_package/xenial/main/binary-amd64/
- sudo dpkg -i openrtm-aist_1.1.2-0_amd64.deb
- sudo dpkg -i openrtm-aist-example_1.1.2-0_amd64.deb
- sudo dpkg -i openrtm-aist-dev_1.1.2-0_amd64.deb
-
-OpenRTM-aist関連のパッケージとしては、他にPython版やRTSystemEditor/RTCBuilderといったツールもあります。それらは本サンプルの実行では必要ありませんが、ご自分のシステムの構築や実行にが必要な場合は、上記ページの説明に従ってインストールしておいてください。
+:doc:`teleoperation-rtm` を実行する場合は :doc:`../openrtm/install` の説明に従って、まず :ref:`openrtmplugin_install_openrtm` を行ってください。また、 :ref:`openrtmplugin_setup_corba` も行っておきます。
 
 .. _wrs2018_install_choreonoid:
 

@@ -13,7 +13,7 @@ OpenRTMプラグイン
    tank-joystick-bodyiortc
    tank-joystick-controller
    tank-joystick-vision-sensors
-   reset-omniname
+   tips
 
 .. introduction
    

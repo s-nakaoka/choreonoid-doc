@@ -23,6 +23,7 @@ World Robot Summit 2018
 
 * 2018年8月19日: 初版公開
 * 2018年8月22日: :doc:`teleoperation-ros` の :ref:`teleoperation_ros_build_packages` に注釈を追加
+* 2018年8月23日: OpenRTM関連の記述を更新
 
 .. ルール補足 rules
 .. controller-implementations
