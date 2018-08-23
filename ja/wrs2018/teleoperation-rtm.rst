@@ -20,7 +20,7 @@ OpenRTMによる遠隔操作を行うための準備として、まず :ref:`wrs
 
 を有効にして、OpenRTM関連の機能やサンプルをビルドするようにしてください。
 
-:ref:`openrtmplugin_setup_corba` も確認しておいてください。
+:ref:`openrtmplugin_patch_for_version112` や :ref:`openrtmplugin_setup_corba` についても確認しておいてください。
 
 
 遠隔操作サンプルの実行

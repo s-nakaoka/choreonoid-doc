@@ -45,6 +45,8 @@ OpenRTM-aistのインストール
 
 :doc:`teleoperation-rtm` を実行する場合は :doc:`../openrtm/install` の説明に従って、まず :ref:`openrtmplugin_install_openrtm` を行ってください。また、 :ref:`openrtmplugin_setup_corba` も行っておきます。
 
+:ref:`openrtmplugin_patch_for_version112` についても必ず行っておくようにしてください。
+
 .. _wrs2018_install_choreonoid:
 
 Choreonoidのインストール
