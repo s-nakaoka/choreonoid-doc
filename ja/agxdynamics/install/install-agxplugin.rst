@@ -1,6 +1,6 @@
 
-AGXDynamicsプラグインのビルドとインストール
-----------------------------------------
+AGXDynamicsプラグインのビルドとインストール(Ubuntu Linux編)
+-----------------------------------------------------------------
 
 | AGXDynamicsプラグインはChoreonoidのソースコードに同梱されております。
 | Choreonoidのビルド前に行う :ref:`build-ubuntu-cmake` のcmakeオプションで
