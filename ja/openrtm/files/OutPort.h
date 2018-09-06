@@ -13,7 +13,7 @@
  *         Advanced Industrial Science and Technology (AIST), Japan
  *     All rights reserved.
  *
- * $Id: OutPort.h 2723 2016-05-24 02:13:45Z kawauchi $
+ * $Id: OutPort.h 2755 2016-06-11 07:31:16Z n-ando $
  *
  */
 
@@ -138,8 +138,12 @@ namespace RTC
 #endif
         m_value(value), m_onWrite(0), m_onWriteConvert(0)
     {
-      addProperty("dataport.data_value", m_value);
-      m_propValueIndex = NVUtil::find_index(m_profile.properties, "dataport.data_value");
+      addProperty("dataport.data_value", CORBA::Short(0));
+      {
+	Guard guard(m_profile_mutex);
+	m_propValueIndex = NVUtil::find_index(m_profile.properties,
+					      "dataport.data_value");
+      }
     }
     
     /*!
@@ -211,10 +215,10 @@ namespace RTC
           (*m_onWrite)(value);
           RTC_TRACE(("OnWrite called"));
         }
-	{
-		Guard guard(m_profile_mutex);
-      		m_profile.properties[m_propValueIndex].value <<= value;
-	}
+      {
+	Guard guard(m_profile_mutex);
+	m_profile.properties[m_propValueIndex].value <<= value;
+      }
 
       bool result(true);
       std::vector<const char *> disconnect_ids;

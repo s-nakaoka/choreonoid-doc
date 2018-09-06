@@ -45,7 +45,7 @@ breakTypeは力の受け方で使い分けをします。
 記述方法
 ------------
 
-AGXMagneticJointは以下のように記述し、利用します。
+AGXBrekableJointは以下のように記述し、利用します。
 
 .. code-block:: yaml
 
