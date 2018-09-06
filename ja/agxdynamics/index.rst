@@ -3,17 +3,12 @@ AGX Dynamicsプラグイン
 ======================
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
 
   about
   requirements
-  ..  license
   install/install
   getting-started
-
-.. toctree::
-  :maxdepth: 1
-
   agx-simulator-item
   agx-compliance-spookdamping
   agx-body
@@ -23,3 +18,5 @@ AGX Dynamicsプラグイン
   agx-breakable-joint
   agx-magnetic-joint
   agx-performance-tuning
+
+.. license

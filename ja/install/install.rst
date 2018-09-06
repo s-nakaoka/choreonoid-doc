@@ -1,4 +1,3 @@
-
 インストール
 ============
 
@@ -12,5 +11,6 @@ Choreonoidを利用するためにはまずPCへインストールすること�
    build-ubuntu
    build-windows
    installer-windows
+   setup-renderer
    directories
    options

@@ -8,7 +8,7 @@
    :local:
    :depth: 2
 
-.. highlight:: C++
+.. highlight:: sh
 
 Choreonoidの起動
 ----------------

@@ -441,6 +441,8 @@ Assimpのインストールが出来ましたら、再びCMakeを起動して、
 
 後は、choreonoidのビルド手順を行ってください。
 
+.. _build_windows_openrtm_plugin:
+
 OpenRTMプラグイン
 ~~~~~~~~~~~~~~~~~
 

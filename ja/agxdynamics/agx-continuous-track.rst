@@ -1,6 +1,6 @@
 
 AGX Vehicle Continuous Track (AGXクローラ)
-===========================
+==========================================
 
 AGXVehicleContinuousTrackはAGX Dynamicsを使ったクローラモデルです。
 実装にはAGX DynamicsのモジュールagxVehicleを利用しています。
@@ -13,7 +13,7 @@ AGXVehicleContinuousTrackはAGX Dynamicsを使ったクローラモデルです�
    :depth: 1
 
 AGXVehicleContinuousTrackの特徴
---------------------------------
+-------------------------------
 
 * **クローラベルトの自動装着**
 
@@ -35,7 +35,7 @@ AGXVehicleContinuousTrackの特徴
 
 
 サンプル
-------------
+--------
 
 サンプルを使った利用方法の説明をします。サンプルプロジェクトは以下にあります。
 
@@ -51,7 +51,7 @@ AGXVehicleContinuousTrackの特徴
 
 
 記述方法
-------------
+--------
 
 サンプルモデルは以下のリンク構成となっています。
 
@@ -143,7 +143,7 @@ AGXVehicleContinuousTrackの特徴
    :scale: 70%
 
 パラメータの説明
----------------
+----------------
 .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
 必須
@@ -264,7 +264,7 @@ AGXVehicleContinuousTrackの特徴
     - ホイールからノードのマージを解除する時の閾値。進行方向ベクトルとホイール中心方向ベクトルの内積値。
 
 複数ノードのマージ(性能向上用のパラメータ)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
   :widths: 20,8,4,4,75
@@ -311,10 +311,8 @@ AGXVehicleContinuousTrackの特徴
     - double
     - ノードをマージするかどうか判定するための閾値角度。ヒンジの角度 < 閾値角度になると、ノードがマージされる。
 
-
-
 パラメータ設定の勘所
-------------------------
+--------------------
 
 .. _agx_continous_track_material:
 
@@ -382,6 +380,7 @@ AGXVehicleContinuousTrackの特徴
   * 摩擦モデルとしてfrictionModel: [ orientedBox, direct ]を設定します。
   * referenceBodyNameにクローラベルトを取り付けるボディ名を設定します
   * referenceLinkNameにクローラベルトを取り付けるボディの本体のリンク名を設定します。これはメインシャーシや質量が大きいリンクを指定します
+
 4. ホイールとクローラベルトのContactMaterialを定義します
 
   * youngsModulusはMaterialと同様に大きめに設定します
@@ -407,21 +406,20 @@ AGXVehicleContinuousTrackの特徴
 .. _agx_continous_track_stabilize:
 
 クローラベルトの安定化
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+~~~~~~~~~~~~~~~~~~~~~~
 
 1. シミュレーションのタイムステップを固定します。
    コンプライアンスやダンパなど、タイムステップによって大きく結果が変わるパラメータがあるので、タイムステップを固定します。
    ここでは以下の通りとします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     dt = 0.005 (200Hz)
 
 
 2. ノードのマージ機能をOFFにし、チューニングするパラメータ数を減らします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     enableMerge: false
     enableLockToReachMergeCondition: false
@@ -429,7 +427,7 @@ AGXVehicleContinuousTrackの特徴
 3. チューニング対象のパラメータは以下に絞られます。
    まずは下記を全てコメントアウトをしてデフォルトの状態でクローラの動きを確認します。(下記はデフォルト値が入ってます)
 
-  .. code-block:: txt
+  .. code-block:: text
 
     #nodeDistanceTension: 5.03-3
     #stabilizingHingeFrictionParameter: 1.5
@@ -441,7 +439,7 @@ AGXVehicleContinuousTrackの特徴
 
 4. おそらくクローラベルトは硬く、針金のような見た目になると思います。ヒンジ摩擦が強すぎるので、摩擦係数を小さくします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     nodeDistanceTension: 0.0                  # 初期ノード間距離（引張力)をなくし、調整しやすくします
     stabilizingHingeFrictionParameter: 1e-6   # 摩擦係数を小さく。1e-1以下は指数単位で調整していき、針金みたいな曲がり方にならない程度にします
@@ -456,7 +454,7 @@ AGXVehicleContinuousTrackの特徴
    5.0E-4はベルトがホイールに食い込み、5.0E-5は引張があまり効いてないようみえます。
    この間で調整をかけて以下のようにします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     nodeDistanceTension: 2.0e-4
 
@@ -469,7 +467,7 @@ AGXVehicleContinuousTrackの特徴
    コンプライアンスはまずは指数単位で大きくしていき、発振しない程度に調整します。
    この場合ですと、1.0e-10は発振し、1.0e-9は発振しなくなりましたので、その間で調整をします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     hingeCompliance: 9.0e-10
     hingeSpookDamping: 0.01
@@ -477,7 +475,7 @@ AGXVehicleContinuousTrackの特徴
 7. 次にクローラベルトが交差したり、クローラが回転している時にホイールに侵入するようであればminStabilizingHingeNormalForceは値を小さくしていきます。
    たまに振動したりあばれるようでしたら、値を大きくします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     minStabilizingHingeNormalForce: 100
 
@@ -488,7 +486,7 @@ AGXVehicleContinuousTrackの特徴
    現実にあるクローラはホイールが歯車の形をしており、歯車とベルトをかませてベルトを送り出しています。
    この値はベルトと歯車をかませて送り出す角度、ベルトが歯車から外れる角度から逆算して与えても良いでしょう。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     nodesToWheelsMergeThreshold: -0.1    # 2つのベクトル間の角度が1.67rad(95.7deg)以上になった場合にマージ
     nodesToWheelsSplitThreshold: -0.05   # 2つのベクトル間の角度が1.62rad(92.7deg)以上になった場合にマージを解除
@@ -498,12 +496,12 @@ AGXVehicleContinuousTrackの特徴
 
 
 パフォーマンスチューニング
----------------------------
+--------------------------
 
 シミュレーション速度が遅い、動作が安定しない場合には以下を参考にチューニングをしてみると良いでしょう。
 
 モデルの簡略化
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 | AGXVehicleContinuousTrackは複数のノードをヒンジジョイントで繋いだものをクローラベルトとして表現しています。
 | これは、多くの剛体とジョイントを利用することになり、シミュレーションの計算量が増加します。
@@ -530,52 +528,52 @@ AGXVehicleContinuousTrackの特徴
    :scale: 70%
 
 
-ノードのマージ 　
-~~~~~~~~~~~~~~~~~
+ノードのマージ
+~~~~~~~~~~~~~~
 
 ノードのマージは複数のノードを一時的に一つのノードとみなし、計算量を削減します。
 以下の手順で設定をします。
 
 1. ノードのマージ機能を有効にします
 
-  .. code-block:: txt
+  .. code-block:: text
 
     enableMerge: false
 
 2. 次にマージするノード数を指定します。3以上から増やして確認していくことがおすすめです。また、ホイールに巻き付いていないノード数を求め、そのノードまとめる数を指定すると良いでしょう。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     numNodesPerMergeSegment: 3
 
 3. 次にノードマージするタイミングを決める閾値を設定します。この閾値はノード間をつなぐヒンジジョイントの角度です。角度が閾値より小さい場合にノードをマージします。この値はロボットのスケールにより大きく異なります。
 
-  .. code-block:: txt
+  .. code-block:: text
 
      maxAngleMergeCondition: 1.0e-5
 
 4. 接触点削減レベルを指定します。ノードをマージした後の接触点をどの程度残すかを設定します。0ですと、マージをする前と接触点数は変わりませんので、2程度を指定することをおすすめします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     contactReduction: 2
 
 5. さらに、ノードのマージしやすくするために、ノードをつなぐヒンジをロックする機能を有効にします。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     enableLockToReachMergeCondition: true
 
 6. 最後にヒンジロック時のヒンジをつなぐ硬さとダンパを設定します。この値に関してもロボットのスケールによって大きく異なります。また、硬くしすぎると、ベルトを段差に沿わせて変形させるようなことができなくなりますので注意してください。
 
-  .. code-block:: txt
+  .. code-block:: text
 
     lockToReachMergeConditionCompliance: 1.0e-11
     lockToReachMergeConditionSpookDamping: 0.001
 
 
 仕様
----------
+----
 
 * クローラはシミュレーション実行時に自動で生成されます。bodyファイルロード時にクローラの描画はされません。
 * AGXVehicleContinuousTrackは自動的に自己干渉が設定されます(下記表を参照)。

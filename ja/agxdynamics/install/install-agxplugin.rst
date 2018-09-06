@@ -1,4 +1,3 @@
-
 AGXDynamicsプラグインのビルドとインストール(Ubuntu Linux編)
 -----------------------------------------------------------------
 
@@ -12,7 +11,7 @@ AGXDynamicsプラグインのビルドとインストール(Ubuntu Linux編)
 | 以下にビルド、インストール方法の詳細を説明します。
 | まず、choreonoidのソースディレクトリに移動し、ccmakeまでコマンドを実行します。
 
-.. code-block:: txt
+.. code-block:: text
 
    cd choreonoid
    cmake .
@@ -25,7 +24,7 @@ ccmakeで以下のオプションを有効にし、configure、generateを実行
 
 Cmake Errorがでていないことを確認し、以下のようにmake、make installを実行しビルド、インストールをします。
 
-.. code-block:: txt
+.. code-block:: text
 
    make -j4
    make install

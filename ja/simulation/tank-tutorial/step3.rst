@@ -8,13 +8,12 @@
    :local:
    :depth: 2
 
-.. highlight:: C++
-   :linenothreshold: 7
-
 .. _simulation-tank-tutorial-gamepad:
 
 ゲームパッドの準備
 ------------------
+
+.. highlight:: sh
 
 このステップで作成するコントローラは、ゲームパッド（ジョイスティック）を操作することでTankモデルの砲塔を動かすというものです。このための準備として、ゲームパッドを用意してPCに接続しておきます。
 
@@ -24,7 +23,9 @@
 
 .. image:: images/f310.jpg
 
-これは `ロジクールのF310 <http://gaming.logicool.co.jp/ja-jp/product/f310-gamepad>`_ という製品ですが、他に同様の構成をもつゲームパッドとして、プレイステーション3、4用のゲームパッド（DualShock3、4)や、XBox用のゲームパッドも使用することが可能です。
+これは `ロジクールのF310 <http://gaming.logicool.co.jp/ja-jp/product/f310-gamepad>`_ という製品ですが、他に同様の構成をもつゲームパッドとして、プレイステーション4用の `DUALSHOCK4 <http://www.jp.playstation.com/ps4/peripheral/cuhzct1j.html>`_ やプレイステーション3用のDUALSHOCK3、 `Xbox用コントローラ <https://www.xbox.com/ja-JP/xbox-one/accessories/controllers/xbox-black-wireless-controller>`_ やXbox360用コントローラを利用することも可能です。
+
+これらのゲームパッドは通常USBを用いてPCに接続します。DUALSHOCK4については、 `USBワイヤレスアダプター <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ による接続も可能です。
 
 それら以外の機種を使う場合は、軸やボタンの配置が適切でなくなってしまい、操作しにくくなる場合があります。その場合はソースコードに書かれている軸やボタンのID値を変更するようにして下さい。本ステップ最後の :ref:`simulation-tank-tutorial-step3-implementation` にこれに関する解説があります。
 
@@ -42,7 +43,9 @@
 
 .. note:: Dualshock3、4については、最近のLinuxカーネル（当方ではバージョン4.13.0以降で確認）では、一台のゲームパッドに対して2つのデバイスファイルが生成されるようになっており、ひとつ目がタッチパッド部、ふたつ目がその他の軸やボタンに対応しているようです。ひとつ目についてはデフォルトでマウスカーソルを動かすようになっており、Dualshockのタッチパッドに触れるとマウスカーソルが動きます。（これはタッチパッドの絶対座標で動くようになっており、非常に操作しづらいです。）一般的なゲームパッド入力としては、ふたつ目のデバイスファイルを使うようにします。ゲームパッドをひとつだけ接続している場合、 "/dev/input/js1" を使うことになります。なお、ChoreonoidのジョイスティックライブラリはDualshockのこの仕様を自動で認識し、デフォルトで適切なデバイスファイルを読み込むようになっています。
 
-ゲームパッドを接続して、上記のコマンドを実行すると、 ::
+ゲームパッドを接続して、上記のコマンドを実行すると、
+
+.. code-block:: text
 
  Driver version is 2.1.0.
  Joystick (Logitech Gamepad F310) has 8 axes (X, Y, Z, Rx, Ry, Rz, Hat0X, Hat0Y)
@@ -74,6 +77,9 @@
 
 コントローラのソースコード
 --------------------------
+
+.. highlight:: C++
+   :linenothreshold: 7
 
 今回作成するコントローラのソースコードを以下に示します。これはステップ2のTurretController1に対して、砲塔ヨー軸の制御とゲームパッド入力による指令値の変更を追加した内容となっています。 ::
 
@@ -144,7 +150,9 @@
 
 上記のソースコードを入力・保存し、コンパイルを行いましょう。
 
-手順はステップ2で行ったのと同様です。ソースコードを "TurretController2.cpp" というファイル名でプロジェクトディレクトリに保存し、CMakeLists.txt に以下の記述を追加して下さい。 ::
+手順はステップ2で行ったのと同様です。ソースコードを "TurretController2.cpp" というファイル名でプロジェクトディレクトリに保存し、CMakeLists.txt に以下の記述を追加して下さい。
+
+.. code-block:: cmake
 
  add_cnoid_simple_controller(TankTutorial_TurretController2 TurretController2.cpp)
 
@@ -216,7 +224,7 @@ JoystickクラスのオブジェクトはTurretController2のメンバ変数 ::
 
 によって、軸の状態（どれだけ倒しているか）を -1.0 〜 +1.0 の値として取得できますし、 ::
 
- joystic.getButtonState(ボタンID)
+ joystick.getButtonState(ボタンID)
 
 によって、ボタンが押しているかどうかの値をbool血として取得できます。ボタンについてはステップ5以降のコントローラで利用します。
 
