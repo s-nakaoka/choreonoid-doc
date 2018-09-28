@@ -44,7 +44,6 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
         name: groupB
         links: [ linkZ, linkY, linkX, ... ]
     excludeSelfCollisionLinks: [ linkP ]
-    enableAGXWireContact: true
     excludeLinksWireCollision: [ linkQ, linkR, ... ]
 
 .. _agx_autosleep:
