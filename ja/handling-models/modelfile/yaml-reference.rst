@@ -563,6 +563,8 @@ Deviceノード
 
  * - キー
    - 内容
+ * - name
+   - デバイスの名前
  * - id
    - デバイスのID
  * - translation
