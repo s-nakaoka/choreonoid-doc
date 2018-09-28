@@ -55,3 +55,8 @@ AGXSimulatorアイテムでは以下のプロパティが追加で利用でき�
     - \-
     - bool
     - シミュレーション開始時にAGXDynamicsのファイル形式.agxにシーンの保存をします。保存場所はchoreonoidの実行バイナリが置かれているディレクトリまたは実行時のカレントディレクトリです。AGXDynamics単体でのデバック、性能確認に利用することができます。
+  * - DebubMessageOnConsole
+    - warning
+    - \-
+    - debug, info, waarning, errorのいずれか
+    - AGXSimulatorが出力するメッセージの種類を設定できます。debug: AGXそのものデバッグメッセージが表示される。info: agxBreakableJointに加わっている力の表示など。warning: 形状がおかしい，マテリアルテーブルにマテリアルがない時など。error: 致命的なエラー．シミュレーションが止まる，落ちるような時。
