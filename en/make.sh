@@ -1,2 +1,2 @@
-sphinx-build -b html -c . . ../../website/_build/html/en/manuals/latest
+sphinx-build -b html -c . . ../../choreonoid-website/_build/html/en/manuals/latest
 
