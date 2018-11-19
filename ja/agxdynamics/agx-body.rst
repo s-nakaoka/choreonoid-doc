@@ -44,7 +44,6 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
         name: groupB
         links: [ linkZ, linkY, linkX, ... ]
     excludeSelfCollisionLinks: [ linkP ]
-    enableAGXWireContact: true
     excludeLinksWireCollision: [ linkQ, linkR, ... ]
 
 .. _agx_autosleep:
@@ -162,7 +161,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - \-
     - \-
     - string list
-    - 指定のリンクの干渉を無効化します
+    - 指定のリンクの干渉を無効化します。ただしワイヤ等の特殊な物体との干渉は有効となります。
   * - | excludeLinkGroups:
       | -
       |   name
@@ -175,7 +174,7 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
       | string list
     - | グループに登録されているリンク間の干渉を無効化します。
       |
-      | グループ名
+      | グループ名 （省略可能）
       | リンク名
   * - excludeSelfCollisionLinks
     - \-
@@ -187,6 +186,9 @@ AGXDynamicsプラグインを利用の際には、ボディモデルについて
     - \-
     - string list
     - 指定のリンクとAGXWireとの干渉を無効化します
+
+Choreonoid標準の :ref:`modelfile_yaml_collision_detection` で使用する "excludeTreeDepth"、"exludeLinks" についても指定可能です。
+
 
 Convex Decomposition(凹形状の凸分割)
 ------------------------------------
