@@ -1,6 +1,6 @@
 
 オプション機能
-==============
+=======
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
@@ -66,7 +66,7 @@
 
 * **BUILD_OPENRTM_PLUGIN**
 
- OpenRTMプラグインをビルドします。このプラグインにより、RTミドルウェアのコンポーネントであるRTコンポーネント(RTC)をシミュレーションで用いることが可能となります。利用には `OpenRTM-aist <http://openrtm.org/>`_ 1.1 のインストールが必要です。また、上記のCORBAプラグインもビルドしておく必要があります。
+ OpenRTMプラグインをビルドします。このプラグインにより、RTミドルウェアのコンポーネントであるRTコンポーネント(RTC)をシミュレーションで用いることが可能となります。利用には `OpenRTM-aist <http://openrtm.org/>`_ 1.1.2 のインストールが必要です。また、上記のCORBAプラグインもビルドしておく必要があります。
 
 * **BUILD_OPENRTM_SAMPLES**
 
