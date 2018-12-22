@@ -13,3 +13,30 @@ How to build the OpenRTM plugin
 
 * **BUILD_OPENRTM_SAMPLES**   : Sample for OpenRTM plug-in - Sample RT component running on OpenRTM-aist
 
+| I will explain the details of build and installation method.
+| First move to the choreonoid source directory and execute the command until ccmake.
+
+.. code-block:: txt
+
+   cd choreonoid
+   cmake .
+   ccmake .
+
+Enable the following options in ccmake and execute configure, generate.
+
+* BUILD_CORBA_PLUGIN      ON
+* BUILD_OPENRTM_PLUGIN    ON
+* ENABLE_CORBA            ON
+* BUILD_OPENRTM_SAMPLES   ON (ƒIƒvƒVƒ‡ƒ“)
+
+Make sure Cmake Error is not on.Then, execute make, make install, build and install as follows.
+
+.. code-block:: txt
+
+   make -j4
+   make install
+
+.. note::
+
+   When ccmake configure is executed, OpenRTM-aist's path (OPENRTM_DIR) is automatically set.If it is not set, please set it manually.
+
