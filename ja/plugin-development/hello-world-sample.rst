@@ -4,12 +4,10 @@ HelloWorld サンプルの解説
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
-
 このドキュメントでは、サンプルプラグインのひとつである"HelloWorldPlugin"の実装について解説します。
 
 .. contents:: 目次
    :local:
-
 
 ソースコード
 ------------
@@ -21,47 +19,41 @@ HelloWorld サンプルの解説
  #include <cnoid/Plugin>
  #include <cnoid/MenuManager>
  #include <cnoid/MessageView>
- #include <boost/bind.hpp>
  
  using namespace cnoid;
- using namespace boost;
  
  class HelloWorldPlugin : public Plugin
  {
  public:
-     
+ 
      HelloWorldPlugin() : Plugin("HelloWorld")
      {
  
      }
-     
-     virtual bool initialize()
+ 
+     virtual bool initialize() override
      {
          Action* menuItem = menuManager().setPath("/View").addItem("Hello World");
-         menuItem->sigTriggered().connect(bind(&HelloWorldPlugin::onHelloWorldTriggered, this));
+         menuItem->sigTriggered().connect([&](){ onHelloWorldTriggered(); });
          return true;
      }
  
  private:
-     
+
      void onHelloWorldTriggered()
      {
-         MessageView::mainInstance()->putln("Hello World !");
+         MessageView::instance()->putln("Hello World !");
      }
  };
  
  CNOID_IMPLEMENT_PLUGIN_ENTRY(HelloWorldPlugin)
  
+このソースコードを含む本サンプルのファイル一式がChoreonoidソースアーカイブの "sample/HelloWorldPlugin" 以下に格納されています。ソースコードのファイル名は "HelloWorldPlugin.cpp" となります。
 
-本コードはソースパッケージの "sample/HelloWorldPlugin" 以下に "HelloWorldPlugin.cpp" というファイルで格納されていますので、テストの際にはそちらをご利用ください。
-（なお、説明の都合やバージョンの違いなどにより、このソースはパッケージに収録されているものとは多少異なる場合がありますが、ご了承ください。）
-
-本サンプルをコンパイルしてインストールすると、メインメニューの「表示」に「Hello World」という項目が追加されます。そしてこのメニューを選択すると、メッセージビューに "Hello World !" と出力されます。ただそれだけのプラグインですが、以下ではこのサンプルの解説を通して、Choreonoidのプラグイン開発の基本を学んでいくことにします。
-
-
+本サンプルをビルドすると "HellowWorldプラグイン" が生成されます。これがChoreonoid起動時に読み込まれると、メインメニューの「表示」に「Hello World」という項目が追加されます。そしてこのメニューを選択すると、メッセージビューに "Hello World !" と出力されます。ただそれだけのプラグインですが、以下ではこのサンプルの解説を通して、Choreonoidのプラグイン開発の基本を学んでいくことにします。
 
 ヘッダのインクルード
-----------------------------
+--------------------
 
 まず、本サンプルがインクルードしているヘッダの概要を説明します。 ::
 
@@ -69,7 +61,9 @@ HelloWorld サンプルの解説
  #include <cnoid/MenuManager>
  #include <cnoid/MessageView>
 
-これら3つのヘッダは、Choreonoidフレームワークが提供するヘッダです。それらは基本的にインクルードパスの"cnoid"というサブディレクトリに格納されており、上記のようにこのディレクトリをプレフィックスとして付加してインクルードを行います。また、インクルード用のヘッダファイルには拡張子をつけていませんので、上記のように拡張子のない形式で対象ヘッダの名前を書きます。拡張子の無い形式は、標準C++ライブラリのヘッダファイルでも採用されており、Choreonoidが基盤として利用しているEigen, Qt, OpenSceneGraph といったC++ライブラリでも採用されていて、C++において標準的な形式のひとつです。それらのライブラリとの間で記述の統一性を高めるというねらいもあり、Choreonoidでもこの形式を採用しています。(ちなみに、この形式は「ヘッダファイル」ではなく「ヘッダ」と呼ぶことになっているようです。しかし拡張子付きのものもまだまだ使われていますので、用語の使い分けが難しいですね…。）
+これら3つのヘッダは、Choreonoidのフレームワークが提供するヘッダです。それらは基本的にChoreonoidインストール先の "include/cnoid" ディレクトリ内に格納されています。通常はパスの "include" までをインクルードパスに設定しておき、上記のように "cnoid" サブディレクトリをプレフィックスとして付与してインクルードを行います。また、インクルード用のヘッダファイルには拡張子をつけていませんので、上記のように拡張子のない形式で対象ヘッダの名前を書きます。
+
+.. note:: 拡張子の無い形式は、標準C++ライブラリのヘッダファイルでも採用されており、Choreonoidが基盤として利用しているEigen, Qt, OpenSceneGraph といったC++ライブラリでも採用されていて、C++において標準的な形式のひとつです。それらのライブラリとの間で記述の統一性を高めるというねらいもあり、Choreonoidでもこの形式を採用しています。(ちなみに、この形式は「ヘッダファイル」ではなく「ヘッダ」と呼ぶことになっているようです。）
 
 ここでインクルードしている３つのヘッダはそれぞれ以下のような機能を持っています。
 
@@ -88,33 +82,19 @@ HelloWorld サンプルの解説
 これらのヘッダの実態はソースツリーの src/Base 以下にあります。クラス定義の詳細を知りたい場合は、それらのヘッダファイルを直接参照してみてください。（ヘッダファイルの実態については拡張子 .h がついていますので、ご注意ください。）
 なお、Doxygenというツールを用いることで、クラス定義の詳細を一覧できるリファレンスマニュアルを生成することも可能なのですが、今のところ解説文生成のためのコメント付けが不十分な状態です。そちらについては今後整備を進めていく予定です。 ::
 
- #include <boost/bind.hpp>
-
-Boost C++ ライブラリ集より、"Bind"というライブラリのヘッダをインクルードしています。Bindは関数オブジェクトを柔軟に生成するためのライブラリで、Choreonoidにおいては「シグナル」という仕組みでイベント処理の関数を呼び出すためによく利用されます。そちらの詳細については後ほど解説します。
-
-ChoreonoidにおいてはBoostが提供する他のいくつかのライブラリについても利用しますので、それらのライブラリの概要をひととおり把握しておくのが望ましいです。具体的には、Bindに加えて、Smart Ptr, Signals, Function, Format, Dynamic Bitset, Multi-Array といったライブラリがプラグイン開発において関わってきます。
-それらのライブラリの詳細については、 `Boost公式ページのドキュメント <http://www.boost.org/doc/libs/>`_ を参照してください。また、稲葉氏による `Let's Boost のページ <http://www.kmonos.net/alang/boost/>`_ や `書籍「Boost C++ Libraries プログラミング」 <http://www.kmonos.net/pub/BoostBook/>`_ も参考資料として有用です。
-
-なお、boostのヘッダファイルについては .hpp という拡張子がつく形式となっていますので、この点注意してください。(C++においてこういった記述を統一することは難しいですね…。）
-
-
 名前空間のusing指令
 -------------------
 
-以下のコードで、それぞれ"cnoid", "boost" の名前空間の記述を省略する指令を行っています。 ::
+以下のコードで、"cnoid"という名前空間の記述を省略できるようにしています。 ::
 
  using namespace cnoid;
- using namespace boost;
 
-cnoidはChoreonoidの名前空間で、基本的にChoreonoidが提供するクラスや関数は全てこの名前空間内で定義されています。例えば本サンプルで利用するPluginクラスは名前空間も含めると cnoid::Plugin と記述する必要がありますが、あらかじめ上の記述をしておくことで、名前空間部分を省略して単に Plugin と記述することが可能になります。
+cnoidはChoreonoidフレームワークの名前空間で、基本的にChoreonoidが提供するクラスや関数は全てこの名前空間内で定義されています。例えば本サンプルで利用するPluginクラスは名前空間も含めると "cnoid::Plugin" と記述する必要がありますが、このusing指令を記述しておくことで、名前空間部分を省略して単に "Plugin" と記述することが可能になります。
 
 ただし、名前空間は名前の衝突を避けるためのものなので、無闇にusing指令を行うのは良くありません。原則として、ヘッダファイルにおいてはusing指令の利用は避け、名前空間も含めた全ての記述を行うべきでしょう。一方で、実装ファイル(.cpp)においては、名前の衝突が問題にならなければ、上のような記述を行うことでコードを簡潔にすることが出来ます。
 
-ここでは Boost ライブラリの名前空間"boost"についてもusing指令を行っています。Choreonoidのプラグイン開発では Boost のライブラリも頻繁に使うことになるので、boostの名前空間を省略できると記述が多少楽になるのですが、一方でboostは多くの関数やクラスを含むので、名前の衝突や混乱も生じやすくなってしまいます。従って、名前空間の記述方法については状況に応じて使い分けるようにしてください。また、特定のクラスなどに対してのみ省略を可能とする「using宣言」という構文もありますので、そちらを使うのもよいかと思います。
-
-
 プラグインクラスの定義
------------------------
+----------------------
 
 次に、HelloWorldプラグインに対応するクラスを定義しています。 ::
 
@@ -124,19 +104,15 @@ cnoidはChoreonoidの名前空間で、基本的にChoreonoidが提供するク�
  };
 
 
-Choreonoidのプラグインは、このように cnoid::Plugin （ここでは cnoid:: を省略）を継承したクラスとして定義します。
-継承したクラスの名前は自由につけてもらって結構ですが、最後が "Plugin" で終わる名前とすると分かりやすくてよいかと思います。
-また、既存のプラグインと名前が衝突しないように注意してください。
+Choreonoidのプラグインは、このようにPluginクラスを継承したクラスとして定義します。継承したクラスの名前は自由につけてもらって結構ですが、最後が "Plugin" で終わる名前にすると、分かりやすくてよいかと思います。また、既存のプラグインと名前が衝突しないように注意してください。
 
-プラグインのクラスにおいて最低限定義すべき関数として、
+プラグインのクラスにおいて最低限実装すべき関数として、
 
 * コンストラクタ
 * initialize 関数
 
 があります。
 以下ではこれらの関数の記述について解説します。
-
-
 
 コンストラクタ
 -------------- 
@@ -150,25 +126,21 @@ Choreonoidのプラグインは、このように cnoid::Plugin （ここでは 
 
 プラグインクラスのコンストラクタでは、このように基底となるPluginクラスのコンストラクタにプラグインの名前を与えて呼び出す必要があります。通常、クラス名から最後の"Plugin"の部分を省いた名前を与えます。
 
-本サンプルではコンストラクタ内には特に記述をしていませんが、プラグインが他のプラグインを必要とする際には、ここで"require"という関数を用いて依存関係をシステムに伝える必要があります。これについてはSample1Pluginの解説をご覧ください。
-
-
+本サンプルではコンストラクタ内には特に記述をしていませんが、プラグインが他のプラグインを必要とする際には、ここで"require"という関数を用いて依存関係をシステムに伝える必要があります。これについては :doc:`sample1` を参照ください。
 
 initialize 関数
 ---------------
 
 プラグインの初期化は、以下のようにinitialize関数にて記述します。 ::
 
- virtual bool initialize()
+ virtual bool initialize() override
  {
      ...
  }
 
-initialize関数は、基底となるPluginクラスで定義されたvirtual関数になっていて、これをオーバーライドすることで各プラグインの実際の挙動を実装するようになっています。このようなvirtual関数として、他に finalize, description といった関数があります。
+initialize関数は、基底となるPluginクラスでもvirtual関数として定義されています。これをオーバーライドすることで各プラグインの挙動を実装するようになっています。このようにオーバーライドすることを前提としたvirtual関数として、他に finalize, description といった関数があります。ここではオーバーライドしていることを明確にするため、C++11から導入されたoverrideキーワードを付けています。
 
-initialize関数はプラグインがメモリに読み込まれた後、プラグインの依存関係を考慮した順番で呼ばれていきます。そして、必要なオブジェクトを生成し、初期化に成功した場合は、true を返すようにします。もし初期化が出来なかった場合は、falseを返してください。これにより、システムはプラグインの初期化が成功したかどうかを判断します。
-
-
+initialize関数はプラグインが読み込まれた後、プラグインの依存関係を考慮した順番で実行されていきます。そして、必要なオブジェクトを生成し、初期化に成功した場合は、trueを返すようにします。初期化が出来なかった場合は、falseを返すようにしてください。これにより、システムはプラグインの初期化が成功したかどうかを判断します。
 
 メニューの追加
 --------------
@@ -185,7 +157,9 @@ setPath() はパスの設定後に自身のMenuManagerオブジェクトを返�
 
 addItem は追加されたメニュー項目をActionオブジェクト(へのポインタ)として返します。ここでは、とりえあずこのオブジェクトをmenuItemという変数に格納し、このオブジェクトに対する操作は次の行で行うように記述しています。
 
-なお、日本語環境で動作させている場合、"View"というサブメニューは実際には翻訳されて「表示」というメニューになっています。これは国際化機能によるものなのですが、ソースコードにおけるメニューパスはオリジナルの英語の文字列で記述する必要があります。オリジナルの記述については、Base/MainWindow.cppなどのソースを見てもらえば分かりますし、LANG環境変数にCなどと設定してChoreonoidを英語環境で起動することでも分かります。国際化機能の詳しい利用方法については、別のドキュメントで解説したいと思います。
+なお、日本語環境で動作させている場合、"View"というサブメニューは実際には翻訳されて「表示」というメニューになっています。これは国際化機能によるものなのですが、ソースコードにおけるメニューパスはオリジナルの英語の文字列で記述する必要があります。オリジナルの記述については、Base/MainWindow.cppなどのソースを見てもらえば分かるかと思います。あるいは、OSの対象言語を英語に設定してChoreooidを実行すれば、メニューの表記は全てソースコードと同一のものとなります。
+
+.. note:: Linuxの場合はLANG環境変数に"C"を設定することで対象言語を英語に切り替えることができます。コマンドラインから設定する場合は、export LANG=C と入力します。
 
 
 メニューの関数への結びつけ
@@ -193,28 +167,27 @@ addItem は追加されたメニュー項目をActionオブジェクト(への�
 
 以下のコードでは、追加したメニューをユーザが選択したときに呼び出す関数について設定しています。 ::
 
- menuItem->sigTriggered().connect(bind(&HelloWorldPlugin::onHelloWorldTriggered, this));
+ menuItem->sigTriggered().connect([&](){ onHelloWorldTriggered(); });
 
-この記述により、メニューが選択されたときに、HelloWorldPluginクラスの"onHelloWorldTriggered"というメンバ関数が呼ばれるようになります。以下ではこのコードの意味を少し詳しく解説したいと思います。
+まず、menuItem->sigTriggered() により、Actionクラスが持つ"sigTriggered"という「シグナル」取得しています。シグナルというのは、何らかのイベントが起こったときにそれを知らせるためのオブジェクトです。Choreonoidフレームワークにおいては多くのクラスがそれぞれ独自のシグナルを有しています。
 
-まず、menuItem->sigTriggered() により、Actionクラスが持つ"sigTriggered"というシグナルを取得しています。
-シグナルというのは、何らかのイベントが起こったときにそれを知らせるためのオブジェクトとなっており、ChoreonoidではBoostのSignalsライブラリを使ってこれを実現しています。
-各シグナルはそれぞれ特定のイベントに対して定義されたものとなっており、
-"sigTriggered"は、ここでは「ユーザがメニューを選択した」というイベントを知らせるシグナルとなっています。
+各シグナルはそれぞれ特定のイベントに対して定義されたものとなっており、"sigTriggered"は、ここでは「ユーザがメニューを選択した」というイベントに対応しています。
 
-シグナルは"connect"というメンバ関数で、イベントが起こったときに呼ばれる関数を設定することが出来ます。connectに与える引数は、「シグナルに対して定義された関数型」に対して「同じ型か変換可能な型」である「関数オブジェクトとみなせるもの」であれば、何でも構いません。と言ってもピンと来ないかもしれませんが、まずは「sigTriggeredに対して定義された関数型」を知るために、Actionクラスが定義されている"src/Base/Action.h"を見てみましょう。するとsigTriggeredを取得する関数は、 ::
+シグナルは "connect" というメンバ関数で、イベントが起こったときに呼ばれる関数を設定することが出来ます。connectに与える引数は、「シグナルに対して定義された関数型」に対して「同じ型か変換可能な型」である「関数オブジェクトとみなせるもの」であれば、何でも構いません。
 
- SignalProxy< boost::signal<void(void)> > sigTriggered()
+まずは「sigTriggeredに対して定義された関数型」を知るために、Actionクラスが定義されている"src/Base/Action.h"を見てみましょう。するとsigTriggeredを取得する関数は、 ::
 
-と定義されています。ここで戻り値の型の内側に"void(void)"という記述がありますが、これは、"sigTriggered" というシグナルが、 ::
+ SignalProxy<void()> sigTriggered();
 
- void function(void)
+と定義されています。ここで戻り値は "SignalProxy" テンプレートで定義されており、テンプレート引数として "void(void)" という記述があります。これは "sigTriggered" というシグナルが、 ::
 
-という形式の関数と結びつけるように定義されていることを示しています。
+ void function()
 
-ですので、例えば結び付けたい関数が普通の関数として、 ::
+という形式の関数、つまり引数無し、戻り値無しの関数と結びつけるようになっていることを示しています。
 
-  void onHelloWorldTriggered(void)
+ですので、例えば結び付けたい関数が素の関数として、 ::
+
+ void onHelloWorldTriggered()
  {
      ...
  }
@@ -225,196 +198,302 @@ addItem は追加されたメニュー項目をActionオブジェクト(への�
 
 と記述することが可能です。これは、C言語におけるコールバック関数の利用とほぼ同じですね。
 
-本サンプルではこのように記述しても良いのですが、実際のプラグイン開発時には、普通の関数ではなくてクラスのメンバ関数を結び付けたい場合が多くあります。そこで本サンプルではあえてクラスのメンバ関数を結びつけるようにしています。
+本サンプルではこのように記述しても良いのですが、実際のプラグイン開発時には、素の関数ではなく、クラスのメンバ関数を結び付けたい場合が多くあります。そこで本サンプルではあえてクラスのメンバ関数を結びつけるようにしています。
 
-しかし、（非staticな）メンバ関数は、実際には"this"という隠し引数(?)を関数の第一引数として持っており、この引数によってインスタンスを識別しています。ですので、メンバ関数を普通の関数と同じようにconnect関数に渡そうとしても、メンバ関数を呼び出す際のインスタンスが分からないため、うまく行きません。（もちろん、コンパイルエラーになります。）
+しかし、メンバ関数は通常、オブジェクト自身のポインタに対応する "this" という引数を暗黙的に持っており、この引数によってオブジェクトのインスタンスを識別しています。ですので、メンバ関数を普通の関数と同じようにconnect関数に渡そうとしても、this引数が指定されていないことになり、コンパイルエラーになってしまいます。
 
-そこで、BoostのBindライブラリが役に立ちます。Bindライブラリの提供する"bind"関数は既存の関数から適当に引数にアレンジを加えた関数オブジェクトを生成してくれます。と言うと少し分かりにくいかもしれませんが、ここでは「メンバ関数を普通の関数に変換する」という目的で使っていると考えてもらえばよいかと思います。そのための記述が ::
+コンパイル・実行できるようにするためには、this引数込みのメンバ関数を引数なしの関数に変換したかたちでconnectに渡さなければなりません。これにはいろいろなやり方がありますが、通常はC++11から導入された「ラムダ式」を使用します。ここでは以下の記述がこれに対応します。 ::
 
- bind(&HelloWorldPlugin::onHelloWorldTriggered, this)
+ [&](){ onHelloWorldTriggered(); }
 
-の部分です。
+このように角括弧、丸括弧、波括弧によって [ ] ( ) { } の形式で書かれるのがC++11のラムダ式です。ラムダ式の詳細についてはC++11の仕様や解説を参照してください。ここでは [&] によってthis変数をキャプチャしており、引数は無しとした上で、メンバ関数の onHellowWorldTriggered 関数を呼ぶように記述しています。より分かりやすく書くと、 ::
 
-まず、bindの第一引数には元になる関数を与えます。ここでは "&HelloWorldPlugin::onHelloWorldTriggered" として、HelloWorldPluginクラスのメンバ関数"onHelloWorldTriggered"を与えています。"&"をつけて、明示的にポインタ型として記述しなければならない点に注意してください。要は、"&クラス名::メンバ関数名" のかたちで記述すればOKです。
+ [this](void){ this->onHelloWorldTriggered(); }
 
-そして、bindの第二引数には、"this" を与えています。これにより、このメンバ関数を呼び出す際のインスタンスを指定しています。この例のように、メンバ関数内で同じクラスのメンバ関数を同じインスタンスで結びつける際には、this を与えることになり、実際このような状況は多いかと思われます。しかし、他のクラスのメンバ関数を結びつけることも可能で、その際にはthisではなく、そのクラスの適当なインスタンスを引数として与えることになります。
+となるかと思います。この記述で、「引数無しで、このラムダ式を定義しているスコープのthis変数を使用して、this->onHelloWorldTriggered() を実行し、戻り値は無しとする」関数を定義しています。と書くと少しややこしく感じるかもしれませんが、要はHelloWorldPluginクラスで定義しているメンバ関数onHelloWorldTriggeredを呼ぶ関数を作っているわけです。
 
 以上により、「ユーザがメニューを選択すると onHelloWorldTriggered が呼ばれる」という設定を行うことができました。
 
-ここでやっていること自体は単純なことなのですが、それを支えているシグナルやbindといった仕組みについては、少しややこしく感じられたかもしれません。とは言え上で説明したことはまださわりの部分で、Choreonoidのフレームワークを使いこなすためにはもう少し詳しく理解していく必要があります。これらの仕組みに関する追加の説明は他のサンプルの解説時にも行っていきますが、それ自体は本ガイドの対象外にもなってきますので、ユーザの方にはまず Boost の Signals, Bind の各ライブラリに関するドキュメントを読んでいただくのがよいかと思います。上の節で紹介したBoostに関するWebページや書籍などにぜひあたってみてください。概要を理解してもらえばOKで、実際の使い方は概ねパターン化したものになりますので、難しくはありません。
+Choreonoidのフレームワークを使いこなすためには、このようにシグナルと関数を結びつける仕組みに慣れておく必要があります。ここでは引数無しのシグナルでしたが、引数のあるシグナルも多数定義されています。それについては他のプラグインの解説で紹介します。
 
 なお、本サンプルでは「メニューの追加」と「関数の結びつけ」の２つに分けて説明するため"menuItem"という変数を定義していますが、これが必要なければ以下のようにまとめて書いてもよいかと思います。 ::
 
  menuManager().setPath("/View").addItem("Hello World")->
-     sigTriggered().connect(bind(&HelloWorldPlugin::onHelloWorldTriggered, this));
+     sigTriggered().connect([&](){ onHelloWorldTriggered(); });
 
+.. note:: Choreonoidのシグナルは、Boost.Signalsライブラリを参考にしたものですが、独自の実装となっています。Boost.Signalsは今では古くなってしまったようですが、そのドキュメントも参考になるかと思います。ただしBoost.Signalsではコールバック関数の構築にBoostのBindライブラリを使用するようになっていましたが、今はC++11のラムダ式がありますので、そちらを使用するほうがよいです。
 
 補足：QtのシグナルとChoreonoidのシグナル
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ここで出てきたActionクラス(cnoid::Actionクラス)はQtライブラリの"QAction"クラスを継承して拡張したもので、ChoreonoidのBaseモジュール(src/Base以下）において新たに定義されたものです。
-拡張の目的はQActionのChoreonoidにおける使い勝手を向上させることにあり、その主な内容はsigTriggered()などのシグナル取得関数の追加となっています。
-そして、よく使われるQtのクラスを拡張した同様のクラスが他にもいくつか定義されており、それらのクラス名はいずれも元のクラス名からQtのプレフィックスである"Q"を取り除いたものとしています（cnoidの名前空間内で定義しているので、正確な名前は"cnoid::Qを省いた名前"になります）。
+ここで出てきたActionクラスは、Choreonoidが使用しているGUIライブラリ "Qt" の "QAction" クラスを継承して拡張したもので、ChoreonoidのBaseモジュール（src/Base）において定義されています。（実際には名前空間cnoidの中で定義されています。）
 
-ここで、Qtをご存知の方には言うまでもないことですが、実はQtは「シグナル／スロット」と呼ばれる独自のシグナルシステムを備えており、QActionについてもこのシステムに基づく"triggered"というシグナルを備えています。これを使えば上で説明したことと同じことが出来ますし、そもそも Boost.Signals もこのQtのシグナル／スロットに端を発して開発されてきたものです。Actionクラスにおける拡張内容も、元々のQtのシグナルを捉えて、それをBoost.Signalsベースのシグナルとして処理しなおすという、あまりスマートとは言えないものになっています。
+拡張の目的はQActionをChoreonoidのシグナルの形態で使用できるようにすることで、これによってChoreonoidにQtオブジェクトの使い勝手（コーディングのしやすさ）を向上させようとしています。よく使われるQtのクラスに対して、Choreonoid用に拡張した同様のクラスが他にも多数定義されており、それらのクラス名はいずれも元のクラス名からQtのプレフィックスである "Q" を取り除いたものとしています（cnoidの名前空間内で定義しているので、正確な名前は "cnoid::Qtのクラス名からQを省いた名前" になります）。
 
-ではなぜQtが備えているシグナルシステムを直接使わず、わざわざクラスを拡張してまで Boost.Signals をベースとする記述を行えるようにしているのか？それは、Qtに依存していない部分との統一性を高めるためでもあり、さらに、いずれにしてもそうした方が記述が簡潔で柔軟なものになると考えたからです。
+Qtを使用したプログラミングの経験がある方はご存知かと思いますが、Qtは「シグナル／スロット」と呼ばれる独自のシグナルシステムを備えており、QActionについてもこのシステムに基づく"triggered"というシグナルを備えています。これを使えば上で説明したことと同じことが出来ます。実際のところ、Actionクラスにおける拡張内容も、元々のQtのシグナルを捉えて、それをChoreonoidのシグナル型としてあらためて処理しなおすようになっています。このように少し愚直でオーバーヘッドも生じる方法で、QtのシグナルをあえてChoreonoidのシグナルに変換しています。
 
-まず、ChoreonoidはQtに依存していない、非GUIなモジュールも含んでいます。src/Util 以下の Utilモジュール、src/Body 以下の Bodyモジュール等がこれに当てはまります。これらはChoreonoidのGUIからは独立して、例えばロボットの体内PCにて動作する制御ソフトウェアで使われることも想定しているので、なるべく大きなGUIライブラリに依存させない方が望ましいのです。また、Choreonoid開発の歴史においても、使用してきたGUIライブラリは wxWidgets, Gtk+(Gtkmm), Qt と変遷してきており、今後Qtがどうなるかも分からないため、特定のGUIライブラリへ依存する部分は少なくするに越したことはないと考えています。これはGUI関連モジュールにおいても同様です。そこで、Qtのクラスを継承していないクラスについては、必要なシグナルは全てBoost.Signalsベースで記述することとしています。
-
-一方で、QtのクラスについてはQtのシグナルシステムを使うということでも良いのですが、これはBoost.Signalsとは記述の仕方がかなり異なっており、さらにヘッダファイルに追加の記述をした上でMOCというプリプロセス処理を行う必要があります。すると全体的に記述の統一感が失われる上、コーディング作業も少々面倒なものになります。Choreonoidの開発者にとってこれは受け入れがたいところがありましたので、あえて愚直なクラス拡張を自前で用意し、記述の統一性・簡潔性にこだわることとしました。
-
+この変換によって、Choreonoidフレームワークを使用したコードにおいてシグナル処理の統一性を高めています。QtのシグナルはC++言語の仕様の範囲を超えた記述を必要とし、それを処理するためにコンパイル時にmocというツールによる追加の処理が必要になるなど、かなり独自の形態をとっています。一方Choreonoidのシグナルは通常のC++言語の仕様内で処理できるものであり、そちらに統一した方がまとまりがよくなると考えています。
 
 メニューがクリックされた際の挙動の記述
 ---------------------------------------
 
-上で述べた、メニューが選択されたときに呼ばれる関数"onHelloWorldTriggered()"の実装は、以下のようになっています。 ::
+メニューが選択されたときに呼ばれる関数の実装は、以下のようになっています。 ::
 
-     void onHelloWorldTriggered()
-     {
-         MessageView::instance()->putln("Hello World !");
-     }
+ void onHelloWorldTriggered()
+ {
+     MessageView::instance()->putln("Hello World !");
+ }
 
-MessageViewクラスのクラス(static)関数 "instance()"により、MessageViewのインスタンスを取得しています。
-これは、いわゆるシングルトンクラスにおける"instance()"関数と同様のものです。
+MessageViewはChoreonoidのメッセージビューに対応するクラスです。メッセージビューはChoreonoid上でひとつだけ存在するオブジェクトのため、いわゆるシングルトンクラスとして定義されています。シングルトンクラスのイディオムである "instance" 関数により、MessageViewの単一のインスタンスを取得しています。
 
-MessageView はメッセージビューへのテキスト出力のための関数をいくつか備えており、ここではそのうちのひとつである"putln"関数を用いて、与えたメッセージを改行付きで出力しています。
+MessageViewはテキスト出力のための関数をいくつか備えており、ここではそのうちのひとつである "putln" 関数を用いて、与えたメッセージを改行付きで出力しています。
 
-MessageViewはcout()という関数によってostream型のオブジェクトも提供しています。これを使えば、std::cout への出力と同様に、iostreamの記述法でテキストを出力することが可能です。
+MessageViewはostream型のオブジェクトを返すcout()という関数も提供しています。これを使えば、std::cout への出力と同様に、iostreamの記述法でテキストを出力することが可能です。
 
-本サンプルではMessageViewを使いましたが、Choreonoidは他にも有用な各種ビューやツールバー、および各種クラスの生成済みインスタンスが利用可能となっています。それらを利用する際には、このサンプルと同様に、まず使いたいクラスのヘッダをインクルードし、そのクラスのmainInstance()やinstance()といった関数でインスタンスを取得して使う、というのが基本になります。各クラスがどのような関数を提供しているかについては、今のところはDoxygen生成のリファレンスマニュアルやヘッダファイルなどを参照して調べてください。
-
-
+本サンプルではメッセージビューを使いましたが、Choreonoidは他にも様々なビューやツールバーを備えており、メッセージビューと同様に、プラグインから使用することが可能です。その場合、まず使いたいビューやツールバーのヘッダをインクルードし、対応するクラスのinstance関数などでインスタンスを取得して使用します。各クラスがどのような関数を提供しているかについては、今のところはDoxygen生成のリファレンスマニュアルやヘッダファイルなどを参照して調べてください。
 
 プラグインエントリの定義
 -------------------------
 
-最後に、各プラグインクラスについて、以下の記述を行う必要があります。 ::
+最後に以下の記述をしています。 ::
 
  CNOID_IMPLEMENT_PLUGIN_ENTRY(HelloWorldPlugin)
 
-これは cnoid/Plugin ヘッダにて定義されたマクロとなっており、プラグインのクラス名を与えることで、ChoreonoidシステムがプラグインのDLLからプラグインインスタンスを取得するための関数を定義します。この記述をしておかないと、作成したDLLがプラグインとして認識されませんので、忘れないようにしてください。
+ここでは cnoid/Plugin ヘッダで定義されている "CNOID_IMPLEMENT_PLUGIN_ENTRY" というマクロを使用しています。このマクロにプラグインのクラス名を記述すると、ChoreonoidのシステムがプラグインのDLLからプラグインインスタンスを取得するための関数が定義されます。この記述をしておかないと、作成したDLLがプラグインとして認識されませんので、忘れないようにしてください。
 
 なお、各プラグインは、ひとつのプラグインを実装したひとつのDLLとして作成する必要があります。ひとつのDLLに複数のプラグインを実装することは出来ません（上記のマクロを２つ以上記述することは出来ません）ので、ご注意ください。
 
-以上でソースの解説は終了です。次に、このソースのコンパイルの仕方について説明します。
+以上でソースの解説は終了です。次に、このプラグインのビルド方法について説明します。
 
+.. _hello-world-build:
 
-コンパイルの仕方
-----------------
+ビルド方法
+----------
 
-プラグインをコンパイルし利用するために必要な項目は以下のとおりです。
+プラグインをビルドして利用するために必要な項目は以下のとおりです。
 
-* Choreonoidの依存ライブラリ(Boost, Eigen, Qt, OpenSeneGraph等)のヘッダファイル、ライブラリファイルが、ビルドツールから利用可能になっていること。
-* Choreonoid本体の提供するヘッダファイル、ライブラリファイルについても、ビルドツールから利用可能になっていること。
-* 依存ライブラリやChoreonoid本体のバイナリをビルドした環境とコンパチビリティのあるビルド環境・オプションでビルドすること（同じOS,アーキテクチャ、コンパイラであれば基本的には問題ないはず）。
-* プラグインのバイナリを共有ライブラリもしくはダイナミックライブラリとしてビルドすること。
-* バイナリの名前は、Linuxであれば "libCnoidXXXPlugin.so" (XXXのところにプラグイン名を入れる）、Windowsであれば "CnoidXXXPlugin.dll" とすること。
-* バイナリをChoreonoidのプラグインフォルダに格納すること。プラグインフォルダは、Choreonoidインストール先の lib/choreonoid-x.x/ 以下になる（x.xはバージョン番号に対応)。
+* Choreonoidの依存ライブラリ(Qt等)のヘッダファイル、ライブラリファイルが、ビルドツールから利用可能になっていること
+* Choreonoid本体の提供するヘッダファイル、ライブラリファイルについても、ビルドツールから利用可能になっていること
+* 依存ライブラリやChoreonoid本体のバイナリをビルドした環境とコンパチビリティのあるビルド環境・オプションでビルドすること（同じOS,アーキテクチャ、コンパイラであれば基本的には問題ないはず）
+* プラグインのバイナリを共有ライブラリもしくはダイナミックライブラリとしてビルドすること
+* バイナリの名前は、Linuxであれば "libCnoidXXXPlugin.so" (XXXのところにプラグイン名を入れる）、Windowsであれば "CnoidXXXPlugin.dll" とすること
+* バイナリをChoreonoidのプラグインフォルダに格納すること。プラグインフォルダは、Choreonoidインストール先の "lib/choreonoid-x.x/" 以下になる（x.xはバージョン番号に対応)
 
-上記の項目を押さえた上で、どのような環境・方法でコンパイルするかは、プラグイン開発者の自由です。
-本ドキュメントでは、サンプルのコンパイル用に用意した以下の２つの例について解説したいと思います。
+これらの項目を押さえた上で、どのような方法でプラグインをビルドしても構いません。ここでは以下の３つの方法について紹介したいと思います。
 
-* インストール済みのChoreonoidを使う
-* Choreonoid本体のコンパイル環境を使う
+1. Choreonoid本体とまとめてビルドする
+2. CMakeを使用してプラグイン単体でビルドする
+3. Makefileを直接記述してプラグインをビルドする
 
+.. note:: 方法2, 3については主にLinux上でのビルドを想定しています。Windows上でVisual Studio (Visual C++)を用いてビルドする場合は、方法1を使用するのが簡単です。そうでない場合は、Visual C++のプロジェクトを作成し、その設定ダイアログで、インクルードパスやライブラリパス、ライブラリなどを自前で設定する必要があります。
 
-インストール済みのChoreonoidを使う場合
---------------------------------------
+.. _hello-world-build-together:
 
-まず、"make install"されたChoreonoid本体を外部ライブラリとして使ってコンパイルする方法を示します。
+Choreonoid本体とまとめてビルドする
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Choreonoidをソースからビルドして使用している場合は、自前のプラグインをChoreonoid本体とまとめてビルドすることができます。Choreonoid本体のソース内に自前のプラグインのソースも追加して、本体の付属品としていっしょにビルドしてしまおうという話です。
 
-これを行う場合、Choreonoidをビルドする際に、CMakeのオプションで "INSTALL_SDK" を ON にしておいてください。
-すると、"make install" 実行時に、実行ファイルだけでなく、ヘッダファイルやライブラリのリンクに必要なファイルもインストールされるようになります。この設定でまず"make install"をしておきましょう。
+Choreonoid本体をビルドするための情報はCMakeによって管理されています。ここでCMakeはChoreonoidを構成するヘッダやライブラリに加え、Choreonoidが依存している外部のライブラリについても、ビルドのための情報を持っています。そのような情報を、自前のプラグインのビルドにも活用するというのが、この方法のポイントです。この場合、自前プラグインのビルドに必要な記述は必要最小限で済むため、手軽にプラグインを作成することができます。従って、Choreonoidをソースからビルドして使用しているユーザには、この方法がお勧めです。
 
-後はどのようにしてコンパイルしてもよいのですが、ここでは例として以下のMakefileを使うことにします。
-(このMakefileはHelloWorldPluginのフォルダに"ManualMakefile"として格納されています。) 
+具体的な手順は以下のようになります。まず、Choreonoidのソースディレクトリには "ext" というディレクトリがあり、ここに追加のプラグインを配置するようになっています。従って、まずこのextディレクトリにプラグイン用のサブディレクトリを作成し、そこにプラグインのソースファイルやビルドのためのCMakeLists.txtファイルを格納するようにしてください。
+
+HelloWorldプラグインの場合、以下のような構成でファイルを配置します。 ::
+
+ + Choreonoidのソースディレクトリ
+   + ext
+     - HelloWorldPlugin.cpp
+     - CMakeLists.txt
+
+.. highlight:: cmake
+
+そして、CMakeLists.txtには以下のように記述します。 ::
+
+ set(target CnoidHelloWorldPlugin)
+ add_cnoid_plugin(${target} SHARED HelloWorldPlugin.cpp)
+ target_link_libraries(${target} CnoidBase)
+ apply_common_setting_for_plugin(${target})
+
+ここではまず ::
+
+ set(target CnoidHelloWorldPlugin)
+
+で、プラグイン名を設定しています。プラグインの名前は、このように "Cnoid" で始め、"Plugin" で終わるようにします。ここではこの名前をtargetという変数に設定し、以下に続くコマンドで使用できるようにしています。必ずしも変数に設定する必要はありませんが、このようにすることで、プラグイン名の設定を一元化しています。 ::
+
+ add_cnoid_plugin(${target} SHARED HelloWorldPlugin.cpp)
+
+これがプラグインを実際にビルドするための記述です。"add_cnoid_plugin" はChoreonoid本体のCMakeファイルで定義されているコマンドで、ここにプラグイン名やソースファイル名を指定することで、プラグインのビルドすることができます。このコマンドはChoreonoidソースのトップディレクトリにあるCMakeLists.txtにて記述されていますので、詳細を知りたい方はそちらをご確認ください。基本的にはCMakeでライブラリを作成する際に使用する "add_library" コマンドをプラグイン用にカスタマイズしたものとなっており、add_libraryコマンドと同様に使用します。 ::
+
+ target_link_libraries(${target} CnoidBase)
+
+これはプラグインが依存するライブラリを明示するための記述で、ここではChoreonoid本体に含まれる "CnoidBase" ライブラリを指定しています。CnoidBaseはChoreonoidのGUIのベースとなる部分を実装しているライブラリで、本サンプルで使用するメッセージビューの実装もここに含まれています。Choreonoidのプラグインであれば必ずリンクすることが必要なライブラリです。この記述により、HelloWorldプラグインにCnoidBaseライブラリがリンクされるようになります。
+
+なお、CMakeでは、同一のプロジェクトで定義されているライブラリをtarget_link_librariesで指定すると、そのライブラリが依存している全てのライブラリへのリンクも行われるようになります。例えば、CnoidBaseはQtのライブラリにも依存しているため、上記の記述でHelloWorldプラグインにもQtのライブラリがリンクされるようになります。このように、本手法ではリンクすべきライブラリについてあまり細かい部分まで気にせずに完結に記述することができます。 ::
+
+ apply_common_setting_for_plugin(${target})
+
+プラグインに対して共通で適用すべき設定をしてくれるコマンドです。このコマンドもトップディレクトリのCMakeLists.txtにて定義されています。プラグインには通常この記述もしておきます。これにより、例えば "make install" によってプラグインもインストールすれるようになります。
+
+CMakeLists.txt の記述方法の詳細は `CMakeのマニュアル <http://www.cmake.org/cmake/help/help.html>`_ を参照してください。また、Choreonoidに含まれるライブラリや他のプラグイン、サンプルのCMakeLists.txtを読むことで、おおよその書き方が分かってくるかと思います。
+
+このようにCMakeLists.txtを記述し、プラグインのソースファイルとともにext以下のサブディレクトリに配置したら、Choreonoid本体のビルドを実行します。すると本プラグインのCMakeLists.txtが自動的に検出され、Choreonoid本体と共にHelloWorldプラグインもビルドされるようになります。
+
+.. note:: この方法では、ビルドはChoreonoid本体に対して行うことに注意してください。上記のCMakeLists.txtはそれ単体でプラグインをビルドできるものではないため、プラグインのディレクトリに対してcmakeコマンドを実行してもうまくいきません。その場合Choreonoid本体のCMakeにも影響が出ることがあるため、そのような操作はさけるようにしてください。
+
+なお、プラグインのCMakeLists.txtでは、冒頭に以下のような記述をしておくとよいです。 ::
+
+ option(BUILD_HELLO_WORLD_SAMPLE "Building a Hello World sample plugin" OFF)
+ if(NOT BUILD_HELLO_WORLD_SAMPLE)
+   return()
+ endif()
+
+この記述により、"BUILD_HELLO_WORLD_SAMPLE" というオプションがCMakeの設定に付与されます。ここではデフォルトをOFFとしていて、その場合このプラグインのビルドはスキップされます。プラグインをビルドしたい場合は、CMakeの設定でこのオプションをONにします。このようにプラグインをビルドするかどうかを切り替えられるようにしておくと、プラグインの開発や運用がしやすくなるかと思います。
+
+.. _hello-world-stand-alone-build:
+
+CMakeを使用してプラグイン単体でビルドする
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+上ではプラグインをChoreonoid本体とまとめてビルドする方法を紹介しましたが、プラグインをChoreonoid本体とは別にビルドしたいこともあるかと思います。その方が開発しやすいということもあるでしょうし、そもそもChoreonoid本体をバイナリパッケージなどでインストールしていて、本体のビルド環境を利用できない場合もあるかと思います。
+
+そのような場合には、プラグインを単体でビルドすることも可能です。ここではCMakeを利用してこれを行う方法を紹介します。
+
+この場合、Choreonoidのソースファイルは必要ありませんが、Choreonoidのヘッダやライブラリで構成される「SDK」はインストールされている必要があります。これはChoreonoid本体のビルド時にCMakeで "INSTALL_SDK" というオプションをONにしているとインストールされます。バイナリパッケージを使用する場合は、このSDKを含むものを利用するようにします。
+
+その上で、プラグインのソースファイルと共に、以下のようなCMakeLists.txtを用意します。 ::
+
+ cmake_minimum_required(VERSION 2.8.12)
+ project(HelloWorldPlugin)
+ find_package(Choreonoid REQUIRED)
+ add_definitions(${CHOREONOID_DEFINITIONS})
+ include_directories(${CHOREONOID_INCLUDE_DIRS})
+ link_directories(${CHOREONOID_LIBRARY_DIRS})
+ set(target CnoidHelloWorldPlugin)
+ add_library(${target} SHARED HelloWorldPlugin.cpp)
+ target_link_libraries(${target} ${CHOREONOID_BASE_LIBRARIES})
+ install(TARGETS ${target} LIBRARY DESTINATION ${CHOREONOID_PLUGIN_DIR})
+
+このCMakeLists.txtをプラグインのソースファイルと同じディレクトリに配置します。後は通常のcmakeの使い方で、ビルドを行ってください。インストールの操作を行うと、ビルドされたプラグインファイルがChoreonoidのプラグインディレクトリにインストールされます。Linuxの場合、端末上でプラグインのソースディレクトリに移動し ::
+
+ cmake .
+
+を実行した後に ::
+
+ make
+
+でビルドを行います。ビルドに成功したら ::
+
+ make install
+
+でインストールします。（インストール先によってはroot権限が必要となります。）
+
+.. note:: この方法では、プラグインのソースファイルやCMakeLists.txtを、Choreonoidのextディレクトリ以下に配置するわけでは無いことにご注意ください。cmakeの実行もChoreonoid本体に対して行うのではなく、あくまでこのプラグインに対して直接実行します。
+
+以下ではCMakeLists.txtの記述内容について解説します。 ::
+
+ cmake_minimum_required(VERSION 2.8.12)
+
+必要なCMakeのバージョンを指定しています。インストールされているCMakeのバージョンやCMakeLists.txtの記述内容を考慮して、適切なバージョンを設定するようにしてください。 ::
+
+ project(HelloWorldPlugin)
+
+CMakeのプロジェクトを設定します。今回は単体でビルドするため、これを設定する必要があります。 ::
+
+ find_package(Choreonoid REQUIRED)
+
+インストールされているChoreonoidの情報を取得します。Choreonoidのプラグインを作る以上、Choreonoidは必ず必要なので、ここではREQUIREDを指定しています。Choreonoidが見つかれば、その情報が以下のような変数に設定されます。
+
+.. list-table::
+ :widths: 40,60
+ :header-rows: 1
+
+ * - 変数
+   - 内容
+ * - CHOREONOID_DEFINITIONS
+   - コンパイルオプション
+ * - CHOREONOID_INCLUDE_DIRS
+   - ヘッダファイルのディレクトリ
+ * - CHOREONOID_LIBRARY_DIRS
+   - ライブラリファイルのディレクトリ
+ * - CHOREONOID_UTIL_LIBRARIES
+   - Utilモジュール使用時にリンクすべきライブラリ
+ * - CHOREONOID_BASE_LIBRARIES
+   - Baseモジュール使用時にリンクすべきライブラリ
+ * - CHOREONOID_PLUGIN_DIR
+   - プラグインファイルをインストールするディレクトリ
+
+.. note:: find_packageを機能させるためには、CMakeのパッケージ検出パスにChoreonoidのインストール先が含まれている必要があるのですが、Choreonoidをデフォルトの/usr/local以外のディレクトリにインストールしている場合、それが検出パスに含まれていない可能性があります。この場合はfind_packageでChoreonoidが検出されません。検出されるようにするためには、Choreonoidのインストール先ディレクトリを環境変数CHOREONOID_DIRやCMAKE_PREFIX_PATHに設定するようにしてください。詳しくはCMakeのfind_packageに関するマニュアルを参照してください。
+
+次に、find_packageによって取得された情報を以下のように使用しています。 ::
+
+ add_definitions(${CHOREONOID_DEFINITIONS})
+ include_directories(${CHOREONOID_INCLUDE_DIRS})
+ link_directories(${CHOREONOID_LIBRARY_DIRS})
+
+この記述により、コンパイルオプション、インクルードパス、リンクパスが適切に設定されます。 ::
+
+ set(target CnoidHelloWorldPlugin)
+
+プラグイン名を変数targetに設定しています。 ::
+
+ add_library(${target} SHARED HelloWorldPlugin.cpp)
+
+プラグインは共有ライブラリになりますので、CMake標準のadd_libraryコマンドでビルドを行うことができます。
+
+:ref:`hello-world-build-together` では、add_libraryを拡張したadd_cnoid_pluginというコマンドでプラグインをビルドしましたが、プラグインを単体でビルドする場合は直接add_libaryを使用するようにします。 ::
+
+ target_link_libraries(${target} ${CHOREONOID_BASE_LIBRARIES})
+
+プラグインにリンクすべきライブラリを指定しています。find_packageで取得されたCHOREONOID_BASE_LIBRARIES変数を使用することで、プラグインの基盤となるライブラリ一式をリンクすることができます。 ::
+
+ install(TARGETS ${target} LIBRARY DESTINATION ${CHOREONOID_PLUGIN_DIR})
+
+ビルドしたプラグインのファイルをChoreonoidのプラグインディレクトリにインストールするための設定です。インストール先はこのようにCHOREONOID_PLUGIN_DIR変数で指定することができます。
+
+.. _hello-world-makefile-build:
+
+Makefileを直接記述してプラグインをビルドする
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+プラグインを単体でビルドする際に、Makeコマンドの設定ファイルであるMakefileを直接記述することも可能です。この方法についても、 :ref:`hello-world-stand-alone-build` 場合と同様に、ChoreonoidのSDKがインストールされている必要があります。
+
+なお、この方法はあまりおすすめはしません。今はCMakeという優れたビルドツールがあるので、そちらを使用するのが賢明です。何か特殊な事情でMakefileを書く必要がある場合のために、この方法も紹介しておきます。
+
+Makefileを直接記述する場合は、CMakeのfind_packageコマンドの代わりに、 `pkg-config <http://www.freedesktop.org/wiki/Software/pkg-config>`_ というツールを用いることで、ビルドに必要な情報を取得します。これを用いたMakefileの例を以下に示します。
 
 .. code-block:: makefile
 
- CXXFLAGS += `pkg-config --cflags choreonoid`
+ CXXFLAGS += -fPIC `pkg-config --cflags choreonoid`
  PLUGIN = libCnoidHelloWorldPlugin.so
  
  $(PLUGIN): HelloWorldPlugin.o
- 	g++ -shared `pkg-config --libs choreonoid` -o $(PLUGIN) HelloWorldPlugin.o 
+ 	g++ -shared -o $(PLUGIN) HelloWorldPlugin.o `pkg-config --libs choreonoid`
  
  install: $(PLUGIN)
  	install -s $(PLUGIN) `pkg-config --variable=plugindir choreonoid`
  clean:
  	rm -f *.o *.so
 
+このMakefileを用いてmakeすればプラグインのバイナリが生成され、"make install" を行えばChoreonoidのプラグインディレクトリに生成したバイナリがインストールされるはずです。後はChoreonoidを実行すればプラグインが読み込まれます。
 
-このMakefileを用いてmakeすればプラグインのバイナリが生成され、"make install"を行えばChoreonoidのプラグインディレクトリにバイナリがコピーされるかと思います。後はChoreonoidを実行すればプラグインが読み込まれます。
+pkg-configはUnix系のOSでよく使用されているツールで、上記のMakefileのように、pkg-configコマンドに適当なオプションをつけて実行することで、対応するライブラリのインクルードパスやリンクパス、ライブラリファイルなどの文字列を得ることができます。これをコンパイラのオプションとして渡すことで、それらの設定を直接記述しなくてもコンパイルすることが可能となります。詳しくはpkg-configのマニュアルをご参照ください。
 
-特に特殊なことはしていませんが、インクルードパス、リンクパスの設定や、リンクするライブラリの設定は、 `"pkg-config" <http://www.freedesktop.org/wiki/Software/pkg-config>`_ というツールを用いて行っています。"pkg-config"というのは、Unix系OSで標準的に使われているツールで、対応したライブラリであれば、上記のMakefileのように適切なオプションと対象ライブラリ名で呼び出すことで、インクルードパスやリンクパス、リンクすべきライブラリなどの文字列を得ることができます。これをコンパイラのオプションとして渡すことで、それらの設定の詳細を気にしなくてもコンパイルすることが可能となります。詳しくはpkg-configのマニュアルをご参照ください。
+.. note:: pkg-configについても、Choreonoidのインストール先が検出パスに含まれている必要があります。検出パスの追加は環境変数 "PKG_CONFIG_PATH" を用いて行うことができます。デフォルトの/usr/local以外にChoreonoidをインストールしている場合は、インストール先の "lib/pkgconfig" というをディレクトリを、PKG_CONFIG_PATHに設定するようにしてください。
 
-なお、CMakeにて"CMAKE_INSTALL_PREFIX"をデフォルトの/usr/localから変更している場合は、そのままでは pkg-configがChoreonoidの設定ファイルを見つけることができません。この場合、環境変数 "PKG_CONFIG_PATH" にChoreonoidインストール先のサブディレクトリ"lib/pkgconfig"をフルパスで記述しておく必要があります。
+ビルド用ファイルのサンプル
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Windowsにおいても、pkg-configをインストールすればこのようなMakefileによるコンパイルも出来ないことはないのかもしれません。しかし、WindowsにおいてはVisual C++のIDE上でプロジェクトを作ってコンパイルするのが一般的ではないかと思います。その場合、IDEのプロジェクト設定ダイアログで、インクルードパスやライブラリパス、ライブラリなどを自前で設定し、コンパイルする必要があります。
+ここで紹介した3つの方法に対応するビルド用のファイルをHelloWorldサンプルのディレクトリに格納してあります。それぞれ以下のようにして利用可能です。
 
+1. :ref:`hello-world-build-together`
 
-Choreonoid本体のコンパイル環境を使う場合
-----------------------------------------
+ サンプルディレクトリのCMakeLists.txtが対応。HelloWorldのディレクトリをext以下にコピーして、Choreonoid本体をビルドする。
 
-Choreonoidをソースからコンパイルしている場合は、その環境をプラグイン開発にも活用することができます。
-といっても難しいことは何もなく、単にChoreonoidのソース内に新たなプラグインのソースを追加して、いっしょにコンパイルしてしまおうというだけの話です。
+2. :ref:`hello-world-stand-alone-build`
 
-Choreonoid本体がコンパイルできていれば、本体のヘッダ等はもちろんのこと、依存ライブラリについても既に設定ができているはずですので、プラグイン追加の際にはそのあたりのことを気にせずに作業を進めることができます。また、Choreonoidが採用しているビルドシステムであるCMakeを使うことになり、CMakeを理解していればMakefileを書く場合に比べてより楽にビルド設定を記述していくことが出来ます。さらに、WindowsであってもChoreonoid本体のビルドと同様にVisual C++ のプロジェクトファイルが生成されますので、複雑な設定をせずにVisual C++ のIDEからビルドすることが可能です。
+ こちらもサンプルディレクトリのCMakeLists.txtが対応。HelloWorldのディレクトリ内でcmakeを実行してビルドする。
 
-そういった次第で、Choreonoid本体をソースからコンパイルしているユーザには、この方法がお勧めできます。
+3. :ref:`hello-world-makefile-build`
 
-では具体的な作業内容について説明しましょう。
-まず、プラグイン用の追加のソースを置くディレクトリは、通常Choreonoidソースの"ext"ディレクトリとしています。
-従って、まずこのディレクトリ以下に追加プラグイン用のサブディレクトリを作成し、そこにプラグインのソースやビルド設定を記述したCMakeLists.txtを格納するようにしてください。
+ ManualMakefileというファイルが対応。ファイル名をMakefileに変更するか、make実行時に "-f ManualMakefile" というオプションを付与する。
 
-.. note:: Choreonoidソースに格納されているHelloWorldPluginについては、サンプル用のディレクトリである"sample" 以下に "HelloWorldPlugin" というディレクトリで格納しています。
-
-.. highlight:: cmake
-
-HelloWorldPlugin用のCMakeLists.txtは以下のようになっています。 ::
-
-
- option(BUILD_HELLO_WORLD_SAMPLE "Building a Hello World sample plugin" OFF)
- if(NOT BUILD_HELLO_WORLD_SAMPLE)
-   return()
- endif()
-  
- set(target CnoidHelloWorldPlugin)
- set(srcdir ${PROJECT_SOURCE_DIR}/share/sampleplugins/HelloWorldPlugin)
- add_library(${target} SHARED ${srcdir}/HelloWorldPlugin.cpp)
- target_link_libraries(${target} CnoidBase)
- apply_common_setting_for_plugin(${target})
-
-まず、 ::
-
- option(BUILD_HELLO_WORLD_SAMPLE "Building a Hello World sample plugin" OFF)
- if(NOT BUILD_HELLO_WORLD_SAMPLE)
-   return()
- endif()
-
-の記述により、このサンプルをコンパイルしたくない場合は、コンパイルしないように設定できるようにしています。
-デフォルトではOFFとしており、この切り替えは ccmake コマンド等で設定することが出来ます。
-追加のプラグインについてもこのように記述しておくと、運用しやすくなってよいかと思います。
-
-では、BUILD_HELLO_WORLD_SAMPLE が ON に設定されているときに実行される、続きの部分を見ていきましょう。まず、 ::
-
- set(target CnoidHelloWorldPlugin)
-
-で、長いプラグイン名をtargetという変数で置き換えています。 ::
-
- set(srcdir ${PROJECT_SOURCE_DIR}/share/sampleplugins/HelloWorldPlugin)
- add_library(${target} SHARED ${srcdir}/HelloWorldPlugin.cpp)
-
-プラグインに対応する共有ライブラリをビルドする設定です。ソースの格納先が違う場所なので少しややこしい記述になっていますが、基本的にはadd_libraryでソースファイル名を列挙すればOKです。 ::
-
- target_link_libraries(${target} CnoidBase)
-
-リンクすべき依存ライブラリを記述しています。Choreonoid内のライブラリやプラグインであれば、このようにその名前を書くだけでOKです。
-"CnoidBase"はChoreonoidのGUIフレームワークをまとめたライブラリとなっていて、フレームワークの基本機能を利用するだけであればこれを指定しておけばOKです。
-また、依存先がさらに依存しているライブラリについては自動でリンクされますので、新たに他のライブラリを使うのでなければ、このようにChoreonoid内のライブラリを記述するだけでOKです。 ::
-
- apply_common_setting_for_plugin(${target})
-
-プラグインに共通のビルド設定をしてくれる関数で、ChoreonoidソースのトップディレクトリにあるCMakeLists.txtにて定義されているものです。これを書いておけば、"make install" 時にインストールするといった処理も行ってくれます。
-
-CMakeLists.txt の記述法の詳細は `CMakeのマニュアル <http://www.cmake.org/cmake/help/help.html>`_ を参照してください。また、このサンプルも含めて、Choreonoid内部の他のライブラリやプラグイン、サンプルのCMakeLists.txtを読むことで、おおよその書き方が分かってくるかと思います。
+1と2については同じCMakeLists.txtになりますが、その内部で1用と2用で処理を分けて書いています。Choreonoid本体のビルドであるかどうかを判定し、そうであれば1の内容を、そうでなければ2の内容が処理されます。
