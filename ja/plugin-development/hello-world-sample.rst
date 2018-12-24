@@ -48,7 +48,7 @@ HelloWorld サンプルの解説
  
  CNOID_IMPLEMENT_PLUGIN_ENTRY(HelloWorldPlugin)
  
-このソースコードを含む本サンプルのファイル一式がChoreonoidソースアーカイブの "sample/HelloWorldPlugin" 以下に格納されています。ソースコードのファイル名は "HelloWorldPlugin.cpp" となります。
+このソースコードを含む本サンプルのファイル一式がChoreonoidソースアーカイブの "sample/tutorial/HelloWorldPlugin" 以下に格納されています。ソースコードのファイル名は "HelloWorldPlugin.cpp" となります。
 
 本サンプルをビルドすると "HellowWorldプラグイン" が生成されます。これがChoreonoid起動時に読み込まれると、メインメニューの「表示」に「Hello World」という項目が追加されます。そしてこのメニューを選択すると、メッセージビューに "Hello World !" と出力されます。ただそれだけのプラグインですが、以下ではこのサンプルの解説を通して、Choreonoidのプラグイン開発の基本を学んでいくことにします。
 

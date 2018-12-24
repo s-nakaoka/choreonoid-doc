@@ -59,7 +59,7 @@ Sample1Pluginの解説
  
  CNOID_IMPLEMENT_PLUGIN_ENTRY(Sample1Plugin)
 
-このソースコードを含む本サンプルのファイル一式がChoreonoidソースアーカイブの "sample/Sample1Plugin" 以下に格納されています。ソースコードのファイル名は "Sample1Plugin.cpp" となります。
+このソースコードを含む本サンプルのファイル一式がChoreonoidソースアーカイブの "sample/tutorial/Sample1Plugin" 以下に格納されています。ソースコードのファイル名は "Sample1Plugin.cpp" となります。
 
 プラグインの概要
 ----------------
@@ -354,20 +354,21 @@ notifyKinematicStateChange関数が実行されると、最終的にBodyItemク�
 
 こちらについても、HelloWorldサンプルと異なるのは、Bodyプラグインへの依存があるという点です。これについては、target_link_librariesにおいて、"CHOREONOID_BODY_PLUGIN_LIBRARIES" という変数を用いることで、Bodyプラグインへの依存で必要となる全てのライブラリをセットすることができます。
 
-最後に、 :ref:`hello-world-makefile-build` 場合は、以下のようなMakefileを作成します。 ::
+最後に、 :ref:`hello-world-makefile-build` 場合は、以下のようなMakefileを作成します。
+
+.. code-block:: makefile
 
  CXXFLAGS += -fPIC `pkg-config --cflags choreonoid-body-plugin`
  PLUGIN = libCnoidSample1Plugin.so
- SRC = Sample1Plugin.o
  
- $(PLUGIN): $(SRC)
-         g++ -shared  -o $(PLUGIN) $(SRC) `pkg-config --libs choreonoid-body-plugin`
+ $(PLUGIN): Sample1Plugin.o
+ 	g++ -shared  -o $(PLUGIN) Sample1Plugin.o `pkg-config --libs choreonoid-body-plugin`
  
  install: $(PLUGIN)
-         install -s $(PLUGIN) `pkg-config --variable=plugindir choreonoid`
+	install -s $(PLUGIN) `pkg-config --variable=plugindir choreonoid`
  clean:
-         rm -f *.o *.so
+	rm -f *.o *.so
 
 ここでもBodyプラグインのライブラリをリンクすることがポイントです。pkg-configにおいては、choreonoid-body-pluginというモジュール名を用いることで、Bodyプラグインを利用する場合の情報を得ることができます。
 
-これらのビルド用ファイルのサンプルについて、ChoreonoidソースのSample1Pluginのディレクトリ（sample/Sample1Plugin）に格納してあります。
+これらのビルド用ファイルのサンプルについて、ChoreonoidソースのSample1Pluginのディレクトリ（sample/tutorial/Sample1Plugin）に格納してあります。
