@@ -622,7 +622,7 @@ ODEの物理データを設定するcreateLinkBodyのソースコードです。
             MeshExtractor* extractor = new MeshExtractor;
             //MeshExtractorは、階層をたどり、形状データを展開するためのユーティリティクラスです。
             
-            if(extractor->extract(link->shape(), boost::bind(&ODELink::addMesh, this, extractor, odeBody))){
+            if(extractor->extract(link->shape(), [&](){ addMesh(extractor, odeBody); })){
             //階層をたどり、Meshオブジェクトを見つける度に、ODELink::addMeshを呼び出すように指定します。
             //extractの呼び出しから戻ると、三角メッシュ形状は、verticesにデータが集められています。
             
