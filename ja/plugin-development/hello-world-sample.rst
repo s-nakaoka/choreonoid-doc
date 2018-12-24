@@ -361,7 +361,7 @@ CMakeを使用してプラグイン単体でビルドする
 
 その上で、プラグインのソースファイルと共に、以下のようなCMakeLists.txtを用意します。 ::
 
- cmake_minimum_required(VERSION 2.8.12)
+ cmake_minimum_required(VERSION 3.1.0)
  project(HelloWorldPlugin)
  find_package(Choreonoid REQUIRED)
  add_definitions(${CHOREONOID_DEFINITIONS})
@@ -390,7 +390,7 @@ CMakeを使用してプラグイン単体でビルドする
 
 以下ではCMakeLists.txtの記述内容について解説します。 ::
 
- cmake_minimum_required(VERSION 2.8.12)
+ cmake_minimum_required(VERSION 3.1.0)
 
 必要なCMakeのバージョンを指定しています。インストールされているCMakeのバージョンやCMakeLists.txtの記述内容を考慮して、適切なバージョンを設定するようにしてください。 ::
 

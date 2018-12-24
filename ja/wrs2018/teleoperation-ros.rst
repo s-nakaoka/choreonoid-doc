@@ -103,6 +103,7 @@ Choreonoid用のCatkinワークスペースを作成します。
 
 次に、CMakeのオプションを設定します。 :ref:`wrs2018_install_choreonoid` で示したように、WRS2018のシミュレーションを実行するにあたってはChoreonoidのオプション機能がいくつか必要となり、これをCMakeのオプションで有効にしました。具体的には、
 
+* BUILD_WRS2018
 * BUILD_AGX_DYNAMICS_PLUGIN
 * BUILD_AGX_BODYEXTENSION_PLUGIN
 * BUILD_SCENE_EFFECTS_PLUGIN
@@ -112,6 +113,7 @@ Choreonoid用のCatkinワークスペースを作成します。
 * BUILD_CORBA_PLUGIN
 * BUILD_OPENRTM_PLUGIN
 * BUILD_OPENRTM_SAMPLE
+* BUILD_COMPETITION_PLUGIN
 
 といったオプションです。
 
@@ -123,7 +125,7 @@ ROS Kineticでは、これをOFFとしなければなりません。ROS Melodic�
 
 catkin上でのビルドの場合、このようなオプションの設定はワークスペースの設定として行います。具体的にはcatkin configに --cmake-argsオプションを与えて、 ::
 
- catkin config --cmake-args -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DUSE_PYTHON3=OFF
+ catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON -DUSE_PYTHON3=OFF
 
 のように設定します。(Melodicでは最後の -DUSE_PYTHON3=OFF を除去してください。）
 
@@ -133,9 +135,9 @@ catkin上でのビルドの場合、このようなオプションの設定は�
 
 を実行すると、ワークスペースの設定が表示されます。そこに ::
 
- Additional CMake Args:  -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DENABLE_CORBA=ON
- -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON
- -DUSE_PYTHON3=OFF
+ Additional CMake Args:  -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON
+ -DBUILD_COMPETITION_PLUGIN=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON
+ -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DUSE_PYTHON3=OFF -DBUILD_WRS2018=ON
 
 といった表示があればOKです。
 
@@ -177,9 +179,9 @@ Catkinワークスペース上でビルドした場合、上記のsetup.bashス�
 
  choreonoid
 
-ワークスペースの src/choreonoid/samaple/WRS2018 に移動して ::
+ワークスペースの src/choreonoid/samaple/WRS2018/script に移動して ::
 
- choreonoid --python T1-AizuSpiderSS.py
+ choreonoid T1-AizuSpiderSS.py
 
 などとすることで、 :doc:`simulation-samples` を実行できます。
 
@@ -197,7 +199,7 @@ ROSを用いた遠隔操作のサンプルは、 :doc:`simulation-samples` で�
 
 :doc:`simulation-samples` で説明したのと同じ要領で、上記のどちらかのプロジェクトを読み込んでください。例えばChoreonoidのソースディレクトリから、 ::
 
- bin/choreonoid --python samplw/WRS2018/T1-AizuSpiderSA-ROS.py
+ bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-ROS.py
 
 などとします。
 

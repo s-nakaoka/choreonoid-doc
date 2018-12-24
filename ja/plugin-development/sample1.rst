@@ -341,7 +341,7 @@ notifyKinematicStateChange関数が実行されると、最終的にBodyItemク�
 
 次に、 :ref:`hello-world-stand-alone-build` 場合は、以下のようなCMakeLists.txtを作成します。 ::
 
-  cmake_minimum_required(VERSION 2.8.12)
+  cmake_minimum_required(VERSION 3.1.0)
   project(Sample1Plugin)
   find_package(Choreonoid REQUIRED)
   add_definitions(${CHOREONOID_DEFINITIONS})

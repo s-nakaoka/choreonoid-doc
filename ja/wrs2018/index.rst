@@ -1,10 +1,9 @@
-
 World Robot Summit 2018
 =======================
 
-2018年10月に開催予定のロボットイベント `"World Robot Summit (WRS) 2018" <http://worldrobotsummit.org/>`_ では、Choreonoidでシミュレートされる仮想環境内でのロボット競技会が開催されます。この競技は「トンネル事故災害対応・復旧チャレンジ」と題して行うものであり、`インフラ・災害対応カテゴリー <http://worldrobotsummit.org/wrc2018/disaster/>`_ の一競技として開催されます。（WRSでは全体で4つのカテゴリーからなるロボット競技会 `World Robot Challenge (WRC) 2018 <http://worldrobotsummit.org/wrc2018/guideline/>`_ が開催されます。）
+2018年10月に開催されたロボットイベント `"World Robot Summit (WRS) 2018" <http://worldrobotsummit.org/>`_ では、Choreonoidでシミュレートされる仮想環境内でのロボット競技も開催されました。この競技は「トンネル事故災害対応・復旧チャレンジ」と題して、`インフラ・災害対応カテゴリー <http://worldrobotsummit.org/wrc2018/disaster/>`_ の一競技として開催されました。（WRSでは全体で4つのカテゴリーからなるロボット競技会 `World Robot Challenge (WRC) 2018 <http://worldrobotsummit.org/wrc2018/guideline/>`_ が開催されました。）
 
-本ページでは、この競技への参加にあたって必要となる技術的な情報をまとめています。競技に必要なモデルやシミュレーションの設定等はChoreonoidのサンプルとして含まれており、競技に参加しない方でも試すことができます。これはChoreonoidの実践的な活用方法を学ぶ上でも有用なサンプルとなっています。
+本ドキュメントはこの競技への参加にあたっ必要な技術情報をまとめたものです。競技に必要なモデルやシミュレーションの設定等はChoreonoidのサンプルとして含まれており、競技に参加しなかった方でも試すことができます。これはChoreonoidの実践的な活用方法を学ぶ上でも有用なサンプルとなっています。
 
 .. toctree::
    :maxdepth: 2
@@ -16,14 +15,6 @@ World Robot Summit 2018
    sample-controllers
    teleoperation-rtm
    teleoperation-ros
-   support
-
-更新情報
---------
-
-* 2018年8月19日: 初版公開
-* 2018年8月22日: :doc:`teleoperation-ros` の :ref:`teleoperation_ros_build_packages` に注釈を追加
-* 2018年8月23日: OpenRTM関連の記述を更新
 
 .. ルール補足 rules
 .. controller-implementations
@@ -31,3 +22,4 @@ World Robot Summit 2018
 .. 複数ロボットの導入について
 .. マルチコプタの制御方法。絶対座標を使ってよいか？
 .. JVRC.参考情報。
+.. support

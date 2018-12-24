@@ -13,10 +13,10 @@ OpenRTMの準備
 
 OpenRTMによる遠隔操作を行うための準備として、まず :ref:`wrs2018_install_openrtm` をしておく必要があります。Choreonoidのビルドにおいても、
 
- * ENABLE_CORBA
- * BUILD_CORBA_PLUGIN
- * BUILD_OPENRTM_PLUGIN
- * BUILD_OPENRTM_SAMPLES
+* ENABLE_CORBA
+* BUILD_CORBA_PLUGIN
+* BUILD_OPENRTM_PLUGIN
+* BUILD_OPENRTM_SAMPLES
 
 を有効にして、OpenRTM関連の機能やサンプルをビルドするようにしてください。
 
@@ -37,7 +37,7 @@ OpenRTMによる遠隔操作を行う場合、まずシミュレーションを�
 
 :doc:`simulation-samples` で説明したのと同じ要領で、上記のどちらかのプロジェクトを読み込んでください。例えばChoreonoidのソースディレクトリから、 ::
 
- bin/choreonoid --python samplw/WRS2018/T1-AizuSpiderSA-RTM.py
+ bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-RTM.py
 
 などとします。
 
@@ -49,7 +49,11 @@ OpenRTMによる遠隔操作を行う場合、まずシミュレーションを�
 
  bin/choreonoid sample/OpenRTM/OpenRTM-AizuSpider-Terminal.cnoid
 
-などと入力します。
+などと入力します。インストール先のChoreonoidを使用する場合は、 ::
+
+ choreonoid /usr/local/share/choreonoid-1.6/project/OpenRTM-AizuSpider-Terminal.cnoid
+
+などとします。
 
 遠隔操作側のChoreonoidは、以下のような画面になるかと思います。
 
@@ -94,15 +98,15 @@ PC2台を用いた遠隔通信
 
 .. note:: rtc.conf はOpenRTMの設定用のファイルです。カレントディレクトリにこのファイルがあると、そこに記述された設定が適用されます。rtc.confに相当するファイルは他にもありますが、詳細はOpenRTMのマニュアルを参照してください。
 
-あとは上述の操作をシミュレーション用PCと遠隔操作用PCのそれぞれで分けて行えばOKです。先ほどと同じプロジェクトであれば、まずシミュレーション用PCのChoreonoidソースディレクトリにて、 ::
+あとは上述の操作をシミュレーション用PCと遠隔操作用PCのそれぞれで分けて行えばOKです。先ほどと同じプロジェクトであれば、まずシミュレーション用PC側で ::
 
- bin/choreonoid --python samplw/WRS2018/T1-AizuSpiderSA-RTM.py
+ bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-RTM.py
 
-を実行し、次に遠隔操作用PCのChoreonoidソースディレクトリにて、 ::
+を実行し、次に遠隔操作用PCにて、 ::
 
  bin/choreonoid sample/OpenRTM/OpenRTM-AizuSpider-Terminal.cnoid
 
-を実行します。
+を実行します（どちらもソースディレクトリ上でビルドしたChoreonoidを使用する場合のコマンド例です。）
 
 そしてシミュレーション用PCのChoreonoidでシミュレーションを開始してください。
 

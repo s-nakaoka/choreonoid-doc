@@ -15,7 +15,7 @@
 
 OSはUbuntu 16.04 64bit版の使用を前提としています。Ubuntuの日本語版ISOイメージは `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_ のサイトからダウンロードできますが、現在の最新版は18.04となっており、16.04をダウンロードする場合は少し込み入ったリンクをたどる必要あがあります。 `日本国内のダウンロードサイト <https://www.ubuntulinux.jp/ubuntu/mirrors>`_ の一番下に「Japanese Teamのリリースイメージ」とありますので、そこに挙げられているサーバの中から適当に選んで、 "releases/16.04/ubuntu-ja-16.04-desktop-amd64.iso" をダウンロードしてください。
 
-なお、今回のサンプルはUbuntu 18.04でも動作することを確認しています。ただしOpenRTMがまだ18.04に対応していませんので、OpenRTMを使用するサンプルは実行することができません。ROSを使用したサンプルについては、18.04でも動作します。
+なお、今回のサンプルはUbuntu 18.04でも動作することを確認しています。ただし2018年12月25日現在、Ubuntu 18.04に対応したOpenRTM（バージョン1.2.0）がリリースされていませんので、OpenRTMを使用するサンプルは実行することができません。ROSを使用したサンプルについては、18.04でも動作します。
 
 .. note:: Ubuntuはネイティブインストールされたものを使用してください。仮想マシンでも動かないことはありませんが、シミュレーションが遅くなったり、一部不具合が生じる可能性があります。どうしても仮想マシンで試したい場合は、 `VMWareを用いたUbuntu16.04仮想マシンの構築 <http://choreonoid.org/ja/workshop/vmware.html>`_ を参考にしてください。ただし、WRS2018のサンプルシミュレーションが正常に動作することは保証できません。
 
@@ -36,7 +36,6 @@ AGX Dynamicsのライセンスをお持ちの場合は、あらかじめ AGX Dyn
 パッケージがダウンロードできたら、:doc:`../agxdynamics/install/install-agx-ubuntu` の説明に従ってインストールを行います。
 
 AGX Dynamicsのラインセンスをお持ちでない場合、この作業はスキップしてください。
-
 
 .. _wrs2018_install_openrtm:
 
@@ -78,6 +77,10 @@ CMakeによるビルドの設定を行います。Choreonoidのデフォルト�
 
 ただしWRS2018のサンプルを実行するためには、以下のオプションも有効（ON）にする必要があります。
 
+* WRS2018サンプル
+
+ * BUILD_WRS2018
+
 * AGX Dynamics を利用する場合
 
  * BUILD_AGX_DYNAMICS_PLUGIN
@@ -98,6 +101,10 @@ CMakeによるビルドの設定を行います。Choreonoidのデフォルト�
  * BUILD_CORBA_PLUGIN
  * BUILD_OPENRTM_PLUGIN
  * BUILD_OPENRTM_SAMPLES
+
+* 競技用のプラグイン（主に審判が使用）
+
+ * BUILD_COMPETITION_PLUGIN
 
 これらのオプションの設定はccmakeコマンドを使ってインタラクティブに行うこともできますが、cmakeコマンドに-Dオプションを与えることも可能です。例えば、BUILD_SCENE_EFFECTS_PLUGINをONにするには、以下のように入力します。 ::
 
