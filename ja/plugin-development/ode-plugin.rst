@@ -129,49 +129,46 @@ GUIでODEシミュレータアイテムが削除されると、ODESimulatorItem�
 プロパティビューにパラメータを表示するとき、またパラメータの値を変更した時に呼ばれる関数です。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7
 
     void ODESimulatorItem::doPutProperties(PutPropertyFunction& putProperty)
     {
         SimulatorItem::doPutProperties(putProperty);
-        //シミュレータアイテム共通のプロパティを設定しますので、必ず呼び出してください。
+        // シミュレータアイテム共通のプロパティを設定しますので、必ず呼び出してください。
      
         putProperty(_("Step mode"), stepMode, changeProperty(stepMode));
-        //パラメータ設定を行う関数です。パラメータの名前、変数、呼び出す関数を指定します。
+        // パラメータ設定を行う関数です。パラメータの名前、変数、呼び出す関数を指定します。
     }
 
 プロジェクトファイルにパラメータ設定を保存するための関数です。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,10
 
     bool ODESimulatorItem::store(Archive& archive)
     {
         SimulatorItem::store(archive);
-        //シミュレータアイテム共通のプロパティを保存しますので、必ず呼び出してください。
+        // シミュレータアイテム共通のプロパティを保存しますので、必ず呼び出してください。
     
         archive.write("stepMode", stepMode.selectedSymbol());
-        //保存するパラメータの名前、変数を指定します。
+        // 保存するパラメータの名前、変数を指定します。
     
         write(archive, "gravity", gravity);
-        //Vector型の変数は、この関数を使用します。
+        // Vector型の変数は、この関数を使用します。
     }
 
 プロジェクトファイルからパラメータ設定を読み出すための関数です。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,10
 
     bool ODESimulatorItem::restore(const Archive& archive)
     {
         SimulatorItem::restore(archive);
-        //シミュレータアイテム共通のプロパティを読み出しますので、必ず呼び出してください。
+        // シミュレータアイテム共通のプロパティを読み出しますので、必ず呼び出してください。
 
         archive.read("friction", friction);
-        //読み出すパラメータの名前、変数を指定します。
+        // 読み出すパラメータの名前、変数を指定します。
 
         read(archive, "gravity", gravity);
-        //Vector型の変数は、この関数を使用します。
+        // Vector型の変数は、この関数を使用します。
     }
 
 シミュレーションの実装
@@ -208,26 +205,26 @@ ODEBodyクラスは、SimulationBodyクラスを継承して作成します。 :
 次に初期化関数が一度だけ呼び出されます。引数simBodiesには、シミュレーション対象とする上で作成したODEBodyオブジェクトへのポインタが入っています。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,10,13,18
 
     bool ODESimulatorItem::initializeSimulation(const std::vector<SimulationBody*>& simBodies)
     {
          clear();
-         //前回のシミュレーションの結果を破棄します。
+         // 前回のシミュレーションの結果を破棄します。
     
          dRandSetSeed(0);
          dWorldSetGravity(worldID, g.x(), g.y(), g.z());
          dWorldSetERP(worldID, globalERP);
          .............
-         //シミュレーション用パラメータを設定します。
+         // シミュレーション用パラメータを設定します。
 
          timeStep = self->worldTimeStep();
-         //worldTimeStep()で、シミュレーションの刻み時間が取得できます。
+         // worldTimeStep()で、シミュレーションの刻み時間が取得できます。
 
          for(size_t i=0; i < simBodies.size(); ++i){
              addBody(static_cast<ODEBody*>(simBodies[i]));
          }
-        //シミュレーションの世界にODEの用のモデルを構築します。対象モデルの個数回addBodyを呼び出してモデルを追加していきます。
+         // シミュレーションの世界にODEの用のモデルを構築します。
+         // 対象モデルの個数回addBodyを呼び出してモデルを追加していきます。
 
          return true;
      }
@@ -235,29 +232,28 @@ ODEBodyクラスは、SimulationBodyクラスを継承して作成します。 :
 その後は、シミュレーションを１ステップ進める関数が、シミュレーション終了まで、繰り返し呼び出されます。引数activeSimBodiesには、シミュレーション対象とするODEBodyオブジェクトへのポインタが入っています。
 
 .. code-block:: cpp
-    :emphasize-lines: 6,9,14,21,34
     
     bool ODESimulatorItem::stepSimulation(const std::vector<SimulationBody*>& activeSimBodies)
     {
         for(size_t i=0; i < activeSimBodies.size(); ++i){
             ODEBody* odeBody = static_cast<ODEBody*>(activeSimBodies[i]);
             odeBody->body()->setVirtualJointForces();
-            //BodyCustomizerの関数を呼び出します。
+            // BodyCustomizerの関数を呼び出します。
 
             odeBody->setTorqueToODE();
-            //各ODEBodyオブジェクトに関節トルクを設定します。
+            // 各ODEBodyオブジェクトに関節トルクを設定します。
         }
     
         dJointGroupEmpty(contactJointGroupID);
         dSpaceCollide(spaceID, (void*)this, &nearCallback);
-        //衝突検出を行います。
+        // 衝突検出を行います。
 
         if(stepMode.is(ODESimulatorItem::STEP_ITERATIVE)){
             dWorldQuickStep(worldID, timeStep);
         } else {
             dWorldStep(worldID, timeStep);
         }
-        //シミュレーションの時間を１ステップ進めます。
+        // シミュレーションの時間を１ステップ進めます。
 
         for(size_t i=0; i < activeSimBodies.size(); ++i){
             ODEBody* odeBody = static_cast<ODEBody*>(activeSimBodies[i]);
@@ -270,7 +266,7 @@ ODEBodyクラスは、SimulationBodyクラスを継承して作成します。 :
                 odeBody->sensorHelper.updateGyroAndAccelSensors();
             }
         }
-        //１ステップ進んだ結果を、各ODEBodyオブジェクトから読み込みます。
+        // １ステップ進んだ結果を、各ODEBodyオブジェクトから読み込みます。
 
         return true;
     }
@@ -428,20 +424,19 @@ createSimulationBody関数が呼ばれたときには、ODEBodyオブジェク�
 addBodyのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,12,20,21,24,26,29
 
     void ODESimulatorItemImpl::addBody(ODEBody* odeBody)
     {
          Body& body = *odeBody->body();
-         //Bodyオブジェクトへのポインタを取得します。
+         // Bodyオブジェクトへのポインタを取得します。
 
          Link* rootLink = body.rootLink();
-         //ルートリンクのポインタを取得します。
+         // ルートリンクのポインタを取得します。
          rootLink->v().setZero();
          rootLink->dv().setZero();
          rootLink->w().setZero();
          rootLink->dw().setZero();
-         //ルートリンクの速度、加速度、角速度、角加速度を０に設定しています。
+         // ルートリンクの速度、加速度、角速度、角加速度を０に設定しています。
     
          for(int i=0; i < body.numJoints(); ++i){
              Link* joint = body.joint(i);
@@ -449,94 +444,96 @@ addBodyのソースコードです。
              joint->dq() = 0.0;
              joint->ddq() = 0.0;
          }
-         //各関節のトルク、角速度、角加速度も０に設定しています。
-         //ルートリンクの位置、姿勢、各関節の角度にはシミュレーションの初期値が設定されています。
+         // 各関節のトルク、角速度、角加速度も０に設定しています。
+         // ルートリンクの位置、姿勢、各関節の角度にはシミュレーションの初期値が設定されています。
          
          body.clearExternalForces();
-         //外力を０にします。
+         // 外力を０にします。
          body.calcForwardKinematics(true, true);
-         //各リンクの位置と姿勢を計算します。
+         // 各リンクの位置と姿勢を計算します。
 
          odeBody->createBody(this);
-         //ODEのモデルの作成を行います。
+         // ODEのモデルの作成を行います。
      }
 
 createBodyのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,11,14,15,18,21,24,32
 
     void ODEBody::createBody(ODESimulatorItemImpl* simImpl)
     {
         Body* body = this->body();
-        //Bodyオブジェクトのポインタを取得します。
+        // Bodyオブジェクトのポインタを取得します。
     
         worldID = body->isStaticModel() ? 0 : simImpl->worldID;
-        //モデルが床など、動かない物体か否かを判断し、その扱いを変えることができます。
+        // モデルが床など、動かない物体か否かを判断し、その扱いを変えることができます。
     
         spaceID = dHashSpaceCreate(simImpl->spaceID);
         dSpaceSetCleanup(spaceID, 0);
-        //ODEの準備です。
+        // ODEの準備です。
 
         ODELink* rootLink = new ODELink(simImpl, this, 0, Vector3::Zero(), body->rootLink());
-        //モデルのルートのリンク（物体）を作成します。ルートリンクから手先、足先へとたどって、全体を構成します。
-        //ルートリンクには親リンクがないので、親リンクのポインタは０を、位置はゼロベクトルを渡します。
+        // モデルのルートのリンク（物体）を作成します。
+        // ルートリンクから手先、足先へとたどって、全体を構成します。
+        // ルートリンクには親リンクがないので、親リンクのポインタは０を、位置はゼロベクトルを渡します。
 
         setKinematicStateToODE(simImpl->flipYZ);
-        //ODEBodyオブジェクトに、位置姿勢を設定します。
+        // ODEBodyオブジェクトに、位置姿勢を設定します。
 
         setExtraJoints(simImpl->flipYZ);
-        //仮想関節を設定します。
+        // 仮想関節を設定します。
        
         setTorqueToODE();
-        //ODEBodyオブジェクトにトルクを設定します。
+        // ODEBodyオブジェクトにトルクを設定します。
 
         sensorHelper.initialize(body, simImpl->timeStep, simImpl->gravity);
         const DeviceList<ForceSensor>& forceSensors = sensorHelper.forceSensors();
         forceSensorFeedbacks.resize(forceSensors.size());
         for(size_t i=0; i < forceSensors.size(); ++i){
-            dJointSetFeedback(odeLinks[forceSensors[i]->link()->index()]->jointID, &forceSensorFeedbacks[i]);
+            dJointSetFeedback(
+                odeLinks[forceSensors[i]->link()->index()]->jointID, &forceSensorFeedbacks[i]);
         }
-        //力センサなど、センサ出力用の初期設定を行います。
+        // 力センサなど、センサ出力用の初期設定を行います。
     
     }
 
 ODELinkのソースコードです。Linkオブジェクトの情報からODELinkオブジェクトを生成します。
 
 .. code-block:: cpp
-    :emphasize-lines: 7,12,15,20
 
     ODELink::ODELink
-    (ODESimulatorItemImpl* simImpl, ODEBody* odeBody, ODELink* parent, const Vector3& parentOrigin, Link* link)
+    (ODESimulatorItemImpl* simImpl, ODEBody* odeBody, ODELink* parent,
+     const Vector3& parentOrigin, Link* link)
     {
         ...................
     
         Vector3 o = parentOrigin + link->b();
-        //ワールド座標系からみたリンク原点位置ベクトルを計算します。parentOriginは親リンクの位置ベクトルです。
+        // ワールド座標系からみたリンク原点位置ベクトルを計算します。
+        // parentOriginは親リンクの位置ベクトルです。
     
         if(odeBody->worldID){
             createLinkBody(simImpl, odeBody->worldID, parent, o);
         }
-        //物理データを設定します。ODEでは動かない物体は物理データは必要ないので設定しません。
+        // 物理データを設定します。ODEでは動かない物体は物理データは必要ないので設定しません。
         
         createGeometry(odeBody);
-        //形状データを設定します。
+        // 形状データを設定します。
     
         for(Link* child = link->child(); child; child = child->sibling()){
             new ODELink(simImpl, odeBody, this, o, child);
         }
-        //子リンクを順番にたどり、ODELinkを作成します。
+        // 子リンクを順番にたどり、ODELinkを作成します。
     }
 
 ODEの物理データを設定するcreateLinkBodyのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,14,19,23,28,31,34,37,40,44,47,50,54,59,61,67,71
 
-    void ODELink::createLinkBody(ODESimulatorItemImpl* simImpl, dWorldID worldID, ODELink* parent, const Vector3& origin)
+    void ODELink::createLinkBody
+    (ODESimulatorItemImpl* simImpl, dWorldID worldID, ODELink* parent, const Vector3& origin)
     {
         bodyID = dBodyCreate(worldID);
-        //ODEの物体（ODEではBodyと表現されます。ChoreonoidではLinkに相当します）を生成します。
+        // ODEの物体（ODEではBodyと表現されます。ChoreonoidではLinkに相当します）を生成します。
     
         dMass mass;
         dMassSetZero(&mass);
@@ -546,64 +543,64 @@ ODEの物理データを設定するcreateLinkBodyのソースコードです。
                            I(0,0), I(1,1), I(2,2),
                            I(0,1), I(0,2), I(1,2));
         dBodySetMass(bodyID, &mass);
-        //質量と慣性テンソル行列を設定します。
+        // 質量と慣性テンソル行列を設定します。
 
         ................
     
         dBodySetRotation(bodyID, identity);
-        //リンクの姿勢を設定します。
+        // リンクの姿勢を設定します。
         
         Vector3 p = o + c;
         dBodySetPosition(bodyID, p.x(), p.y(), p.z());
-        //リンクの位置を設定します。ODEでは重心をリンク原点とします。
+        // リンクの位置を設定します。ODEでは重心をリンク原点とします。
 
         dBodyID parentBodyID = parent ? parent->bodyID : 0;
 
         switch(link->jointType()){
-        //関節の種類によって、使用するODEの関節を変えます。
+        // 関節の種類によって、使用するODEの関節を変えます。
         
             case Link::ROTATIONAL_JOINT:
-            //回転関節の場合ヒンジジョイントを使います。
+            // 回転関節の場合ヒンジジョイントを使います。
             jointID = dJointCreateHinge(worldID, 0);
             dJointAttach(jointID, bodyID, parentBodyID);
-            //親リンクと自リンクをつなぎます。
+            // 親リンクと自リンクをつなぎます。
         
             dJointSetHingeAnchor(jointID, o.x(), o.y(), o.z());
-            //ヒンジジョイントの位置はLinkオブジェクトの原点になります。
+            // ヒンジジョイントの位置はLinkオブジェクトの原点になります。
         
             dJointSetHingeAxis(jointID, a.x(), a.y(), a.z());
-            //ヒンジジョイントの回転軸を設定します。
+            // ヒンジジョイントの回転軸を設定します。
             break;
         
             case Link::SLIDE_JOINT:
-            //並進関節の場合はスライダジョイントを使います。
+            // 並進関節の場合はスライダジョイントを使います。
             jointID = dJointCreateSlider(worldID, 0);
             dJointAttach(jointID, bodyID, parentBodyID);
-            //親リンクと自リンクをつなぎます。
+            // 親リンクと自リンクをつなぎます。
         
             dJointSetSliderAxis(jointID, d.x(), d.y(), d.z());
-            //スライドジョイントのスライド軸を設定します。
+            // スライドジョイントのスライド軸を設定します。
             break;
 
             case Link::FREE_JOINT:
-            //フリー関節の場合は、何も設定しません。
+            // フリー関節の場合は、何も設定しません。
             break;
 
             case Link::FIXED_JOINT:
             default:
-            //上記以外、または固定関節の場合は
+            // 上記以外、または固定関節の場合は
             if(parentBodyID){
-                //親リンクがあれば、親リンクに固定ジョイントで接続します。
+                // 親リンクがあれば、親リンクに固定ジョイントで接続します。
                 jointID = dJointCreateFixed(worldID, 0);
                 dJointAttach(jointID, bodyID, parentBodyID);
                 dJointSetFixed(jointID);
                 if(link->jointType() == Link::CRAWLER_JOINT){
                     simImpl->crawlerLinks.insert(make_pair(bodyID, link));
-                    //クローラ関節は、ODEでは固定ジョイントとし、衝突検出で特殊なケースとして扱います。
+                    // クローラ関節は、ODEでは固定ジョイントとし、衝突検出で特殊なケースとして扱います。
                 }
             } else {
                 dBodySetKinematic(bodyID);
-                //親リンクがない場合は、KinematicBody（衝突が起きても動かない物体）と設定します。
+                // 親リンクがない場合は、KinematicBody（衝突が起きても動かない物体）と設定します。
             }
             break;
         }
@@ -612,32 +609,31 @@ ODEの物理データを設定するcreateLinkBodyのソースコードです。
 次に形状データを設定するcreateGeometryのソースコードです。形状データは、Shapeオブジェクト内で、階層構造で記述されています。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,10,11,18,21,24
     
     void ODELink::createGeometry(ODEBody* odeBody)
     {
         if(link->shape()){
-        //Shapeオブジェクトを取得します。
+        // Shapeオブジェクトを取得します。
         
             MeshExtractor* extractor = new MeshExtractor;
-            //MeshExtractorは、階層をたどり、形状データを展開するためのユーティリティクラスです。
+            // MeshExtractorは、階層をたどり、形状データを展開するためのユーティリティクラスです。
             
             if(extractor->extract(link->shape(), [&](){ addMesh(extractor, odeBody); })){
-            //階層をたどり、Meshオブジェクトを見つける度に、ODELink::addMeshを呼び出すように指定します。
-            //extractの呼び出しから戻ると、三角メッシュ形状は、verticesにデータが集められています。
+            // 階層をたどり、Meshオブジェクトを見つける度に、ODELink::addMeshを呼び出すように指定します。
+            // extractの呼び出しから戻ると、三角メッシュ形状は、verticesにデータが集められています。
             
                 if(!vertices.empty()){
                     triMeshDataID = dGeomTriMeshDataCreate();
                     dGeomTriMeshDataBuildSingle(triMeshDataID,
                                             &vertices[0], sizeof(Vertex), vertices.size(),
                                             &triangles[0],triangles.size() * 3, sizeof(Triangle));
-                    //ODEのデータ形式に変換します。
+                    // ODEのデータ形式に変換します。
                     
                     dGeomID gId = dCreateTriMesh(odeBody->spaceID, triMeshDataID, 0, 0, 0);
-                    //ODEの三角メッシュオブジェクトを生成します。
+                    // ODEの三角メッシュオブジェクトを生成します。
                     geomID.push_back(gId);
                     dGeomSetBody(gId, bodyID);
-                    //ODEのBodyと結びつけます。
+                    // ODEのBodyと結びつけます。
                 }
             }
             delete extractor;
@@ -649,88 +645,93 @@ Choreonoidでは、モデルを読み込む時に、形状データは全て三�
 addMeshのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,12,13,19,22,24,28,29,32,36,39,42,46,49,52,55,60,67,73,79,89,92,96,99,107,109,118,121,124,129,131,135,138,144
 
     void ODELink::addMesh(MeshExtractor* extractor, ODEBody* odeBody)
     {
         SgMesh* mesh = extractor->currentMesh();
-        //Meshオブジェクトのポインタを取得します。
+        // Meshオブジェクトのポインタを取得します。
 
         const Affine3& T = extractor->currentTransform();
-        //Meshオブジェクトの位置姿勢行列が取得できます。
+        // Meshオブジェクトの位置姿勢行列が取得できます。
 
         bool meshAdded = false;
 
         if(mesh->primitiveType() != SgMesh::MESH){
-            //mesh->primitiveType()で形状データのタイプが取得できます。MESH, BOX, SPHERE, CYLINDER, CONEがあります。
-            //以下、形状データがプリミティブ型のときの処理です。
+            // mesh->primitiveType()で形状データのタイプが取得できます。
+            // MESH, BOX, SPHERE, CYLINDER, CONEがあります。
+            // 以下、形状データがプリミティブ型のときの処理です。
 
             bool doAddPrimitive = false;
             Vector3 scale;
             optional<Vector3> translation;
             if(!extractor->isCurrentScaled()){
-            //スケールの変更がある場合trrueを返します。
+            // スケールの変更がある場合trrueを返します。
                 scale.setOnes();
                 doAddPrimitive = true;
-                //スケール変更がない場合はscaleベクトルの各要素は１とし、プリミティブ型として扱います。
+                // スケール変更がない場合はscaleベクトルの各要素は１とし、プリミティブ型として扱います。
             } else {
-                //スケールの変更がある場合の処理です。
+                // スケールの変更がある場合の処理です。
 
                 Affine3 S = extractor->currentTransformWithoutScaling().inverse() *
                     extractor->currentTransform();
-                //currentTransformWithoutScaling()でスケール変換行列を含まない座標変換行列が取得できます。
-                //スケール変換の行列だけを抽出します。
+                // currentTransformWithoutScaling()でスケール変換行列を含まない座標変換行列が
+                // 取得できます。スケール変換の行列だけを抽出します。
 
                 if(S.linear().isDiagonal()){
-                    //スケール変換行列が対角行列のときだけ処理します。そうでない時はODEではプリミティブ型として扱えません。
+                    // スケール変換行列が対角行列のときだけ処理します。
+                    // そうでない時はODEではプリミティブ型として扱えません。
 
                     if(!S.translation().isZero()){
                         translation = S.translation();
-                        //スケール行列の中に位置変換がある場合は保存します。
+                        // スケール行列の中に位置変換がある場合は保存します。
                     }
                     scale = S.linear().diagonal();
-                    //対角要素をscaleに代入します。
+                    // 対角要素をscaleに代入します。
 
                     if(mesh->primitiveType() == SgMesh::BOX){
-                        //プリミティブ型がBoxならば、プリミティブ型として扱います。
+                        // プリミティブ型がBoxならば、プリミティブ型として扱います。
                         doAddPrimitive = true;
                     } else if(mesh->primitiveType() == SgMesh::SPHERE){
                         if(scale.x() == scale.y() && scale.x() == scale.z()){
-                            //プリミティブ型がSphere、かつscaleの要素が同じ値ならばプリミティブ型として扱います。
+                            // プリミティブ型がSphere、かつscaleの要素が同じ値ならば
+                            // プリミティブ型として扱います。
                             doAddPrimitive = true;
                         }
-                        //scaleの要素が同じ値でないならばプリミティブ型として扱えません。
+                        // scaleの要素が同じ値でないならばプリミティブ型として扱えません。
                     } else if(mesh->primitiveType() == SgMesh::CYLINDER){
                         if(scale.x() == scale.z()){
-                            //プリミティブ型がCylinder、かつscaleのx,z要素が同じ値ならばプリミティブ型として扱います。
+                            // プリミティブ型がCylinder、かつscaleのx,z要素が同じ値ならば
+                            // プリミティブ型として扱います。
                             doAddPrimitive = true;
                         }
-                        //scaleのx,z要素が同じ値でないならばプリミティブ型として扱えません。
+                        // scaleのx,z要素が同じ値でないならばプリミティブ型として扱えません。
                     }
                 }
             }
             if(doAddPrimitive){
-                //プリミティブ型として扱う場合の処理です。ODEのプリミティブオブジェクトを生成します。
+                // プリミティブ型として扱う場合の処理です。ODEのプリミティブオブジェクトを生成します。
 
                 bool created = false;
                 dGeomID geomId;
                 switch(mesh->primitiveType()){
                 case SgMesh::BOX : {
                     const Vector3& s = mesh->primitive<SgMesh::Box>().size;
-                    //Boxのサイズが取得できます。
-                    geomId = dCreateBox(odeBody->spaceID, s.x() * scale.x(), s.y() * scale.y(), s.z() * scale.z());
+                    // Boxのサイズが取得できます。
+                    geomId = dCreateBox(
+                        odeBody->spaceID, s.x() * scale.x(), s.y() * scale.y(), s.z() * scale.z());
                     created = true;
                     break; }
                 case SgMesh::SPHERE : {
                     SgMesh::Sphere sphere = mesh->primitive<SgMesh::Sphere>();
-                    //Sphereの半径が取得できます。
+                    // Sphereの半径が取得できます。
                     geomId = dCreateSphere(odeBody->spaceID, sphere.radius * scale.x());
                     created = true;
                     break; }
                 case SgMesh::CYLINDER : {
                     SgMesh::Cylinder cylinder = mesh->primitive<SgMesh::Cylinder>();
-                    //シリンダーのパラメータが取得できます。
-                    geomId = dCreateCylinder(odeBody->spaceID, cylinder.radius * scale.x(), cylinder.height * scale.y());
+                    // シリンダーのパラメータが取得できます。
+                    geomId = dCreateCylinder(
+                        odeBody->spaceID, cylinder.radius * scale.x(), cylinder.height * scale.y());
                     created = true;
                     break; }
                 default :
@@ -739,17 +740,17 @@ addMeshのソースコードです。
                 if(created){
                     geomID.push_back(geomId);
                     dGeomSetBody(geomId, bodyID);
-                    //ODEのプリミティブオブジェクトとODEのBodyを結びつけます。
+                    // ODEのプリミティブオブジェクトとODEのBodyを結びつけます。
                 
                     Affine3 T_ = extractor->currentTransformWithoutScaling();
-                    //スケール分を取り除いた変換行列を取得します。
+                    // スケール分を取り除いた変換行列を取得します。
                 
                     if(translation){
                         T_ *= Translation3(*translation);
-                        //スケール行列に含まれていた位置変換をかけます。
+                        // スケール行列に含まれていた位置変換をかけます。
                     }
                     Vector3 p = T_.translation()-link->c();
-                    //ODEではリンク原点は重心なので、その分を補正します。
+                    // ODEではリンク原点は重心なので、その分を補正します。
                 
                     dMatrix3 R = { T_(0,0), T_(0,1), T_(0,2), 0.0,
                                    T_(1,0), T_(1,1), T_(1,2), 0.0,
@@ -757,9 +758,9 @@ addMeshのソースコードです。
                     if(bodyID){
                         dGeomSetOffsetPosition(geomId, p.x(), p.y(), p.z());
                         dGeomSetOffsetRotation(geomId, R);
-                        //形状データの位置姿勢を設定します。
+                        // 形状データの位置姿勢を設定します。
                     }else{
-                        //動かない物体の場合は位置姿勢行列とidを関連付けておきます。
+                        // 動かない物体の場合は位置姿勢行列とidを関連付けておきます。
                         offsetMap.insert(OffsetMap::value_type(geomId,T_));
                     }
                     meshAdded = true;
@@ -768,33 +769,33 @@ addMeshのソースコードです。
         }
 
         if(!meshAdded){
-            //元からプリミティブ型でない、またはプリミティブ型として扱えない場合の処理です。
+            // 元からプリミティブ型でない、またはプリミティブ型として扱えない場合の処理です。
 
             const int vertexIndexTop = vertices.size();
-            //既に追加されている頂点座標の数を取得します。
+            // 既に追加されている頂点座標の数を取得します。
 
             const SgVertexArray& vertices_ = *mesh->vertices();
-            //Meshオブジェクト内の頂点座標の参照を取得します。
+            // Meshオブジェクト内の頂点座標の参照を取得します。
         
             const int numVertices = vertices_.size();
             for(int i=0; i < numVertices; ++i){
                 const Vector3 v = T * vertices_[i].cast<Position::Scalar>() - link->c();
-                //頂点ベクトルを座標変換します。
+                // 頂点ベクトルを座標変換します。
                 vertices.push_back(Vertex(v.x(), v.y(), v.z()));
-                //ODELinkオブジェクト内の頂点座標verticesに追加します。
+                // ODELinkオブジェクト内の頂点座標verticesに追加します。
             }
 
             const int numTriangles = mesh->numTriangles();
-            //Meshオブジェクト内の三角形の総数を取得します。
+            // Meshオブジェクト内の三角形の総数を取得します。
             for(int i=0; i < numTriangles; ++i){
                 SgMesh::TriangleRef src = mesh->triangle(i);
-                //Meshオブジェクト内のi番目の三角形の頂点番号を取得します。
+                // Meshオブジェクト内のi番目の三角形の頂点番号を取得します。
                 Triangle tri;
                 tri.indices[0] = vertexIndexTop + src[0];
                 tri.indices[1] = vertexIndexTop + src[1];
                 tri.indices[2] = vertexIndexTop + src[2];
                 triangles.push_back(tri);
-                //ODELinkオブジェクト内の三角形頂点番号に追加します。
+                // ODELinkオブジェクト内の三角形頂点番号に追加します。
             }
         }
     }
@@ -804,49 +805,49 @@ addMeshのソースコードです。
 次にODEのモデルとデータの受け渡しをする関数を説明します。ODEのBodyオブジェクトの位置姿勢、速度を設定するsetKinematicStateToODEのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7,14,18,21,25,29,32,35,41,49
 
     void ODELink::setKinematicStateToODE()
     {
         const Position& T = link->T();
-        //リンクの位置姿勢行列を取得します。
+        // リンクの位置姿勢行列を取得します。
     
         if(bodyID){
-            //動く物体の場合の処理です。
+            // 動く物体の場合の処理です。
         
             dMatrix3 R2 = { T(0,0), T(0,1), T(0,2), 0.0,
                             T(1,0), T(1,1), T(1,2), 0.0,
                             T(2,0), T(2,1), T(2,2), 0.0 };
     
             dBodySetRotation(bodyID, R2);
-            //姿勢行列を設定します。
+            // 姿勢行列を設定します。
         
             const Vector3 lc = link->R() * link->c();
             const Vector3 c = link->p() + lc;
-            //リンク原点を重心に変換します。
+            // リンク原点を重心に変換します。
         
             dBodySetPosition(bodyID, c.x(), c.y(), c.z());
-            //位置を設定します。
+            // 位置を設定します。
         
             const Vector3& w = link->w();
             const Vector3 v = link->v() + w.cross(lc);
-            //リンク重心の速度を計算します。
+            // リンク重心の速度を計算します。
         
             dBodySetLinearVel(bodyID, v.x(), v.y(), v.z());
             dBodySetAngularVel(bodyID, w.x(), w.y(), w.z());
-            //速度と角速度を設定します。
+            // 速度と角速度を設定します。
 
         }else{
-            //動かない物体の場合の処理です。形状データの位置を更新します。
+            // 動かない物体の場合の処理です。形状データの位置を更新します。
             for(vector<dGeomID>::iterator it = geomID.begin(); it!=geomID.end(); it++){
                 OffsetMap::iterator it0 = offsetMap.find(*it);
-                //プリミティブ型の場合は、リンクローカル座標から見た位置姿勢行列がマッピングされているので、その行列を掛けます。
+                // プリミティブ型の場合は、リンクローカル座標から見た位置姿勢行列がマッピング
+                // されているので、その行列を掛けます。
                 Position offset(Position::Identity());
                 if(it0!=offsetMap.end())
                     offset = it0->second;
                 Position T_ = T*offset;
                 Vector3 p = T_.translation() + link->c();
-                //リンク原点を重心に変換します。
+                // リンク原点を重心に変換します。
                 
                 dMatrix3 R2 = { T(0,0), T(0,1), T(0,2), 0.0,
                                 T(1,0), T(1,1), T(1,2), 0.0,
@@ -854,7 +855,7 @@ addMeshのソースコードです。
 
                 dGeomSetPosition(*it, p.x(), p.y(), p.z());
                 dGeomSetRotation(*it, R2);
-                //形状データの位置姿勢情報を更新します。
+                // 形状データの位置姿勢情報を更新します。
             }
         }
     }
@@ -862,15 +863,14 @@ addMeshのソースコードです。
 ODEのBodyオブジェクトにトルクを設定するsetTorqueToODEのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,7
 
     void ODELink::setTorqueToODE()
     {
         if(link->isRotationalJoint()){
-            //回転関節の場合です。
+            // 回転関節の場合です。
             dJointAddHingeTorque(jointID, link->u());
         } else if(link->isSlideJoint()){
-            //並進関節の場合です。
+            // 並進関節の場合です。
             dJointAddSliderForce(jointID, link->u());
         }
     }
@@ -879,42 +879,43 @@ ODEのBodyオブジェクトにトルクを設定するsetTorqueToODEのソー�
 ODEのBodyオブジェクトから関節角度、角速度、リンク位置姿勢、速度を取得するgetKinematicStateFromODEのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,6,10,17,23,28,31,34
 
     void ODELink::getKinematicStateFromODE()
     {
         if(jointID){
-            //ジョインがある場合の処理です。
+            // ジョインがある場合の処理です。
             if(link->isRotationalJoint()){
-                //回転関節ならば、角度と角速度を取得します。
+                // 回転関節ならば、角度と角速度を取得します。
                 link->q() = dJointGetHingeAngle(jointID);
                 link->dq() = dJointGetHingeAngleRate(jointID);
             } else if(link->isSlideJoint()){
-                //スライド関節ならば、位置と速度を取得します。
+                // スライド関節ならば、位置と速度を取得します。
                 link->q() = dJointGetSliderPosition(jointID);
                 link->dq() = dJointGetSliderPositionRate(jointID);
             }
         }
 
         const dReal* R = dBodyGetRotation(bodyID);
-        //ODEのBodyの姿勢行列を取得します。
+        // ODEのBodyの姿勢行列を取得します。
     
         link->R() <<
             R[0], R[1], R[2],
             R[4], R[5], R[6],
             R[8], R[9], R[10];
-        //Linkオブジェクトの姿勢行列に設定します。
+        // Linkオブジェクトの姿勢行列に設定します。
     
         typedef Eigen::Map<const Eigen::Matrix<dReal, 3, 1> > toVector3;
         const Vector3 c = link->R() * link->c();
         link->p() = toVector3(dBodyGetPosition(bodyID)) - c;
-        //ODEのBodyの位置を取得して、重心から関節位置に変換し、Linkオブジェクトの位置ベクトルに設定します。
+        // ODEのBodyの位置を取得して、重心から関節位置に変換し、
+        // Linkオブジェクトの位置ベクトルに設定します。
     
         link->w() = toVector3(dBodyGetAngularVel(bodyID));
-        //ODEのBodyの角速度を取得して、Linkオブジェクトの角速度ベクトルに設定します。
+        // ODEのBodyの角速度を取得して、Linkオブジェクトの角速度ベクトルに設定します。
     
         link->v() = toVector3(dBodyGetLinearVel(bodyID)) - link->w().cross(c);
-        //ODEのBodyの速度を取得して、関節位置の速度に変換し、Linkオブジェクトの速度ベクトルに設定します。
+        // ODEのBodyの速度を取得して、関節位置の速度に変換し、
+        // Linkオブジェクトの速度ベクトルに設定します。
     }
 
 衝突検出
@@ -929,18 +930,17 @@ ODESimulatorItem::stepSimulation関数の中で、 ::
 nearCallback関数のソースコードです。　
 
 .. code-block:: cpp
-    :emphasize-lines: 6,10,19,27,30,32,34,37,46,48
 
     static void nearCallback(void* data, dGeomID g1, dGeomID g2)
     {
         ...............
 
         ODESimulatorItemImpl* impl = (ODESimulatorItemImpl*)data;
-        //ODESimulatorItemImplの変数にアクセスできるようにします。
+        // ODESimulatorItemImplの変数にアクセスできるようにします。
 
         ................
         if(numContacts > 0){
-            //接触がある場合の処理です。
+            // 接触がある場合の処理です。
             dBodyID body1ID = dGeomGetBody(g1);
             dBodyID body2ID = dGeomGetBody(g2);
             Link* crawlerlink = 0;
@@ -949,7 +949,8 @@ nearCallback関数のソースコードです。　
                 if(p != impl->crawlerLinks.end()){
                     crawlerlink = p->second;
                 }
-                //接触したリンクがクローラ型であるか否かを調べます。（今のところ、クローラリンク同士の接触は、想定していません。）
+                // 接触したリンクがクローラ型であるか否かを調べます。
+                //（今のところ、クローラリンク同士の接触は、想定していません。）
                 ..............................
             }
             for(int i=0; i < numContacts; ++i){
@@ -957,17 +958,17 @@ nearCallback関数のソースコードです。　
                 if(!crawlerlink){
                     surface.mode = dContactApprox1;
                     surface.mu = impl->friction;
-                    //クローラリンクでない場合は、摩擦力を設定します。
+                    // クローラリンクでない場合は、摩擦力を設定します。
                 } else {
                     surface.mode = dContactFDir1 | dContactMotion1 | dContactMu2 | dContactApprox1_2;
-                    //クローラリンクに対しては、摩擦１方向に表面速度を、摩擦２方向に摩擦力を設定します。
+                    // クローラリンクに対しては、摩擦１方向に表面速度を、摩擦２方向に摩擦力を設定します。
                     const Vector3 axis = crawlerlink->R() * crawlerlink->a();
-                    //クローラリンクの回転軸ベクトルを計算します。
+                    // クローラリンクの回転軸ベクトルを計算します。
                     const Vector3 n(contacts[i].geom.normal);
-                    //接触点の法線ベクトルを取得します。
+                    // 接触点の法線ベクトルを取得します。
                     Vector3 dir = axis.cross(n);
                     if(dir.norm() < 1.0e-5){
-                        //この２つのベクトルが並行の時は、摩擦力だけ設定します。  
+                        // この２つのベクトルが並行の時は、摩擦力だけ設定します。  
                         surface.mode = dContactApprox1;
                         surface.mu = impl->friction;
                     } else {
@@ -976,9 +977,9 @@ nearCallback関数のソースコードです。　
                         contacts[i].fdir1[0] = dir[0];
                         contacts[i].fdir1[1] = dir[1];
                         contacts[i].fdir1[2] = dir[2];
-                        //２つのベクトルに対して垂直な方向を摩擦１方向の設定します。
+                        // ２つのベクトルに対して垂直な方向を摩擦１方向の設定します。
                         surface.motion1 = crawlerlink->u();
-                        //摩擦１方向に対して表面速度を設定します。
+                        // 摩擦１方向に対して表面速度を設定します。
 
                 ............................
 
@@ -990,80 +991,78 @@ nearCallback関数のソースコードです。　
 モデルを構築するcreateBody関数の中の、センサに関する処理のソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 2,4,6,8,11,12
     
     sensorHelper.initialize(body, simImpl->timeStep, simImpl->gravity);
-    //初期化を行います。第２引数はシミュレーションの刻み時間、第３引数は重力ベクトルです。
+    // 初期化を行います。第２引数はシミュレーションの刻み時間、第３引数は重力ベクトルです。
     
-    //そして、ODEから関節に係る力を取得するための設定をします。
+    // そして、ODEから関節に係る力を取得するための設定をします。
     const DeviceList<ForceSensor>& forceSensors = sensorHelper.forceSensors();
-    //力センサオブジェクトのリストを取得します。
+    // 力センサオブジェクトのリストを取得します。
     forceSensorFeedbacks.resize(forceSensors.size());
-    //力センサの個数分、データを格納する領域を確保します。
+    // 力センサの個数分、データを格納する領域を確保します。
     for(size_t i=0; i < forceSensors.size(); ++i){
-        dJointSetFeedback(odeLinks[forceSensors[i]->link()->index()]->jointID, &forceSensorFeedbacks[i]);
-        //センサオブジェクトは、link()関数で、センサが取り付けられているリンクオブジェクトを返します。それから、ODEの関節idを取得します。
-        //データの格納先をODEに対して指定します。
+        dJointSetFeedback(
+            odeLinks[forceSensors[i]->link()->index()]->jointID, &forceSensorFeedbacks[i]);
+        // センサオブジェクトは、link()関数で、センサが取り付けられているリンクオブジェクトを返します。
+        // それから、ODEの関節idを取得します。データの格納先をODEに対して指定します。
     
 stepSimulation関数では、次の処理を行います。
 
 .. code-block:: cpp
-    :emphasize-lines: 6,13,14
     
     for(size_t i=0; i < activeSimBodies.size(); ++i){
         ODEBody* odeBody = static_cast<ODEBody*>(activeSimBodies[i]);
 
         if(!odeBody->sensorHelper.forceSensors().empty()){
             odeBody->updateForceSensors(flipYZ);
-            //力センサがある場合には、updateForceSensorsクラスを呼び出します。
+            // 力センサがある場合には、updateForceSensorsクラスを呼び出します。
         }
         
         odeBody->getKinematicStateFromODE(flipYZ);
         
         if(odeBody->sensorHelper.hasGyroOrAccelSensors()){
             odeBody->sensorHelper.updateGyroAndAccelSensors();
-            //ジャイロ、加速度センサがある場合には、updateGyroAndAccelSensors()を呼び出します。
-            //この関数のなかで、Linkオブジェクトの速度、角速度からセンサの出力値が計算されます。
+            // ジャイロ、加速度センサがある場合には、updateGyroAndAccelSensors()を呼び出します。
+            // この関数のなかで、Linkオブジェクトの速度、角速度からセンサの出力値が計算されます。
         }
     }
 
 updateForceSensorsのソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 4,9,15,18,19,21,22,25,28,29,32
     
     void ODEBody::updateForceSensors(bool flipYZ)
     {
         const DeviceList<ForceSensor>& forceSensors = sensorHelper.forceSensors();
-        //力センサのリストを取得します。
+        // 力センサのリストを取得します。
     
         for(int i=0; i < forceSensors.size(); ++i){
             ForceSensor* sensor = forceSensors.get(i);
             const Link* link = sensor->link();
-            //センサが取り付けられているLinkオブジェクトのポインタが取得できます。
+            // センサが取り付けられているLinkオブジェクトのポインタが取得できます。
         
             const dJointFeedback& fb = forceSensorFeedbacks[i];
             Vector3 f, tau;
             f   << fb.f2[0], fb.f2[1], fb.f2[2];
             tau << fb.t2[0], fb.t2[1], fb.t2[2];
-            //関節に係る力、トルクデータをODEから取得します。 
+            // 関節に係る力、トルクデータをODEから取得します。 
  
             const Matrix3 R = link->R() * sensor->R_local();
-            //R_local()関数で、センサが取り付けられているリンク座標系からみたセンサの姿勢行列を取得できます。
-            //リンクの姿勢行列を掛けて、ワールド座標系からみたセンサの姿勢行列に変換します。
+            // R_local()関数で、センサが取り付けられているリンク座標系からみたセンサの姿勢行列を取得
+            // できます。リンクの姿勢行列を掛けて、ワールド座標系からみたセンサの姿勢行列に変換します。
             const Vector3 p = link->R() * sensor->p_local();
-            //同様にp_local()関数で、センサの位置が取得できます。
-            //ワールド座標系でみた、リンク原点からセンサ位置のベクトルを計算します。
+            // 同様にp_local()関数で、センサの位置が取得できます。
+            // ワールド座標系でみた、リンク原点からセンサ位置のベクトルを計算します。
 
             sensor->f()   = R.transpose() * f;
-            //センサ座標系に変換して力データの変数に代入します。
+            // センサ座標系に変換して力データの変数に代入します。
         
             sensor->tau() = R.transpose() * (tau - p.cross(f));
-            //tau - p.cross(f)で、リンク軸周りのトルクをセンサ位置周りのトルクに変換します。
-            //さらにセンサ座標系に変換してトルクデータの変数に代入します。
+            // tau - p.cross(f)で、リンク軸周りのトルクをセンサ位置周りのトルクに変換します。
+            // さらにセンサ座標系に変換してトルクデータの変数に代入します。
         
             sensor->notifyStateChange();
-            //センサの出力が更新されたことを知らせるシグナルを出す関数です。        
+            // センサの出力が更新されたことを知らせるシグナルを出す関数です。        
         }
     }
 
@@ -1100,29 +1099,28 @@ J1J3は、仮想関節につける名前です。link1Name,link2Nameで拘束す
 次は、ODEBodyオブジェクトに仮想関節を設定するsetExtraJoint()のソースコードです。
 
 .. code-block:: cpp
-    :emphasize-lines: 5,9,15,21,33,36,40,42,44,46,49,51,53
 
     void ODEBody::setExtraJoints(bool flipYZ)
     {
         Body* body = this->body();
         const int n = body->numExtraJoints();
-        //仮想関節の個数を取得します。
+        // 仮想関節の個数を取得します。
 
         for(int j=0; j < n; ++j){
             Body::ExtraJoint& extraJoint = body->extraJoint(j);
-            //仮想関節の参照を取得します。
+            // 仮想関節の参照を取得します。
 
             ODELinkPtr odeLinkPair[2];
             for(int i=0; i < 2; ++i){
                 ODELinkPtr odeLink;
                 Link* link = extraJoint.link[i];
-                //仮想関節で拘束するリンクのポインタが取得できます。
+                // 仮想関節で拘束するリンクのポインタが取得できます。
             
                 if(link->index() < odeLinks.size()){
                     odeLink = odeLinks[link->index()];               
                     if(odeLink->link == link){
                         odeLinkPair[i] = odeLink;
-                        //そのLinkオブジェクトに対応するODELinkオブジェクトを保存します。
+                        // そのLinkオブジェクトに対応するODELinkオブジェクトを保存します。
                     }
                 }
                 if(!odeLink){
@@ -1134,27 +1132,27 @@ J1J3は、仮想関節につける名前です。link1Name,link2Nameで拘束す
                 dJointID jointID = 0;
                 Link* link = odeLinkPair[0]->link;
                 Vector3 p = link->attitude() * extraJoint.point[0] + link->p();
-                //Link1の拘束位置をワールド座標系に変換します。
+                // Link1の拘束位置をワールド座標系に変換します。
             
                 Vector3 a = link->attitude() * extraJoint.axis;
-                //拘束軸をワールド座標系に変換します。
+                // 拘束軸をワールド座標系に変換します。
             
                 if(extraJoint.type == Body::EJ_PISTON){
                     jointID = dJointCreatePiston(worldID, 0);
-                    //ピストン関節を生成します。
+                    // ピストン関節を生成します。
                     dJointAttach(jointID, odeLinkPair[0]->bodyID, odeLinkPair[1]->bodyID);
-                    //２つのリンクをその関節でつなぎます。
+                    // ２つのリンクをその関節でつなぎます。
                     dJointSetPistonAnchor(jointID, p.x(), p.y(), p.z());
-                    //関節の位置を指定します。
+                    // 関節の位置を指定します。
                     dJointSetPistonAxis(jointID, a.x(), a.y(), a.z());
-                    //関節軸を指定します。
+                    // 関節軸を指定します。
                 } else if(extraJoint.type == Body::EJ_BALL){
                     jointID = dJointCreateBall(worldID, 0);
-                    //ボールジョイントを生成します。
+                    // ボールジョイントを生成します。
                     dJointAttach(jointID, odeLinkPair[0]->bodyID, odeLinkPair[1]->bodyID);
-                    //２つのリンクをその関節でつなぎます
+                    // ２つのリンクをその関節でつなぎます
                     dJointSetBallAnchor(jointID, p.x(), p.y(), p.z());
-                    //関節の位置を指定します。
+                    // 関節の位置を指定します。
                 }
             }
         }
