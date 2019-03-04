@@ -1,19 +1,14 @@
 
 AGX Dynamics Plugin
-======================
-
-.. toctree::
-  :maxdepth: 2
-
-  about
-  requirements
-  ..  license
-  install/install
-  getting-started
+===================
 
 .. toctree::
   :maxdepth: 1
 
+  about
+  requirements
+  install/install
+  getting-started
   agx-simulator-item
   agx-compliance-spookdamping
   agx-body
@@ -23,3 +18,4 @@ AGX Dynamics Plugin
   agx-breakable-joint
   agx-magnetic-joint
   agx-performance-tuning
+  

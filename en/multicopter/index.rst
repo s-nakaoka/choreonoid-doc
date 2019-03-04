@@ -219,6 +219,7 @@ The multicopter simulation allows you to apply air density, air viscosity and re
     "Velocity", "Specify the velocity [m/s] given to the computation grid."
     "Viscosity", "Specify the viscosity [Pa*s] given to the computation grid."
 
+.. _multicopter_plugin_sample_simulation:
 
 Sample project for Multicopter Simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

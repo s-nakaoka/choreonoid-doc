@@ -14,12 +14,10 @@ Choreonoid Operation Manual
    handling-models/index
    simulation/index
    agxdynamics/index
+   openrtm/index
    multicopter/index
    trafficcontrol/index
-   openrtm/index
+   wrs2018/index
    reference/index
+   plugin-development/index
    tips/index
-
-..   plugin-development/index
-..   plugins/index
-

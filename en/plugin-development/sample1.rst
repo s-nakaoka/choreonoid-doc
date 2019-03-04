@@ -1,434 +1,374 @@
+Description of the Sample1Plugin
+================================
 
-Description of Sample1Plugin
-=====================================
+In this document, we will explain the implementation of **Sample1Plugin**, which is one of the sample plugins. This document is intended for anyone who has read the  :doc:`hello-world-sample` section, and it provides some additional explanations.
 
-In this document, we describe the implementation of "Sample1Plugin", which is one of the sample plug-ins. This document is intended for those who have read :doc:`hello-world-sample`  and provides some additional explanations. Therefore, those who have not read :doc:`hello-world-sample` yet are advised to read it first
-
-.. contents:: 
+.. contents:: 目次
    :local:
 
 
-Source Codes
------------------
+Source code
+-----------
 
 .. highlight:: cpp
 
-The sample codes of this sample are as follows: ::
+The source code of this sample is as follows: ::
 
  #include <cnoid/Plugin>
+ #include <cnoid/ToolBar>
  #include <cnoid/ItemTreeView>
  #include <cnoid/BodyItem>
- #include <cnoid/ToolBar>
- #include <boost/bind.hpp>
-
- using namespace boost;
+ 
  using namespace cnoid;
-
+ 
  class Sample1Plugin : public Plugin
  {
  public:
-
+ 
      Sample1Plugin() : Plugin("Sample1")
      {
-	 require("Body");
+         require("Body");
      }
-
+ 
      virtual bool initialize()
      {
-	 ToolBar* bar = new ToolBar("Sample1");
-	 bar->addButton("Increment")
-	     ->sigClicked().connect(bind(&Sample1Plugin::onButtonClicked, this, +0.04));
-	 bar->addButton("Decrement")
-	     ->sigClicked().connect(bind(&Sample1Plugin::onButtonClicked, this, -0.04));
-	 addToolBar(bar);
-
-	 return true;
+         auto bar = new ToolBar("Sample1");
+         auto button1 = bar->addButton("Increment");
+         button1->sigClicked().connect([&](){ onButtonClicked(0.04); });
+         auto button2 = bar->addButton("Decrement");
+         button2->sigClicked().connect([&](){ onButtonClicked(-0.04); });
+         bar->setVisibleByDefault(true);
+         addToolBar(bar);
+         return true;
      }
-
+ 
+ private:
+ 
      void onButtonClicked(double dq)
      {
-	 ItemList<BodyItem> bodyItems = 
-	     ItemTreeView::mainInstance()->selectedItems<BodyItem>();
-
-	 for(size_t i=0; i < bodyItems.size(); ++i){
-	     BodyPtr body = bodyItems[i]->body();
-	     for(int j=0; j < body->numJoints(); ++j){
-		 body->joint(j)->q += dq;
-	     }
-	     bodyItems[i]->notifyKinematicStateChange(true);
-	 }
+         auto bodyItems = ItemTreeView::instance()->selectedItems<BodyItem>();
+         for(auto& bodyItem : bodyItems){
+             auto body = bodyItem->body();
+             for(auto& joint : body->joints()){
+                 joint->q() += dq;
+             }
+             bodyItem->notifyKinematicStateChange(true);
+         }
      }
  };
-
+ 
  CNOID_IMPLEMENT_PLUGIN_ENTRY(Sample1Plugin)
 
+All the files for this sample, including this source code, are stored in the Choreonoid source archive in a directory named sample/tutorial/Sample1Plugin. The name of the source code file is Sample1Plugin.cpp.
 
-This sample is stored in the source package under "share/sampleplugins/Sample1Plugin" (Note that these codes may be somewhat different from those stored in the package due to the intention of the description or the difference of the version.)
+Plugin overview
+---------------
 
-Plug-in Overview
-----------------------
+First, an overview of the behavior of this plugin is described below.
 
-The overview of the behaviour of this plug-in is described below:
-
-Tool bar with two button as shown in the picture below when this plug-in is compiled and installed and Choreonoid is executed.
+When this plugin is built and Choreonoid is executed, a tool bar with two buttons is added as shown in the image below.
 
 .. figure:: sample1-bar.png
 
+Clicking these buttons will change the pose of the robot model.
 
-By pressing these buttons, the pose of the robot model changes.
+First, let’s load a random robot model and display it in Scene view. It’s probably good to start by loading a random  :ref:`basics_sample_project` .
 
-First, let's load any robot model and view it. For example, if you load "GR001Sample.cnoid", which is a sample project introduced in "Start-up Guide", the robot model of GR001 is displayed. You can just select "File" under Main Menu - "Load" - "OpenHRP model file" and load "GR001/yam;" of GR001 model file. (In this case, check on Item View after loading so that it can be displayed on the Scene View.
+After confirming the display of the robot model, keep the robot item selected on the Item view. Even when multiple robot models are loaded, you can specify which models are to be posed using this selection status. It’s okay to select multiple models at the same time. Note that when no model is selected, the pose of the robots will not change.
 
-When you check the display of the robot on the Scene View, keep the robot item selected on the Scene View. Even when more than one robot model is loaded, you can specify the models subject to pose change if they are in selected status. If you want to move multiple models, you can select multiple models selected by clicking items with "Ctrl" key pressed. Note, If no model is selected on the contrary, the pose of the robot does not change.
+Now, let’s click the **Increment** button. Then, the pose of the robot will change slightly.  If you continue clicking the **Increment** button, the same change will occur and the pose of the robot will continue to change. Next, click the **Decrement** button. Then, the pose of the robot will return toward its original state. If you click it repeatedly, it will return to the original pose, and then the pose will continue changing.
 
-Then let's press the button "Increment". Then, the pose of the robot changes a little. If you keep on pressing "Increment" button continuously, similar changes occur and the pose of the robot keeps on changing continuously. Next, press "Decrement" button. Then the pose of the robot returns gradually. By pressing it repeatedly, it goes back to the original pose, then the pose will keep on changing.
+When changing the pose using the Increment button, the angle of all the robot’s joints will increase by a certain degree, and the opposite happens with the Decrement button. This behavior is probably easier to understand if you display it in the :ref:`pose_editing_joint_slider_view` .
 
-As for changes of the pose, pressing "Increment" button increments certain degrees of all the joints of the robot and "Decrement" button does the contrary.
+Changing the pose in itself may not have much meaning, but by looking at the implementation of this plugin, you can learn the basics of how to add a tool bar, retrieve a selected item, and a move a robot model. These will probably be the basic elements when performing some operation with the robot model.
 
-Well, this is just a plug-in not so meaningful, but by implementing this plug-in, you can learn the basics in adding a tool bar, retrieving a selected item and a moving a robot model.
+Notification of Dependent Plugin
+--------------------------------
 
-Notification of Dependent Plug-in
------------------------------------------
-
-This plug-in handles a robot model. In this case, it is necessary to describe: ::
+This plugin handles the robot model. In this case, in the constructor of the plugin class, ::
 
  require("Body");
 
-in the constructor of the plug-in class.
+needs to be described.
 
-This description defines that this plug-in depends on "BodyPlugin", which is a plug-in attached to the main part of Choreonoid. In fact, the function related to the robot model is implemented as one of the plug-ins that operate on Choreonoid. In this way, the following plug-ins are implemented as a plug-in actually but as the standard function included in the package of the main part of Choreonoid:
+This description conveys to the system that this plugin is dependent on the **Body plugin**, which is a plugin attached to the main Choreonoid. The Body plugin implements the basic functions related to the robot. In fact, in Choreonoid, even those kinds of basic functions are often implemented as plugins. Other plugins related to the robot are:
 
-* BodyPlugin: It is a plug-in that collects basic functions that handle this centring the robot moel (Body item).
-* PoseSeqPlugin: It is a plug-in that collect the data structure and the editing function of the key pose.
-* BalancerPlugin: It is a plug-in that provides the balance auto-correction function.
-* GRobotPlugin: It is a plug-in that operates a small humanoid robot GR001.
+* PoseSeq plugin: implements the function that creates operations using key frames
+* Balancer plugin: implements the function that corrects the movement of a bipedal robot to keep it balanced
 
-As BodyPlugin function is required this time, require function is called as above. As for the name to be provided to 'require', it is the name provided to the constructor of the base class Plugin in the constructor of each plug-in and it is generally a name with the final "Plugin" part omitted from the class name of the plug-in.
+This time, the Body plugin function is required in order to change the pose of the robot model, so this is stated clearly using the require function as above. Regarding the name to be provided to require, it is the main part of the plugin name (with the final Plugin part omitted).
 
-By the way, there is dependency as follows for the above-mentioned plug-ins:
+By the way, there is dependency between the above-mentioned three plugins. Written in tree format, it is as follows:
 
-* BodyPlugin
- * PoseSeqPlugin:  Dependent on BodyPlugin
-  * BalancerPlugin: Dependent on BodyPlugin and PoseSeqPlugin
- * GRobotPlugin: Dependent on BodyPlugin
+* Body plugin
+ * PoseSeq plugin
+  * Balancer plugin
 
-Here, BlanacePlugin depends upon both BodyPlugin and PoseSeqPlugin, but PoseSeqPlugin is basically dependent on BodyPlugin. So, PoseSeqPlugin should be enough to require in this case.
+The PoseSeq plugin is dependent on the Body plugin, while the Balancer plugin is dependent on the PoseSeq plugin and the Body plugin. When this kind of dependency exists, only the most recent dependency plugin (here, the PoseSeq plugin) has to be specified with require.
 
-The above listed is the plug-ins that Choreonoid is equipped with, but it is possible to develop a separate plug-in dependent on a plug-in newly developed by user. That is to say, there is no difference between a plug-in attached to the main part of Choreonoid and a user-developed one.
+Creating the toolbar
+--------------------
 
+This plugin creates a unique toolbar that has two buttons.
 
-Creation of Tool Bar
--------------------------
-
-This plug-in creates a unique tool bar having two buttons.
-
-As the class that corresponds to the tool bar is Tool Bar class, include the header first. ::
+The class that corresponds to the toolbar is the ToolBar class, so first we include the header. ::
 
  #include <cnoid/ToolBar>
 
-Then create the instance of the tool bar. ::
+Then, we generate the toolbar instance. ::
 
- ToolBar* bar = new ToolBar("Sample1");
+ auto bar = new ToolBar("Sample1");
 
-What is provided to the constructor of Tool Bar is the name of this tool bar, which can be used to identify when storing the status in the project file.
+What is provided to the constructor of ToolBar is the name of this toolbar, which can be used to identify it when storing its status in the project file.
 
-As Too Bar has "addButton" function that adds a button, ::
+As ToolBar has an addButton function that generates or adds a button, by using ::
 
- bar->addButton("Increment")
+ auto button1 = bar->addButton("Increment");
 
-By
+a button with the caption Increment is generated. This function returns the added button as an object pointer of the ToolButton class. Here, that is stored in a variable called button1.
 
+Association of functions called when clicking
+---------------------------------------------
 
-Association of Functions Called at Clicking
------------------------------------------------
+The following description is for the added button, and configures the function that is called when the button is clicked:  ::
 
-"addButton" returns the added button as an object pointer of ToolButton class. In addition, the following description is further provided to configure the function that is called when the button is clicked:  ::
+ button1->sigClicked().connect([&](){ onButtonClicked(0.04); });
 
- bar->addButton("Increment")
-     ->sigClicked().connect(bind(&Sample1Plugin::onButtonClicked, this, +0.04));
+“sigClicked” is one of the signals that ToolButton is equipped with, and it notifies when the button is clicked. This is defined in the ToolButton class (by src/Base/Buttons.h) as ::
 
-"sigClicked" is one of the signals that ToolButton is equipped with and it calls the function connected when the button is clicked. In this sample, this signal is associated with "onButtonClicked" function and the process when the button n is pressed is described in this function. Association with a function with connect was described in HelloWorld sample. Here we are going to do something more complex.
+ SignalProxy<void()> sigClicked()
 
-First, the following part: ::
+and you can see that it is a signal without arguments.
 
- bind(&Sample1Plugin::onButtonClicked, this, +0.04)
-
-is added after "this", which specifies the instance when the member function is called, and provides the value "+0.04". By this, the function object that is returned by bind is a function: ::
+This time, what we want to associate with this is the function: ::
 
  void Sample1Plugin::onButtonClicked(double dq)
 
-that calls a member function with the instance being "this" and the argument "dq" being "+0.04". That is a function calling of "this->onButtonClicked(+0.04)". Now, all the values of the arguments are all decided for the original member function. So, the function object will be deemed the same type as: ::
+. Here, the increase/decrease in the joint angle is given as the argument dq. For this, if we have the lambda expression ::
 
- void function(void)
+ [&](){ onButtonClicked(0.04); }
+
+it assigns a value of 0.04 to dq, but from the signal it appears as a function without arguments. This allowed us to describe the process of “call the onButtonClicked function with the argument 0.04 when the Increment button is clicked”.
+
+Next, with the Decrement button, if we have ::
+
+ auto button2 = bar->addButton("Decrement");
+ button2->sigClicked().connect([&](){ onButtonClicked(-0.04); });
+
+the button is added and associated with the function. Note that, unlike the Increment button, onButtonClicked is given a negative value of -0.04.
+
+By setting onButtonClicked to take arguments of increasing or decreasing values and identifying it within a lambda function, it is possible to implement the behaviors of the two buttons with one function.
+
+Supplemental: when using the argument of a signal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ToolButton signal sigClicked was a signal without an argument, but ToolButton also has the signal ::
+
+ SignalProxy<void(bool)> sigToggled()
+
+. This is a signal used when the button is a toggle button, and it notifies of the change of the toggle state with a boolean value. Basically, it is assumed to be combined with a function in the following format: ::
+
+ void function(bool)
 
 .
 
-On the other hand, if we look at "src/Base/Button.h" where ToolButton class is defined, the function that obtains "sigClicked" is defined as follows: ::
+It is not used in this sample, but when using this bool argument, use the lambda expression argument. For example, if the configuration is as follows: ::
 
- SignalProxy< boost::signal<void(bool)> > sigClicked()
+ void onButtonToggled(bool on)
 
-and we can see that the type of the function that links "sigClicked" is ::
+Let's say this function is specified and you want to pass the toggle state to this argument ON. In that case, you can use the description: ::
 
- void function(bool)
+ button->sigToggled().connect([&](bool on){ onButtonToggled(on); });
 
-. The argument of bool type informs the toggle status ON/OFF if the button is a toggle button. However, as is is enough to know whether the button is pressed for the button used this time, this argument is not required. When no argument is required, it is also possible to ignore this and 'connect' with a function object having no argument. Consequently, we have successfully associated the function object generated by bind with sigClicked and, as a result, realized the configuration, "Upon clicking Increment button, this->onButtonClicked(+0.04) is called".
+.
 
-It may be a bit complicated to understand but the reason why we make this configuration is to have "Increment" and "Decrement" share the functions to be called. However, as we have to have different behaviours for them, the argument "dq" is prepared for this purpose. Also, it is possible, by using 'bind' in this way, to directly associate the functions common to signal with each other, the description becomes simple.
+Registering the toolbar
+-----------------------
 
-In addition, for "Decrement" button as well, the association of creation of the button with the function is realised while the parameter to pass to dq is changed to "-0.04": ::
-
- bar->addButton("Decrement")
-     ->sigClicked().connect(bind(&Sample1Plugin::onButtonClicked, this, -0.04));
-
-With the above, this->onButtonClicked(-0.04) is called when Decrement button is clicked.
-
-
-Supplementary: In case of using argument of function defined to signal
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The signal "sigClicked" of ToolButton is defined to associate with the function: ::
-
- void function(bool)
-
-. Though it is not used this time, a brief description is provided in case this bool argument should be used. First, if the function to be associated with is a normal function like: ::
-
- void onClicked(bool on)
-
-and has the same argument, it is OK to provide the function: ::
-
- sigClicked()->connect(onClicked)
-
-as it is to the sigClicked() of the ToolButton object. With the above, the toggle status is provided to the argument 'on' and the function onClicked is called when the button is clicked.
-
-On the other hand, even if a similar function is used, the assistance of 'bind' is required in case it is defined as a member function. If the member function is defined as follows: ::
-
- void Sample1Plugin::onButtonClicked(bool on)
-
-, it is necessary to describe as follows: ::
-
- sigClicked()->connect(bind(&Sample1Plugin::onButtonClicked, this, _1))
-
-. The value "_1" added to the end of 'bind' is an object in Bind library that represents "to bring the first argument of the original function". It is desirable to master these descriptions as they are often used for plug-in development for Choreonoid. Anyway, it is not a difficult thing to master as you have only to put characters like "_1" or "_2" in the argument you want to use.
-
-
-Registration of Tool Bar
-----------------------------
-
-When you have created Tool Bar, the following is defined for the instance "bar" of Tool Bar: ::
+By using ::
 
  addToolBar(bar);
 
-. As addToolBar is a member function of Plugin class (a member function of the fundamental class ExtensionManager, more precisely) and it is necessary to register Tool Bar with this function after creation of Tool Bar.
+for the toolbar you have created, the toolbar will be registered in the Choreonoid system.
 
-In this sample, the instance of the original ToolBar class was created and then Tool Bar was structured externally with addButton. This method can be used for a simple tool bar but if the content of the tool bar becomes complicated, the normal method to take is to define a new class inheriting ToolBar class and implement the content of the tool bar in that class.
+addToolBar is a member function of Plugin class (to be more precise, a member function of the fundamental class ExtensionManager), and it is necessary to register the toolbar with this function after creating it.
 
+Note that using ::
 
-Description when Button is Pressed
--------------------------------------
+ bar->setVisibleByDefault(true);
 
-The process when the button is pressed is described in the following member function: ::
+the toolbar will be displayed by default.
+
+Although the user can set whether or not to display each toolbar, a newly added toolbar is not displayed by default. However, as we want to be able to try out the sample immediately without user settings, we also include this description.
+
+.. note:: In this sample, we first created an instance of a raw ToolBar class, and we constructed an external toolbar for it using addButton. This is good enough for a simple toolbar, but if the contents of a toolbar are getting complicated, the usual thing to do is define a new class that inherits from the ToolBar class and implement the contents of the toolbar inside that class.
+
+Description when a button is clicked
+------------------------------------
+
+The process when a button is clicked is described within the function: ::
 
  void onButtonClicked(double dq)
 
-. The argument dq is the delta quantity of the joint angle and is configured when it is connected with the button signal sigClicked.
+. The argument dq is the variation of the joint angle, and it was configured when it was connected with the button signal sigClicked.
 
-The processes in this function is explained below: 
+The process within this function is explained below.
 
-Retrieval of BodyItem Selected
-----------------------------------
-
-First, with the following part: ::
-
- ItemList<BodyItem> bodyItems =
-     ItemTreeView::mainInstance()->selectedItems<BodyItem>();
-
-the Body item that is selected by the user in Item Tree View is retrieved.
-
-To do it, the instance of Item Tree View is obtained first with ItemTreeView::mainInstance(). This operation is the same as the case where MessageView was retrieved in HelloWorld sample.
-
-Then the list (layout) of the items selected can be obtained by calling the member function "selectedItems" of ItemTreeView. This function is a template function having an item-type parameter and is designed to return the items that comply with the specified type from all the selected items. In this case, by specifying BodyItem type with "<BodyItem>", only Body items are to be retrieved.
-
-The list of the items is returned by a template class called ItemList. This is also designed to take the item type as the template parameter and has the layout that can store the items of that type. By specifying BodyItem type for this as well, the layout where the selected BodyItems are stored is retrieved.
-
-Other functions are available in ItemTreeView, including "checkedItems", which is a function that "returns the list of the checked items", "isItemSelected", "to check whether an item is selected or not" and "sigSlectionChanged", which is a signal "issued when the user changed the selection of an item". So, you can retrieve the items to be processed flexibly by utilising them.
-
-Now we have retrieved the target Body items, we proceed with processing each BodyItem individually. Since ItemList class is based on std::vector, similar descriptions to std:vector are supported. Using this: ::
-
- for(size_t i=0; i < bodyItems.size(); ++i) {
-
-The loop that performs the processing for each BodyItem is described.
-
-
-Retrieval of Body Object
+Getting the selected BodyItem
 -----------------------------
 
-In the loop that performs the processing for each BodyItem, the pointer to "Body" object is obtained first with the following description: ::
+First, we acquire a Body item that has been selected by the user in the Item Tree view as ::
 
- BodyPtr body = bodyItems[i]->body();
+ auto bodyItems = ItemTreeView::instance()->selectedItems<BodyItem>();
 
-. BodyPtr is a smart pointer to a Body object. You can take it as "Body" for the time being as a more detailed explanation is provided later.
+.
 
-The pointer of BodyItem can be obtained with BodyItems[i], but BodyItem itself does not define directly the actual data structure and the processing function of the model, which are defined actually in "Body" class in Body library (under src/Body). BodyItem provides an additional description so that this class is wrapped and made available as an item of Choreonoid. A Body object owned by BodyItem can be retrieved by calling a "body" function in this way.
+To do this, the instance of the Item Tree view is obtained first with ItemTreeView::Instance().  This is the same as when getting MessageView as explained for the HelloWorld sample.
 
-The reason for this scheme is to isolate the model's data structure and processing functions per se from GUI so that they can be used in generic manners in various programmes. Therefore, these parts independent of GUI are first defined as "Body library" under src/Body. On the other hand, "Body plug-ins" under "src/BodyPlugin" cover the GUI part such as wrapping of these classes as an item, tool bars and views, so the roles are defined to both respectively. In Choreonoid, in this way, there are "classes independent of GUI" in the first place and they are usually "wrapped as an item" for use. Naturally, it is no problem to implement each of the items directly unless it is necessary to make them independent of GUI.
+Then the list (layout) of the items selected can be obtained by calling the member function selectedItems of ItemTreeView. This function is a template function with an item-type argument and is designed to return, from all the selected items, only the items that match the specified type. In this case, by specifying the BodyItem type, only Body items are to be obtained.
 
-Supplementary: Modular Structure of Main Part of Choreonoid
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A list of the items is returned by a template class called ItemList. This is also designed so that the item type becomes the template argument and items of that type are stored. The selectedItems function returns an ItemList of the same type as its own template argument. So here, the result is returned in the following format: ::
 
-We have explained isolation of Body library from Body plug-ins. There are some other similar parts in the main part of Choreonoid and the following modules are available in the basic part of the main part of Choreonoid:
+ ItemList<BodyItem>
 
-* Modules defined independently of GUI:
+. This is in the BodyItems variable.
 
- * Util library (src/Util): defines classes and functions that are used by different parts
+.. note:: Other items defined in the ItemTreeView class include “return a list of checked items” checkedItems, “check if an item is selected” isItemSelected, and “signal to notify that the selection status of an item has changed” sigSelectionChanged, and by using them, it is possible to flexibly retrieve the items to be processed.
+
+When we have retrieved the list Body items, next we process each BodyItem on the list individually. Since the ItemList class is based on std::vector, it can be handled in the same way as std:vector. Here, using a C++11 range-based for statement, ::
+
+ for(auto& bodyItem : bodyItems){
+     ...
+ }
+
+the loop that performs the processing for each BodyItem is described.
+
+Obtaining the Body object
+-------------------------
+
+Within the loop that performs the processing for each BodyItem, the Body class object is first obtained form the Body item with the following description: ::
+
+ auto body = bodyItem->body();
+ 
+.
+
+The Body class implements the data structure and processing functions of the robot model, and this object can be considered as the body of the model. This class is defined in Choreonoid as a part called **Body library**. (In the Choreonoid source, this corresponds to src/Body.) On the other hand, the Body item is a wrapper to make it possible to treat the Body object as an item in the Choreonoid GUI, and within Choreonoid it is defined as a BodyItem class. A BodyItem holds the corresponding Body object, and this is returned by the body function.
+
+As you can see, the reason why the robot model is divided into the Body class and the BodyItem class is that it is desirable to keep the data structure of the model and the actual processing functions separate from the GUI, so that they can be used in a generic way in various programs. The Body library that actually implements the Body class is a library that is independent of the GUI, and it can also be used for such things as the robot control program. On the other hand, parts that are dependent on the GUI are implemented by the Body plugin, and GUI parts such as items, toolbars, and views are covered there. In this way, the data handled on Choreonoid is often "classes independent of GUI", and they are often "wrapped as an item" and used. Of course, it is also possible to implement the body of the data in the items themselves without such a separation.
+
+Supplementary: Modular structure of the main part of Choreonoid
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We have explained the relationship between the Body library and Body plug-ins. There are some other similar parts in the main part of Choreonoid, and below is a summarized overview of those parts:
+
+* Modules independent of the GUI:
+ 
+ * Util library (src/Util): defines the classes and functions that are used by different parts
  
  * Collision library (src/Collision): defines the collision detection process among polygon (triangle) models
- 
- * Body library (src/Body): defines modelling of substances/joint substances and kinematics and dynamics-related processes thereof
 
- These modules can be used from an external programme not a plug-in of Choreonoid.
+ * Body library (src/Body): defines the modelling of objects/joint objects and their kinematics and dynamics-related processes
 
-* GUI modules
+ These modules can also be used from an external program that is not a Choreonoid plugin.
 
- * Base module (src/Base): defines the base part of GUI of Choreonoid
- 
- * Body plug-in (src/BodyPlugin): defines the model-related processes associated with Body library
- 
- * Other plug-ins
+* Modules dependent on the GUI:
+
+ * Base module (src/Base): defines the base part of the Choreonoid GUI
+
+ * Body plug-in (src/BodyPlugin): defines the GUI of the model-related processes associated with the Body library
+
+ * All other plugins
 
 The dependency of these modules is as illustrated in the figure below:
 
 .. figure:: module-dependencies.png
 
+Changes of joint angles
+-----------------------
 
-Supplementary: Regarding Smart Pointer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The angles of the robot models joints are changed using the following code: ::
 
-"BodyPtr" in the above code is a "smart pointer" that stores the Body class pointers. In brief, a smart pointer is "a pointer that you need not delete". So, you don't have to worry when it should be deleted or you are prevented from using a deleted pointer by mistake resulting in a crash.
-
-Smart pointers used in Choreonoid are implemented by "Smart Pointers" library of Boost. This library provides several pointer types so that they can be properly used. The base among them is "shared_ptr" type. It is used in the form as follows if there is Hoge class for example: ::
-
- boost::shared_ptr<Hoge> hoge = new Hoge();
-
-. By describing as above, you can access a member function or a variable as follows: ::
-
- hoge->function();
-
-as in the original pointer type "Hoge*". If you use this type as in: ::
-
- boost::shared_ptr<Hoge> hoge2 = hoge;
-
-then, you can copy it to a different variable.
-
-When all the smart pointer variables that store this pointer are destructed, the pointer per se will be deleted automatically.
-
-In case the original pointer is required: ::
-
- Hoge* p = hoge.get();
-
-You can use get() function as above for conversion.
-
-By the way, the description "boost::shared_ptr<Hoge>" may be too long. So, in Choreonoid, you can define as follows: ::
-
- typedef boost::shared_ptr<Hoge> HogePtr;
-
-so that the smart pointer can be used according to the naming rule of "class name+Ptr".
-
-This is all about the basics of share-ptr, but the most frequently used smart pointer type in Choreonoid is "intrusive_ptr". For Body class, too, BodyPtr is defined as a smart pointer based on this type. How to use is almost the same as shared_ptr. The difference from shared_ptr is that intrusive_ptr has the "reference counter" to decide whether or not to delete in the object internally. (shared_ptr reserves this area separately from the heap.) Due to this difference, intrusive_ptr is slightly faster
-
-* in processing than shared_ptr, and
-* a problem can less easily happens when it is converted mutually with the original pointer type.
-
-Because of this advantage, this type is mainly used in Choreonoid.
-
-The class that provides a smart pointer based on intrusive_ptr is defined as follows: ::
-
- class Body : public cnoid::Referenced
-
-inheriting "cnoid::Referenced" class defined in Util library. Then, with by defining: ::
-
- typedef boost::intrusive_ptr<Body> BodyPtr;
-
-you can start using this smart pointer as BodyPtr type.
-
-Because "a problem can less easily happen if this smart pointer type is converted mutually with the original pointer type", as stated above, you can store one as a smart pointer only where it is required.
-
-In fact, a function that returns an object of cnoid::Reference type is basically defined as: ::
-
- Body* functionToReturnBodyObject();
-
-so that the original pointer type is returned. Either "BodyPtr" or "Body*" can be used as a variable that receives an object returned by this type of function. (In fact, it is no problem to use "Body*" instead in the codes of this sample.)
-
-On the other hand, a function that takes an object of cnoid::Referenced type as a variable is basically defined as: ::
-
- void doSomething(BodyPtr body);
-
-and described with the smart pointer type. For this description as well, you can use either "BodyPtr" or "Body*" for the variable that is provided when a function is called.
-
-However, you can use the original pointer only when the object is stored in the smart pointer and the use by the original pointer is temporary. On the contrary, you had better store in the smart pointer an object that has to be owned for long time. If you are sure, you can use a smart pointer. (except some cases.)
-
-Above-mentioned mutual conversion between a smart pointer and its original pointer cannot basically be used in case of shared_ptr. shared_ptr can be initialised with the original pointer, but you cannot substitute the original pointer there, and it is assumed that initialisation is executed immediately after the pointer is renewed. In case with intrusive_ptr, on the other hand, you can freely initialise by or substitute with the original pointer as long as the above-mentioned restriction is complied.
-
-Choreonoid is designed based on intrusive_ptr for the purpose to ensure flexibility in pointer descriptions in this way. However, as you have to be careful of "the condition of using the original pointer", the benefit of using smart pointers that "you don't have to care whether an object exists or not by just using smart pointers" may be degraded. Normally, you don't have to mind to that extent, so you had better be familiar with the above descriptions.
-
-Change of Joint Angle
--------------------------
-
-Let's go back to the sample code. The following code changes the joint angle of the robot model stored in Body object: ::
-
- for(int j=0; j < body->numJoints(); ++j){
-     body->joint(j)->q += dq;
+ for(auto& joint : body->joints()){
+     joint->q() += dq;
  }
 
-As Body class can get the number of the joints with "numJoints" function, it is used to rotate the loop so that the angle of all the joints are changed. What is obtained by "joint(j) function in the loop is the object of Link class that corresponds to the joint id j. This class stores the joint angle in the member variable "q" and its value is changed by the quantity "dq".
+body->joints() returns the list of joints stored by the Body object. A process is performed for each joint by rotating through the loop for these elements using range-based for. The elements here are objects of the Link class defined in the Body library. This corresponds to the robot’s links, and it also contains information on the joints from the parent link. The joint angle is defined by a variable named q and, using the function q, its value is changed by the quantity dq.
 
-Note that Body library is forked from the one developed by `OpenHRP3 <http://fkanehiro.github.io/openhrp3-doc/en/index.html>`_  to start the development of Choreonoid and Body classes and Link classes used are currently almost the same as those in OpenHRP3. So, those have an experience of programming with OpenHRP3 library can leverage the knowledge about it and refer to the `Programming Manual <http://fkanehiro.github.io/openhrp3-doc/en/programming.html>`_  of OpenHRP3 to some extent, provided, however, that many parts have been modified, especially the matrix and vector library has been replaced with Eigen from tvmet. Please be careful of these differences.
+Notification of status change
+-----------------------------
 
+What we have done in the above code is simply to update the variables that store a joint angle. This is insufficient for the result to be seen in the entire model. In order to do that, finally we execute: ::
 
-Notification of Status Change
----------------------------------
-
-What we have done in the above code is only to update the variables that store a joint angle. This operation falls short of reflecting the result to the entire model including the position and the posture of the links and of updating the display on the GUI. To do this, execute the following: ::
-
- bodyItems[i]->notifyKinematicStateChange(true);
+ bodyItem->notifyKinematicStateChange(true);
 
 .
 
-"notifyKinematicStateChange" is a function defined in BodyItem class, which informs Choreonoid system that a kinematic state change has been executed to the model and reflects the change on the display on the GUI. Please note that it is not a function defined in Body class but in BodyItem class instead. In this way, it is the role of BodyItem class to implement the GUI-related part additionally.
-
-notifyKinematicsStateChange function is declared as follows: ::
+The notifyKinematicStateChange function used here informs the Choreonoid system that a kinematic change has been made to the model and reflects the change on the display on the GUI. This function is defined as follows: ::
 
  void notifyKinematicStateChange(bool requestFK = false, bool requestVelFK = false, bool requestAccFK = false);
 
-Here, true is provided in the first argument "requestFK".
+Here, true is provided in the first argument requestFK.
 
-As mentioned above, the position and the posture of the links do not change by just modifying the value of the joint angle variable q. A forward kinematic calculation is required for this purpose. You can declare the Body object as: ::
+In order for the value of the joint angle variable q t be reflected in the position and posture of all links, a forward kinematic calculation is required. You can declare the Body object as: ::
 
  body->calcForwardKinematics();
 
-and, by giving true in requestFK, the forward kinematic calculation is done at the same time. If you want to update the speed or the acceleration, add true respectively. You can try and see what will happen when you have time if you execute notifyKinematicsState without specifying true to requestFK. You can see that, while the join angles displayed in "Joint Slider View" change, the pose of the robot displayed on "Scene View" does not change.
+Or, by giving true in requestFK, this is done in notifyKinematicStateChange.  Also, if you also want to update the speed and acceleration values, give true to the arguments requestVelFK and requestAccFK respectively.
 
-.. note:: The reason why notifyKinematicsStateChange executes calcForwardKinematics also is not simply to do without calcForwardKinematics. Choreonoid is designed considering that multiple objects function in co-operation and notifyKinematicStateChange is provided based on this principle. For example, an object handling the upper body and another handling the lower body exist and operate independently of the other in some cases. And both may function at the same timing. In such a case, if each of them change the joint angle, makes kinematic calculation and update the GUI individually, the process may be duplicated as a result. Rather than that, it is more effective to update the joint angle respectively first and then, when the processes of the both are completed, perform kinematic calculation and the GUI update. To realise this, notifyKinematicStateChange is described so that it does not perform kinematic calculation and the GUI update whenever it is called, but instead posts such operations as the events necessary and that, after all the updates that should be executed at the same timing are completed, it perform kinematic calculation and the GUI update only once.
+If you execute notifyKinematicsState without setting requestFK as true, you will see that, while the join angles displayed in the Joint Slider view will change, the pose of the robot displayed in the Scene view will not change.
 
-Note that, when notifyKinematicStateChange is called, "signKinematicStateChanged" signal prepared by BodyItem class is issued eventually. Therefore, if you want any process to be executed when the kinematic state of the model has changed, you can describe it in the function connected to this signal. In fact, the view function of BodyItem in Joint Slider View and Scene View of Choreonoid is realised by connecting this signal. As a result, by just calling notifyKinematicStateChange, all the relevant views are updated.
+.. note:: The reason why notifyKinematicsStateChange also executes calcForwardKinematics is not simply that there is no need to execute calcForwardKinematics. Choreonoid is designed taking into account that multiple objects work together and, to an extent, notifyKinematicStateChange is provided based on this principle. For example, in a robot model, you can have a case where one object handles the upper body and another handles the lower body, existing and operating independently of each other. And both may work at the same time. In this case, if each of them individually changes the joint angle, makes a kinematic calculation, and updates the GUI, the result will be a duplicated process. Instead, it is more effective to update the joint angles respectively first and then, when both have completed their processes, perform the kinematic calculation and GUI update all together. To do this, notifyKinematicStateChange is described so that it does not perform the kinematic calculation and GUI update whenever it is called, but instead posts that they are necessary as an event, and, after all the updates that are to be executed at the same time are completed, it performs the kinematic calculation and GUI update together only once.
 
-The calling party need not be aware of any views at all and, even in case a new view function is added by a plug-in, it can function as the existing view functions by adding it simply. As you can see in this effort, Choreonoid aims to realise flexible function expansion. That is not something special but it is also referred to as Model-View-Controller (MVC) architecture or Document-View architecture, both of which are well-known software design techniques.
+When the notifyKinematicStateChange function is executed, the signKinematicStateChanged signal prepared by BodyItem class is issued eventually. Therefore, if you want any process to be executed when the kinematic state of the model has changed, connect the processing function to this signal. In fact, the display of the model’s state in the Joint Slider view, Scene view, etc. is realized by connecting to this signal. And so, all the relevant views are updated by just calling notifyKinematicStateChange.
 
+This mechanism means that the side that updates the state of the model does not have to be concerned with how or where the updated results are displayed. With this mechanism, the side that updates the state of the model does not have to worry about how to reflect the updated result anywhere. This allows flexible function expansion. This is a framework that corresponds to the so-called Model-View-Controller (MVC), Document-View, and Publisher-Subscriber architectural patterns, and it is one of the common software design techniques.
 
-Compile
-----------
+Build method
+------------
 
-As we have discussed how to compile a plug-in using HelloWorld sample, we deal with only some points that must be considered additionally in this sample.
+In the :doc:`hello-world-sample`  section, we introduced three  :ref:`hello-world-build` . In this sample also, we will introduce the description of the build files corresponding to these three methods.
 
-What we have to consider additionally in this sample is that, as we mentioned in the paragraph regarding "Constructor", this plug-in is dependent on BodyPlugin. So, it is necessary to provide an additional description about the library files to be linked.
+.. highlight:: cmake
 
-Regarding this necessity, it is OK if the link with the common library of a plug-in called "libCnoidXXXPlugin.so" stored under the Choreonoid installation destination "lib/choreonoid-x.x" is established in case of Linux. In case of BoduPlugin, it will be "libCnoidBodyPlugin.so".
+First, when :ref:`hello-world-build-together`  write the following code in CMakeLists.txt: ::
 
-In case of Windows, "import library file" called "CnoidXXXPlugin.lib" stored under the same directory is relevant. When you establish a link to this file, the DLL file called "CnoidXXXPlugin.dll" stored in the same directory is linked at execution. Be careful that you have to turn ON the option "INSTALL_SDK" in the CMake settings for the import library file (.lib). Otherwise it will not be installed.
+  set(target CnoidSample1Plugin)
+  add_cnoid_plugin(${target} SHARED Sample1Plugin.cpp)
+  target_link_libraries(${target} CnoidBodyPlugin)
+  apply_common_setting_for_plugin(${target})
 
-In case you write a Makefile targeting the installed Choreonoid, specify the library name "choreonoid-body-plugin" to pkg-config, then the option fulfilling the above condition is returned.
+The description contents are almost the same as for the HelloWorld sample, but the details of target_link_libraries are a little different. This plugin is dependent on the Body plugin, so you should specify CnoidBodyPlugin instead of CnoidBase as the dependent library. Since it is a plugin, it is also dependent on CnoidBase, but you don’t need to explicitly describe it. This is because CnoidBodyPlugin is also dependent on CnoidBase, and CMake knows that due to this plugin’s dependency on CnoidBodyPlugin, it is also dependent on CnoidBase.
 
-In case of compile using CMake in the compile environment of the main part of Choreonoid, the system compiles so that this dependency is fulfilled if you write "CnoidBodyPlugin" in "target_link_libraries" command. (In this case, you need not describe CnoidBase explicitly as CnoidBodyPlugin is dependent on CnoidBase.)
+Next, when :ref:`hello-world-stand-alone-build`,  create a CMakeLists.txt file as follows: ::
 
-For the actual Makefile and CMakeList.txt, please refer to those under "share/sampleplugins/Sample1Plugin" and "extplugin/sample/Sample1Plugin".
+  cmake_minimum_required(VERSION 3.1.0)
+  project(Sample1Plugin)
+  find_package(Choreonoid REQUIRED)
+  add_definitions(${CHOREONOID_DEFINITIONS})
+  include_directories(${CHOREONOID_INCLUDE_DIRS})
+  link_directories(${CHOREONOID_LIBRARY_DIRS})
+  set(target CnoidSample1Plugin)
+  add_library(${target} SHARED Sample1Plugin.cpp)
+  target_link_libraries(${target} ${CHOREONOID_BODY_PLUGIN_LIBRARIES})
+  install(TARGETS ${target} LIBRARY DESTINATION ${CHOREONOID_PLUGIN_DIR})
 
+The way in which this differs from the HelloWorld sample is that there is a dependency on the Body plugin. For this, you can set all the libraries necessary for dependency on the Body plugin by using the variable CHOREONOID_BODY_PLUGIN_LIBRARIES in target_link_libraries.
 
+Finally, when  :ref:`hello-world-makefile-build` , create a Makefile as follows:
+
+.. code-block:: makefile
+
+ CXXFLAGS += -fPIC `pkg-config --cflags choreonoid-body-plugin`
+ PLUGIN = libCnoidSample1Plugin.so
+ 
+ $(PLUGIN): Sample1Plugin.o
+ 	g++ -shared  -o $(PLUGIN) Sample1Plugin.o `pkg-config --libs choreonoid-body-plugin`
+ 
+ install: $(PLUGIN)
+	install -s $(PLUGIN) `pkg-config --variable=plugindir choreonoid`
+ clean:
+	rm -f *.o *.so
+
+A noticeable point here also is the link to the Body plugin libraries. For pkg-config, you can get the information on using the Body plugin by using the module name choreonoid-body-plugin.
+
+Samples of these build files are stored in the Sample1Plugin directory (sample/tutorial/Sample1Plugin) in the Choreonoid source.

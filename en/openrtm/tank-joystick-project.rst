@@ -1,5 +1,5 @@
 TankJoystick tutorial: creating and running a project
-==========================================================
+=====================================================
 
 .. contents::
    :local:
@@ -7,7 +7,7 @@ TankJoystick tutorial: creating and running a project
 
 
 Summary
--------------
+-------
 
 This tutorial makes use of the OpenRTM framework to create a sample and manipulate the “Tank” model, one of Choreonoid’s sample models, with a joystick (gamepad). The Tank model is a mobile robot styled like a tank; it consists of two crawlers and twin-axis joints used to rotate the position of the gun turret and gun barrel. The end of the gun barrel has a light and camera attached. This is used to illuminate a space and view camera footage from within, with the crawlers used to maneuver around the environment and search for things.
 
@@ -22,7 +22,7 @@ This sample is included in the OpenRTM samples provided with Choreonoid. The pro
 .. _tankjoystick_openrtm_plugin_samples:
 
 Using OpenRTM plugins and samples
----------------------------------------
+---------------------------------
 
 In order to use the OpenRTM functionality, you must have `OpenRTM-aist <http://openrtm.org/>`_ installed on your OS, as well as the OpenRTM plugin, one of Choreonoid’s :doc:`optional features <../install/options>`.
 If building Choreonoid from source, set the following parameters to ON in CMake.
@@ -38,7 +38,7 @@ Once the OpenRTM plugin is installed, you will see this message in the message v
 Enabling BUILD_OPENRTM_SAMPLES to ON will build the sample used in this tutorial. You will need the files contained in the sample in order to proceed with this tutorial, so please set that flag to on.
 
 Building a simulated world
-----------------------------------
+--------------------------
 
 You will first build the virtual world in which to run the simulation and set the basic parameters. For details on this process, please refer to :doc:`../simulation/simulation-project`.
 
@@ -48,7 +48,7 @@ One simple environmental model you could use is a floor model, but we will opt t
 
 After importing the model, we :ref:`configure its initial state <simulation_setting_initial_status>`. Arrange this such that the surface below the Tank model’s crawlers is the top of the floor in Labo1.
 
-Next, we :ref:`create a simulator item and configure its settings <simulation_creation_and_configuration_of_simulator_item>`. We need a simulation item that supports :doc:`../simulation/crawler-simulation`. Standard AIST simulator items support this functionality, so we will use that. Create an AIST simulator item and place it as a sub-item of the world item. The properties can be set as the default.
+Next, we :ref:`create a simulator item and configure its settings <simulation_creation_and_configuration_of_simulator_item>`. We need a simulation item that supports :doc:`../simulation/pseudo-continuous-track`. Standard AIST simulator items support this functionality, so we will use that. Create an AIST simulator item and place it as a sub-item of the world item. The properties can be set as the default.
 
 After taking the above steps, the item tree view should be as follows: ::
 
@@ -64,7 +64,7 @@ This will create the foundations for your simulation project. You can now :ref:`
 .. _tankjoystick_rtsystemitem:
 
 Using RT System Items
---------------------------------
+---------------------
 
 OpenRTM allows for using RT-Components (RTC) to build a robot system. Systems generally are composed of multiple RTC and the underlying connections to their I/O ports and service ports. The Choreonoid OpenRTM plugin provides RT System Items as a project item used to administrate this connection data. This item can be used to build RTC systems as Choreonoid projects.
 
@@ -79,7 +79,7 @@ In this sample, we will use multiple RTCs, so the RT System Item is required. Fr
 This orientation makes it clear at a glance that the RT system is intended for the virtual world in question.
 
 Using the RTC administration view
---------------------------------------------
+---------------------------------
 
 Building a system on Choreonoid that makes use of RTC requires an interface for the same. The Choreonoid OpenRTM plugin provides three views to that end:
 
@@ -104,7 +104,7 @@ After displaying the views, save this state in the project file. To do so, as de
 .. _tankjoystick_introduce_robot_io_rtc:
 
 Using RTC for robot I/O
--------------------------------------
+-----------------------
 
 When using RT-Components to build a robot system, you first need RTC for the robot. More accurately, you need an RTC to handle the input/output for the various devices on the robot – architecture, encoders, power sensors, acceleration sensors, angular velocity sensors, cameras, laser range sensors, et cetera. While RTCs are sometimes individually used for each of these, we presume use of a single RTC that covers all of these for the robot, and we refer to it as the Robot I/O RTC.
 
@@ -181,7 +181,7 @@ Support for the second method above is not yet complete, but we plan to provide 
 .. note:: in addition to the BodyIoRTC item, you will also find the BodyRTC item used to create robot I/O RTC. This item was used by default before the introduction of the BodyIoRTC item and is designed slightly differently. The BodyRTC item does not require using a BodyIoRTC module; instead, the corresponding RTC is created internally within the BodyRTC item. You can allow the BodyRTC item to automatically determine what I/O ports to use, or you can use a settings file to indicate specific ports. In some contexts, this is a more convenient alternative, but the more complex your I/O setup becomes, the more this method becomes unable to account for all of the ports you will need and can cause some trouble with respect to creating a ubiquitous and generic design. The BodyIoRTC item is by contrast intended to be a more simple and ubiquitous item, so we recommend using it instead.
 
 Using RTC for control
--------------------------------
+---------------------
 
 The BodyIoRTC item allows for controlling robot I/O through RTC ports. Controlling the robot requires a control RTC, so let us install that below.
 
@@ -247,7 +247,7 @@ This RTC is the most central part of the controller that governs the robot’s a
 The ControllerRTC item contains the Execution Context property. By default, this is set as Choreonoid Execution Context; for the purposes of this control RTC, you can leave that setting as-is. Doing so allows calling the onExecute variable of the control RTC to synchronize with the progress of the simulation itself. For control programs that must be executed in real-time on a robot, such as PD control of the joint architecture, you can specify the execution context to do so.
 
 Connecting control RTC and I/O RTC
----------------------------------------------
+----------------------------------
 
 In order to use the control RTC we obtained above as a controller, you must first connect to the robot’s I/O RTC and port. These settings are performed in the RTC diagram view.
 
@@ -270,7 +270,7 @@ You can also adjust the way the lines indicating connections are displayed. Clic
 If you mistakenly connect two ports, you can click the line and press the Delete key to cut the connection.
 
 Using joystick RTC
------------------------------
+------------------
 
 The settings thus far will enable you to control the Tank robot. Launching the simulation will control the robot’s gun barrel to maintain its current state. This alone is not enough to move the robot, however. This system is predicated on using a joystick to move the robot. The TankJoystickControllerRTC that we implemented above does not include a component to poll the state of the joystick. Instead, it has ports used to input the joystick state; connecting its state to these ports allows for proper control.
 
@@ -300,7 +300,7 @@ Lastly, drag the JoystickRTC to the RTC dialog view and connect the ports. You w
 .. image:: images/rtcdiagram2-connection3.png
 
 Using joystick devices
-------------------------------
+----------------------
 
 In addition to the RTC used to process the joystick, you will also need – it goes without saying – a joystick itself. There are many joysticks on the market; many available for game consoles like PlayStation and Xbox and those like them have many axes and buttons, making control easy. They are also readily available, so these types of joysticks are an excellent choice. We use a Logicool F310 gamepad. Gamepads normally come with USB interfaces and, in most cases, will be automatically detected by your OS when plugged in. The aforementioned JoystickRTC is designed to access joysticks via Linux’s /dev/input/js0 device file.
 
@@ -323,7 +323,7 @@ When using a virtualized joystick, you would click this view area to bring keybo
  HumanInterfaceDevice.JoystickRTC.conf.default.device: /dev/input/js2
 
 Running simulations
-----------------------------
+-------------------
 
 After configuring the settings above and launching the simulation, each RTC on the RTC diagram view will change from blue to green. This indicates that the RTCs are Active.
 
@@ -332,7 +332,7 @@ From here, you can use the joystick to move the Tank robot. One analog stick is 
 .. note:: some joysticks may fail to interactively produce the desired response from the robot or its axes. If this occurs, refer to  :doc:`tank-joystick-controller` and adjust the axis response found in TankJoystickControllerRTC.cpp to match the joystick.
 
 Configuring light sources
-----------------------------------------
+-------------------------
 
 The Tank model used in this sample contains a light which can be turned on and off. Since it provides this functionality, let’s take a moment to simulate illuminating the dark space with it.
 
@@ -357,7 +357,7 @@ Playing with the settings above produces a scene like the one seen below.
 .. note:: Specifying the number for a different light in the Shadow 2 section of the Settings Dialog enables you to layer shadows from two light sources. For example, you could enable the world light to a given luminance and then set Light 0 for Shadow 2, creating a shadow with the ceiling light.
 
 Switching cameras
--------------------------
+-----------------
 
 Thus far, we have used the default camera in the scene view to view different parts of the scene and used the mouse to obtain a view of our choice. By contrast, you can also view the scene from the point of view of the camera installed on the robot. Let’s give it a try. As shown in :ref:`basics_sceneview_change_camera`, you can click the Rendering Camera Selection Combo from the :ref:`basics_sceneview_scenebar`, then select the field Camera-Tank. This will witch the view of the scene to the camera on the robot.
 
@@ -368,6 +368,6 @@ Below is an example of what it would look like to switch the view above to the c
 Using the joystick to control this view allows for a simulation quite similar to operating the robot itself. This can be used to practice operating the robot, among other applications.
 
 Deploying in actual robots
---------------------------------------
+--------------------------
 
 When applying this RTC system to control an actual robot, basically speaking, it will suffice to have a component that corresponds to the robot I/O RTC. For the remaining RTCs, you can largely use the ones from the simulation as-is and simply swap in the robot I/O RTC components needed. This workflow allows you to develop and test a robot in the simulator while carrying over the control systems you developed mostly as-is into the actual robot; this is the ideal workflow for reflecting your changes in your robot. Compared to workflows that do not make use of a simulator, this reduces the costs and manpower associated with development and operation of robots.

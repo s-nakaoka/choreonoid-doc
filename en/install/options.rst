@@ -6,6 +6,10 @@ Optional Functions Overview
 
 This section describes the main optional functions that can be selected for the build configuration of the development version of Choreonoid.
 
+* **BUILD_ASSIMP_PLUGIN**
+
+ Builds an Assimp plugin that uses the Assimp library and enables you to read 3D model files in formats such as COLLADA. It is ON by default.
+ 
 * **ENABLE_PYTHON**
 
  Build any Python wrapper available for each module and plug-in. To use it, it is necessary to install the library for development of Python.
@@ -42,8 +46,20 @@ This section describes the main optional functions that can be selected for the 
 
 * **BUILD_BULLET_PLUGIN**
 
- It builds Bullet plug-in. With this plug-in, "Bullet Physics", which is a library of open source dynamics calculations, can be used as a calculation engine for the simulation function of Choreonoid. To use this, it is necessary to install  `Bullet Physics Library <http://bulletphysics.org>`_ .
+ Builds the Bullet plugin. This plugin lets you make use of the Bullet Physics Library, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about Bullet, refer to the `Bullet Physics Library <http://bulletphysics.org>`_ . For the build process, refer to the section on  :doc:`build-bulletPlugin` 
 
+* **BUILD_ROKI_PLUGIN**
+
+ Builds the RoKi plugin. This plugin lets you make use of RoKi, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about RoKi, refer to the `Roki website <http://www.mi.ams.eng.osaka-u.ac.jp/open-e.html>`_ . For the build process, refer to the section on  :doc:`build-rokiPlugin` .
+ 
+* **BUILD_SPRINGHEAD_PLUGIN**
+
+ Builds the Springhead plugin. This plugin lets you make use of Springhead, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about Springhead, refer to the  `Springhead website <http://springhead.info/wiki/>`_ . For the build process, refer to the section on  :doc:`build-springheadPlugin` .
+
+* **BUILD_PhysX_PLUGIN**
+
+ Builds the PhysX plugin. This plugin lets you make use of PhysX, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about PhysX, refer to the `PhysX website <http://www.nvidia.co.jp/object/physx_new_jp>`_ . For the build process, refer to the section on  :doc:`build-physxPlugin`  .
+  
 * **ENABLE_CORBA**
 
  It builds the modules that are the bases of CORBA-related functions. To introduce these modules, it is necessary to install `omniORB <http://omniorb.sourceforge.net/>`_ library.
@@ -80,4 +96,5 @@ This section describes the main optional functions that can be selected for the 
 
  It builds GRobot plug-in. With this plug-in, it will become possible to synchronise the motions of the production version of the biped robot "G-Robots GR001" to the motions produced using Choreonoid.
  
+
 

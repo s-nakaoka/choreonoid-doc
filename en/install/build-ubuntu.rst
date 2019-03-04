@@ -1,6 +1,6 @@
 
 Building and Installing from Source (Ubuntu Linux)
-=======================================================
+==================================================
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
@@ -13,10 +13,10 @@ We have confirmed that the latest development version of Choreonoid can be built
 
 
 Obtaining the source code
-----------------------------------
+-------------------------
 
 Release version
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 You can download the source code for the release version of Choreonoid from the `download <http://choreonoid.org/ja/download.html>`_ page. Go there to download the source package that corresponds to your version of Ubuntu Linux. The source package comes as a ZIP file. Open it in the appropriate directory, for example: ::
 
@@ -25,7 +25,7 @@ You can download the source code for the release version of Choreonoid from the 
 When you open the ZIP file, a directory called choreonoid-1.6.0 will be created. This directory holds the complete source code. From now on, this manual will refer to this directory as the **“source directory.”**
 
 Development version
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 You can also use the development version of Choreonoid. This version is managed as a `git <http://git-scm.com/>`_ repository. You can find it at the following `GitHub <https://github.com/>`_ address.
 
@@ -49,10 +49,10 @@ For details on how to use git, see the git manual and explanatory articles.
 
 
 Installing development tools and dependent software
-----------------------------------------------------------
+---------------------------------------------------
 
 Development tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 You need the following development tools to build Choreonoid from source.
 
@@ -60,7 +60,7 @@ You need the following development tools to build Choreonoid from source.
 - `CMake <http://www.cmake.org/>`_ : A build tool. Use this tool to configure and generate the files of standard build tools such as Make and Visual Studio. CMake allows you to efficiently describe build methods for many environments.
 
 Dependent libraries
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 You also need the following libraries to build basic functionality.
 
@@ -88,7 +88,7 @@ If you want to build optional functionality, you also need the following softwar
 .. _build-ubuntu-install-packages:
 
 Installing dependent packages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
 In Ubuntu, you can easily install most of the software above by running the script “install-requisites-ubuntu-x.x.sh” under “misc/script.” x.x should be your version of Ubuntu. For example, if you have Ubuntu 16.04, execute ::
 
@@ -120,7 +120,7 @@ Also set **USE_QT5** in CMake to ON.
 .. _build-ubuntu-cmake:
 	  
 CMake build settings
----------------------------
+--------------------
 
 First, use the cmake command to generate the makefile you need to build Choreonoid. In the Choreonoid source directory, execute ::
 
@@ -155,7 +155,7 @@ Choreonoid also has some optional functions that are not built during the defaul
 .. _install_build-ubuntu_build:
 
 Building Choreonoid
-------------------------------
+-------------------
 
 If CMake successfully generates a makefile, you can use the make command to build Choreonoid. In the directory where you executed CMake (the build directory), execute ::
 
@@ -178,7 +178,7 @@ This will result in output that includes all command execution statements in det
 .. _build-ubuntu_install:
 
 Installation
-----------------------
+------------
 
 On Linux, you can run the executable file generated in the build directory as it is (without going through an installation process). If the build was successful, an executable file called “choreonoid” will have been generated in the “bin” directory inside the build directory. Execute this file. ::
 
@@ -200,9 +200,30 @@ You can also change the install location by changing CMake's **CMAKE_INSTALL_PRE
 
 Normally, you would need have a common library path pointing to the lib directory of the install location. If you set **ENABLE_INSTALL_RPATH** to "ON," you can use the program even without that common library path.
 
+.. _build_ubuntu_gpu_driver:
+
+Implement the proprietary driver for GPU
+----------------------------------------
+   
+..
+   NVIDIAのGeForce、Quadroや、AMDのRadeonといったGPUを搭載しているPCの場合、デフォルトでインストールされるドライバでは3D描画のハードウェアアクセラレーションが十分に機能せず、描画が遅くなる場合があります。これについては、各メーカーが開発しているドライバ（プロプライエタリ・ドライバ）をインストールすることにより、パフォーマンスがよくなります。
+   
+   プロプライエタリ・ドライバの確認や導入は、Ubuntuの「ソフトウェアとアップデート」ツールを用いて行うことができます。このツールの「追加のドライバー」というタブにこの設定があります。
+   
+   利用可能なドライバがある場合は「追加のドライバー」に選択肢が表示されます。例えばNVIDIAのGPUの場合、
+   
+   * NVIDIA binary driver - version 375.29をnvidia-375から使用します（プロプライエタリ,検証済み）
+   
+   といった表示が出ますので、これをクリックして選択し、「変更の適用」を押すことで、このドライバを使えるようになります。
+   
+   特にNVIDIA製のGPUをお使いの場合、この設定は必須と言ってよいかと思います。一方で、Intel製CPUに内蔵のGPUについては、Ubuntu上で利用可能なプロプライエタリ・ドライバはありません。しかしIntelのGPUはオープンソースドライバでのサポートがよく、デフォルトのドライバでGPUの性能を十分に引き出せるようになっているようです。
+   
+   .. note:: :ref:`basics_sceneview_sceneview` の :ref:`basics_sceneview_config_dialog` にある「テスト」というボタンを押すと、シーンを360度回転させるアニメーションを行なって、これにかかるフレームレートを表示します。この機能により描画速度が分かりますので、ドライバ更新前と後でこのテストを行なって、描画が速くなっていることを確認できるとよいかと思います。テストは何らかのプロジェクトを読み込んでモデルが表示されている状態で行うとよいでしょう。
+
+.. _build_ubuntu_qt_style:
 
 Improving rendering speed by changing the Qt style
----------------------------------------------------------
+--------------------------------------------------
 
 Qt, the GUI library used by Choreonoid, has a “style” functionality that you can use to customize the appearance of various components of the GUI such as buttons. When Ubuntu is in its default state, the Qt style is set to match the appearance of “Linux GTK+,” the standard GUI library used by Linux. GTK+ has its own functions for customizing the appearance of a GUI, and Qt's GTK+ style will dynamically reflect any customizations made in GTK+.
 
@@ -211,7 +232,7 @@ This is very useful for giving your desktop a uniform appearance, but it seems t
 We recommend that you change the Qt style to a style that is not GTK+ to solve this problem. The way to do this is different in Qt4 and Qt5. Each method is explained below.
 
 For Qt4
-~~~~~~~~~
+~~~~~~~
 
 In Qt4, it is easiest to use the “qtconfig-qt4” GUI tool shown below. (Run this tool by executing “qtconfig-qt4” from the command line or by choosing “Qt4 Settings” from the application menu.)
 
@@ -230,7 +251,7 @@ If you change the Qt style to “Cleanlooks,” tooltips in Choreonoid will not 
 Finally, go to “File” in the menu and click “Save” to implement these settings.
    
 For Qt5
-~~~~~~~~~
+~~~~~~~
 
 Qt5 does not seem to have anything like Qt4’s GUI tool. For Qt5, you can change the style with the environment variable “QT_STYLE_OVERRIDE.” Set a style name as follows: ::
 

@@ -7,6 +7,7 @@ Execution of Simulation and Replay
 .. contents::
    :local:
 
+.. _simulation_start_simulation:
 
 Start Simulation
 ----------------
@@ -45,7 +46,7 @@ By pressing this button again or "Resume Simulation" button, explained above, th
 
 
 Stop Simulation
---------------
+---------------
 
 The simulation stops by pressing "Stop Simulation" button below:
 
@@ -58,7 +59,7 @@ On the other hand, the resources that were used for the simulation are also rele
 .. _simulation-time-range:
 
 Configuration of Time Range
-------------------------------
+---------------------------
 
 The timing to finish the simulation can be configured by setting "Time Range" property of the simulator item. Select one of the following items:
 
@@ -87,7 +88,7 @@ When the time range is specified to "Unlimited", the simulation will continue un
 .. _simulation-realtime-sync:
 
 Synchronization with Real Time
----------------------------------
+------------------------------
 
 Generally speaking, the time progress in a virtual world where a simulation is executed is different from that in the real world. The time progress in a virtual world depends on the calculation time of the simulation and can be faster or slower than the time progress in the real world.
 
@@ -102,7 +103,7 @@ On the contrary, if the calculation time is faster than the real time, the time 
 .. _simulation-result-recording:
 
 Recording of Simulation Result
----------------------------------
+------------------------------
 
 A simulation result can be stored as time-series data that can be used for replay and analysis of the result.
 
@@ -144,7 +145,7 @@ The basic element to be recorded as a simulation result is the motion trajectory
 .. _simulation-result-playback:
 
 Replay of Simulation Result
------------------------------
+---------------------------
 
 If the recording of simulation results is enabled, it is also possible to replay them as animation. How to replay a simulation result is as follows:
 
@@ -157,7 +158,7 @@ As for the operation of Time bar, if you press the "start animation" button, the
 .. _simulation_playback_ongoing_simulation:
 
 Display of Ongoing Simulation
-------------------------------
+-----------------------------
 
 If the recording of simulation results is enabled, the animation of an ongoing simulation is also displayed by using the above-mentioned replay function as "replay of data being recorded". Note, however, that the result of an ongoing simulation and that of the completed simulation may be somewhat different in the behavior of replay. In concrete terms:
 
@@ -176,7 +177,7 @@ Note, however, that the simulation per se continues even if the animation is sto
 .. _simulation-result-item-output:
 
 Output Destination of Simulation Result
-------------------------------------------
+---------------------------------------
 
 The motion trajectory of each model is output to the position of the child items of the corresponding body item with the name "Simulator item name - model name".
 

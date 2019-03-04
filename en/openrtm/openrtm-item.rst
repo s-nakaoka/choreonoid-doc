@@ -1,16 +1,17 @@
 
-About items used with OpoenRTM plug-in
-=======================
+Items used with the OpenRTM plugin
+==================================
 
-The OpenRTM plug-in uses the following items.
+The OpenRTM plugin uses the following items.
 
 RTSystem Item
-----------------------------
+-------------
 
-| In OpenRTM, the RT function element is called an RT component (RT-Component: RTC), and a robot system (RT system) is constructed using multiple RTCs.
-| "RT system item" is a project item for managing the RT system.It is used to manage the components (RTC) of the robot system on the Choreonoid.
+In OpenRTM, the RT function element is called an RT Component (RT-Component: RTC), and a robot system (RT system) is constructed using multiple RTCs.
 
-The following properties are additionally available for RT system items.
+An â€œRTSystem item" is a project item for managing the robot system (RT system) and is used to manage the elements (RTC) that make up the system on Choreonoid.
+    
+The following properties are additionally available for the RTSystem item.
 
 .. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
@@ -18,7 +19,7 @@ The following properties are additionally available for RT system items.
   :widths: 15,12,4,75
   :header-rows: 1
 
-  * - Parameters
+  * - Parameter
     - Default value
     - Type
     - Detail
@@ -29,30 +30,36 @@ The following properties are additionally available for RT system items.
   * - Vendor name
     - \-
     - string
-    - Set the name of the vendor that created the target RT system.The value set here is used as "VendorName" of RTSProfile when saving the system.The default value can be specified in "Preferences".
-  * - Version number
+    - Set the name of the vendor that created the target RT system. The value set here is used as â€œVendorNameâ€ of RTSProfile when saving the system. The default value can be specified in Preferences.
+  * - Version
     - \-
     - string
-    - Set the target RT system version number.The value set here is used as "Version" of RTSProfile when saving the system.The default value can be specified in "Setting screen".
-  * - Profile save destination
+    - Set the target RT system version number. The value set here is used as â€œVersionâ€ of RTSProfile when saving the system. The default value can be specified in Preferences.
+  * - File (profile save destination)
     - \-
     - string
-    - With the OpenRTM plug-in, information on the RT system is saved using RTSProfile format (format standardized by RT middleware).In this case, specify the save destination of RTSProfile.
+    - With the OpenRTM plugin, information on the RT system is saved using RTSProfile format (format standardized by RT middleware). In this case, specify the save destination of RTSProfile.
+  * - State Check
+    - Polling
+    -
+    - | Set the method for checking the status of the RTCs that make up the RT system.
+      | Polling: The status of each RTC is automatically updated at the cycle specified by â€œPolling Cycleâ€.
+      | Manual: The status of each RTC, etc. is updated manually.
   * - Polling Cycle
-    - 500
+    - 1000
     - int
-    - Set the cycle for checking the state of the RTC that constitutes the RT system.The unit is ms.
-  * - HeartBeat Period
-    - 500
-    - int
-    - Available in OpenRTM-aist-1.2.0 or later.Sets the heartbeat reception cycle for confirming the presence of RTC.The unit is ms.If the heartbeat signal does not arrive within this cycle, it is judged that some error has occurred in the target RTC.
+    - Set the cycle for checking the status of the RTC that constitutes the RT system. The unit is ms.
+  * - CheckAtLoading
+    - true
+    - bool
+    - When importing a project, specify whether to check the status of the RTCs that make up the target RT system. If it is time-consuming to check the status, for reasons such as an RT system made up of a large number of RTCs, or when the RTCs are running on multiple PCs, turning this value OFF means the project read time can be shortened.
 
-ControllerRTC Item
-----------------------------
+ControllerRTC item
+------------------
 
-It is an item for defining the RTC for controlling the system defined by the RT system item.We will control the target system according to instructions from Choreonoid.
+This is an item for defining the RTCs for controlling the system defined by the RTSystem item. It controls the target system according to instructions from Choreonoid.
 
-For the controller RTC item the following properties are additionally available:
+The following properties are additionally available for the ControllerRTC item.
 
 .. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
 
@@ -60,37 +67,89 @@ For the controller RTC item the following properties are additionally available:
   :widths: 15,12,75
   :header-rows: 1
 
-  * - ƒpƒ‰ƒ[ƒ^
-    - Œ^
-    - ˆÓ–¡
-  * - RTCƒ‚ƒWƒ…[ƒ‹
+  * - Parameter
+    - Type
+    - Detail
+  * - RTC module
     - string
-    - ÀÛ‚Ég—p‚·‚éƒRƒ“ƒgƒ[ƒ‰RTC‚Ì–¼Ì‚ğİ’è‚µ‚Ü‚·BƒvƒƒpƒeƒB•ÒW‚Éƒtƒ@ƒCƒ‹‘I‘ğƒ_ƒCƒAƒƒO‚ª•\¦‚³‚ê‚Ü‚·‚Ì‚ÅAg—p‚·‚éƒRƒ“ƒgƒ[ƒ‰RTC‚ğ‘I‘ğ‚µ‚Äw’è‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B
-  * - ƒx[ƒXƒfƒBƒŒƒNƒgƒŠ
+    - Set the name of the ControllerRTC to be actually used. A file selection dialog box is displayed when editing properties, so it is also possible to select and specify the ControllerRTC to be used.
+  * - Base directory
     - string
-    - g—p‚·‚éƒRƒ“ƒgƒ[ƒ‰RTC‚ª‘¶İ‚·‚éƒfƒBƒŒƒNƒgƒŠ‚ğİ’è‚µ‚Ü‚·B
-  * - RTCƒCƒ“ƒXƒ^ƒ“ƒX–¼
+    - Set the directory where the ControllerRTC being used is kept.
+  * - RTC instance name
     - string
-    - ƒRƒ“ƒgƒ[ƒ‰RTC‚ğ¯•Ê‚·‚é‚½‚ß‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼‚ğİ’è‚µ‚Ü‚·BOpenRTM‚Å‚Í“¯‚¶Œ^‚ÌRTC‚ğ•¡”‹N“®‚·‚é‚±‚Æ‚ª‰Â”\‚Å‚·B‚±‚Ì‚æ‚¤‚Èê‡‚ÉAÀÛ‚Ég—p‚·‚éƒRƒ“ƒgƒ[ƒ‰‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¯•Ê‚·‚é‚½‚ß‚Éw’è‚µ‚Ü‚·B
-  * - ÀsƒRƒ“ƒeƒLƒXƒg
+    - Set the instance name to identify the ControllerRTC. In OpenRTM it is possible to launch multiple RTCs of the same type. In this case, specify it in order to identify the instance of the controller to be actually used.
+  * - Execution context
     - string
-    - ƒRƒ“ƒgƒ[ƒ‰RTC‚Åg—p‚·‚éÀsƒRƒ“ƒeƒLƒXƒg‚ğw’è‚µ‚Ü‚·B‘I‘ğ‰Â”\‚ÈÀsƒRƒ“ƒeƒLƒXƒg‚Ìí—Ş‚ÍAg—p‚µ‚Ä‚¢‚éOpenRTM-aist‚Ìƒo[ƒWƒ‡ƒ“‚É‚æ‚Á‚ÄˆÙ‚È‚è‚Ü‚·‚Ì‚ÅAÚ×‚ÍOpenRTM-aist‚ÌƒTƒCƒg‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-  * - Àsü”g”
+    - | Set the execution context for use by ControllerRTC. The following execution contexts can be selected:
+      | SimulationExecutionContext: execution context for execution of simulation
+      | SimulationPeriodicExecutionContext: execution context for carrying out some sort of periodic execution during simulation execution.
+  * - Periodic rate
     - int
-    - ƒRƒ“ƒgƒ[ƒ‰RTC‚ÌÀsüŠú‚ğw’è‚µ‚Ü‚·B
+    - Set the frequency for executing ControllerRTC.
 
 
+BodyIoRTC item
+--------------
+
+This item defines the RTC for controlling robots. Set the RTC for input and output to various devices mounted on the robot. During simulation execution, handles processing so that the input/output for various devices is synchronized with the simulation.
+
+The following properties are additionally available for the BodyIoRTC item.
+
+.. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
+
+.. list-table::
+  :widths: 15,12,75
+  :header-rows: 1
+
+  * - Parameter
+    - Type
+    - Detail
+  * - RTC module
+    - string
+    - Set the name of the target RTC. A file selection dialog box is displayed when editing properties, so it is also possible to select and specify the RTC to be used.
+  * - Base directory
+    - string
+    - Set the directory where the target RTC being used is kept.
+  * - RTC instance name
+    - string
+    - Set the instance name to identify the ControllerRTC. In OpenRTM it is possible to launch multiple RTCs of the same type. In this case, specify it in order to identify the instance of the RTC to be actually used.
+  * - Periodic rate
+    - int
+    - Set the frequency for executing ControllerRTC.
 
 
-BodyIoRTC Item
-----------------------------
+RTC item
+--------
+
+This is an item for using regular RTCs. It is used when using RTCs other than â€œControllerRTCâ€ and â€œRTC for coordinating with robots (BodyIoRTC)â€.
+
+The following properties are additionally available for the RTC item.
+
+.. .. tabularcolumns:: |p{3.5cm}|p{11.5cm}|
+
+.. list-table::
+  :widths: 15,12,75
+  :header-rows: 1
+
+  * - Parameter
+    - Type
+    - Detail
+  * - RTC module
+    - string
+    - Set the name of the target RTC. A file selection dialog box is displayed when editing properties, so it is also possible to select and specify the RTC to be used.
+  * - Base directory
+    - string
+    - Set the directory where the target RTC being used is kept.
+  * - Execution context
+    - string
+    - Set the execution context for use by the target RTC. The types of selectable execution context depend on the version of OpenRTM-aist you are using, so refer to the OpenRTM-aist website for details.
+  * - Periodic rate
+    - int
+    - Set the frequency for executing ControllerRTC.
 
 
+BodyRTC item (not recommended)
+------------------------------
 
-RTC Item
-----------------------------
-
-
-BodyRTC Item (Deprecated)
-----------------------------
-
+This is an old version of the item that defines the RTC for controlling robots. The settings done with â€œBodyRTC itemâ€ can be defined using â€œBodyIoRTC itemâ€, so you should use the latter.

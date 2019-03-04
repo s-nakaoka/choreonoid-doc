@@ -1,6 +1,6 @@
 
-Building from source code and installing (Windows)
-=====================================================
+Build and install from source code (Windows version)
+====================================================
 
 .. sectionauthor:: 中岡 慎一郎 <s.nakaoka@aist.go.jp>
 
@@ -9,397 +9,541 @@ Building from source code and installing (Windows)
    :local:
 
 
-Preparing to build
------------------------
+Preparation
+-----------
 
-To build Choreonoid from source and install, you will need the following tools and libraries on your system:
+To build Choreonoid from source code and install, you will need to prepare in advance the libraries and tools required for the build.
 
-* Tools required
+* Required tools
 
-  * Visual C++ 2015
-  * `CMake <http://www.cmake.org/>`_ (3.5.2)
+  * Visual C++ 2015 or Visual C++ 2017 (The build cannot be done with older versions. Also, version 1.1.2 of OpenRTM has no library for 2017. Anyone using OpenRTM should use 2015.)
+  * `CMake <http://www.cmake.org/>`_ (3.12.0)
 
-- Libraries required
+- Required libraries
 
-  * `Boost <http://www.boost.org/>`_ (1.60.0)
-  * `Qt <http://qt.nokia.com/>`_ (5.6)
-  * `Eigen <http://eigen.tuxfamily.org/>`_ (3.2.8)
+  * `Boost <http://www.boost.org/>`_ (1.67.0)
+  * `Qt <http://www.qt.io/>`_ (5.11 Requires 5.10 or later)
+  * `Eigen <http://eigen.tuxfamily.org/>`_ (3.3.5)
 
 
-First install the requisite tools and libraries listed above. 
-The figures in parenthesis next to each list the versions we have tested as working as of June 2016. 
-This does not necessarily mean that Choreonoid does not support older versions, and it may mean that building from source fails when using newer versions. 
-(Specifying an exact working version is difficult.) 
-Generally speaking, if the first two numbers of your version number are the same, you should be able to use it in an equivalent fashion.
+First of all, install the above tools and libraries. The numerical values in parentheses for each library indicate the version which we have tested and confirmed to be working as of July 2018. Apart from the libraries where a minimum version is specified, older versions may or may not work. But on the other hand, building from source may fail even when using newer versions. (It is difficult to specify a version that is working correctly, so please forgive this vague description.) Generally, if the first two digits of the version number are the same, you should be able to use it in the same way.
 
-Instructions on installing these tools and libraries follow below.
+Additional information about installing each tool and library is provided below. Installation should be done under an account with administrator privileges. Also, if the user account control is displayed as in the screenshot below, click on **Yes** to proceed.
+
+.. figure:: images/userAccount.png
+
+.. _install_visualc++:
 
 Visual C++ 2015
 ~~~~~~~~~~~~~~~
 
-You can use Microsoft Visual C++ to compile Choreonoid. 
-The standalone version can be used, or the free version. 
-To download the Visual Studio Community 2015, see `this page <http://www.visualstudio.com/downloads/>`_ . 
+You can use Microsoft’s Visual C++ for compiling Choreonoid. The commercial version is fine, or the free version can also be used.
+The free version of Visual Studio Community 2015 can be downloaded from `this page <https://visualstudio.microsoft.com/vs/older-downloads/>`_ . 
 
-We have confirmed that both 32-bit and 64-bit binaries can be built. (The 32-bit binary also runs on 64-bit versions of Windows.) 
-You must ensure that the libraries you use are consistent (32-bit or 64-bit).
+.. figure:: images/VC2015Install1.png
 
+Click the Download button in the Visual Studio 2015 section. On the following screen, login using your Microsoft account when asked to do so. If you are already logged in, you will be taken directly to the download page. If you don’t have an account, you will need to create a new one. You can create one free of charge.
+
+.. figure:: images/VC2015Install2.png
+
+In the “Visual Studio Community 2015 with Update 3” section, select **x64**, **English** and **EXE**, and click the **Download** button. When you run the downloaded file, the installation will begin. So, follow the displayed instructions.
+
+.. figure:: images/VC2015Install3.png
+
+When selecting which components to install as shown in the screenshot, select the **Common Tools for Visual C++ 2015**.
+
+Visual C++ 2017
+~~~~~~~~~~~~~~~
+The free version of Visual Studio Community 2017 can be downloaded from `this page <https://visualstudio.microsoft.com/downloads/>`_ .
+
+.. figure:: images/VC2017Install0.png
+
+Click the Free Download button. When you run the downloaded file, the installation will begin. So, follow the displayed instructions.
+
+.. figure:: images/VC2017Install1.png
+
+If the screen appears as in the screenshot above, click the checkbox for **Desktop Development with C++**, click the Language Pack tab and select English. If you want to change the installation location, set that here. Once you have finished with the settings, click the **Install** button.
 
 CMake
-~~~~~~~~~
+~~~~~
 
-This tool is used to specify the build method. 
-The build method used for Choreonoid is described with this tool; in Windows, this then allows for creating a Visual Studio project file.
+This is a tool for specifying the build process. The build process for Choreonoid is described using the format of this tool, and it can be used to generate Visual Studio project files on Windows.
 
-You can download the Windows (Win32) installer from the `CMake download page <http://www.cmake.org/cmake/resources/software.html>`_ to easily install the tool.
+You can download the Windows installer "Windows win64-x64 Installer" from the `CMake download page <https://cmake.org/download/>`_.
+We are currently testing operation with version 3.12.0.
+
+.. figure:: images/CMakeInstall1.png
+
+Click cmake-3.12.0-win64-x64.msi to download, and run this file to install. Follow the displayed instructions.
+
+.. figure:: images/CMakeInstall2.png
+
+When you see the screen as in the screenshot above, select **Add CMake to the system PATH for all users**.
+
+Other settings can be left at their defaults.
+
 
 Boost
-~~~~~~~~
+~~~~~
 
-This is a useful collection of C++ libraries. 
-You can download it from `Boost Downloads <http://www.boost.org/users/download/>`_ , but note that downloading from source requires compiling it first.
+This is a useful collection of C++ libraries. You can download it from the `Boost Downloads <http://www.boost.org/users/download/>`_  page.
 
-There is already an installer that contains prebuilt binaries compiled for Windows, so this is the easier choice. 
-From the above page, click the link that reads, “Prebuilt windows  binaries.” 
-This will take you to the `Boost Binaries for Windows page <http://sourceforge.net/projects/boost/files/boost-binaries/>`_ . 
-Select the folder for the version number you want, and you will be presented with two files:
- 
-  * boost_1_60_0-msvc-14.0-64.exe (64-bit) 
-  * boost_1_60_0-msvc-14.0-32.exe (32-bit)
+.. figure:: images/boostInstall1.png
 
-Download one of these. (The msvc-14.0 part of the file name indicates that these are for Visual C++ 2015. 2013 versions read msvc-12.0.)
+f you download the source code, you will need to compile it. There is already an installer that is easier to use, as it contains prebuilt binaries compiled for Windows. Click **Windows Binaries** on the screen and it will take you to the download page.
 
-Run the file to begin the installation process. By default, Boost will be installed to C:\local\boost_1_60_0. You must specify this path later, so remember it.
+  * boost_1_67_0-msvc-14.0-64.exe (for VC2015) or 
+  * boost_1_67_0-msvc-14.1-64.exe (for VC2017).
+
+Download either
+
+Run the file to begin the installation process. By default, the installation location is the “C:\\local\\boost_1_67_0” folder. If you don’t change this, CMake will automatically detect Boost in a later step. If you do change it, remember that you will need to specify the folder manually.
 
 Qt
-~~~~~~
+~~
+Qt is a comprehensive framework library that includes a GUI, and Choreonoid also uses it as the basis for its GUI.
 
-Qt is a comprehensive framework library that includes a GUI. Choreonoid uses this as the basis for its GUI.
+You can get the Qt installer from the `Qt download page <https://www.qt.io/download>`_ . On that page, you can select the Commercial version or the Open Source version, as shown in the screenshot below. The Open Source version is fine, so select that.
 
-You can obtain the Qt installer from the `Qt download page <http://qt-project.org/downloads>`_ . 
-The page will auto-detect your OS and present the installer you need. 
-It should read, “Recommended download: Qt Online Installer for Windows.” Click “Download Now” to download the installer. 
-You can then launch the download file and follow the installer’s instructions. 
-The figure below shows the menu that will appear, asking you which libraries to install.
+.. figure:: images/QtInstall1.png
+
+When you go to the next page, it will auto-detect your OS and display the appropriate installer.
+
+.. figure:: images/QtInstall2.png
+
+Check that “Recommended download: Qt Online Installer for Windows” is displayed and click the **Download** button. When you launch the downloaded file, you will be asked to login. It is okay to click the Skip button and skip ahead.
+
+By default, the installation location is the “C:\\Qt” folder. If you don’t change this, CMake will automatically detect Qt. If you do change it, remember that you will need to specify the folder manually.
+
+During the process, on the Select Components screen as shown below, select the library to install.
 
 .. figure:: images/QtInstall.png
 
-By default, multiple versions will be selected. 
-However, old versions are not needed, and you must use the version that matches your compiler, so only select the most recent version. 
-In this example, we’ve selected the msvc2015 64bit version of Qt 5.6. For 32-bit, select msvc2015 32bit. 
+Select the latest version **5.11.1** of **MSVC2015 64bit** or **MSVC2017 64bit**. Then, follow the instructions of the installer.
 
-After this step, installation will begin. 
-By default, Qt is installed to C:Qt. Remember this path for later.
 
 Eigen
-~~~~~~~~~
+~~~~~
 
-This is a library used to compute matrixes and vectors. 
-You can download it from `the official Eigen web site <http://eigen.tuxfamily.org/>`_ .
+It is a library used to calculate matrices, vectors, etc. It can be downloaded from the `official Eigen page <http://eigen.tuxfamily.org/>`_ .
 
-This library consists solely of a header file, so no compilation is necessary. 
-You can simply open the file you download from wherever you like. 
-However, Eigen files use a nomenclature and folder version structure that is non-standard, and create several nested folders, which can confuse matters. 
-Below is an example of how to change folder names when installing.
+.. figure:: images/EigenInstall1.png
 
-* From the Eigen page, download the ZIP file for the version you wish to use. For version 3.2.8, download eigen-eigen-07105f7124f9.zip. As you can see, the filename does not specify the version number. Also, the term “eigen” appears twice for some reason.
+The latest version 3.3.5 Zip file can be downloaded by clicking on Zip.
+This library is made up of a header file only and doesn’t need to be compiled, so it is okay to just extract the downloaded file to a suitable location. However, in Eigen, the archive file name and extracted folder name consist of characters that do not give the version number, which can be confusing if left as it is. Refer to the example shown below for how to change folder names during installation.
 
-* Use Windows Explorer or another tool to open the ZIP archive. By default, the folder name will be eigen-eigen-07105f7124f9. You will then find another folder within that with the same name, after which you will find Eigen itself.
+* Download the Zip file of the version you are going to use from the Eigen page. For version 3.3.5, the file will be named “eigen-eigen-b3f3d4950030.zip”. As you can see, the file name doesn’t specify that the version number is 3.3.5. Also, the word “eigen” is included twice for some reason.
 
- | eigen-eigen-07105f7124f9
- |  eigen-eigen-07105f7124f9
- |     bench
- |     blas
- |     cmake
- |     ...
+* Extract the Zip file using Explorer or a similar tool. By default, the extracted folder will be named “eigen-eigen-b3f3d4950030”, and Eigen itself will be inside.
+
+ | eigen-eigen-b3f3d4950030
+ |   bench
+ |   blas
+ |   cmake
+ |   ...
  
-* Begin by changing the second folder to a more logical name. Add the version number as below.
-
- | eigen-eigen-07105f7124f9
- |  **eigen-3.2.8**
- |     bench
- |     blas
- |     cmake
- |     ...
-
-* Lastly, move this new folder to a directory of your choice. Boost is found in C:\local, so putting Eigen here would be a good idea. The final structure would be as follows:
+* Change the folder name to include the version number and move it to a suitable location. Boost will be under C:\\local, so it is a good idea to also save Eigen here. The final Eigen installation will be as shown below. If it is installed in this location, CMake will automatically detect Eigen. If you install it somewhere else, remember that you will need to specify the folder manually.
 
  | local
  |   boost_1_60_0
  |    ...
- |   eigen-3.2.8
+ |   eigen-3.3.4
  |     bench
  |     blas
  |     cmake
  |     ...
  
-Obtaining the source code
--------------------------------
+ 
+Getting the source code
+-----------------------
 
-Official release
-~~~~~~~~~~~~~~~~~~~~
+Official release version
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The source code for the official release of Choreonoid can be downloaded from the `Downloads page <http://choreonoid.org/en/download.html>`_ . 
-Download the corresponding version of the source package from that page. 
-The files are ZIP archives, so you should expand them with Windows Explorer or another tool into a directory of your choice.
+The source code of the official release version of Choreonoid can be downloaded from the `Downloads <http://choreonoid.org/ja/download.html>`_  page. Download the corresponding version of the “source package” from this page. The files are Zip archives, so extract them into a suitable directory using Explorer or a similar tool.
 
-Once expanded, the directory choreonoid-1.5.0 will be created. 
-The source code is contained in this directory, which this manual refers to as the “source directory.”
+When you extract it, it generates a directory named something like choreonoid-1.6.0. The complete source code is stored in this directory, which from now on is referred to in this manual as the **“source directory”**.
+
 
 Development version
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
-You can also use the development version of Choreonoid if you choose to. 
-This is housed on the Choreonoid `git <http://git-scm.com/>`_ repository and at the github URL below.
+You can also use the Choreonoid development version if you wish. It is managed as a `Git <http://git-scm.com/>`_  repository, and it is published at the following `github <https://github.com/>`_ address.
 
 - https://github.com/s-nakaoka/choreonoid
 
-There are two ways to obtain the source from here.
+There are two ways to get the source code from here.
 
 * Install Git
-* Obtain the ZIP file
+* Get the Zip file
 
 Installing Git
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
+Git tools are required in order to use the repository. There are several tools that have been released free of charge, but here we will explain how to use the Git tools in Visual Studio and how to install a tool used at the command prompt. Of course, you can use other tools that you’re already familiar with.
 
-In order to use the repository, you will need to use tools to access git. 
-There is a variety of tools available; here we describe how to install a tool used at the command prompt. 
-You are of course welcome to use other tools you are accustomed to.
+Use Visual Studio
+"""""""""""""""""
+Launch Visual Studio, select **Team Explorer** from the **View** menu and it will be displayed.
 
-Download the file from `Git for Windows <https://git-for-windows.github.io/>`_  and run it, following the instructions from the installer. 
-The default settings should be fine. 
-If the window below appears, select “Use Git from the Windows Command Prompt,” which will add wrappers to your PATH.
+.. figure:: images/VSgithub1.png
+
+Click the icon circled in red in the screenshot.
+
+.. figure:: images/VSgithub2.png
+
+Under Local Git Repositories, click Clone.
+
+.. figure:: images/VSgithub3.png
+
+Enter the URL of the Choreonoid repository in the upper field outlined in red, enter the directory where you want to keep the source code in the lower field, and click the Clone button.
+
+The source code will be cloned.
+
+Once cloned, select choreonoid as shown below, right-click and select Open from the dropdown menu.
+
+.. figure:: images/VSgithub4.png
+
+When the screen changes as shown below, select Sync. Then, when you click Pull, the latest source code will be updated.
+
+.. figure:: images/VSgithub5.png
+
+Use Git for Windows
+"""""""""""""""""""
+
+Next, we will explain about the tool used at the command prompt.
+
+Download the file from `Git for Windows <https://git-for-windows.github.io/>`_ and run. Follow the instructions of the installer. It’s fine to keep the default setting, but if the screen below appears, select “Use Git from the Windows Command Prompt”, which will add wrappers to your PATH.
 
 .. figure:: images/GitSetup.png
 
-Once the installation is complete, launch a command prompt and move to the directory which contains the Choreonoid source you wish to save. 
-Execute the following command: ::
+When the installation is complete, launch the Command Prompt, go to the directory which contains the Choreonoid source you want to save, and execute the following command.: ::
 
  git clone https://github.com/s-nakaoka/choreonoid.git
  
-This will create the “choreonoid” directory with the repository contents. 
-You can then use the following command and update to the latest version of the source code: ::
+This will create a “choreonoid” directory containing the repository. You can then use the following command: ::
  
   git pull
   
-The above is all you need to obtain the source code. 
-For details on using git further, refer to the git manual or explanatory articles.
+in this directory and update to the latest version of the source code.
 
-Obtaining as a ZIP file
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The above will allow you to get the source code, but for detailed usage of Git you should refer to the Git manual or explanatory articles.
 
-You can use a web browser to access the `Choreonoid repository <https://github.com/s-nakaoka/choreonoid/>`_ , where you will see the following:
+Getting it as a Zip file
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Open the `Choreonoid repository <https://github.com/s-nakaoka/choreonoid/>`_  using a web browser, click on the green Clone or download button outlined by the red rectangle, and it will be displayed as follows.
+
 
 .. figure:: images/downloadZip.png
    :width: 600px
 
-Click the Download ZIP button circled above to download the latest content in ZIP format. You should then open this file.
+Click the blue **Download ZIP** circled in red to download the latest content in Zip format. Extract the downloaded file in the directory where you keep the source code.
 
-While this method is simple, it differs from the git pull command in that you have to download the file each time you want the latest version, rather than simply updating the local content.
+While this method is simple, after the second time the **git pull** command can only get updated files, and using this method means downloading all the files every time.
+
+.. _build-windows-cmake:
 
 Configure build settings with CMake
---------------------------------------------
+-----------------------------------
 
-From the Start Menu, launch CMake (cmake-gui). This will bring up the following dialog.
+First, launch CMake (cmake-gui) from the Start menu. Then, the dialog box shown below will be displayed.
 
 .. figure:: images/cmake0.png
    :width: 600px
    
-The figure above highlights in red a section to the left of the menu reading, “Where is the source code:” To the right of that is a field you can use to enter the Choreonoid source directory. 
-For “Where to build the binaries:” enter the directory in which to build Choreonoid’s binaries. 
-You can build the binaries in the same directory as where the source code is found, but it can create a confusing structure, so we suggest creating a “build” directory below the source directory and using this for your output. Once finished, click the Configure button marked in red. 
-A dialog like that seen below will appear, and you can select your compiler.
+Next, enter the Choreonoid source directory in the input field to the right of **Where is the source code**: indicated by the No.1 red frame in the screenshot above. Click **Browse Source...** and a dialog box will open, from which you can select the directory. Next, enter the directory where you want to build Choreonoid in the input field to the right of **Where to build the binaries**:. The directory for the build can be the same one used for the source code, but this may create a confusing structure. So, create a sub-directory called “build” below the source directory and enter the name of that sub-directory. Once you’ve entered the above, click **Configure** indicated by the No.2 red frame.
+
+If the directory for the build has not been created in advance, a dialog box will now be displayed asking if you want to create one.
+
+Next, a dialog box will be displayed as shown below. Select the compiler from the dropdown menu outlined in red.
 
 .. figure:: images/cmake1.png
 
-Select “Visual Studio 14 2015 Win64”(64-bit) or “Visual Studio 14 2015” (32-bit), then click Finish.
+Select **"Visual Studio 14 2015 Win64"** or **"Visual Studio 15 2017 Win64"**  and click the **Finish** button.
 
-This will then run CMake’s configure command and detect the compiler and libraries.
+This will then run CMake’s configuration process and the compiler, libraries, etc. will be detected.
 
-.. note:: You may receive a message reading, “The C compiler identification is unknown” or, “The CXX compiler identification is unknown.” This means that the Visual C++ compiler has not been detected properly. The reasons remain unclear, but this has occurred to us during development. If this happens, you will be unable to proceed to the steps below.
-  
- We tested launching CMake with administrator privileges, which properly detected the compiler and allowed for proceeding past this issue. You can right-click on the CMake icon and select Launch as Administrator (actual wording may differ). If you encounter problems, we recommend trying this workaround.
+.. note:: At this time, you may see a message saying, “The C compiler identification is unknown” or, “The CXX compiler identification is unknown”. This indicates that the Visual C++ compiler has not been detected correctly. The cause is unclear, but this problem has occurred in one of our developer environments. In this case, it is not possible to continue processing correctly from this point.
+
+ Regarding this issue, we tested running CMake with administrator privileges, which correctly detected the compiler and made it possible to proceed past this issue. To do this, right-click on the CMake icon and select “Launch as Administrator" in the menu that appears. If you encounter this problem, we recommend trying this workaround.
  
-The program should then reach an error dialog like the one below and halt. 
-You will see an error (indicated with the arrow below) stating that the BOOST settings could not be found. 
-(You may first experience a different error, explained below.) Click OK to hide this dialog.
+.. note:: If the program called pkg-config.exe is installed in the Windows environment, you may encounter an error during this operation. If that happens, you should uninstall pkg-config.exe.
+
+When installing the libraries, if you selected the default directory, it will automatically detect the libraries and a message will be displayed with **Configuring done** on the last line as shown below.
 
 .. figure:: images/cmake2.png
 
-From the input fields at the top, enter the Boost installation directory in the field to the right of **BOOST_ROOT** and the directory in which the Boost libraries (.lib, .dll) are stored in the field to the right of **BOOST_LIBRARYDIR**. 
-Then, click Configure again.
+(If you install in another directory, an error message will probably be displayed. The settings for that situation are explained later.)
+
+Next, set the installation location. Scroll through the field shown in the center as in the screenshot below until the item **CMAKE_INSTALL_PREFIX** is displayed.
 
 .. figure:: images/cmake3.png
 
-If errors pertaining to Eigen appear, enter the Eigen installation path in the **EIGEN_DIR** field.
+By default, it is set to “c:\\Program Files\\Choreonoid”. In Windows, only administrators have access to paths below “c:\\Program Files”, so this may cause the installation to fail. You can run the installer with administrative privileges, but it is probably easier to simply install in a different directory. You can set this with **CMAKE_INSTALL_PREFIX**, specifying a directory structure such as “c:\\choreonoid\\program”, for example.
 
-If errors pertaining to QT5 appear, enter the directory in which the Qt5CoreConfig.cmake file is housed (it should be the Qt installation path, followed by/5.5/msvc2015_64/lib/cmake/Qt5Core) in the **Qt5Core_DIR** field. 
-You may also see errors pertaining to other QT5 libraries, but these errors will disappear once you set the Core settings and click Configure. 
-You are free to ignore these warnings.
-
-.. note:: Depending on the version of CMake you are using and the versions of installed libraries and their locations, you may have other points that fail to be detected and produce similar errors. Errors may also appear for some of the optional features described below. If this occurs, use the same steps as above to manually enter the install location.
-
-Continue repeating the above until the installation points for all requisite libraries have been set and errors stop appearing. Once this is complete, you will see a message stating “Configuring done,” as shown below.
+When the settings are complete, click the **Configure** button and confirm that a message ending with **Configuring done** is again displayed.
 
 .. figure:: images/cmake4.png
-   :width: 600px
-   
-You can then set a range of optional features as needed for your particular build. 
-For example, a range of Choreonoid functions are off by default, but you can turn these on by toggling the flags that begin with BUILD\_.
 
-You can specify the install path using the **CMAKE_INSTALL_PREFIX** parameter. 
-By default, it is set to "c:\\Program Files\\Choreonoid". 
-In Windows, only administrators have access to paths below "c:\\Program Files", so this may cause the installation to fail. 
-You can run the installer with administrative privileges, but it is probably easiest to simply specify a different directory. 
-You can set this with **CMAKE_INSTALL_PREFIX**, specifying a directory structure like, for example, "c:\\choreonoid\\program".
+Next, click the **Generate** button in order to create a Visual Studio project file. If the **Generate** button is not clickable, click **Configure** again.
 
-Once you have toggled these settings, click Configure.
-If you finish the setup but the Generate button is not clickable, click Configure again. 
-Once the Configure process runs and you get a message like that seen below, with “Configuring done” displayed and the Generate button activated, setup is complete.
+Once the solution file is created, you will see the message **Generating done** displayed in the output pane.
+
+Next, we will explain the steps to take if an error message is displayed or you want to change other settings. If you have not seen any errors up to this point, you can read this after you have proceeded to :ref:`build-windows-visualstudio` .
+
+If libraries cannot be detected automatically, an error dialog like the one shown will be displayed.
 
 .. figure:: images/cmake5.png
-   :width: 600px
 
-Lastly, click Generate in order to create a Visual Studio project file.
+Click **OK** to close the dialog box. Scroll down in the window where the message in the section below is displayed and find where the error is displayed. Ignore the warnings. An error displayed lower down is sometimes due to an error above, so start searching from the top.
+
+In the screenshot below, an error appears saying that Eigen libraries could not be found.
+
+.. figure:: images/cmake9.png
+
+Look up **EIGEN_DIR** from the previous settings and enter the Eigen installation directory.
+
+.. figure:: images/cmake10.png
+
+Click the **Configure** button and confirm that the error has disappeared.
+
+In the screenshot below, an error appears saying that Boost libraries could not be found.
+
+.. figure:: images/cmake6.png
+
+BOOST_ROOT is not in the above settings. In this case, click the **Add Entry** button. A dialog box will appear, so enter the details as shown below.
+
+.. figure:: images/cmake7.png
+
+In the **Value** field, specify the directory where the Boost libraries are installed. Click **OK** to close the dialog box, and confirm that BOOST_ROOT has been added as shown below.
 
 .. figure:: images/cmake8.png
-   :width: 600px
 
-Once the solution file is created, you will see the message **Generating done** in the output pane. 
-Use Windows Explorer or another tool to confirm that Choreonoid.sln, a Visual Studio solution file, has been created in the directory in which Choreonoid was built.
+Click the **Configure** button.。
+
+If errors pertaining to QT5 appear, enter the directory in which the Qt5CoreConfig.cmake file is kept (it should be the path to the Qt installation location, followed by, /5.5/msvc2015_64/lib/cmake/Qt5Core) in the **Qt5Core_DIR** field.   You may also see errors pertaining to other QT5 libraries, so enter details in the same way as above. You are free to ignore these warnings.
+
+After that, it is possible to set various other options related to the build as required. For example, some Choreonoid functions are off by default, but you can turn these on as required by toggling the options that begin with BUILD_.
+
+Repeat the same settings as above until the installation locations of all the necessary libraries are specified and there are no errors.
+
+When all the required settings are complete, click **Generate**.
+
+.. note:: Regarding other libraries, depending on the version of CMake you are using and the versions of installed libraries and their locations, detection may fail and produce similar errors. Errors may also appear for some of the optional features described below. The order in which errors appear may also vary depending on the installation. If this occurs, find the error locations and manually enter the installation location in the same way as described above.
+
+.. note:: The details of the settings are saved as a file called **CMakeCache.txt** in the location specified by **Where to build the binaries**. If you want to redo the settings from scratch, delete this file. It can also be deleted using **File - Delete Cache** from the CMake menu.
+
+.. _build-windows-visualstudio:
 
 Launching Visual Studio and importing solutions
------------------------------------------------------
+-----------------------------------------------
+Next, you can build Choreonoid.
 
-If you confirm that the Visual Studio solution file has been created with CMake, you can next build Choreonoid. 
-Double-click the file Choreonoid.sln. 
-Visual Studio will launch, and the solution file should have opened. 
-If Visual Studio fails to launch, there may have been an issue with the installation process, so please reinstall it and attempt to repair the file association. 
-You can alternately try to launch Visual Studio on its own and then open the solution file from the menu.
+The previous operations should have resulted in the Visual Studio solution file Choreonoid.sln being created in the location specified by **Where to build the binaries** in CMake. Double click this file.
+
+Visual Studio will be launched and the solution file should be opened.
+
+If Visual Studio fails to launch, there may have been an issue with the installation process, so reinstall it and attempt to repair the file association. Alternatively, you can try launching Visual Studio and opening the solution file from the menu.
+
+Since the build operation is the same in Visual Studio 2015 and 2017, the following description does not specify which version. Therefore, there may be differences in the screen design, etc.
 
 Compiling
--------------
+---------
 
-
-Once a solution is read in, you will see the menu below. 
-Change the section marked in red to **Release** and confirm that, for the 64-bit binary, **x64** is displayed, and for the 32-bit binary, **Win32**. 
-If you go into debugging, you will be able to create a debuggable binary. 
-However, the debugging binary will be considerably slower than the Release version you compiled, so you should use the normal Release binary unless you need to debug.
+Once a solution is read in, you will see the screen below. Change the section outlined in red to Release and confirm that x64-bit is displayed. If you change it to Debug, you will be able to create a debuggable binary. However, the debugging binary will be considerably slower than the Release version you compiled, so you should use the compiled Release binary unless you need to debug.
 
 .. figure:: images/VS1.png
 
-Next, we will build Choreonoid. 
-Clicking the build option on the menu will bring up to pulldown menu seen below. 
-Click Build Solution (B). 
-Choreonoid will now begin building. 
-When you see the message **“0 Failed”** in the message window at the bottom, compilation is complete.
+Next, you will build Choreonoid. Click Build in the menu and the dropdown menu seen below will appear. Click **Build Solution** as outlined in red. Choreonoid will now begin building. When you see the message “**0 Failed**” in the message window at the bottom, the compilation is complete.
 
 .. figure:: images/VS2.png
 
 Installation
----------------
+------------
 
-Once Choreonoid finishes building, you will then install it. 
-Install is selected from the Solution Explorer seen at the upper left. 
-Right-clicking on the INSTALL project opens up a menu. 
-The top option of this menu is Build (U) (see red border in image). 
-Select this. The Choreonoid binary will be copied to the directory you specified with **CMAKE_INSTALL_PREFIX** when using CMake. 
-If you place a checkmark next to **INSTALL_DEPENDENCIES** when creating the solution file with CMake, the library dependencies will also be copied.
+Once the Choreonoid build is complete, you will finish by installing it. Install is selected, as shown below, from the Solution Explorer seen on the upper left. Right-click on the INSTALL project and a menu will appear. The top option of this menu is **Build** (see the area outlined in red shown below). Select this. If the process goes smoothly, the Choreonoid binary will be copied to the directory you specified with **CMAKE_INSTALL_PREFIX** when using CMake. If you checked the box next to **INSTALL_DEPENDENCIES** when creating the solution file with CMake, the library dependencies will also be copied.
 
 .. figure:: images/VS3.png
 
-This concludes the process of installing Choreonoid.
+This completes the installation of Choreonoid.
 
-Double-clicking on choreonoid.exe in the bin directory of your install path will launch Choreonoid.
+Double-clicking on **choreonoid.exe** in the bin directory of your installation location will launch Choreonoid.
+
 
 Building optional features
------------------------------------
+--------------------------
 
-In addition to setting Choreonoid to the default state as per the steps above, there are several modules, plugins, and samples that can be used. 
-These can be enabled with CMake and built into the software. 
-In this section, we describe several key optional features. 
-You will find an in-depth summary of them at :doc:`Optional Features<options>`.
+In addition to setting Choreonoid to the default state following the steps above, there are several modules, plugins, and samples that can be used. These can be enabled with CMake and built into the software. In this section, we describe building several of these optional features. A summary of other features can be found in :doc:`Optional Features<options>`.
+
+We will briefly explain the installation method of the library used by each plugin, but there may be major changes due to a library version upgrade, for example. There may also have been updates to the developer’s website or changes to link destinations. If that is the case, you should be able to find up-to-date information by searching online using keywords such as the library name, “install”, etc.
+
+.. note:: After configuring optional features in CMake, click the **Configure** and **Generate** buttons to update the solution file. Compiling and installing in Visual Studio using this file will create an optional plugin. Be sure to compile and install after changing options in CMake.
+
+Assimp plugin
+~~~~~~~~~~~~~
+
+This plugin is for using  **Open Asset Import Library (Assimp)**, a library for reading 3D model data in various formats, in Choreonoid. In order to use this plugin, you need to build the Assimp library from source and install.
+
+Open the page for `assimp on github <https://github.com/assimp/assimp/>`_ in your browser.
+
+.. figure:: images/assimp1.png
+   :width: 800px
+
+Click **Branch:master** as indicated by red circle No.1, then **Tags** as indicated by red circle No.2, and select the version. The current version tested as working is 4.1.0. In the screenshot, version 4.1.0 is selected.
+
+.. figure:: images/assimp2.png
+   :width: 800px
+
+Confirm that the display has changed to **Tag: v4.1.0**, click **Clone or download**, and click **Download ZIP** to download the source file in Zip format.
+
+Extract the Zip file.
+
+You can use CMake, in the same way as explained in the Choreonoid build, to create a Visual Studio project file. You don’t need to change the CMake option settings.
+
+The installation destination of **CMAKE_INSTALL_PREFIX** is set to **c:\\Program Files\\Assimp**, but if you set it to be under **c:\\local**, it will be detected automatically. So, if possible, specify it as **c:\\local\\Assimp**.
+
+.. figure:: images/assimp3.png
+
+Compile and install in Visual Studio in the same way as Choreonoid.
+
+Once you have installed Assimp, re-launch CMake and specify the source and build directory of Choreonoid.
+
+The previous setting details are saved, so this time you only need to do the Assimp settings. (If you don’t have saved settings, such as when you specify a new build directory, click **Configure** without doing the following operation.)
+
+.. figure:: images/assimp4.png
+
+As shown, the value for **ASSIMP_DIR** is displayed as **ASSIMP_DIR - NOTFOUND**.
+
+.. figure:: images/assimp5.png
+
+There is an item below that called **ENABLE_ASSIMP**, so select this and click the **Remove Entry** button to delete this item. Then click **Configure**, which should automatically detect Assimp.
+
+If the automatic detection fails, set **ENABLE_ASSIMP** to **ON** and enter the value for **ASSIMP_DIR** manually. At this point, you need to specify the directory that contains Assimp's CMake file, not the top directory of the Assimp installation. It should be at **(installation location)\\Assimp\\lib\\cmake\\assimp-4.1**.
+
+Next, you will build Choreonoid.
+
+.. _build_windows_openrtm_plugin:
 
 OpenRTM plugin
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+This plugin is used to perform simulations using RT-Components in Choreonoid. Use of this plugin requires that OpenRTM-aist 1.1.2 and Python are installed. (There is no Visual C++ 2017 library for OpenRTM-aist 1.1.2, so this plugin cannot be built with 2017.)
 
-This plugin is used to perform simulations using RT-Components in Choreonoid. 
-Use of this plugin requires that OpenRTM-aist 1.1.x and Python be installed.
+First install **Python2**, as this is required in order to install OpenRTM-aist 1.1.2. 
 
-To install OpenRTM-aist, you can obtain an installer from the official web site. 
-From the `OpenRTM-aist downloads page <http://www.openrtm.org/openrtm/en/content/openrtm-aist-c-112-release>`_ , download the file OpenRTM-aist-1.1.2-RELEASE_x86_64.msi  or OpenRTM-aist-1.1.2- RELEASE_x86.msi. 
-Clicking on this file will launch the installer.
+Access the `Python <http://www.python.org/>`_  website.
 
-To obtain python, access the Python 2.7 download page on the `Python website <http://www.python.org/>`_  and download the Windows MSI installer and run it.
- (The same installer is found on the OpenRTM-aist download page.) 
- We have encountered issues with version 2.7.11, so 2.7.10 is recommended. 
- Follow the installer instructions and, when the option Customize Python 2.7 appears, change **Add python.exe to Path** to **Will be installed on local hard drive**.
+.. figure:: images/python2_1.png
+   :width: 500px
 
-.. note:: These installers set environment variables like OMNI_ROOT, but these may not immediately be updated after installation (in particular, in Windows 10). This will cause CMake to not proceed as intended, so please reboot Windows after installation before proceeding.
+Hover your cursor over **Downloads** and select **Windows** from the dropdown menu that appears.
 
-Once OpenRTM-aist has been installed, set the CMake flags **ENABLE_CORBA**, **BUILD_CORBA_PLUGIN**, and **BUILD_OPENRTM_PLUGIN** to ON. 
-The OpenRTM plugin depends on Corba, so you must set all of these parameters on. 
-Setting **BUILD_OPENRTM_SAMPLES** to on also builds sample simulations that make use of RT-Components, so it is recommended to first set this to on and try the samples.
+.. figure:: images/python2_2.png
+   :width: 500px
 
-If, after clicking the Configure button in CMake, you receive an error stating that OpenRTM-aist could not be found, set the OpenRTM-aist install path using the **OPENRTM_DIR** parameter. 
-By default, the path when installing with the above OpenRTM-aist installer will be c:\Program   Files\OpenRTM-aist\1.1.2.
+Click **Latest Python 2 Release - Python 2.7.15**.
 
-Clicking the Generate button after setting the above CMake parameters will update the solution file. 
-You can then compile and install Visual Studio with this file in order to create the OpenRTM plugin. 
-The same applies to other plugins; after changing CMake parameters, always compile and install.
+.. figure:: images/python2_3.png
+   :width: 500px
+
+Click the Windows 64-bit installer to download it. When you run the downloaded file, the installation will begin. So, follow the displayed instructions.
+
+.. figure:: images/python2_4.png
+   :width: 500px
+   
+If the screen above appears, change **Add python.exe to Path** to **Will be installed on local hard drive** and continue.
+
+Next, install OpenRTM-aist 1.1.2. You can download OpenRTM-aist 1.1.2 from the `official website <http://openrtm.org/>`_ . Note that this is a temporary site while a security update is carried out.
+
+Download the Windows 64-bit installer.
+
+.. figure:: images/openRTM1.png
+   :width: 500px
+
+Launch this file to begin the installation. If the screen appears as shown below, select Typical.
+
+.. figure:: images/openRTM2.png
+
+.. _build-windows-setenv:
+
+When the installation is complete, confirm and set the environment variables. Below, we will explain the process for Windows 10.
+
+Enter **Control Panel** where “Type here to search” is displayed in the taskbar, and click on the displayed control panel to open it.
+
+.. figure:: images/windowsSet1.png
+   :width: 300px
+
+Click **System and Security** - **System** - **Advanced System Settings** and open **System Properties**.
+
+.. figure:: images/windowsSet2.png
+   :width: 900px
+
+Click the **Environment Variables button** to display them. Confirm that **OMNI_ROOT**, **RTM_BASE** and others are among the system environment variables in the lower section.
+
+If these variables are not present, reboot Windows.
+
+.. figure:: images/windowsSet3.png
+   :width: 900px
+
+Immediately after installation, the **RTM_VC_VERSION** variable should be vc12. Double-clicking on this column opens the dialog box for editing, so change it to **vc14** (meaning VC ++ 2015). Click the **OK** button and close all the dialog boxes.
+
+Once you have installed OpenRTM-aist, re-launch CMake and specify the source and build directory of Choreonoid. Set **ENABLE_CORBA**, **BUILD_CORBA_PLUGIN**, and **BUILD_OPENRTM_PLUGIN** to **ON** and click **Configure**. The OpenRTM plugin depends on the Corba plugin, so you need to turn on all of them. Also, if **BUILD_OPENRTM_SAMPLES** is toggled on, a simulation sample using the RT component will also be built, so turn it on here first and try out the sample.
+
+If you installed using the above OpenRTM-aist installer, by default it should be installed in the directory named c:\Program Files\OpenRTM-aist\1.1.2 and should be detected automatically. If you get an error message saying that OpenRTM-aist cannot be found, set **OPENRTM_DIR** to the directory where you installed OpenRTM-aist.
 
 Media plugin
-~~~~~~~~~~~~~~~
-
+~~~~~~~~~~~~
 This plugin allows you to play back media files. Set **BUILD_MEDIA_PLUGIN** to ON in CMake.
 
-Some formats, such as MPEG-4 media files, may not play back by default. 
-You can enable playback by installing the corresponding codec pack for that file format. 
-You can search online to find these codec packs for free. 
-Because these codecs can affect the functionality of other video software, we do not make specific recommendations. 
-You are encouraged to use codecs that match your system.
+Some file formats, such as MPEG-4 media files, may not play back by default. You can enable playback by installing the corresponding codec pack for that file format. You can search online to easily find these codec packs for free. Because these codecs can affect the functionality of other video software, we do not make specific recommendations. You should use codecs that match your system.
 
 ODE plugin
-~~~~~~~~~~~~~~~~~~
-
+~~~~~~~~~~
 The Open Dynamics Engine (ODE) is an open-source dynamics computation library; it is used in Choreonoid as a plugin to compute its simulations.
 
-In order to build this plugin and use it, you must first install the ODE library. 
-Prebuilt binaries of this library are not available, so you must build it from source. 
-Access the `Open Dynamics Engine site <http://www.ode.org/>`_  to download the file and extract it. 
-We have tested versions up to 0.12 as working. (Reports have been made of 0.13 not working with Choreonoid.)
+In order to build this plugin and use it, you must first install the ODE library. Prebuilt binaries of this library are not available, so you must build it from source. Access the `Open Dynamics Engine site <http://www.ode.org/>`_   to download the file and extract it. We have tested versions up to 0.12 as working. (There are reports of 0.13 not working with Choreonoid.)
 
-The premake command is used to build ODE. 
-Launch a command prompt and enter the build directory in the ODE hierarchy. 
-For 32-bit architectures, execute this command:
+.. figure:: images/ODEinstall1.png
+   :width: 700px
 
- premake4.exe --with-libccd vs2008
- 
-For 64-bit architectures, use:
+Click **Get the source code here**.
+
+.. figure:: images/ODEinstall2.png
+   :width: 800px
+   
+Go to **ODE** - **0.12** and click **ode-0.12.tar.gz** to download the file.  
+
+It is in the tar.gz file format, so you will need extraction software for Windows. If you don’t have it installed, you can install free software such as **Lhaplus**. )
+
+Extract the Zip file and perform the build.
+
+Use the command “premake” to build ODE. Launch the command prompt and go to the directory called “build” under the expanded directory. Then, run ::
 
  premake4.exe --with-libccd --platform=x64 vs2008
  
-This will create a directory entitled vs2008, which contains the file ode.sln. 
-(ODE 0.12 support up to vs2008, so it creates a solution file intended for vs2008. 
-If you open this file in VS2015, the conversion wizard will launch and change it into a 2015-compatible format. 
-Some warnings may appear, but you can likely ignore these.
+. When you do so, it will create a directory called vs2008, which contains the file ode.sln. (Since ode 0.12 supports only up to vs2008, it creates a solution file for 2008. ) When you launch VS2015 (or VS2017) and open this file, a dialog box will open to convert the solution. Click the **OK** button to run it.
 
-Using the converted solutions file, we will now perform a build. 
-Select **ReleaseDoubleDLL** for the solution structure and check the **x64** or **Win32** setting. 
-Once successful, a file named ode_double.* will be created in lib/ReleaseDoubleDLL.
+
+.. figure:: images/ODEbuild1.png
+   :width: 600px
+
+Several warnings will be displayed, but you can ignore these.
+
+.. figure:: images/ODEbuild2.png
+   :width: 600px
+   
+Using the converted solutions file, you will now perform a build. Select **ReleaseDoubleDLL** and **x64** for the solution structure and confirm. If successful, a file named **ode_double.*** will be created in **lib/ReleaseDoubleDLL**.
 
 Next, in the CMake build settings for Choreonoid, set **BUILD_ODE_PLUGIN** to ON and specify the ODE lib root directory for **ODE_DIR**.
 
 Bullet plugin
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 This plugin lets you make use of the Bullet Physics Library, an open-source dynamics computation library, as a computation engine for simulations in Choreonoid.
 
-In order to build and use this plugin, you will need to build the Bullet Physics Library from source. 
-Access the `Bullet Physics Library <http://bulletphysics.org>`_  and obtain the source. 
-We have tested version bullet-2.83.7 as working.
+In order to build and use this plugin, you will need to build the Bullet Physics Library from source. You can get the source from `bulletphysics on github <https://github.com/bulletphysics/bullet3>`_ . We have tested version bullet-2.83.7 as working. We cannot confirm the operability of any later versions.
 
-You can use CMake here in a fashion equivalent to that described before. 
-Change the following options to ON.
+In the same way as described for the Assimp plugin, open the page in your browser, select the version, and download the ZIP file.
+
+You can use CMake, in the same way as explained previously, to create a Visual Studio project file. Change the following options to ON.
 
 * **BUILD_EXTRAS**
 * **INSTALL_EXTRA_LIBS**
@@ -413,49 +557,53 @@ Setting the following options to OFF is also the safest approach.
 * **BUILD_BULLET3**
 * **BUILD_UNIT_TESTS**
 
-Set the install path with **CMAKE_INSTALL_PREFIX**.
+Set the installation destination with **CMAKE_INSTALL_PREFIX**.
 
-.. note:: If you see an error in Extras\HACD\hacdICHull.cpp saying “error C2039:  not a member of ‘max’ : ‘std’”  add the following to the head of this file. ::
+Compile and install in Visual Studio in the same way.
 
-   #include "hacdICHull.h"
-   #include <limits>
-   #include <algorithm>  <--add this line
-   
-.. note:: Different versions of Bullet may have different CMake options. Consider the below as examples that should be adapted to your version.
-
-In the CMake build settings for Choreonoid, set the **BUILD_BULLET PLUGIN** flag to ON and specify the directory in which the Bullet library is installed with **BULLET_DIR**.
+When Bullet has been installed, re-launch CMake. In the CMake build settings for Choreonoid, set the **BUILD_BULLET PLUGIN** flag to ON and specify the directory in which the Bullet library is installed with **BULLET_DIR**.
 
 Python plugin
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+This plugin is used to import and execute Python scripts and to use the features of the Python console used in Choreonoid.
 
-This plugin is used to import and execute Python scripts and manipulate the Python console used in Choreonoid.
+In order to build this plugin and use it, you must first install Python. We have tested versions 2.7.15 and 3.6.3 as working.
 
-In order to build and use this plugin, you will need Python. 
-We have tested version 2.7.10 as working. 
-If you already installed Python in the OpenRTM section, skip to the next section. 
-From the `Python site <http://www.python.org/>`_ , access the Python 2.7 download page and download the Windows MSI Installer. 
-Follow the installer’s instructions and, when asked to Customize Python 2.7, change Add python.exe to Path to Will be installed on local hard drive and complete the installation.
+If you use the OpenRTM plugin, version 2.7.15 of Python was installed at the same time as OpenRTM. To use that Python version, set **USE_PYTHON3** to OFF in the CMake settings.
 
-.. note:: The above settings are used to set environment variables, but they may not be reflected immediately after installation (in particular, in Windows 10). This will prevent you from proceeding, so you should reboot Windows after installation of the above.
+Install Python 3 if you prefer to use it.
 
-Once Python is installed, install **Numpy**. 
-It can be downloaded from `this page <https://pypi.python.org/pypi/numpy/1.11.0/>`_ . 
-Download the file numpy-1.11.0-cp27-none-win_amd64.whl or numpy-1.11.0-cp27-none-win32.whl. 
-Launch the command prompt and enter the directory in which the downloaded files are, then install them with this command: :: 
+As described for the OpenRTM plugin, go to the Python 3 download page on the `Python <http://www.python.org/>`_  website. Download and run **Windows x86-64 executable installer**.
 
- pip install downloaded filename
+.. figure:: images/Python3install1.png
+   :width: 600px
+   
+If you don’t have Python 2.7 installed, check the box for **Add Python 3.7 to PATH**. If you do have Python 2.7 installed, don’t check this box. Click **Install Now** to install.
 
-Next, set the following Choreonoid build flags to on in the CMake settings:  **ENABLE_PYTHON**, **BUILD_PYTHON_PLUGIN**, and **BUILD_PYTHON_SIM_SCRIPT_PLUGIN**. 
+Next, you will install **Numpy**.
 
-.. note:: Python script functionality is currently only supported in the 64-bit version.
+Numpy is installed for the Python that is used in Choreonoid. If only one of either Python 2 or Python 3 is installed, it will be in your PATH, so launch the command prompt and execute the following command. ::
 
-.. note:: We have confirmed that some updates to Visual C++ 2015 cause Python script functionality to malfunction. Specifically, while we were able to successfully build with version 14.0.25123.00 Update 2 (Visual C++ 2015 00325-20000-00000-AA770) of Visual Studio Express 2015 for Windows Desktop, 14.0.25421.03 Update 3 (Visual C++ 2015 00325-20000-00000- AA035), which we believe is a newer version, failed to build, producing an unknown link error.
+python -m pip install numpy
+
+If both are installed, your PATH will go through Python 2. In order to install to Python 3, execute a command specifying the directory where Python 3 is installed. Launch the command prompt and install with this command: ::
+
+C:\Users\(username)\AppData\Local\Programs\Python\Python37\python -m pip install numpy
+
+. C:\Users... is the default installation destination, so change this as required.
+
+When the installation is complete, open CMake for Choreonoid again and set the following settings to ON: **ENABLE_PYTHON**, **BUILD_PYTHON_PLUGIN**, and **BUILD_PYTHON_SIM_SCRIPT_PLUGIN**.
+
+.. note:: If your PATH does not include Python 3, you need to pass PATH when launching Choreonoid. ::
+
+              set PATH=(installation destination of Python 3);%PATH%
+              choreonoid
+        
+        It is easy to prepare and execute a batch file written as shown above.
 
 Uninstalling plugins
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Plugins installed by enabling the **BUILD_XXX_PLUGIN** option will not be deleted even if you turn the option off later. 
-If you install a plugin and want to later delete it for unstable performance or other issues, you must delete the file manually. 
-Plugins are installed to the Choreonoid install path, followed by /lib/choreonoid-1.5 in the format of Cnoid***Plugin.dll.
+~~~~~~~~~~~~~~~~~~~~
+Plugins installed by enabling the **BUILD_XXX_PLUGIN** option will not be deleted even if you turn the option off later. If you add a plugin and want to later delete it due to unstable performance or other issues, you must delete the file manually. Plugins are installed to (Choreonoid installation destination)/lib/choreonoid-1.7 in the format of Cnoid***Plugin.dll.
 
 
 

@@ -1,6 +1,6 @@
 
 Plugin System
-==================
+=============
 
 .. contents::
    :local:
@@ -8,7 +8,7 @@ Plugin System
 
 
 What is a Plugin
---------------
+----------------
 
 Choreonoid allows you to add a new function by installing an additional program module. Such a module is called a "plugin". Actually, many of the standard functions of Choreonoid are implemented as plugins.
 
@@ -61,9 +61,10 @@ Users do not need to pay particular attention to plugin dependencies because, no
 
 As you can see from plugin dependencies, Choreonoid can provide additional functions while a plugin uses functions of other plugins. Thus, new functions can be developed efficiently and it can be expected that users can operate the developed functions in the same way as the existing functions.
 
+.. _basics_plugin_files:
 
 Plugin File
-------------
+-----------
 
 A plugin is a binary file in the form of a "shared library" or "dynamic link library", and is normally stored in the plugin directory of Choreonoid. The plugin directory is "lib/choreonoid-x.x" in the build and installation directories of Choreonoid. A version number of Choreonoid is displayed in x.x.
 
@@ -77,7 +78,7 @@ Plugin files stored in the plugin directory are automatically loaded and become 
 
 
 Building Plugins
-------------------
+----------------
 
 Although several plugins are built and installed in Choreonoid as standard, there are other plugins available as options. In addition, in some cases, you want to use plugins distributed separately from the Choreonoid main unit. In such a case, you must build and install beforehand the plugin you want to use.
 
