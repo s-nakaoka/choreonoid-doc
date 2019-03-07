@@ -17,7 +17,7 @@ The details of the event were as follows.
 * Venue: Tokyo Big Sight
 * Participation format: applicants form teams and submit application documents. Participation is free of charge. Participation is possible once application documents have been approved.
 * Number of participating teams: 8
-* `Prize money: <http://worldrobotsummit.org/download/guideline/prize_money_for_the_wrc2018_ja.pdf>`_ : 1st = 10 million yen; 2nd = 3 million yen; 3rd = 1 million yen
+* `Prize money: <http://worldrobotsummit.org/download/guideline/prize_money_for_the_wrc2018_en.pdf>`_ : 1st = 10 million yen; 2nd = 3 million yen; 3rd = 1 million yen
 * Official website information page: http://worldrobotsummit.org/en/wrc2018/disaster/
 
 .. note:: WRS competitions are scheduled to also be held in 2020. It is expected that the same simulation competition will be held as in the 2018 event, and applications will once again be accepted for participating teams. So, if you are interested, please consider taking his opportunity to take part.
@@ -50,7 +50,7 @@ Uses the Ubuntu Linux OS. It is assumed to be the 16.04 64-bit version.
 
 In this competition, the `AGX Dynamics <http://www.vmc-motion.com/14416057938792>`_  physics engine is used. AGX Dynamics is a commercial physics engine and its use requires a license, but licensing for taking part in this event is provided free of charge for registered participants. If you have a license, you can use it on Choreonoid via the :doc:`../agxdynamics/index` included with Choreonoid.
 
-.. note:: Even if you do not participate in the event, you can try out the competition simulation by purchasing the `AGX Dynamics license for Choreonoid <http://www.vmc-motion.com/15135605209828>`_ sold by `VMC, Inc <http://www.vmc-motion.com/>`_ . (You can of course also use it in simulations other than the competition.) Alternatively, even if you don’t have AGX Dynamics, you can try out elements of the competition by using the standard physics engine in Choreonoid. However, in that case, the robot and task simulations will not be fully functional and the simulation will be somewhat slower.
+.. note:: Even if you do not participate in the event, you can try out the competition simulation by purchasing the `AGX Dynamics license for Choreonoid <http://www.vmc-motion.com/15135605209828>`_ sold by `VMC, Inc <http://www.vmc-motion.com/14400340495009>`_ . (You can of course also use it in simulations other than the competition.) Alternatively, even if you don’t have AGX Dynamics, you can try out elements of the competition by using the standard physics engine in Choreonoid. However, in that case, the robot and task simulations will not be fully functional and the simulation will be somewhat slower.
 
 The simulation PC used at the competition venue is prepared by the event management. The specs of the PC are as follows.
 
@@ -81,7 +81,7 @@ The elements of each robot are shown below.
 
 * WAREC-1
 
- A robot developed mainly at Waseda University for the `ImPACT Tough Robotics Challenge（TRC） <http://www.jst.go.jp/impact/program/07.html>`_ . This is a variety of leg-type robot, and it features four legs symmetrically constructed around the torso. With this construction, it can be used as a 4-leg type robot, or it can be used like a humanoid robot that stands on two of the legs and uses the remaining two legs like arms. As such, with ingenuity, it can adopt various forms in order to deal with various tasks.
+ A robot developed mainly at Waseda University for the `ImPACT Tough Robotics Challenge（TRC） <http://www.jst.go.jp/impact/en/program/07.html>`_ . This is a variety of leg-type robot, and it features four legs symmetrically constructed around the torso. With this construction, it can be used as a 4-leg type robot, or it can be used like a humanoid robot that stands on two of the legs and uses the remaining two legs like arms. As such, with ingenuity, it can adopt various forms in order to deal with various tasks.
 
 * Double-Arm Robot (a dual-arm construction robot)
 
@@ -91,7 +91,7 @@ The elements of each robot are shown below.
 
  A robot jointly developed by Aizu University and IZAK Co., Ltd. It is a crawler-type robot, and in addition to the main tracks, it has auxiliary tracks called flippers in the front and back. It is also equipped with a working arm. Robots of this type are increasingly being used for disaster response in recent years and have a lot of potential for investigative and operational work at disaster sites. This robot comes in three variations with regard to the arm: no arm, single arm, and double arm. Considering the tasks involved in WRS, the double-arm configuration is the most practical.
 
-WAREC-1 and Double-Arm Robot are official WRS `platform robots  <http://worldrobotsummit.org/download/201707/WRS_Disaster_Robotics_Category_A_standard_robot_platform_for_for_Simulation_Challenge_of_Tunnel_Disaster_Response_and_Recovery_Challenge-doc_jp.pdf>`_ . Regarding Aizu Spider, while it is not an official WRS robot, it was originally provided as a sample model of Choreonoid, so it can also be used in this event. Actual working versions of all of these robots have been developed and are in operation.
+WAREC-1 and Double-Arm Robot are official WRS `platform robots  <http://worldrobotsummit.org/download/201707/WRS_Disaster_Robotics_Category_A_standard_robot_platform_for_for_Simulation_Challenge_of_Tunnel_Disaster_Response_and_Recovery_Challenge-doc_en.pdf>`_ . Regarding Aizu Spider, while it is not an official WRS robot, it was originally provided as a sample model of Choreonoid, so it can also be used in this event. Actual working versions of all of these robots have been developed and are in operation.
 
 The multicopter (drone) can also be used in this competition. For the multicopter model, we have prepared a sample model of the quadrotor type developed by the Japan Atomic Energy Agency (JAEA).
 
@@ -140,7 +140,7 @@ In the competition, the elements that can be scored are set for each task, and t
 
 Note that when executing a task, you can use up to two robots and have them coordinate with each other. Making effective use of coordination between robots should make it easier to aim for a higher score.
 
-Refer to the rule book (`official English version  <http://worldrobotsummit.org/download/rulebook-en/rulebook-Tunnel_Disaster_Response_and_Recovery_Challenge.pdf>`_ , `Japanese reference version <http://worldrobotsummit.org/download/detailed-rules/detailed-rules-tunnel-disaster-response-and-recovery-challenge-ja.pdf>`_  ) for details about the tasks, scoring elements, etc.
+Refer to the `rule book <http://worldrobotsummit.org/download/rulebook-en/rulebook-Tunnel_Disaster_Response_and_Recovery_Challenge.pdf>`_  for details about the tasks, scoring elements, etc.
 
 .. _wrs2018_overview_operation:
 

@@ -13,7 +13,7 @@ First, prepare the simulation PC and install Choreonoid.
 
 Refer to the information in the  :ref:`wrs2018_overview_simulator`  section when preparing the OS and specifications of the PC you will be using.
 
-It is assumed that the OS is Ubuntu 16.04 64-bit. The ISO image for the Japanese version of Ubuntu can be downloaded from the `Ubuntu Japanese Team <https://www.ubuntulinux.jp/home>`_  website. But the current version is 18.04, so you need to follow a slightly complicated series of links to download 16.04. You will find the Japanese Team release image at the bottom of the `download site in Japan <https://www.ubuntulinux.jp/ubuntu/mirrors>`_, so select the appropriate server from the list and download releases/16.04/ubuntu-en-16.04-desktop-amd64 Please download.iso.
+It is assumed that the OS is Ubuntu 16.04 64-bit. The ISO image of it can be downloaded from the `this page <http://releases.ubuntu.com/xenial/>`_  . 
 
 Note that we have tested this sample as working even with Ubuntu 18.04. However, as of December 25, 2018, since a version of OpenRTM (version 1.2.0) compatible with Ubuntu 18.04 has not been released, samples that use OpenRTM cannot be executed. Samples using ROS work even with 18.04.
 
@@ -148,4 +148,4 @@ Preparing the gamepad
 
 With this sample, you can operate the robot using a gamepad. To do so, prepare a gamepad and connect it to a PC.
 
-For details about what gamepads can be used, refer to the  :doc:`../simulation/tank-tutorial/index` section on  :ref:`simulation-tank-tutorial-gamepad` . We recommend the  `DUALSHOCK4 <http://www.playstation.com/en-us/explore/accessories/gaming-controllers/dualshock-4/>`_ controller for PlayStation 4. The DUALSHOCK4 can be used wirelessly using a  `USB wireless adapter <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ .
+For details about what gamepads can be used, refer to the  :doc:`../simulation/tank-tutorial/index` section on  :ref:`simulation-tank-tutorial-gamepad` . We recommend the  `DUALSHOCK4 <http://www.playstation.com/en-us/explore/accessories/gaming-controllers/dualshock-4/>`_ controller for PlayStation 4. The DUALSHOCK4 can be used wirelessly using a  `USB wireless adapter <https://support.playstation.com/s/article/DUALSHOCK-4-USB-Wireless-Adapter?language=en_US>`_ .

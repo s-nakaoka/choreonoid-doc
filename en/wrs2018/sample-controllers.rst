@@ -18,7 +18,7 @@ The gamepads currently supported are listed below.
 
 It’s okay to use one of the above if you already have one, but if you need to purchase a new one, we recommend the PlayStation 4 gamepad (Dualshock 4). The Dualshock 4 is easily obtainable, has excellent operability and durability, and it is also used in the development of the competition tasks.
 
-.. note:: A separate Micro USB cable is required in order to use the Dualshock 3 or 4 with a PC. Alternatively, the Dualshock 4 can be used with a `USB wireless adapter <http://www.jp.playstation.com/ps4/peripheral/cuhzwa1j.html>`_ . We have not looked into connecting it directly using Bluetooth.
+.. note:: A separate Micro USB cable is required in order to use the Dualshock 3 or 4 with a PC. Alternatively, the Dualshock 4 can be used with a `USB wireless adapter <https://support.playstation.com/s/article/DUALSHOCK-4-USB-Wireless-Adapter?language=en_US>`_ . We have not looked into connecting it directly using Bluetooth.
 
 Connect the gamepad to the PC to be used for the simulation.
 
