@@ -270,12 +270,12 @@ After that, a function which moves the simulation ahead by one step is called re
         return true;
     }
 
-.. note:: The code odeBody->body()->setVirtualJointForces() is above. This is a mechanism called BodyCustomizer, which allows you to dynamically incorporate model-specific programs into the dynamics calculation library. The project for this sample is CustomizedSpringModel.cnoid. The sample program is at sample/SpringModel/SpringModelCustomizer.cpp. Refer to the `Method of spring damper modeling of a joint <http://www.openrtp.jp/openhrp3/jp/springJoint.html>`_ section of the OpenHRP3 website for an explanation of this sample.
+.. note:: The code odeBody->body()->setVirtualJointForces() is above. This is a mechanism called BodyCustomizer, which allows you to dynamically incorporate model-specific programs into the dynamics calculation library. The project for this sample is CustomizedSpringModel.cnoid. The sample program is at sample/SpringModel/SpringModelCustomizer.cpp. Refer to the `Method of spring damper modeling of a joint <http://fkanehiro.github.io/openhrp3-doc/en/springJoint.html>`_ section of the OpenHRP3 website for an explanation of this sample.
 
 Body class and Link class
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Next, before explaining the structure of the ODE model, we will explain the Body class and the Link class for describing physical objects within Choreonoid. (For details on how to describe the VRML model, refer to the  `Robot and Environmental Model Define Format <http://www.openrtp.jp/openhrp3/jp/create_model.html>`_ section of the OpenHRP3 website.)
+Next, before explaining the structure of the ODE model, we will explain the Body class and the Link class for describing physical objects within Choreonoid. (For details on how to describe the VRML model, refer to the  `Robot and Environmental Model Define Format <http://fkanehiro.github.io/openhrp3-doc/en/create_model.html>`_ section of the OpenHRP3 website.)
 
 The Body object manages Link objects in the form of a tree structure. An environmental model like a floor is also a Body object consisting of one Link object. The Body object will always have a root link, which forms the root of the tree structure.
 

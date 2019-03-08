@@ -54,11 +54,11 @@ This section describes the main optional functions that can be selected for the 
  
 * **BUILD_SPRINGHEAD_PLUGIN**
 
- Builds the Springhead plugin. This plugin lets you make use of Springhead, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about Springhead, refer to the  `Springhead website <http://springhead.info/wiki/>`_ . For the build process, refer to the section on  :doc:`build-springheadPlugin` .
+ Builds the Springhead plugin. This plugin lets you make use of Springhead, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about Springhead, refer to the  `Springhead website <http://springhead.info/wiki/index.php?top%28en%29>`_ . For the build process, refer to the section on  :doc:`build-springheadPlugin` .
 
 * **BUILD_PhysX_PLUGIN**
 
- Builds the PhysX plugin. This plugin lets you make use of PhysX, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about PhysX, refer to the `PhysX website <http://www.nvidia.co.jp/object/physx_new_jp>`_ . For the build process, refer to the section on  :doc:`build-physxPlugin`  .
+ Builds the PhysX plugin. This plugin lets you make use of PhysX, a dynamics computation library, as a computation engine for simulations in Choreonoid. For more details about PhysX, refer to the `PhysX website <https://developer.nvidia.com/physx-sdk>`_ . For the build process, refer to the section on  :doc:`build-physxPlugin`  .
   
 * **ENABLE_CORBA**
 
