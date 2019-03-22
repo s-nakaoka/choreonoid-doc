@@ -82,6 +82,58 @@ Winodows10の場合
 
 .. image:: images/gamePad3_windows.png
 
+.. note:: 複数のゲームパッドを繋いだり、外したりすると、優先デバイスを指定してもChoreonoidでゲームパッドが認識されなくなる場合があります。そのような場合は、Windowsを再起動し、ゲームパッドを一つだけ接続してみてください。
+
+Windows10でゲームバーを消す
+"""""""""""""""""""""""""""""""
+
+Windows10で、Xbox用のゲームパッドを使用する場合、ゲームパッドの真ん中にあるロゴが描かれたボタンを押すと、ゲームバーというアプリが起動してしまうことがあります。以下のように設定することで、起動しないようにすることができます。
+
+Windowsの設定を開き、**ゲーム** を選択します。
+
+.. image:: images/GameBar1.png
+
+**ゲームバー** を選択し、**コントローラのこのボタンでゲームバーを開きます：** のチェックを外します。
+
+.. image:: images/GameBar2.png
+
+Windows10でPS3のゲームパッドを使う場合
+"""""""""""""""""""""""""""""""""""""""""""
+
+PS3用のゲームパッドは、接続しただけでは使用できません。使用するための無料のソフトウェアがいくつかありますが、ここでは、"XInput Wrapper for DS3"というソフトを紹介します。このソフトを使用していただきますと、軸やボタンの設定を変更しなくても、Choreonoidのサンプルを操作することができます。
+
+まず、PS3デームパッドを接続します。デバイスとプリンターに **PLAYSTATION(R)3 Controller** と表示されているかと思います。
+
+"XInput Wrapper for DS3"は、`ここ <https://forums.pcsx2.net/Thread-XInput-Wrapper-for-DS3-and-Play-com-USB-Dual-DS2-Controller>`_ からダウンロードできます。
+
+.. image:: images/WrapperForDS3.png
+
+図のように表示されたら、 **Download latest version here.**　をクリックします。
+
+.. image:: images/WrapperForDS3_1.png
+
+**Download** をクリックします。前のページに戻って、**Download latest update here** もダウンロードします。
+
+.. note:: いくつか必要なライブラリが表示されていますが、Windows10の最新バージョンで、Visual Studio 2015などをインストールしている環境であれば、すでにインストールされているかと思われます。ライブラリが不足している場合は、適宜ご対応をお願いします。
+
+Program Filesフォルダに新規作成で、 **Scarlet.Crush Productions** フォルダを作成します。
+
+ダウンロードした"latest version"のファイルを解凍し、（ファイルは **7z** 形式ですので、解凍用のソフトが必要です。）"ScpServer"内の"bin"の中身を"Scarlet.Crush Productions" にコピーします。
+
+.. image:: images/WrapperForDS3_2.png
+
+Program Filesフォルダへの書き込みは管理者権限が必要ですので、メッセージが表示されたら、 **続行** を選択します。"latest update"のファイルも解凍し、"bin"の中身を同じようにコピーします。同じ名前のファイルがありますので、updateのファイルで置き換えるようにします。
+
+次に **ScpDriver.exe** ファイルを右クリックし、管理者として実行を選択して起動します。
+
+.. image:: images/WrapperForDS3_7.png
+
+**Configure Service** にチェックをいれ **Install** をクリックします。Windowsセキュリティのメッセージが表示されますが、インストールを続けてください。
+
+.. image:: images/WrapperForDS3_9.png
+
+このように表示されたら、終了です。
+
 仮想ジョイスティックビューの準備
 --------------------------------
 
