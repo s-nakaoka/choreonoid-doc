@@ -514,7 +514,7 @@ Windows 64bit用のインストーラをダウンロードします。
 .. figure:: images/windowsSet3.png
    :width: 900px
 
-インストール直後は、変数 **RTM_VC_CERSION** がvc12になっていると思います。この欄をダブルクリックすると、編集用ダイアログが開くので **vc14** （VC++2015の意味です。）に変更してください。**OK** ボタンを押して、全てのダイアログを閉じます。
+インストール直後は、変数 **RTM_VC_VERSION** がvc12になっていると思います。この欄をダブルクリックすると、編集用ダイアログが開くので **vc14** （VC++2015の意味です。）に変更してください。**OK** ボタンを押して、全てのダイアログを閉じます。
 
 
 他に、:doc:`../openrtm/install` で説明していることについても適用しておきます。 :ref:`openrtmplugin_patch_for_version112` として、OutPort.h の更新も必ず行ってください。上記方法でOpenRTMをインストールすると、OpenRTMのヘッダファイルは "\\windows\\Program Files\\OpenRTM-aist\\1.1.2\\rtm" といったディレクトリに格納されていますので、ダウンロードした OutPort.h をこのディレクトリにコピーして上書きするようにします。
