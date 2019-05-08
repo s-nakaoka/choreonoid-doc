@@ -1,1 +1,1 @@
-sphinx-build -b html -c . . ../../choreonoid-website/_build/html/ja/manuals/latest
+sphinx-build -b html -c . . ../../choreonoid-website/_build/html/ja/manuals/1.7
