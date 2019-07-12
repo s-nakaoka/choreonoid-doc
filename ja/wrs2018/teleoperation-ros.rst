@@ -59,10 +59,10 @@ Choreonoid用のCatkinワークスペースを作成します。
 
 ここで、各リポジトリは以下のソフトウェアに対応します。
 
-* choreonoid: Choreonoid本体
-* choreonoid_rosplugin: ChoreonoidでROSを使用するためのROSプラグイン
-* choreonoid_ros_samples: ChoreonoidでROSを使用するサンプル
-* choreonoid_joy: ジョイスティック（ゲームパッド）をChoreonoidのマッピングで使うためのROSノード
+* `choreonoid <https://github.com/s-nakaoka/choreonoid>`_ : Choreonoid本体
+* `choreonoid_rosplugin <https://github.com/s-nakaoka/choreonoid_rosplugin>`_ : ChoreonoidでROSを使用するためのROSプラグイン
+* `choreonoid_ros_samples <https://github.com/s-nakaoka/choreonoid_ros_samples>`_ : ChoreonoidでROSを使用するサンプル
+* `choreonoid_joy <https://github.com/s-nakaoka/choreonoid_joy>`_ : ジョイスティック（ゲームパッド）をChoreonoidのマッピングで使うためのROSノード
 
 これらがワークスペースで扱うパッケージのソースになります。各リポジトリの内容はなるべく最新に保つようにしてください。
 
@@ -125,7 +125,7 @@ ROS Kineticでは、これをOFFとしなければなりません。ROS Melodic�
 
 catkin上でのビルドの場合、このようなオプションの設定はワークスペースの設定として行います。具体的にはcatkin configに --cmake-argsオプションを与えて、 ::
 
- catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON -DUSE_PYTHON3=OFF
+ catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON -DUSE_PYTHON3=OFF
 
 のように設定します。(Melodicでは最後の -DUSE_PYTHON3=OFF を除去してください。）
 
