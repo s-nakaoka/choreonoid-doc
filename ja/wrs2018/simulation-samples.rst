@@ -48,7 +48,9 @@ WRS2018の各タスクは、以下の要素を組み合わせたシミュレー�
 
 * タスクの環境モデル
 
- * タスクT1: T1L.cnoid（大型ロボット用）、T1M.cnoid（中型ロボット）
+ * タスクT1:
+  * T1L.cnoid（大型ロボット用）
+  * T1M.cnoid（中型ロボット用）
  * タスクT2: T2.cnoid
  * タスクT3: T3.cnoid
  * タスクT4: T4.cnoid
@@ -82,7 +84,7 @@ WRS2018の各タスクは、以下の要素を組み合わせたシミュレー�
 
 例えば、タスクT1で、簡易クローラ版のAizuSpiderロボットを使うプロジェクトは、
 
-* T1-AizuSpiderSS.py
+* T1M-AizuSpiderSS.py
 
 というファイル名になります。
 
@@ -90,21 +92,28 @@ WRS2018の各タスクは、以下の要素を組み合わせたシミュレー�
 
 例えば :doc:`setup` / :ref:`wrs2018_install_choreonoid` に従ってChoreonoidをビルドした場合は、ソースディレクトリ上で ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSS.py
+ bin/choreonoid sample/WRS2018/script/T1M-AizuSpiderSS.py
 
-と入力することで、上記のプロジェクトを読み込むことができます。インストール先のChoreonoidを使用する場合は、 ::
+と入力することで、上記のプロジェクトを読み込むことができます。
 
- choreonoid /usr/local/share/choreonoid-1.6/WRS2018/script/T1-AizuSpiderSS.py
+Choreonoidを/usr/local以下にインストールしていて、インストール先のChoreonoidを使用する場合は、 ::
 
-といったかたちで実行します。（これはChoreonoidを/usr/local以下にインストールしていて、/usr/local/binにパスが通っている場合の例です。）
+ choreonoid /usr/local/share/choreonoid-1.6/WRS2018/script/T1M-AizuSpiderSS.py
 
-なお、スクリプトは予選用のモデルに対して用意しています。準決勝や決勝のモデルについては、各スクリプト内の "WRSUtil.loadProject" の引数を変更することで対応可能です。例えば T1-AizuSpiderSS.py については、 ::
+もしくは ::
+
+ cd /usr/local/share/choreonoid-1.6
+ choreonoid WRS2018/script/T1M-AizuSpiderSS.py
+
+などとすることでで実行できます。
+
+なお、スクリプトは予選用のモデルに対して用意しています。準決勝や決勝のモデルについては、各スクリプト内の "WRSUtil.loadProject" の引数を変更することで対応可能です。例えば T1M-AizuSpiderSS.py については、 ::
 
  import WRSUtil
  WRSUtil.loadProject(
-     "MultiSceneViews", "T1L", "AGXSimulator", "DoubleArmV7A")
+     "MultiSceneViews", "T1M", "AISTSimulator", "AizuSpiderSS")
 
-というスクリプトになっていますが、ここで"T1L"を"T1L-2"に変更すれば、準決勝用のモデルを読み込むことになります。
+というスクリプトになっていますが、ここで"T1M"を"T1M-2"に変更すれば、準決勝用のモデルを読み込むことになります。
 
 各スクリプトは実際には "WRS2018/script" 以下に格納されている "generate-sample-projects.py" によって生成されたものですので、そちらを修正して実行することで対応してもOKです。
 
@@ -118,7 +127,7 @@ AizuSpiderSS版の実行
 
 まずはAGX Dynamicsのライセンスがなくても実行できるサンプルを試しましょう。以下のようにChoreonoidを起動して、AizuSpiderSSモデルを対象としたサンプルを読み込んでみてください。（以下ではソースディレクトリ上でビルドしたChoreonoidを使用するものとします。） ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSS.py
+ bin/choreonoid sample/WRS2018/script/T1M-AizuSpiderSS.py
 
 すると以下のような画面が表示されるかと思います。
 
@@ -166,7 +175,7 @@ AizuSpiderSA版の実行
 
 単腕Aizu SpiderのAGX対応版モデルは "AizuSpiderSA" となります。以下のコマンドでこれに対応するT1のプロジェクトを読み込むことができます。 ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA.py
+ bin/choreonoid sample/WRS2018/script/T1M-AizuSpiderSA.py
 
 ロボットの操作方法は簡易版と同じですので、こちらもゲームパッドでロボットを操作してみてください。
 
@@ -179,8 +188,8 @@ DoubleArmV7版の実行
 
 簡易版、AGX版について、それぞれ
 
-* T1-DoubleArmV7S.py
-* T1-DoubleArmV7A.py
+* T1L-DoubleArmV7S.py
+* T1L-DoubleArmV7A.py
 
 というPythonスクリプトが対応していますので、これまでと同様の要領で読み込んで実行してみてください。
 
@@ -193,7 +202,7 @@ WAREC-1版の実行
 
 WAREC-1モデルに対応したサンプルは、
 
-* T1-WAREC1.py
+* T1M-WAREC1.py
 
 になります。
 
@@ -212,7 +221,7 @@ WAREC-1に関してはこのような状況のため、サンプルはT1タス�
 
 マルチコプタのサンプルとして、クアッドコプタモデルを使用した
 
-* T1-Quadcopter.py
+* T1L-Quadcopter.py
 
 というシミュレーションプロジェクトを用意しています。
 
@@ -222,7 +231,9 @@ WAREC-1に関してはこのような状況のため、サンプルはT1タス�
 タスクT2〜T6について
 --------------------
 
-T2以降のタスクについても、サンプルプロジェクトを用意しています。プロジェクトの読み込みと実行はT1と同じ要領で行ってください。基本的には、T1のプロジェクトの "T1" の部分をT2〜T6のどれかに置き換えればOKです。ただし、タスクによってはT1と同じ設定のものが無いものあります。その点は予めご了承ください。
+T2以降のタスクについても、サンプルプロジェクトを用意しています。プロジェクトの読み込みと実行はT1と同じ要領で行ってください。基本的には、T1のプロジェクトの "T1L" または "T1M" の部分をT2〜T6のどれかに置き換えればOKです。(LとMが分かれているのはT1だけで、T2以降は各タスクごとに単一のファイルとなります。）
+
+なお、タスクによってはT1と同じ設定のものが無いものありますが、予めご了承ください。
 
 タスクT2
 ~~~~~~~~

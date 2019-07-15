@@ -15,16 +15,29 @@ ROSのインストールがまだの方は、 `ROS.org <http://wiki.ros.org>`_ -
 
 ROSのバージョンについては、Ubuntu 16.04上でKinetic、Ubuntu 18.04上でMelodicでの動作を確認をしています。
 
-Ubuntu 16.04 の場合、以下のようにしてインストールできます。 ::
+Ubuntu 16.04の場合、以下のようにしてインストールできます。 ::
 
  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
- sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
  sudo apt-get update
  sudo apt-get install ros-kinetic-desktop-full
  sudo rosdep init
  rosdep update
  echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
  source ~/.bashrc
+
+Ubuntu 18.04の場合は、以下のようにしてインストールできます。 ::
+
+ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+ sudo apt update
+ sudo apt install ros-melodic-desktop-full
+ sudo rosdep init
+ rosdep update
+ echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+ source ~/.bashrc
+
+.. note:: 最後の source コマンドは、setup.bash の内容を現在のシェルに反映させるためのもので、インストール（上記設定）直後に続けて同じシェルで作業する場合に必要となるものです。インストール後にあらためてシェルを起動する場合は、上記の設定によりsetup.bashの内容が反映されますので、このコマンドは必要ありません。
 
 ChoreonoidをROSで使う場合、ビルドツールCatkinの新しいバージョン ( `Catkin Command Line Tools <https://catkin-tools.readthedocs.io/en/latest/index.html>`_）を使用します。これは ::
 
@@ -95,7 +108,11 @@ Choreonoid用のCatkinワークスペースを作成します。
 
  misc/script/install-requisites-ubuntu-16.04.sh
 
-を実行します。(Ubuntu 18.04の場合は、install-requisites-ubuntu-18.04.sh を実行します。）
+もしくは ::
+
+ misc/script/install-requisites-ubuntu-18.04.sh
+
+を実行します。(使用しているUbuntuのバージョンに合うものを実行してください。）
 
 本来はCatkin用の依存パッケージ情報で解決すべきなのですが、そこがまだ完全でない可能性があるため、念の為これを実行しておいていただけるとよいかと思います。（既にChoreonoidをインストール済みの場合は必要ありません。）
 
@@ -109,15 +126,18 @@ Choreonoid用のCatkinワークスペースを作成します。
 * BUILD_SCENE_EFFECTS_PLUGIN
 * BUILD_MULTICOPTER_PLUGIN
 * BUILD_MULTICOPTER_SAMPLES
-* ENABLE_CORBA
-* BUILD_CORBA_PLUGIN
-* BUILD_OPENRTM_PLUGIN
-* BUILD_OPENRTM_SAMPLE
 * BUILD_COMPETITION_PLUGIN
 
 といったオプションです。
 
-また、注意点として、ROSのKineticはPythonのバージョン2.7を使いますが、ChoreonoidはデフォルトでPython3を使うようになっています。この場合、Pythonバージョン2と3の共有ライブラリが競合するせいか、落ちてしまうことがあるようです。そこで、CMakeの以下のオプションについても設定します。
+他にOpenRTMも併用したい場合は以下のオプションが必要となりますが、ミドルウェアとしてはROSのみを使用する場合は必要ありません。
+
+* ENABLE_CORBA
+* BUILD_CORBA_PLUGIN
+* BUILD_OPENRTM_PLUGIN
+* BUILD_OPENRTM_SAMPLE
+
+注意点として、ROSのKineticはPythonのバージョン2.7を使いますが、ChoreonoidはデフォルトでPython3を使うようになっています。この場合、Pythonバージョン2と3の共有ライブラリが競合するせいか、落ちてしまうことがあるようです。そこで、CMakeの以下のオプションについても設定します。
 
 * USE_PYTHON3: ONだとPython3、OFFだとPython2を使用する
 
@@ -125,9 +145,15 @@ ROS Kineticでは、これをOFFとしなければなりません。ROS Melodic�
 
 catkin上でのビルドの場合、このようなオプションの設定はワークスペースの設定として行います。具体的にはcatkin configに --cmake-argsオプションを与えて、 ::
 
- catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON -DUSE_PYTHON3=OFF
+ catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON -DUSE_PYTHON3=OFF
 
-のように設定します。(Melodicでは最後の -DUSE_PYTHON3=OFF を除去してください。）
+のように設定します。
+
+Melodicでは最後の -DUSE_PYTHON3=OFF を除去して、 ::
+
+ catkin config --cmake-args -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DBUILD_MULTICOPTER_PLUGIN=ON -DBUILD_MULTICOPTER_SAMPLES=ON -DBUILD_COMPETITION_PLUGIN=ON
+
+などとしてください。
 
 設定後 ::
 
@@ -135,9 +161,8 @@ catkin上でのビルドの場合、このようなオプションの設定は�
 
 を実行すると、ワークスペースの設定が表示されます。そこに ::
 
- Additional CMake Args:  -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON
- -DBUILD_COMPETITION_PLUGIN=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON
- -DBUILD_OPENRTM_SAMPLES=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DUSE_PYTHON3=OFF -DBUILD_WRS2018=ON
+ Additional CMake Args:  -DBUILD_WRS2018=ON -DBUILD_AGX_DYNAMICS_PLUGIN=ON -DBUILD_AGX_BODYEXTENSION_PLUGIN=ON
+ -DBUILD_COMPETITION_PLUGIN=ON -DBUILD_SCENE_EFFECTS_PLUGIN=ON -DUSE_PYTHON3=OFF 
 
 といった表示があればOKです。
 
@@ -148,6 +173,8 @@ catkin上でのビルドの場合、このようなオプションの設定は�
  catkin build
 
 ビルド方法の詳細については `Catkin Command Line Tools のマニュアル <https://catkin-tools.readthedocs.io/en/latest/index.html>`_ を参照してください。
+
+.. note:: Catkin環境であっても、Emacsから "M-x compile" コマンドを使ってビルドすることも可能です。その場合は、"M-x compile" 実行時にビルド用のコマンドとして "catkin build --no-color" を入力します。"--no-color" を入れることで、Cakin出力の色付け用の制御コードを無効化し、表示が汚くなることを回避できます。また、"-v" オプションを追加して "catkin build -v --no-color" とすることで、ビルド時に実際のコマンド（コンパイルオプションなど）を確認することができます。
 
 ビルドに成功すると、 ::
 
@@ -179,27 +206,32 @@ Catkinワークスペース上でビルドした場合、上記のsetup.bashス�
 
  choreonoid
 
-ワークスペースの src/choreonoid/samaple/WRS2018/script に移動して ::
+Cakin上でビルドした場合、サンプルのファイルは "catkin_ws/devel/share/choreonoid-1.8" 以下にインストールされます。
+このディレクトリに ::
 
- choreonoid T1-AizuSpiderSS.py
+ cd ~/catkin_ws/devel/share/choreonoid-1.8
 
-などとすることで、 :doc:`simulation-samples` を実行できます。
+などとして移動して、 ::
+
+ choreonoid WRS2018/script/T1M-AizuSpiderSS.py
+
+と入力することで、 :doc:`simulation-samples` を実行できます。以下の説明でもこの方法でプロジェクトを実行するものとします。
 
 遠隔操作サンプルの実行
 ----------------------
 
 ROSを用いた遠隔操作のサンプルは、 :doc:`simulation-samples` で紹介したサンプルに "-ROS" のサフィックスをつけた名前で提供しています。
 
-今のところ、以下のプロジェクトを用意しています。
+例えばタスクT1についてAizuSpiderやDoubleArmV7のモデルに対して、以下のようなスクリプトがあります。
 
-* T1-AizuSpiderSA-ROS.py
-* T1-AizuSpiderSS-ROS.py
-* T1-DoubleArmV7A-ROS.py
-* T1-DoubleArmV7S-ROS.py
+* T1M-AizuSpiderSA-ROS.py
+* T1M-AizuSpiderSS-ROS.py
+* T1L-DoubleArmV7A-ROS.py
+* T1L-DoubleArmV7S-ROS.py
 
-:doc:`simulation-samples` で説明したのと同じ要領で、上記のどちらかのプロジェクトを読み込んでください。例えばChoreonoidのソースディレクトリから、 ::
+:doc:`simulation-samples` で説明したのと同じ要領で、ROS版のサンプルを読み込んでください。例えば ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-ROS.py
+ choreonoid WRS2018/script/T1M-AizuSpiderSA-ROS.py
 
 などとします。
 
