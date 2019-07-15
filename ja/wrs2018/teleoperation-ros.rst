@@ -213,14 +213,14 @@ ROSを用いた遠隔操作のサンプルは、 :doc:`simulation-samples` で�
 
 例えばタスクT1についてAizuSpiderやDoubleArmV7のモデルに対して、以下のようなスクリプトがあります。
 
-* T1M-AizuSpiderSA-ROS.py
 * T1M-AizuSpiderSS-ROS.py
-* T1L-DoubleArmV7A-ROS.py
+* T1M-AizuSpiderSA-ROS.py
 * T1L-DoubleArmV7S-ROS.py
+* T1L-DoubleArmV7A-ROS.py
 
 :doc:`simulation-samples` で説明したのと同じ要領で、ROS版のサンプルを読み込んでください。例えば ::
 
- choreonoid WRS2018/script/T1M-AizuSpiderSA-ROS.py
+ choreonoid WRS2018/script/T1M-AizuSpiderSS-ROS.py
 
 などとします。
 
