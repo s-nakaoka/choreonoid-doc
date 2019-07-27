@@ -12,5 +12,6 @@ Choreonoidを利用するためにはまずPCへインストールすること�
    build-windows
    installer-windows
    setup-renderer
+   high-dpi-displays
    directories
    options
