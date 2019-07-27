@@ -30,14 +30,16 @@ OpenRTMによる遠隔操作を行う場合、まずシミュレーションを�
 
 そのように設定したサンプルを、 :doc:`simulation-samples` で紹介したサンプルに "-RTM" のサフィックスをつけた名前で提供しています。
 
-今のところ、以下のプロジェクトを用意しています。
+例えばタスクT1についてAizuSpiderやDoubleArmV7のモデルに対して、以下のようなスクリプトがあります。
 
-* T1-AizuSpiderSA-RTM.py
-* T1-AizuSpiderSS-RTM.py
+* T1M-AizuSpiderSS-RTM.py
+* T1M-AizuSpiderSA-RTM.py
+* T1L-DoubleArmV7S-RTM.py
+* T1L-DoubleArmV7A-RTM.py
 
 :doc:`simulation-samples` で説明したのと同じ要領で、上記のどちらかのプロジェクトを読み込んでください。例えばChoreonoidのソースディレクトリから、 ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-RTM.py
+ bin/choreonoid sample/WRS2018/script/T1M-AizuSpiderSS-RTM.py
 
 などとします。
 
@@ -51,7 +53,7 @@ OpenRTMによる遠隔操作を行う場合、まずシミュレーションを�
 
 などと入力します。インストール先のChoreonoidを使用する場合は、 ::
 
- choreonoid /usr/local/share/choreonoid-1.6/project/OpenRTM-AizuSpider-Terminal.cnoid
+ choreonoid /usr/local/share/choreonoid-1.8/project/OpenRTM-AizuSpider-Terminal.cnoid
 
 などとします。
 
@@ -100,7 +102,7 @@ PC2台を用いた遠隔通信
 
 あとは上述の操作をシミュレーション用PCと遠隔操作用PCのそれぞれで分けて行えばOKです。先ほどと同じプロジェクトであれば、まずシミュレーション用PC側で ::
 
- bin/choreonoid sample/WRS2018/script/T1-AizuSpiderSA-RTM.py
+ bin/choreonoid sample/WRS2018/script/T1M-AizuSpiderSS-RTM.py
 
 を実行し、次に遠隔操作用PCにて、 ::
 
