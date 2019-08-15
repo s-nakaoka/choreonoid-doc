@@ -10,8 +10,7 @@ Choreonoidを利用するためにはまずPCへインストールすること�
    platform
    build-ubuntu
    build-windows
-   installer-windows
-   setup-renderer
+   setup-gpu
    high-dpi-displays
    directories
    options
