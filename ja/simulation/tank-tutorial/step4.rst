@@ -63,8 +63,8 @@ Tankモデルでは、左クローラに対応するリンクが "TRACK_L"、右
              }
          }
  
-         trackL->dq() = -2.0 * pos[1] + pos[0];
-         trackR->dq() = -2.0 * pos[1] - pos[0];
+         trackL->dq_target() = -2.0 * pos[1] + pos[0];
+         trackR->dq_target() = -2.0 * pos[1] - pos[0];
  
          return true;
      }
@@ -158,7 +158,7 @@ control関数内の ::
 
 出力は関節速度を格納する変数dqにセットします。control関数内の ::
 
- trackL->dq() = -2.0 * pos[1] + pos[0];
- trackR->dq() = -2.0 * pos[1] - pos[0];
+ trackL->dq_target() = -2.0 * pos[1] + pos[0];
+ trackR->dq_target() = -2.0 * pos[1] - pos[0];
 
 によって、軸の状態から各クローラの駆動速度を決定し出力しています。スティックの前後軸については両クローラに対して同じ駆動速度を与え、スティックの左右軸については両クローラに正反対の駆動速度を与えます。このようにすると、前後軸で前進後退、左右軸で旋回という挙動になります。

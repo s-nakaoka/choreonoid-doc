@@ -123,15 +123,15 @@ Choreonoidはこの無限軌道機構の簡易的なシミュレーションを�
 
 そして、control関数内で以下のような処理を行えばOKです。 ::
 
- crawlerL->dq() = 1.0;
- crawlerR->dq() = 1.0;
+ crawlerL->dq_target() = 1.0;
+ crawlerR->dq_target() = 1.0;
 
 このようにすると、左右のクローラに同じ駆動力が与えられて、モデル全体が1.0[m/s]の速度で前方に進むことになります。（ここで用いている変数ioBodyはio->body()によって得られる入出力用Bodyオブジェクトです。）
 
 また、以下のように左右に異なる指令値を与えることで、モデルを旋回させることができます。 ::
 
- crawlerL->dq() =  1.0;
- crawlerR->dq() = -1.0;
+ crawlerL->dq_target() =  1.0;
+ crawlerR->dq_target() = -1.0;
 
 この場合、モデルが右に回転します。
 
