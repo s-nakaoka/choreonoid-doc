@@ -13,6 +13,7 @@ Choreonoidマニュアル
    basics/index
    handling-models/index
    simulation/index
+   ros/index
    agxdynamics/index
    openrtm/index
    multicopter/index
