@@ -8,3 +8,4 @@ ROSとの連携
    about
    install-ros
    build-choreonoid
+   run-choreonoid

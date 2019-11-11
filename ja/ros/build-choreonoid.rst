@@ -22,6 +22,8 @@ Choreonoid用のCatkinワークスペースを作成します。
  mkdir src
  catkin init
 
+.. note:: ここではワークスペースの初期化に "catkin init" というコマンドを使っていますが、同様の操作を行うコマンドとして "catkin_init_workspace" というコマンドもあります。前者はCatkinの新しいコマンド体系である `Catkin Command Line Tools <https://catkin-tools.readthedocs.io/en/latest/index.html>`_ に含まれるコマンドで、後者はCatkinの古い形式のコマンドです。両者はパッケージのビルドに使用するコマンドも異なっており、それぞれ "catkin build" と "catkin_make" になります。ChoreonoidのROS連携は Catkin Command Line Tools の使用を前提としていますので、古い形式のCatkinコマンド（catkin_make等）は使用しないでください。
+
 パッケージソースの追加
 ----------------------
 
@@ -169,25 +171,3 @@ catkin においては ::
 初回ビルド時はまだこの設定が取り込まれていませんので、端末を起動し直すか、上記のコマンドをコマンドラインから直接入力して、設定を反映させるようにしてください。
 
 .. note:: Catkinの設定スクリプトを実行すると、Catkin環境外で別途インストールしているChoreonoidの実行に影響することがあるので注意が必要です。これはCatkinの設定スクリプトにより、共有ライブラリのパスにCatkinワークスペースのdevel/libディレクトリが加わる(環境変数 LD_LIBRARY_PATH にこのパスが追加される）のが原因です。 この設定により、Catkin環境外のChoreonoidを実行する際に、Catkin内で生成されているChoreonoidの共有ライブラリを読み込んでしまうことがあります。その場合、ソースコードのバージョンやビルド設定などに違いがあると、Choreonoidがうまく動かなかったり、落ちてしまったりします。つまり、異なる環境でビルドしたものを混ぜてはいけないということになります。この問題を避けるためには、Catkin外のChoreonoidを実行する際にはCatkinの設定スクリプトは無効化しておきます。（ChoreonoidではRPATHという仕組みがデフォルトで使用されており、これによってこのような問題も避けられるはずなのですが、環境によってはうまく機能しないことがあるようです。）
-
-Choreonoidの実行
-----------------
-
-まずROSのマスターを起動していない場合は、起動しておきます。（通常このための端末を新たに起動して、そこで実行します）。 ::
-
- roscore
-
-Catkinワークスペース上でビルドした場合、上記のsetup.bashスクリプトにより、実行ファイルへのパスは通っている状態です。従って、ディレクトリのどこでも、単にchoreonoidと入力すればChoreonoidが起動します。 ::
-
- choreonoid
-
-Cakin上でビルドした場合、サンプルのファイルは "catkin_ws/devel/share/choreonoid-1.8" 以下にインストールされます。
-このディレクトリに ::
-
- cd ~/catkin_ws/devel/share/choreonoid-1.8
-
-などとして移動して、 ::
-
- choreonoid WRS2018/script/T1M-AizuSpiderSS.py
-
-と入力することで、 :doc:`simulation-samples` を実行できます。以下の説明でもこの方法でプロジェクトを実行するものとします。
