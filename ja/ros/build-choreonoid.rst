@@ -3,7 +3,7 @@ Choreonoidのビルド
 
 ここではROS環境におけるパッケージとしてChoreonoidをインストール・ビルドします。あわせていくつかのChoreonoid関連パッケージもインストール・ビルドします。
 
-既に :doc:`../install/build-ubuntu` に従ってOS上にChoreonoidをインストールしていたとしても、そちらは基本的にROSとは連携できませんので、ご注意ください。これらページの解説はROSを使用しない場合のインストール方法であり、この方法でインストールしたChoreonoidはROSのパッケージとはならず、ROSプラグインもビルドできないためです。ROSと連携したい場合は本ページの解説に従ってROS用にあらためてChoreonoidをインストールするようにし、それぞれ独立に管理するようにしてください。
+本ドキュメントでは :doc:`../install/build-ubuntu` とは異なる手順でChoreonoidをインストールします。既にそちらの手順でインストール済みのChoreonoidがあったとしても、それとは独立してROS用のChoreonoidを別途インストールすることになりますので、ご注意ください。通常の手順でインストールされたChoreonoidをROS環境で使用することも可能なのですが、そちらについては必要なROSパッケージやドキュメントを現在整備中ですので、当面は本ドキュメントの解説に従って、ROS用のChoreonoidをインストールするようにしてください。ここでインストールするChoreonoidは、通常の手順でインストールされたものとは区別し、それぞれ独立に管理するようにしてください。
 
 .. contents::
    :local:
@@ -31,12 +31,12 @@ Choreonoid用のCatkinワークスペースを作成します。
 
  cd src
  git clone https://github.com/s-nakaoka/choreonoid.git
- git clone https://github.com/s-nakaoka/choreonoid_rosplugin.git
+ git clone https://github.com/s-nakaoka/choreonoid_ros.git
 
 それぞれ以下のGithubリポジトリに対応しています。
 
 * `choreonoid <https://github.com/s-nakaoka/choreonoid>`_ : Choreonoid本体
-* `choreonoid_rosplugin <https://github.com/s-nakaoka/choreonoid_rosplugin>`_ : ChoreonoidでROSを使用するためのROSプラグイン
+* `choreonoid_ros <https://github.com/s-nakaoka/choreonoid_ros>`_ : ChoreonoidでROSの機能を使用するためのROSパッケージ
 
 また、次節以降の解説を参照する場合は、そこで使用するサンプルもクローンしておきましょう。 ::
 
@@ -53,7 +53,9 @@ Choreonoid用のCatkinワークスペースを作成します。
 リポジトリ管理ツールの使用
 --------------------------
 
-複数のリポジトリの更新等を一括して行うためのツールとして、 `wstool <http://wiki.ros.org/wstool>`_ や `vcstool <https://github.com/dirk-thomas/vcstool>`_  があります。個人的には、vcstoolの方が使い勝手が良いように思います。vcstoolを使う場合は、 ::
+複数のリポジトリをまとめて管理するためののツールとして、 `wstool <http://wiki.ros.org/wstool>`_ や `vcstool <https://github.com/dirk-thomas/vcstool>`_  があります。これらを使用することでの複数リポジトリの更新なども一括して行うことができるので、活用されるとよいかと思います。
+
+ここではvcstoolについて簡単に紹介します。vcstoolを使う場合は、 ::
 
  sudo apt install python3-vcstool
 
@@ -65,11 +67,11 @@ Choreonoid用のCatkinワークスペースを作成します。
 
 で確認してください。
 
-例えば全てのリポジトリに対してgit pullを実行したい場合は、 ::
+各リポジトリよりも上位にあるディレクトリで ::
 
  vcs pull
 
-とします。
+を実行すると、全てのリポジトリに対して git pull が実行され、全てのリポジトリを最新のものに更新することができます。
 
 .. _teleoperation_ros_build_packages:
 
@@ -88,7 +90,7 @@ Choreonoidのソースディレクトリに移動し、 ::
 
 を実行します。(使用しているUbuntuのバージョンに合うものを実行してください。）
 
-この処理は本来Catkin用の依存パッケージ情報で解決すべきなのですが、Choreonoidについてはそこがまだ完全でない部分があり、インストールを確実にするため、この作業を行っておくのが無難です。
+この処理は本来Catkin用の依存パッケージ情報で解決すべきなのですが、Choreonoidについてはそこがまだ完全でない部分があり、インストールを確実にするため、この作業を行っておく必要があります。
 
 なお、OS上でROSとは独立して既に最新のChoreonoidをインストールしている場合この作業は適用済みのはずですので、あらためて実行する必要はありません。
 
@@ -152,13 +154,45 @@ catkin においては ::
 
 ビルド方法の詳細については `Catkin Command Line Tools のマニュアル <https://catkin-tools.readthedocs.io/en/latest/index.html>`_ を参照してください。
 
-.. note:: Emacsでは "M-x compile" コマンドでビルドを行うことが可能ですが、Catkin環境でもこの機能を利用することができます。ただしCatkinの出力は通常色付けされるのですが、Emacs上ではその制御コードが表示されてしまい、そのままでは表示が見にくくなってしまいます。これを回避するため、 "M-x compile" 実行時にビルド用のコマンドとして "catkin build --no-color" を入力するとよいです。"--no-color" を入れることで、Cakin出力の色付け用の制御コードが無効化され、表示の乱れがなくなります。また、"-v" オプションを追加して "catkin build -v --no-color" とすることで、ビルド時に実際のコマンド（コンパイルオプションなど）を確認することもできます。
-
 ビルドに成功すると、 ::
 
  [build] Summary: All 4 packages succeeded!
 
 といった表示がされます。
+
+.. note:: Emacsでは "M-x compile" コマンドでビルドを行うことが可能ですが、Catkin環境でもこの機能を利用することができます。ただしCatkinの出力は通常色付けされるのですが、Emacs上ではその制御コードが表示されてしまい、そのままでは表示が見にくくなってしまいます。これを回避するため、 "M-x compile" 実行時にビルド用のコマンドとして "catkin build --no-color" を入力するとよいです。"--no-color" を入れることで、Cakin出力の色付け用の制御コードが無効化され、表示の乱れがなくなります。また、"-v" オプションを追加して "catkin build -v --no-color" とすることで、ビルド時に実際のコマンド（コンパイルオプションなど）を確認することもできます。
+
+
+ビルドタイプの設定
+------------------
+
+一般的に、C/C++のプログラムをビルドする際には、"Release" や "Debug" といったビルドのタイプを指定することができます。Release（リリースモード）の場合は最適化が適用されて実行速度が速くなりますし、Debug（デバッグモード）の場合はデバッグ情報が付与されてデバッガによるデバッグがしやすくなります。
+
+Catkin上でビルドする際にこれらのビルドタイプを指定したい場合は、やはり --cmake-args オプションを使用します。
+
+例えば ::
+
+ catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+とすればリリースモードでビルドすることができますし、 ::
+
+ catkin config --cmake-args -DCMAKE_BUILD_TYPE=Debug
+
+とすればデバッグモードになります。
+
+--cmake-argsオプションは catkin build にも付与できますので、 ::
+
+ catkin build --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+などとすることで、ビルドごとにビルドタイプを指定することも可能です。
+
+Choreonoid関連のROSパッケージはデフォルトでReleaseが設定されるようにしてありますが、パッケージによってはデフォルトでビルドタイプをReleaseに設定しないものもありますし、自前のパッケージでそこまで設定していないこともあるかもしれません。その場合最適化が適用されず、ビルドされたプログラムの実行速度が大幅に落ちることになってしまいますので、そのようなパッケージをビルドする可能性がある場合は、上記の方法でReleaseビルドを指定しておくとよいです。
+
+なお、Catkin Command Line Tools の Profile機能を使えば、設定ごとに予めプロファイルとして登録しておき、ビルドの際にプロファイルを指定することで切り替えることもできます。この使い方については、 `Catkin Command Line Tools のマニュアル <https://catkin-tools.readthedocs.io/en/latest/index.html>`_ の `Profile Cookbook <https://catkin-tools.readthedocs.io/en/latest/cheat_sheet.html#profile-cookbook>`_ を参考にしてください。
+
+
+ワークスペースセットアップスクリプトの取り込み
+----------------------------------------------
 
 ビルドをすると、 ワークスペースのdevelディレクトリに "setup.bash" というファイルが生成されます。このスクリプトに記述されている設定は、ワークスペース内のパッケージを実行したりする際に必要となりますので、デフォルトで実行されるようにしておきます。通常はホームディレクトリの .bashrc ファイルに ::
 

@@ -1,6 +1,8 @@
 ROS環境におけるChoreonoidの実行
 ===============================
 
+.. highlight:: sh
+
 ROSマスターの起動
 -----------------
 
@@ -11,21 +13,36 @@ ROSのマスターを起動していない場合は、起動しておきます�
 Choreonoidの起動
 ----------------
 
-Catkinワークスペース上でビルドした場合、上記のsetup.bashスクリプトにより、実行ファイルへのパスは通っている状態です。従って、ディレクトリのどこでも、単にchoreonoidと入力すればChoreonoidが起動します。 ::
+ROS環境においてChoreonoidは通常ROSノードとして扱われることになります。
 
- choreonoid
+ChoreonoidのROSノードはchoreonoid_rosパッケージに含まれており、ノード起動コマンドは choreonoid になります。従って、例えばrosrunコマンドを使用して、 ::
+
+ rosrun choreonoid_ros choreonoid
+
+とすることでChoreonoidをROSノードとして起動できます。
+
+ノード起動時には、他のROSノードと同様に、ROSのりマップに関するオプションを付与することができます。
+
+また、Choreonoid本体のオプションも付与することが可能です。
+
 
 サンプルプロジェクトの実行
 --------------------------
 
 サンプルプロジェクトとして、choreonoid_ros_samples に含まれる "ROS-Tank" プロジェクトを実行してみましょう。
 
-このサンプルは、ゲームパッドによってTankモデルを手動操作するというシミュレーションを、ROSの仕組みを用いて実現するというものです。このサンプルはこれを実現する最低限の実装となっており、ROSのjoyトピックをSubscribeするシンプルコントローラによってTankモデルの制御を行います。
+choreonoid_ros_samplesパッケージがインストールされていれば、以下のコマンドでサンプルを起動できます。 ::
 
-ゲームパッドの準備
-~~~~~~~~~~~~~~~~~~
+ roslaunch choreonoid_ros_samples tank.launch
 
-サンプルの実行にあたっては、ゲームパッドがPCに接続されていて、その状態がROSのjoyトピックとして利用可能になっている必要があります。これは通常ROSが標準で備えているjoyパッケージで実現できますが、ここではそれをChoreonoid用にアレンジした"choreonoid_joy" パッケージを使用することにします。choreonoid_joyを使用することにより、joyメッセージの軸やボタンの情報がChoroenoid標準のマッピングに変換されるので、Choreonoidがサポートしている複数のゲームパッド機種に対して共通の軸やボタンを用いて操作できるという利点があります。具体的には、
+このサンプルは、ゲームパッドによって戦車風の "Tank" モデルを手動操作するというシミュレーションを、ROSの仕組みを用いて実現するというものです。このサンプルはこれを実現する最低限の実装となっており、ROSのjoyトピックをSubscribeするシンプルコントローラによってTankモデルの制御を行います。
+
+まずサンプルの起動方法について紹介しましたが、実際にはこのサンプルを実行するにはPCにゲームパッド（ジョイスティック）が接続されていなければなりません。ゲームパッドはUSB接続できるものなら大抵使用可能ですので、まずはゲームパッドをPCに接続してから、上記のコマンドを実行するようにしてください。プロジェクトが起動するとシミュレーションも開始され、ゲームパッドの軸を操作することでTankを動かすことができます。このサンプルが動作すればChoreonoidのROS環境へのインストールは成功しています。
+
+ゲームパッドについて
+~~~~~~~~~~~~~~~~~~~~
+
+ゲームパッドの軸やボタンのマッピングは、メーカーや機種ごとに異なっており、マッピングによってはサンプルの操作体系と合わない場合もあります。上記のサンプルではなるべくマッピングを合わせるようになっており、
 
 * `ロジクールF310 <http://gaming.logicool.co.jp/ja-jp/product/f310-gamepad>`_
 * `DUALSHOCK4 <http://www.jp.playstation.com/ps4/peripheral/cuhzct1j.html>`_
@@ -33,61 +50,26 @@ Catkinワークスペース上でビルドした場合、上記のsetup.bashス�
 * `Xbox用コントローラ <https://www.xbox.com/ja-JP/xbox-one/accessories/controllers/xbox-black-wireless-controller>`_
 * Xbox360用コントローラ
 
-などに対応しています。（なお、対応していない機種の場合、マッピングは異なってしまいますが、全く利用できないというわけではありません。）
+といったゲームパッドの場合はこれが機能します。これら以外のゲームパッドの場合は思うように操作できないかもしれませんが、ご了承ください。
 
-choreonoid_joy パッケージは、 :doc:`build-choreonoid` の手順に従っていれば、お手元のROS環境で利用可能になっているはずです。使用するゲームパッドをPCに接続し、以下のコマンドを実行することで、choreonoid_joyによるjoyトピックが利用可能となります。 ::
+roslaunchの実行内容
+~~~~~~~~~~~~~~~~~~~
 
- rosrun choreonoid_joy node
+.. highlight:: xml
 
-トピックが利用可能になっているかどうかは、rostopicコマンドを用いることで確認することができます。上記手順を実行後に、 ::
+このサンプルはroslaunchを用いて複数のROSノードを起動することで実現しています。launchファイルは以下のようになっています。 ::
 
- rostopic echo /joy
+ <launch>
+   <node pkg="choreonoid_joy" name="choreonoid_joy" type="node" />
+   <node pkg="choreonoid_ros" name="choreonoid" type="choreonoid"
+         args="$(find choreonoid_ros_samples)/project/ROS-Tank.cnoid --start-simulation" />
+ </launch>
 
-を実行してください。
+この記述によって、以下の2つのノードを起動しています。
 
-そこでゲームパッドの軸やボタンを操作すると、その度に ::
+* choreonoid_joy: ジョイスティック（ゲームパッド）の状態をjoyトピックとしてpublishするノード
+* choreonoid: Choroenoid本体のノード
 
- header: 
-   seq: 5972
-   stamp: 
-     secs: 1573371608
-     nsecs: 462914906
-   frame_id: ''
- axes: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0]
- buttons: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
- ---
+choreonoid_joyと同様の処理を行うノードとしてROS標準のjoyノードがあるのですが、そちらはゲームパッドのマッピングを合わせる機能はありません。choreonoid_joyはChoreonoidのライブラリを用いてゲームパッドのマッピングをChoreonoid標準のマッピングに合わせるようになっており、puslishされる情報はそれを反映したものとなっています。
 
-といった出力がされます。これがjoyトピックとしてpublishされているjoyメッセージの内容です。
-
-ここの ::
-
- axes: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0]
-
-の部分で各軸の傾きが分かりますし、 ::
-
- buttons: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-の部分で各ボタンの押し下げ状態が分かります。
-
-ゲームパッドを適当に操作して、この情報の変化を確認できれば、joyトピックは利用可能となっています。
-
-コマンド実行時にエラーが出る場合や、ゲームパッドを操作しても出力に変化が無い場合は、joyトピックが利用可能となっていませんので、ゲームパッドの接続やコマンド実行手順などについて確認するようにしてください。
-
-プロジェクトの起動
-~~~~~~~~~~~~~~~~~~
-
-次に対象のプロジェクトファイルを読み込んでChoreonoidを起動します。
-
-Cakin上でビルドした場合、サンプルのファイルは "catkin_ws/devel/share/choreonoid-1.8" 以下にインストールされます。choeonoid_ros_samples をビルドしていれば、このディレクトリに "ROS-Tank.cnoid" というプロジェクトファイルがあるはずです。
-
-そこでまずこのディレクトリに ::
-
- cd ~/catkin_ws/devel/share/choreonoid-1.8
-
-などとして移動して、 ::
-
- choreonoid ROS-Tank.cnoid
-
-と入力することで、サンプルプロジェクトを起動できます。
-
-あとはChoreonoidのシミュレーション開始ボタンを押して、シミュレーションを開始してください。するとゲームパッドでタンクモデルを操作することができます。
+Choreonoid本体については、choreonoid_ros_samplesのprojectディレクトリに含まれる "ROS-Tank.cnoid" というプロジェクトを読み込ませています。また、 "--start-simulation" オプションを付与することで、Choreonoid起動時に同時にシミュレーションも開始するようにしています。

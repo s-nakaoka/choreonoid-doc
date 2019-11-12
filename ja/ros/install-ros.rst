@@ -5,9 +5,9 @@ ROSのインストール
 
 ROSがまだインストールされていない場合h、 `ROS.org <http://wiki.ros.org>`_ - `ROS/Installation <http://wiki.ros.org/ROS/Installation>`_ の記述に従ってインストールを行ってください。
 
-ROSのバージョンについては、Ubuntu 16.04上でKinetic、Ubuntu 18.04上でMelodicでの動作を確認をしています。
+ROSのバージョンについては、Kinetic Kame (Ubuntu 16.04)、Melodic Morenia (Ubuntu 18.04) での動作を確認をしています。
 
-これらのOSに関しては以下のコマンドでROS環境をインストールできます。
+それぞれ以下のコマンド操作でROS環境をインストールできます。
 
 Ubuntu 16.04 (ROS Kinetic Kame) の場合 ::
 
