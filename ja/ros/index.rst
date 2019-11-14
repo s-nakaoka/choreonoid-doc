@@ -9,4 +9,5 @@ ROSとの連携
    install-ros
    build-choreonoid
    run-choreonoid
+   rosplugin
    tank-tutorial/index

@@ -3,6 +3,8 @@ ROS環境におけるChoreonoidの実行
 
 .. highlight:: sh
 
+.. _choreonoid_ros_run_ros_master:
+
 ROSマスターの起動
 -----------------
 
@@ -10,18 +12,20 @@ ROSのマスターを起動していない場合は、起動しておきます�
 
  roscore
 
+.. _choreonoid_ros_run_choreonoid_node:
+
 Choreonoidの起動
 ----------------
 
-ROS環境においてChoreonoidは通常ROSノードとして扱われることになります。
+ROS環境においてChoreonoidは通常ROSノードとして扱われることになります。これをChoreonoidノードと呼びます。
 
-ChoreonoidのROSノードはchoreonoid_rosパッケージに含まれており、ノード起動コマンドは choreonoid になります。従って、例えばrosrunコマンドを使用して、 ::
+Choreonoidノードを起動するコマンドはchoreonoid_rosパッケージに含まれており、コマンド名は choreonoid になります。従って、例えばrosrunコマンドを使用して、 ::
 
  rosrun choreonoid_ros choreonoid
 
 とすることでChoreonoidをROSノードとして起動できます。
 
-ノード起動時には、他のROSノードと同様に、ROSのりマップに関するオプションを付与することができます。
+ノード起動時には、他のROSノードと同様に、ROSのリマップに関するオプションを付与することができます。
 
 また、Choreonoid本体のオプションも付与することが可能です。
 
@@ -39,8 +43,28 @@ choreonoid_ros_samplesパッケージがインストールされていれば、�
 
 まずサンプルの起動方法について紹介しましたが、実際にはこのサンプルを実行するにはPCにゲームパッド（ジョイスティック）が接続されていなければなりません。ゲームパッドはUSB接続できるものなら大抵使用可能ですので、まずはゲームパッドをPCに接続してから、上記のコマンドを実行するようにしてください。プロジェクトが起動するとシミュレーションも開始され、ゲームパッドの軸を操作することでTankを動かすことができます。このサンプルが動作すればChoreonoidのROS環境へのインストールは成功しています。
 
-ゲームパッドについて
-~~~~~~~~~~~~~~~~~~~~
+
+補足: roslaunch の実行に失敗する場合の対処方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+上記のroslaunchコマンドを実行しようとすると ::
+
+ RLException: [tank.launch] is neither a launch file in package [choreonoid_ros_samples] nor is [choreonoid_ros_samples] a launch file name
+ The traceback for the exception was written to the log file
+
+といったエラーメッセージが表示されて、うまく実行できない場合があるようです。
+
+この場合、 :ref:`loading_catkin_workspace_setup_script` を再度実行すると、実行できるようになる可能性があります。つまり、 ::
+
+ source ~/catkin_ws/devel/setup.bash
+
+を端末上で実行するか、あるいはこのスクリプトが ~/.bashrc に記述済みの場合は、端末を新たに起動してそこで操作します。するとワークスペースの情報が更新されて、launchファイルも認識され、実行できるようになることがあるようです。
+
+どうもROS（Catkin）のワークスペースでは、新たなパッケージや、パッケージの新たな要素が追加になる場合に、 setup.bash で読み込まれる内容が更新されることがあるようです。そしてその更新が端末内に取り込まれていないと、そのような追加要素を対象とした操作がうまくいかないことがあるのでしょう。パッケージの新たに導入する際や、自前パッケージの開発中などには、この点注意する必要がありそうです。
+
+
+補足: ゲームパッドのマッピングについて
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ゲームパッドの軸やボタンのマッピングは、メーカーや機種ごとに異なっており、マッピングによってはサンプルの操作体系と合わない場合もあります。上記のサンプルではなるべくマッピングを合わせるようになっており、
 

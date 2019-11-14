@@ -1,5 +1,5 @@
-Choreonoidのビルド
-==================
+Choreonoid関連パッケージのビルド
+================================
 
 ここではROS環境におけるパッケージとしてChoreonoidをインストール・ビルドします。あわせていくつかのChoreonoid関連パッケージもインストール・ビルドします。
 
@@ -49,6 +49,9 @@ Choreonoid用のCatkinワークスペースを作成します。
 * `choreonoid_joy <https://github.com/s-nakaoka/choreonoid_joy>`_ : ジョイスティック（ゲームパッド）をChoreonoidのマッピングで使うためのROSノード
 
 各リポジトリの内容はなるべく最新に保つようにしてください。
+
+.. note:: ChoreonoidのROS関連パッケージとしては、上に挙げたもの以外にも、 `choreonoid_ros_pkg <https://github.com/fkanehiro/choreonoid_ros_pkg>`_ や `choreonoid_rosplugin <https://github.com/s-nakaoka/choreonoid_rosplugin>`_ があります。これらは現在公式にサポートされているものではないので、本マニュアルの方法でChoreonoidを使用する際には導入しないようにしてください。これらがバイナリパッケージとしてインストールされていたり、catkinのワークスペースに含まれていたりすると、本ドキュメントで解説する機能がうまく動作しない可能性があります。本マニュアルの記述に従う場合は、ワークスペースを新規に作成して、まずは指定されたパッケージのみを導入し、動作を確認するようにしてください。
+
 
 リポジトリ管理ツールの使用
 --------------------------
@@ -193,6 +196,8 @@ Choreonoid関連のROSパッケージはデフォルトでReleaseが設定され
 なお、Catkin Command Line Tools の Profile機能を使えば、設定ごとに予めプロファイルとして登録しておき、ビルドの際にプロファイルを指定することで切り替えることもできます。この使い方については、 `Catkin Command Line Tools のマニュアル <https://catkin-tools.readthedocs.io/en/latest/index.html>`_ の `Profile Cookbook <https://catkin-tools.readthedocs.io/en/latest/cheat_sheet.html#profile-cookbook>`_ を参考にしてください。
 
 
+.. _loading_catkin_workspace_setup_script:
+
 ワークスペースセットアップスクリプトの取り込み
 ----------------------------------------------
 
@@ -205,5 +210,7 @@ Choreonoid関連のROSパッケージはデフォルトでReleaseが設定され
 すると端末起動時に自動でこのファイルが実行され、設定が読み込まれるようになります。
 
 初回ビルド時はまだこの設定が取り込まれていませんので、端末を起動し直すか、上記のコマンドをコマンドラインから直接入力して、設定を反映させるようにしてください。
+
+.. note:: このスクリプトは :doc:`install-ros` で導入したROS本体のsetup.bashとは **異なります** ので注意するようにしてください。ワークスペース上のパッケージを正常に動作させるためには、どちらのスクリプトも読み込んでおく必要があります。
 
 .. note:: Catkinの設定スクリプトを実行すると、Catkin環境外で別途インストールしているChoreonoidの実行に影響することがあるので注意が必要です。これはCatkinの設定スクリプトにより、共有ライブラリのパスにCatkinワークスペースのdevel/libディレクトリが加わる(環境変数 LD_LIBRARY_PATH にこのパスが追加される）のが原因です。 この設定により、Catkin環境外のChoreonoidを実行する際に、Catkin内で生成されているChoreonoidの共有ライブラリを読み込んでしまうことがあります。その場合、ソースコードのバージョンやビルド設定などに違いがあると、Choreonoidがうまく動かなかったり、落ちてしまったりします。つまり、異なる環境でビルドしたものを混ぜてはいけないということになります。この問題を避けるためには、Catkin外のChoreonoidを実行する際にはCatkinの設定スクリプトは無効化しておきます。（ChoreonoidではRPATHという仕組みがデフォルトで使用されており、これによってこのような問題も避けられるはずなのですが、環境によってはうまく機能しないことがあるようです。）
