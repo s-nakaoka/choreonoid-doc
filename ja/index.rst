@@ -9,7 +9,7 @@ Choreonoidマニュアル
 .. toctree::
    :maxdepth: 2
 
-   install/install
+   install/index
    basics/index
    handling-models/index
    simulation/index
